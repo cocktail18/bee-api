@@ -1,0 +1,58 @@
+[{
+  "dateUpdate": "2021-01-19 11:11:15",
+  "key": "mallName",
+  "remark": "商城名称",
+  "value": "beeOrder小食"
+}, {
+  "key": "myBg",
+  "remark": "我的页面的背景图片",
+  "value": "https://dcdn.it120.cc/2020/08/01/252f429e-1a7f-4bc6-9e06-92b210c437b4.png"
+}, {
+  "dateUpdate": "2024-04-24 21:29:20",
+  "key": "order_hx_uids",
+  "remark": "核销人员编号",
+  "value": "1545780,7057687"
+}, {
+  "key": "share_profile",
+  "remark": "分享文案",
+  "value": "清凉一夏尽情狂欢"
+}, {
+  "key": "mapPos",
+  "remark": "地址上标记图片",
+  "value": "https://dcdn.it120.cc/2020/08/05/83f02ea6-4449-4e19-92f0-274ac614a134.png"
+}, {
+  "dateUpdate": "2020-08-10 09:42:10",
+  "key": "zxdz",
+  "remark": "在线订座预约项目id",
+  "value": "377"
+}, {
+  "dateUpdate": "2020-10-06 13:59:15",
+  "key": "admin_uids",
+  "remark": "管理员绑定的用户编号，多个用户用英文逗号隔开",
+  "value": "1545780"
+}, {
+  "dateUpdate": "2021-11-23 11:34:59",
+  "key": "shop_goods_split",
+  "remark": "是否区分门店商品",
+  "value": "0"
+}, {
+  "key": "QQ_MAP_KEY",
+  "remark": "腾讯地图KEY",
+  "value": "TJ3BZ-6LVCF-C25JP-JOA3O-EWZFJ-5FBMI"
+}, {
+  "key": "shop_join_open",
+  "remark": "是否开启商家入驻入口",
+  "value": "0"
+}, {
+  "key": "create_order_select_time",
+  "remark": "下单的时候需要选择取餐/送达时间",
+  "value": "1"
+}, {
+  "key": "customerServiceChatUrl",
+  "remark": "企业微信客服链接",
+  "value": "https://work.weixin.qq.com/kfid/kfcb144516034dd7dd9"
+}, {
+  "key": "customerServiceChatCorpId",
+  "remark": "企业微信企业ID",
+  "value": "ww85e610c6f6f533a8"
+}]

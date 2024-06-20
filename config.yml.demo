@@ -1,0 +1,21 @@
+app:
+ listen: :8081
+
+default:
+ wx:
+  appid: xxxx
+  secret: xxxx
+ sysUser:
+  domain: "cocktailBeeOrder"
+  username: bee
+  password: 123456
+
+
+db:
+ user: root
+ password: 123456
+ host: 127.0.0.1
+ port: 3306
+ database: bee
+ drop: true #是否清之前的数据
+ needInit: true #是否需要初始化数据

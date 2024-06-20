@@ -1,0 +1,18 @@
+[{
+  "categoryId": 0,
+  "id": 52355,
+  "items": [{
+    "id": 136945,
+    "name": "2",
+    "pid": 52355,
+    "price": 0.00
+  }, {
+    "id": 136946,
+    "name": "1",
+    "pid": 52355,
+    "price": 0.00
+  }],
+  "name": "测试",
+  "required": true,
+  "type": 0
+}]

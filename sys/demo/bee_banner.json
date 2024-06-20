@@ -1,0 +1,27 @@
+[{
+  "businessId": 0,
+  "dateAdd": "2024-06-09 12:52:17",
+  "id": 336657,
+  "linkType": 0,
+  "paixu": 0,
+  "picUrl": "https://dcdn.it120.cc/2020/08/14/a6e9e0ae-6256-457e-82e4-71f400239205.png",
+  "shopId": 0,
+  "status": 0,
+  "statusStr": "显示",
+  "title": "1",
+  "type": "1",
+  "userId": 49029
+}, {
+  "businessId": 0,
+  "dateAdd": "2024-06-09 12:52:17",
+  "id": 336656,
+  "linkType": 0,
+  "paixu": 0,
+  "picUrl": "https://dcdn.it120.cc/2020/08/14/1cc1be28-e8f2-405b-9e43-a472677762b2.png",
+  "shopId": 0,
+  "status": 0,
+  "statusStr": "显示",
+  "title": "2",
+  "type": "2",
+  "userId": 49029
+}]
