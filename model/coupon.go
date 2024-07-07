@@ -30,12 +30,18 @@ func (m *BeeUserCoupon) TableName() string {
 	return "bee_user_coupon"
 }
 
-func (m *BeeUserCoupon) CanUse() bool {
+func (m *BeeUserCoupon) CanUse(amount decimal.Decimal) bool {
 	now := time.Now()
-	if m.DateStart.After(now) && m.DateStart.Add(time.Millisecond*time.Duration(m.ExpiryMillis)).After(now) {
-		return true
+	if !(m.DateStart.After(now) && m.DateStart.Add(time.Millisecond*time.Duration(m.ExpiryMillis)).After(now)) {
+		return false
 	}
-	return false
+	if amount.LessThan(m.MoneyHreshold) {
+		return false
+	}
+	if m.Status != enum.CouponStatusNormal {
+		return false
+	}
+	return true
 }
 
 func (m *BeeUserCoupon) IsExpire() bool {

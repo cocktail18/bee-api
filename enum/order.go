@@ -10,8 +10,24 @@ type OrderReputation int32 // 评价状态，0 差评 1 中评 2 好评
 type OrderType int32
 type OrderRefundStatus int32
 type OrderGoodsStatus int32
-type OrderGoodsFxType int32
-type OrderGoodsCyTableStatus int32 // 餐饮桌子状态
+type OrderLogType int32
+type OrderPaisongStatus int32
+
+var OrderLogTypeMap = map[OrderLogType]string{
+	OrderLogTypePayByOthers:    "代付",
+	OrderLogTypeCreate:         "下单",
+	OrderLogTypeDeliver:        "发货",
+	OrderLogTypeRefund:         "退款",
+	OrderLogTypeChangePrice:    "改价",
+	OrderLogTypeConfirmDeliver: "确认发货",
+	OrderLogTypeReputation:     "评价",
+	OrderLogTypeClose:          "关闭",
+	OrderLogTypePay:            "支付",
+	OrderLogTypeHx:             "核销",
+	OrderLogTypeAddGoods:       "添加商品",
+	OrderLogTypeSetComplete:    "商家设置完成",
+	OrderLogTypeCreateSub:      "创建子订单",
+}
 
 const (
 	OrderStatusClose          OrderStatus = -1
@@ -39,4 +55,20 @@ const (
 	OrderReputationBad    = 0
 	OrderReputationMiddle = 1
 	OrderReputationGood   = 2
+
+	OrderLogTypeClose          OrderLogType = -1  // 关闭订单
+	OrderLogTypeCreate         OrderLogType = 0   // 0 下单
+	OrderLogTypePay            OrderLogType = 1   // 1 支付
+	OrderLogTypeDeliver        OrderLogType = 2   // 2 发货
+	OrderLogTypeConfirmDeliver OrderLogType = 3   // 3 确认收货
+	OrderLogTypeReputation     OrderLogType = 4   // 4 评价
+	OrderLogTypeChangePrice    OrderLogType = 5   // 5 卖家修改价格
+	OrderLogTypeSetComplete    OrderLogType = 6   // 6 商家设置交易完成
+	OrderLogTypeRefund         OrderLogType = 7   // 7退款
+	OrderLogTypeCreateSub      OrderLogType = 8   // 8 创建子订单
+	OrderLogTypeAddGoods       OrderLogType = 100 // 100 增加商品
+	OrderLogTypePayByOthers    OrderLogType = 11  // 11 代支付
+	OrderLogTypeHx             OrderLogType = 21  // 11 核销
+
+	OrderPaisongStatusNone OrderPaisongStatus = 0
 )

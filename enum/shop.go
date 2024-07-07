@@ -7,5 +7,6 @@ var BeeShopStatusMap = map[BeeShopStatus]string{
 }
 
 const (
-	BeeShopStatusNormal BeeShopStatus = 1 //正常
+	BeeShopStatusNormal  BeeShopStatus = 1 //正常
+	BeeShopStatusDisable BeeShopStatus = 0 //歇业
 )

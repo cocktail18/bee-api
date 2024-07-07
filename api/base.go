@@ -5,7 +5,10 @@ import (
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
+	"gitee.com/stuinfer/bee-api/util"
 	"github.com/gin-gonic/gin"
+	"github.com/samber/lo"
+	"gorm.io/gorm"
 	"net/http"
 )
 
@@ -38,6 +41,11 @@ func (api BaseApi) Fail(c *gin.Context, code enum.ResCode, msg string, data ...i
 }
 
 func (api BaseApi) Res(c *gin.Context, data interface{}, err error) {
+	if err == nil {
+		if lo.IsNil(data) || util.IsEmptyArrayOrSlice(data) || errors.Is(err, gorm.ErrRecordNotFound) {
+			err = enum.ErrEmpty
+		}
+	}
 	if err != nil {
 		var e *enum.BussError
 		ok := errors.As(err, &e)

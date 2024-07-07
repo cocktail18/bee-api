@@ -20,7 +20,7 @@ func (p CyTableAPi) AddOrder(c *gin.Context) {
 		p.Res(c, nil, err)
 		return
 	}
-	err := service.GetCyTableSrv().AddOrder(c, goods)
+	err := service.GetCyTableSrv().AddOrder(c, c.ClientIP(), goods)
 	p.Res(c, nil, err)
 }
 

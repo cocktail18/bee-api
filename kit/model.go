@@ -1,12 +1,12 @@
 package kit
 
 import (
+	"context"
 	"gitee.com/stuinfer/bee-api/common"
-	"github.com/gin-gonic/gin"
 	"time"
 )
 
-func GetInsertBaseModel(c *gin.Context) *common.BaseModel {
+func GetInsertBaseModel(c context.Context) *common.BaseModel {
 	return &common.BaseModel{
 		UserId:     GetUserId(c),
 		IsDeleted:  false,

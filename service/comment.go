@@ -1,13 +1,13 @@
 package service
 
 import (
+	"context"
 	"gitee.com/stuinfer/bee-api/common"
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
-	"github.com/gin-gonic/gin"
 	"sync"
 	"time"
 )
@@ -26,7 +26,7 @@ func GetCommentSrv() *CommentSrv {
 	return commentSrvInstance
 }
 
-func (s *CommentSrv) Add(c *gin.Context, req *proto.CommentAddReq) error {
+func (s *CommentSrv) Add(c context.Context, req *proto.CommentAddReq) error {
 	userId := kit.GetUserId(c)
 	uid := kit.GetUid(c)
 	now := time.Now()

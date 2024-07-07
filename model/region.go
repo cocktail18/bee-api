@@ -8,12 +8,13 @@ import "gitee.com/stuinfer/bee-api/common"
 type BeeRegion struct {
 	common.BaseModel
 	FirstLetter string `gorm:"column:first_letter;type:varchar(10)" json:"firstLetter"`
-	Jianping    string `gorm:"column:jianping;type:varchar(100)" json:"jianping"`
+	Jianpin     string `gorm:"column:jianpin;type:varchar(100)" json:"jianpin"`
 	Level       int    `gorm:"column:level;type:int(11)" json:"level"`
 	Name        string `gorm:"column:name;type:varchar(100)" json:"name"`
 	NameEn      string `gorm:"column:name_en;type:varchar(200)" json:"nameEn"`
-	Pingyin     string `gorm:"column:pingyin;type:varchar(100)" json:"pingyin"`
+	Pinyin      string `gorm:"column:pinyin;type:varchar(100)" json:"pinyin"`
 	Pid         string `gorm:"column:pid;type:varchar(100)" json:"pid"`
+	RegionId    int64  `gorm:"column:region_id;type:bigint(20)" json:"regionId"`
 }
 
 func (m *BeeRegion) TableName() string {

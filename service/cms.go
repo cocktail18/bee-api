@@ -24,8 +24,8 @@ func GetCmsSrv() *CmsSrv {
 func (srv *CmsSrv) GetCmsInfo(key string) (*proto.CmsResp, error) {
 	var item model.BeeCmsInfo
 	err := db.GetDB().Where(map[string]interface{}{
-		"status": 0,
-		"key":    key,
+		"is_deleted": 0,
+		"key":        key,
 	}).Take(&item).Error
 	if err != nil {
 		return nil, err

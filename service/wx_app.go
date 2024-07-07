@@ -1,12 +1,12 @@
 package service
 
 import (
+	"context"
 	"gitee.com/stuinfer/bee-api/common"
 	config2 "gitee.com/stuinfer/bee-api/config"
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model"
-	"github.com/gin-gonic/gin"
 	"github.com/medivhzhan/weapp/v3"
 	"github.com/medivhzhan/weapp/v3/auth"
 	"github.com/pkg/errors"
@@ -24,14 +24,15 @@ type WxAppSrv struct {
 	WeAppAuth   *auth.Auth
 }
 
-func GetWxAppSrv(c *gin.Context) (*WxAppSrv, error) {
+func GetWxAppSrv(c context.Context) (*WxAppSrv, error) {
+	//@todo cache
 	userId := kit.GetUserId(c)
 	var wxConfig model.BeeWxConfig
 	if err := db.GetDB().Where("user_id = ?", userId).First(&wxConfig).Error; err != nil {
 		return nil, errors.New("未配置微信小程序")
 	}
 	appSrv := &WxAppSrv{}
-	if err := appSrv.Init(wxConfig.AppId, wxConfig.AppSecret); err != nil {
+	if err := appSrv.init(wxConfig.AppId, wxConfig.AppSecret); err != nil {
 		return nil, errors.New("微信小程序配置错误")
 	}
 	return appSrv, nil
@@ -60,7 +61,7 @@ func CreateOrSaveWxAppConfig(userId int64, wxConfig *config2.WxConfig) error {
 	return db.GetDB().Save(curAppConfig).Error
 }
 
-func (srv *WxAppSrv) Init(appId, secret string) error {
+func (srv *WxAppSrv) init(appId, secret string) error {
 	srv.Appid = appId
 	srv.Secret = secret
 	srv.WeAppClient = weapp.NewClient(srv.Appid, srv.Secret)
@@ -68,7 +69,7 @@ func (srv *WxAppSrv) Init(appId, secret string) error {
 	return nil
 }
 
-func (srv *WxAppSrv) Authorize(code string) (*weapp.LoginResponse, error) {
+func (srv *WxAppSrv) Authorize(c context.Context, code string) (*weapp.LoginResponse, error) {
 	resp, err := srv.WeAppClient.Login(code)
 	return resp, err
 }

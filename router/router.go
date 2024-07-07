@@ -26,6 +26,7 @@ func regSysUser() gin.HandlerFunc {
 		uri := c.Request.RequestURI
 		idx := strings.Index(uri[1:], "/")
 		domain := uri[1 : idx+1]
+
 		sysUserInfo, err := sys.GetUserSrv().GetByDomain(domain)
 		if err != nil {
 			c.Abort()
@@ -56,7 +57,7 @@ func CheckToken() gin.HandlerFunc {
 			api.BaseApi{}.Fail(c, enum.ResCodeTokenInvalid, "当前登录token无效，请重新登录")
 			return
 		}
-		userInfo, err := service.GetUserSrv().GetUserInfo(token)
+		userInfo, err := service.GetUserSrv().GetUserInfo(c, token)
 		if err != nil {
 			if errors.Is(err, gorm.ErrRecordNotFound) {
 				c.Abort()
@@ -73,8 +74,8 @@ func CheckToken() gin.HandlerFunc {
 }
 
 func NewRouter() *gin.Engine {
-	router.Use(gin.Logger(), gin.Recovery(), regSysUser())
-	domainGroup := router.Group("/:domain")
+	router.Use(gin.Logger(), gin.Recovery())
+	domainGroup := router.Group("/:domain", regSysUser())
 	configGroup := domainGroup.Group("/config")
 	{
 		configGroup.GET("/values", (api.ConfigApi{}).Values)
@@ -113,7 +114,7 @@ func NewRouter() *gin.Engine {
 	{
 		cmsGroup.GET("/page/info/v2", (api.CmsApi{}).Info)
 	}
-	commentGroup := domainGroup.Group("/comment")
+	commentGroup := domainGroup.Group("/comment", CheckToken())
 	{
 		//意见反馈
 		commentGroup.POST("/add", (api.CommentApi{}).Add)
@@ -127,7 +128,7 @@ func NewRouter() *gin.Engine {
 	{
 		bannerGroup.GET("/list", (api.BannerApi{}).List)
 	}
-	commonGroup := domainGroup.Group("/common")
+	commonGroup := router.Group("/common")
 	{
 		commonGroup.GET("/region/v2/province", (api.CommonApi{}).Province)
 		commonGroup.GET("/region/v2/child", (api.CommonApi{}).Child)
@@ -189,7 +190,9 @@ func NewRouter() *gin.Engine {
 	}
 	orderGroup := domainGroup.Group("/order", CheckToken())
 	{
+		orderGroup.GET("/detail", (api.OrderApi{}).Detail)
 		orderGroup.GET("/list", (api.OrderApi{}).List)
+		orderGroup.POST("/list", (api.OrderApi{}).List)
 		orderGroup.POST("/pay", (api.OrderApi{}).Pay)
 		orderGroup.POST("/create", (api.OrderApi{}).Create)
 		orderGroup.POST("/close", (api.OrderApi{}).Close)
@@ -201,6 +204,7 @@ func NewRouter() *gin.Engine {
 	scoreGroup := domainGroup.Group("/score", CheckToken())
 	{
 		scoreGroup.GET("/sign/logs", (api.ScoreApi{}).SignLogs)
+		scoreGroup.POST("/sign/logs", (api.ScoreApi{}).SignLogs)
 		scoreGroup.POST("/sign", (api.ScoreApi{}).Sign)
 		scoreGroup.POST("/logs", (api.ScoreApi{}).Logs)
 		scoreGroup.POST("/share/wxa/group", (api.ScoreApi{}).WxaGroup)
@@ -208,6 +212,11 @@ func NewRouter() *gin.Engine {
 	payGroup := domainGroup.Group("/pay", CheckToken())
 	{
 		payGroup.POST("/wx/wxapp", (api.PayApi{}).WxApp)
+	}
+
+	notifyGroup := domainGroup.Group("/notify")
+	{
+		notifyGroup.POST("/wx/pay", (api.PayApi{}).WxPayCallBack)
 	}
 
 	//扫码点餐
@@ -226,6 +235,12 @@ func NewRouter() *gin.Engine {
 	dfsGroup := domainGroup.Group("/dfs", CheckToken())
 	{
 		dfsGroup.POST("/upload/file", (api.DfsApi{}).UploadFile)
+	}
+	//排队
+	queuingGroup := domainGroup.Group("/queuing", CheckToken())
+	{
+		queuingGroup.GET("/types", (api.QueuingApi{}).Types)
+		queuingGroup.GET("/my", (api.QueuingApi{}).My)
 	}
 
 	return router

@@ -14,7 +14,7 @@ type ShopApi struct {
 
 func (api ShopApi) SubShopDetail(c *gin.Context) {
 	id := cast.ToInt64(c.Query("id"))
-	info, err := service.GetShopSrv().GetShopInfo(id)
+	info, err := service.GetShopSrv().GetShopInfo(c, id, 39.9042, 116.4074)
 	if err != nil {
 		api.Fail(c, enum.ResCodeFail, "系统错误")
 		return

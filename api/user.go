@@ -82,8 +82,13 @@ func (api UserApi) PayLogs(c *gin.Context) {
 }
 
 func (api UserApi) BindMobile(c *gin.Context) {
-	//@todo
-	api.Res(c, nil, nil)
+	req := &proto.BindWxMobileReq{}
+	if err := c.ShouldBind(req); err != nil {
+		api.Res(c, nil, err)
+		return
+	}
+	resp, err := service.GetUserSrv().BindWxMobile(c, req)
+	api.Res(c, resp, err)
 }
 
 // BindSeller 重新绑定分销商（抢客）

@@ -2,6 +2,7 @@ package sys
 
 import (
 	"gitee.com/stuinfer/bee-api/common"
+	config2 "gitee.com/stuinfer/bee-api/config"
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/model/sys"
 	"gitee.com/stuinfer/bee-api/util"
@@ -36,6 +37,9 @@ func (srv *UserSrv) Create(username, pass string, domain *string) (*sys.SysUserM
 		Salt:     salt,
 		Username: username,
 		Password: srv.getPass(pass, salt),
+	}
+	if config2.AppConfigIns.Default.SysUser.Username == username { //demo
+		user.Id = 100
 	}
 	err := db.GetDB().Create(user).Error
 	if err != nil {

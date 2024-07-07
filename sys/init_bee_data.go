@@ -41,6 +41,12 @@ var beeShopGoodsDetailStr string
 //go:embed demo/bee_shop_goods_addition.json
 var beeShopGoodsAdditionStr string
 
+//go:embed demo/bee_cms_info.json
+var beeCmsInfoStr string
+
+//go:embed demo/bee_user_level.json
+var beeLevelStr string
+
 func (srv *UserSrv) InitBeeData(userId int64) error {
 	beeConfigArr := make([]*model.BeeConfig, 0)
 	if err := initDbData(userId, beeConfigArr, beeConfigStr); err != nil {
@@ -72,8 +78,18 @@ func (srv *UserSrv) InitBeeData(userId int64) error {
 		return err
 	}
 
+	beeCmsInfoArr := make([]*model.BeeCmsInfo, 0)
+	if err := initDbData(userId, beeCmsInfoArr, beeCmsInfoStr); err != nil {
+		return err
+	}
+
 	beeShopGoodsArr := make([]*model.BeeShopGoods, 0)
 	if err := initDbData(userId, beeShopGoodsArr, beeShopGoodsStr); err != nil {
+		return err
+	}
+
+	beeLevelArr := make([]*model.BeeLevel, 0)
+	if err := initDbData(userId, beeLevelArr, beeLevelStr); err != nil {
 		return err
 	}
 
@@ -114,6 +130,7 @@ func initBeeShopGoodsDetail(userId int64) error {
 		baseInfo.ShopId = shopList[0].Id
 		baseInfo.SellBeginTime = common.JsonTime(time.Now().AddDate(0, 0, -1))
 		baseInfo.SellEndTime = common.JsonTime(time.Now().AddDate(10, 0, 0))
+		baseInfo.UserId = userId
 		if err := db.GetDB().Clauses(clause.OnConflict{UpdateAll: true}).Create(baseInfo).Error; err != nil {
 			return err
 		}
@@ -126,6 +143,7 @@ func initBeeShopGoodsDetail(userId int64) error {
 			return err
 		}
 		lo.ForEach(beeShopGoodsDetail.Pics, func(item *model.BeeShopGoodsImages, _ int) {
+			item.UserId = userId
 			item.GoodsId = baseInfo.Id
 		})
 		if err := db.GetDB().Create(beeShopGoodsDetail.Pics).Error; err != nil {
@@ -134,6 +152,7 @@ func initBeeShopGoodsDetail(userId int64) error {
 
 		//运费
 		beeShopGoodsDetail.Logistics.Id = baseInfo.LogisticsId
+		beeShopGoodsDetail.Logistics.UserId = userId
 		if err := db.GetDB().Clauses(clause.OnConflict{DoNothing: true}).Create(beeShopGoodsDetail.Logistics).Error; err != nil {
 			return err
 		}
@@ -152,6 +171,7 @@ func initBeeShopGoodsDetail(userId int64) error {
 		}
 
 		for _, sku := range beeShopGoodsDetail.SkuList {
+			sku.UserId = userId
 			sku.PropertyChildIds = kit.GetDBPropertyChildIds(sku.PropertyChildIds)
 			if err := db.GetDB().Clauses(clause.OnConflict{DoNothing: true}).Create(sku).Error; err != nil {
 				return err
@@ -188,8 +208,10 @@ func initGoodsProp(userId int64, prop *model.BeeShopGoodsProp) error {
 }
 
 func initGoodsAddition(userId int64, goodsId int64, prop *model.BeeShopGoodsAddition) error {
+	id := prop.Id
 	prop.GoodsId = goodsId
 	prop.BaseModel = *kit.GetInsertBaseModelWithUserId(userId)
+	prop.Id = id
 	if err := db.GetDB().Clauses(clause.OnConflict{DoNothing: true}).Create(prop).Error; err != nil {
 		return err
 	}

@@ -38,3 +38,10 @@ type PayLogsReq struct {
 }
 
 type PayLogsResp []*model.BeePayLog
+
+type BindWxMobileReq struct {
+	Code          string `json:"code,omitempty" form:"code"`
+	EncryptedData string `json:"encryptedData,omitempty" form:"encryptedData"` //	用户信息加密数据
+	Iv            string `json:"iv,omitempty" form:"iv"`
+	Pwd           string `json:"pwd,omitempty" form:"pwd"`
+}

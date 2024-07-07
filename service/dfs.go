@@ -1,12 +1,12 @@
 package service
 
 import (
+	"context"
 	config2 "gitee.com/stuinfer/bee-api/config"
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
-	"github.com/gin-gonic/gin"
 	"sync"
 	"time"
 )
@@ -25,7 +25,7 @@ func GetDfsSrv() *DfsSrv {
 	return dfsSrvInstance
 }
 
-func (s DfsSrv) SaveUploadedFile(c *gin.Context, domain string, filename, dst string, hours int64) (*proto.UploadFileResp, error) {
+func (s DfsSrv) SaveUploadedFile(c context.Context, domain string, filename, dst string, hours int64) (*proto.UploadFileResp, error) {
 	data := model.BeeUploadFile{
 		BaseModel: *kit.GetInsertBaseModel(c),
 		Domain:    domain,

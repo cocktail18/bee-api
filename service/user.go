@@ -1,16 +1,19 @@
 package service
 
 import (
+	"context"
 	"gitee.com/stuinfer/bee-api/common"
 	"gitee.com/stuinfer/bee-api/db"
+	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model"
+	"gitee.com/stuinfer/bee-api/model/sys"
 	"gitee.com/stuinfer/bee-api/proto"
 	"gitee.com/stuinfer/bee-api/util"
-	"github.com/gin-gonic/gin"
 	"github.com/golang-module/carbon/v2"
 	"github.com/pkg/errors"
 	"github.com/samber/lo"
+	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
 	"sync"
 	"time"
@@ -31,13 +34,22 @@ func GetUserSrv() *UserSrv {
 	return userSrvInstance
 }
 
-func (srv *UserSrv) GetUserInfo(token string) (*model.BeeUser, error) {
-	uid, err := GetTokenSrv().GetUserIdFromToken(token)
+func (srv *UserSrv) GetUserInfo(c context.Context, token string) (*model.BeeUser, error) {
+	tokenInfo, err := GetTokenSrv().GetTokenInfoFromToken(token)
 	if err != nil {
 		return nil, err
 	}
+	beeUserInfo, err := srv.GetUserInfoByUid(c, tokenInfo.Uid)
+	if err != nil {
+		return nil, err
+	}
+	beeUserInfo.SessionKey = tokenInfo.SessionKey
+	return beeUserInfo, nil
+}
+
+func (srv *UserSrv) GetUserInfoByUid(c context.Context, uid int64) (*model.BeeUser, error) {
 	var userInfo model.BeeUser
-	err = db.GetDB().Where("id = ?", uid).Take(&userInfo).Error
+	err := db.GetDB().Where("id = ?", uid).Take(&userInfo).Error
 	if err != nil {
 		return nil, err
 	}
@@ -49,12 +61,12 @@ func (srv *UserSrv) Modify(user *model.BeeUser) error {
 	return db.GetDB().Where("id = ?", user.Id).Save(user).Error
 }
 
-func (srv *UserSrv) Login(c *gin.Context, code string) (*proto.AuthorizeResp, error) {
+func (srv *UserSrv) Login(c context.Context, code string) (*proto.AuthorizeResp, error) {
 	wxSrv, err := GetWxAppSrv(c)
 	if err != nil {
 		return nil, err
 	}
-	authResp, err := wxSrv.Authorize(code)
+	authResp, err := wxSrv.Authorize(c, code)
 	if err != nil {
 		return nil, err
 	}
@@ -72,13 +84,13 @@ func (srv *UserSrv) Login(c *gin.Context, code string) (*proto.AuthorizeResp, er
 			user.DateAdd = common.JsonTime(now)
 			user.DateLogin = common.JsonTime(now)
 			user.UserId = kit.GetUserId(c)
-			if err := srv.CreateUser(tx, &user); err != nil {
+			if err := srv.CreateUser(c, tx, &user); err != nil {
 				return err
 			}
 			uid = user.Id
 			mapper.Uid = uid
 			mapper.UserId = kit.GetUserId(c)
-			mapper.Source = 1
+			mapper.Source = enum.BeeUserSourceWx
 			mapper.OpenId = authResp.OpenID
 			mapper.UnionId = authResp.UnionID
 			mapper.DateAdd = common.JsonTime(now)
@@ -98,14 +110,18 @@ func (srv *UserSrv) Login(c *gin.Context, code string) (*proto.AuthorizeResp, er
 		uid = mapper.Uid
 	}
 
-	return srv.CreateUserToken(c, kit.GetUserId(c), uid, authResp.OpenID)
+	return srv.CreateUserToken(c, kit.GetUserId(c), uid, authResp.OpenID, authResp.SessionKey)
 }
 
-func (srv *UserSrv) CreateUser(tx *gorm.DB, user *model.BeeUser) error {
+func (srv *UserSrv) CreateUser(c context.Context, tx *gorm.DB, user *model.BeeUser) error {
 	var cur = struct {
 		MaxShowUid int64 `json:"max_show_uid"`
 	}{}
-	if err := db.GetDB().Set("gorm:query_option", "FOR UPDATE").
+	minLevel, err := srv.GetMinLevel(c)
+	if err != nil {
+		return err
+	}
+	if err := tx.Set("gorm:query_option", "FOR UPDATE").
 		Select("max(`show_uid`) as `max_show_uid`").Model(&model.BeeUser{}).Take(&cur).Error; err != nil {
 		return err
 	}
@@ -117,11 +133,39 @@ func (srv *UserSrv) CreateUser(tx *gorm.DB, user *model.BeeUser) error {
 	user.DateAdd = common.JsonTime(now)
 	user.DateUpdate = common.JsonTime(now)
 	user.DateLogin = common.JsonTime(now)
-	return tx.Create(&user).Error
+	if err := tx.Create(&user).Error; err != nil {
+		return err
+	}
+	if err := tx.Create(&model.BeeUserAmount{
+		BaseModel:         *kit.GetInsertBaseModel(c),
+		Uid:               user.Id,
+		Balance:           decimal.Zero,
+		Freeze:            decimal.Zero,
+		FxCommisionPaying: decimal.Zero,
+		Growth:            decimal.Zero,
+		Score:             decimal.Zero,
+		ScoreLastRound:    decimal.Zero,
+		TotalPayAmount:    decimal.Zero,
+		TotalPayNumber:    decimal.Zero,
+		TotalScore:        decimal.Zero,
+		TotalWithdraw:     decimal.Zero,
+		TotalConsumed:     decimal.Zero,
+		Pwd:               "",
+		Salt:              "",
+	}).Error; err != nil {
+		return err
+	}
+	userLevel := &model.BeeUserLevel{
+		BaseModel: common.BaseModel{},
+		Uid:       user.Id,
+		Level:     util.IF(minLevel.UpgradeAmount.LessThanOrEqual(decimal.NewFromInt(0)), minLevel.Id, 0),
+		PayAmount: decimal.Decimal{},
+	}
+	return tx.Create(userLevel).Error
 }
 
-func (srv *UserSrv) CreateUserToken(c *gin.Context, userId int64, uid int64, openId string) (*proto.AuthorizeResp, error) {
-	token, err := GetTokenSrv().CreateToken(c, uid)
+func (srv *UserSrv) CreateUserToken(c context.Context, userId int64, uid int64, openId string, sessionKey string) (*proto.AuthorizeResp, error) {
+	token, err := GetTokenSrv().CreateToken(c, uid, sessionKey)
 	if err != nil {
 		return nil, err
 	}
@@ -141,7 +185,7 @@ func (srv *UserSrv) RecordBirthdayProcessSuccessYear(userId int64) error {
 	return db.GetDB().Where("id = ?", userId).Update("birthday_process_success_year", carbon.Now().Year()).Error
 }
 
-func (srv *UserSrv) Amount(c *gin.Context, userId int64) (*proto.GetUserAmountResp, error) {
+func (srv *UserSrv) Amount(c context.Context, userId int64) (*proto.GetUserAmountResp, error) {
 	var userAmount model.BeeUserAmount
 	if err := db.GetDB().Where("user_id = ?", userId).Take(&userAmount).Error; err != nil {
 		return nil, err
@@ -151,7 +195,7 @@ func (srv *UserSrv) Amount(c *gin.Context, userId int64) (*proto.GetUserAmountRe
 	}, nil
 }
 
-func (srv *UserSrv) CashLog(c *gin.Context, userId int64, req *proto.CashLogReq) (*proto.CashLogResp, error) {
+func (srv *UserSrv) CashLog(c context.Context, userId int64, req *proto.CashLogReq) (*proto.CashLogResp, error) {
 	//@todo 类型筛选
 	var (
 		cnt      int64
@@ -175,7 +219,7 @@ func (srv *UserSrv) CashLog(c *gin.Context, userId int64, req *proto.CashLogReq)
 	}, nil
 }
 
-func (srv *UserSrv) PayLogs(c *gin.Context, userId int64, req *proto.PayLogsReq) (proto.PayLogsResp, error) {
+func (srv *UserSrv) PayLogs(c context.Context, userId int64, req *proto.PayLogsReq) (proto.PayLogsResp, error) {
 	//@todo 类型筛选
 	var (
 		pageSize int64 = util.IF(req.PageSize == 0, 20, req.PageSize)
@@ -192,7 +236,7 @@ func (srv *UserSrv) PayLogs(c *gin.Context, userId int64, req *proto.PayLogsReq)
 	return proto.PayLogsResp(list), nil
 }
 
-func (srv *UserSrv) GetDynamicUserCode(c *gin.Context) (string, error) {
+func (srv *UserSrv) GetDynamicUserCode(c context.Context) (string, error) {
 	item := &model.BeeUserDynamicCode{}
 	now := time.Now()
 	err := db.GetDB().Where("uid = ?", kit.GetUserId(c)).Take(item).Error
@@ -218,10 +262,10 @@ func (srv *UserSrv) GetDynamicUserCode(c *gin.Context) (string, error) {
 	return item.Code, db.GetDB().Save(item).Error
 }
 
-func (srv *UserSrv) LevelList(c *gin.Context) (*proto.GetLevelListResp, error) {
-	var list []*model.BeeUserLevel
+func (srv *UserSrv) LevelList(c context.Context) (*proto.GetLevelListResp, error) {
+	var list []*model.BeeLevel
 	var cnt int64
-	dbIns := db.GetDB().Where("user_id = ?", kit.GetUserId(c))
+	dbIns := db.GetDB().Model(&model.BeeLevel{}).Where("user_id = ?", kit.GetUserId(c))
 	if err := dbIns.Count(&cnt).Error; err != nil {
 		return nil, err
 	}
@@ -234,10 +278,94 @@ func (srv *UserSrv) LevelList(c *gin.Context) (*proto.GetLevelListResp, error) {
 	}, nil
 }
 
-func (srv *UserSrv) RechargeSendRule(c *gin.Context) ([]*model.RechargeSendRule, error) {
+func (srv *UserSrv) GetMinLevel(c context.Context) (*model.BeeLevel, error) {
+	var item = &model.BeeLevel{}
+	if err := db.GetDB().Where("user_id = ?", kit.GetUserId(c)).Order("upgrade_amount asc").First(item).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return &model.BeeLevel{}, nil
+		}
+		return nil, err
+	}
+	return item, nil
+}
+
+func (srv *UserSrv) GetLevelByAmount(c context.Context, amount decimal.Decimal) (*model.BeeLevel, error) {
+	var item = &model.BeeLevel{}
+	if err := db.GetDB().Where("user_id = ? and upgrade_amount < ?", kit.GetUserId(c), amount).Order("upgrade_amount desc").First(item).Error; err != nil {
+		return nil, err
+	}
+	return item, nil
+}
+
+func (srv *UserSrv) RechargeSendRule(c context.Context) ([]*model.RechargeSendRule, error) {
 	var list []*model.RechargeSendRule
 	if err := db.GetDB().Where("user_id = ?", kit.GetUserId(c)).Find(&list).Error; err != nil {
 		return nil, err
 	}
 	return list, nil
+}
+
+func (srv *UserSrv) GetUserLevel(c context.Context, uid int64) (*model.BeeUserLevel, error) {
+	item := &model.BeeUserLevel{}
+	if err := db.GetDB().Where("uid = ?", uid).Take(item).Error; err != nil {
+		return nil, err
+	}
+	return item, nil
+}
+
+func (srv *UserSrv) IncrUserLevelAmount(c context.Context, tx *gorm.DB, uid int64, payAmount decimal.Decimal) error {
+	item := &model.BeeUserLevel{}
+	if err := tx.Where("uid = ?", uid).Take(item).Error; err != nil {
+		return err
+	}
+	item.PayAmount = item.PayAmount.Add(payAmount)
+	newLevelInfo, err := srv.GetLevelByAmount(c, item.PayAmount)
+	if err == nil {
+		item.Level = newLevelInfo.Level
+	}
+	return tx.Save(item).Error
+}
+
+func (srv *UserSrv) BindWxMobile(c context.Context, req *proto.BindWxMobileReq) (string, error) {
+	wxSrv, err := GetWxAppSrv(c)
+	if err != nil {
+		return "", err
+	}
+	mobileRes, err := wxSrv.WeAppClient.DecryptMobile(kit.GetSessionKey(c), req.EncryptedData, req.Iv)
+	if err != nil {
+		return "", err
+	}
+	phoneNum := mobileRes.PhoneNumber
+	userMobile := &model.BeeUserMobile{
+		BaseModel: *kit.GetInsertBaseModel(c),
+		Uid:       kit.GetUserId(c),
+		Mobile:    phoneNum,
+	}
+	oldItem := &model.BeeUserMobile{}
+	err = db.GetDB().Where("uid = ?", kit.GetUserId(c)).Take(oldItem).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		err = db.GetDB().Create(userMobile).Error
+	} else if err == nil {
+		err = db.GetDB().Save(userMobile).Error
+	}
+	if err != nil {
+		return "", err
+	}
+	return phoneNum, nil
+}
+
+func (srv *UserSrv) GetUserWxOpenId(c context.Context) (string, error) {
+	item := &model.BeeUserMapper{}
+	if err := db.GetDB().Where("uid = ? and source = ?", kit.GetUserId(c), enum.BeeUserSourceWx).Take(item).Error; err != nil {
+		return "", err
+	}
+	return item.OpenId, nil
+}
+
+func GetTestContext() context.Context {
+	ctx := context.Background()
+	userInfo := &sys.SysUserModel{}
+	db.GetDB().Order("id asc").First(userInfo)
+	ctx = context.WithValue(ctx, enum.UserInfoKey, userInfo)
+	return ctx
 }

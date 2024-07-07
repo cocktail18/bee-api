@@ -1,0 +1,19 @@
+[{
+  "dateAdd": "2024-06-09 12:52:18",
+  "id": 21733,
+  "level": 0,
+  "name": "黄金会员",
+  "paixu": 0,
+  "rebate": 10.00,
+  "status": 0,
+  "upgradeAmount": 100.00
+}, {
+  "dateAdd": "2024-06-09 12:52:18",
+  "id": 21732,
+  "level": 0,
+  "name": "钻石会员",
+  "paixu": 1,
+  "rebate": 10.00,
+  "status": 0,
+  "upgradeAmount": 500.00
+}]

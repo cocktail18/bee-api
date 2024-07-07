@@ -10,3 +10,7 @@ type SysUserModel struct {
 	Salt     string `gorm:"column:salt;type:varchar(100);not null" json:"salt"`
 	Phone    string `gorm:"column:phone;type:varchar(100);not null" json:"phone"`
 }
+
+func (m *SysUserModel) TableName() string {
+	return "sys_user"
+}

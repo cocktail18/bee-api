@@ -14,7 +14,8 @@ type ShippingAddressApi struct {
 }
 
 func (api ShippingAddressApi) List(c *gin.Context) {
-
+	resp, err := service.GetAddressSrv().ListAddress(c)
+	api.Res(c, resp, err)
 }
 
 func (api ShippingAddressApi) Add(c *gin.Context) {
@@ -49,8 +50,7 @@ func (api ShippingAddressApi) Add(c *gin.Context) {
 
 func (api ShippingAddressApi) Detail(c *gin.Context) {
 	id := cast.ToInt64(c.Query("id"))
-	userInfo := api.GetUserInfo(c)
-	resp, err := service.GetAddressSrv().GetAddress(userInfo.UserId, id)
+	resp, err := service.GetAddressSrv().GetAddress(c, id)
 	api.Res(c, resp, err)
 }
 
@@ -68,7 +68,8 @@ func (api ShippingAddressApi) Update(c *gin.Context) {
 
 	userAddress := &model.BeeUserAddress{
 		BaseModel: common.BaseModel{
-			Id: id,
+			Id:     id,
+			UserId: kit.GetUserId(c),
 		},
 		Address:     address,
 		AreaStr:     "",

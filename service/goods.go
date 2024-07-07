@@ -1,12 +1,12 @@
 package service
 
 import (
+	"context"
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
-	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
 	"github.com/samber/lo"
 	"github.com/spf13/cast"
@@ -44,7 +44,7 @@ func (srv *GoodsSrv) GetCategoryAll() ([]*model.BeeShopGoodsCategory, error) {
 	return list, err
 }
 
-func (srv *GoodsSrv) GetGoodsDetail(c *gin.Context, id int64, regionId string) (*proto.GoodsDetailResp, error) {
+func (srv *GoodsSrv) GetGoodsDetail(c context.Context, id int64, regionId string) (*proto.GoodsDetailResp, error) {
 	resp := &proto.GoodsDetailResp{}
 	var goods model.BeeShopGoods
 	var err error
@@ -136,7 +136,7 @@ func (srv *GoodsSrv) GetGoodsDetail(c *gin.Context, id int64, regionId string) (
 	return resp, nil
 }
 
-func (srv *GoodsSrv) GetGoodsWithSku(c *gin.Context, goodsId int64, propertyChildIds string) (*model.BeeShopGoods, *model.BeeShopGoodsSku, error) {
+func (srv *GoodsSrv) GetGoodsWithSku(c context.Context, goodsId int64, propertyChildIds string) (*model.BeeShopGoods, *model.BeeShopGoodsSku, error) {
 	var goods model.BeeShopGoods
 	var err error
 	err = db.GetDB().Where("id = ?", goodsId).Take(&goods).Error
@@ -158,7 +158,7 @@ func (srv *GoodsSrv) GetGoodsWithSku(c *gin.Context, goodsId int64, propertyChil
 	return &goods, &curSku, nil
 }
 
-func (srv *GoodsSrv) getPropertyChildNames(c *gin.Context, propertyChildIds string) (string, error) {
+func (srv *GoodsSrv) getPropertyChildNames(c context.Context, propertyChildIds string) (string, error) {
 	propIds := kit.GetPropIdsByStr(propertyChildIds)
 	var props []*model.BeeShopGoodsProp
 	err := db.GetDB().Where("id in (?) or property_id in (?)", propIds, propIds).Find(&props).Error
@@ -197,7 +197,7 @@ func (srv *GoodsSrv) getPropertyChildNames(c *gin.Context, propertyChildIds stri
 	return propChildNames.String(), nil
 }
 
-func (srv *GoodsSrv) GetPropsByIds(c *gin.Context, propIds []int64) ([]*model.BeeShopGoodsProp, error) {
+func (srv *GoodsSrv) GetPropsByIds(c context.Context, propIds []int64) ([]*model.BeeShopGoodsProp, error) {
 	var props []*model.BeeShopGoodsProp
 	err := db.GetDB().Where("id in ?", propIds).Find(&props).Error
 	if err != nil {
@@ -206,7 +206,7 @@ func (srv *GoodsSrv) GetPropsByIds(c *gin.Context, propIds []int64) ([]*model.Be
 	return props, nil
 }
 
-func (srv *GoodsSrv) GetPrice(c *gin.Context, goodsId int64, propertyChildIds string) (*proto.GoodsPriceResp, error) {
+func (srv *GoodsSrv) GetPrice(c context.Context, goodsId int64, propertyChildIds string) (*proto.GoodsPriceResp, error) {
 	var goods model.BeeShopGoods
 	var err error
 	err = db.GetDB().Where("id = ?", goodsId).Take(&goods).Error
@@ -258,7 +258,7 @@ func (srv *GoodsSrv) GetPrice(c *gin.Context, goodsId int64, propertyChildIds st
 	return resp, nil
 }
 
-func (srv *GoodsSrv) GetGoodsAddition(c *gin.Context, goodsId int64) ([]*model.BeeShopGoodsAddition, error) {
+func (srv *GoodsSrv) GetGoodsAddition(c context.Context, goodsId int64) ([]*model.BeeShopGoodsAddition, error) {
 	userId := kit.GetUserId(c)
 	var list []*model.BeeShopGoodsAddition
 	if err := db.GetDB().Model(&model.BeeShopGoodsAddition{}).

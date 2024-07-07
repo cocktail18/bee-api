@@ -15,57 +15,11 @@
 package main
 
 import (
-	"context"
-	config2 "gitee.com/stuinfer/bee-api/config"
-	"gitee.com/stuinfer/bee-api/db"
-	"gitee.com/stuinfer/bee-api/logger"
-	"gitee.com/stuinfer/bee-api/model"
-	"gitee.com/stuinfer/bee-api/router"
-	"gitee.com/stuinfer/bee-api/sys"
-	"github.com/pkg/errors"
-	"github.com/sirupsen/logrus"
-	"log"
-	"net/http"
-	"os"
-	"os/signal"
-	"syscall"
-	"time"
+	"gitee.com/stuinfer/bee-api/cmd"
+	"gitee.com/stuinfer/bee-api/config"
 )
 
-func init() {
-	logger.InitLogger()
-	config2.InitConfig()
-	if err := db.InitDB(); err != nil {
-		panic(err)
-	}
-}
-
 func main() {
-	svr := &http.Server{
-		Addr:    config2.AppConfigIns.App.Listen,
-		Handler: router.NewRouter(),
-	}
-	if config2.AppConfigIns.DB.NeedInit {
-		model.InitDB()
-		sys.InitDB()
-	}
-	go func() {
-		logrus.Infof("服务启动：%v", svr.Addr)
-		err := svr.ListenAndServe()
-		if err != nil && !errors.Is(err, http.ErrServerClosed) {
-			log.Fatalln(err)
-		}
-	}()
-
-	quit := make(chan os.Signal)
-	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-	<-quit
-
-	timeout := time.Duration(5) * time.Second
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
-	defer cancel()
-
-	if err := svr.Shutdown(ctx); err != nil {
-		log.Fatalln(err)
-	}
+	config.InitConfig()
+	cmd.Run(config.AppConfigIns)
 }

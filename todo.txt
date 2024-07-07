@@ -1,6 +1,5 @@
 https://www.yuque.com/apifm/nu0f75/akvw94l083hiszui
 
-
 done WXAPI.shopSubdetail(shopInfo.id)
 done WXAPI.cmsPage('about')
 done WXAPI.addressDetail(wx.getStorageSync('token'), id)
@@ -48,29 +47,29 @@ done WXAPI.peisonFeeList()
 done WXAPI.uploadFileV2(wx.getStorageSync('token'), avatarUrl)
 done WXAPI.goodsAddition(goodsId)
 done WXAPI.cyTableToken(tableId, key)
-done @todo WXAPI.orderReputation({
+done WXAPI.orderReputation({
+done WXAPI.orderDetail
+done WXAPI.bindMobileWxapp(wx.getStorageSync('token'), this.data.code, e.detail.encryptedData, e.detail.iv)
+done WXAPI.orderHXV2({
+done WXAPI.userLevelList()
+done WXAPI.scoreLogs({
+done WXAPI.scoreSign(wx.getStorageSync('token'))
+done WXAPI.scoreSignLogs({
+done WXAPI.shareGroupGetScore(
+done WXAPI.orderClose(wx.getStorageSync('token'), orderId).then(function(res) {
 
 // 积分优惠
 @todo 暂无充值优惠 WXAPI.rechargeSendRules()
-@todo WXAPI.shareGroupGetScore(
 @todo WXAPI.exchangeCoupons(wx.getStorageSync('token'), this.data.number, this.data.pwd)
-@todo WXAPI.scoreLogs({
-@todo WXAPI.scoreSign(wx.getStorageSync('token'))
-@todo WXAPI.scoreSignLogs({
-@todo WXAPI.userLevelList()
-
 
 // 订单
-@todo 退优惠券、积分 WXAPI.orderClose(wx.getStorageSync('token'), orderId).then(function(res) {
-@todo WXAPI.orderPay(wx.getStorageSync('token'), orderId).then(function (res) {
+@todo 测试 WXAPI.orderPay(wx.getStorageSync('token'), orderId).then(function (res) {
 @todo 筛选条件 WXAPI.orderList({
-@todo WXAPI.orderCreate(postData)
-@todo WXAPI.orderDetail(wx.getStorageSync('token'), '', this.data.hxNumber).then(function (res) {
-@todo WXAPI.orderHXV2({
+@todo 运费、优惠券 WXAPI.orderCreate(postData)
 
 // 微信相关
-@todo WXAPI.wxpay(postData).then(res => {
-@todo WXAPI.bindMobileWxapp(wx.getStorageSync('token'), this.data.code, e.detail.encryptedData, e.detail.iv)
+@todo 测试 WXAPI.wxpay(postData).then(res => {
+
 
 // 预约
 @todo WXAPI.yuyueJoin({
@@ -82,7 +81,6 @@ done @todo WXAPI.orderReputation({
 // 商城
 @todo 筛选 WXAPI.fetchShops({
 @todo WXAPI.goodsTimesSchedule(goodsId, '') // todo sku
-
 
 
 // 排队取号
@@ -109,7 +107,7 @@ done @todo WXAPI.orderReputation({
 @todo WXAPI.wxaQrcode({
 @todo WXAPI.wxappServiceAuthorize({
 @todo WXAPI.wxappServiceLogin({
-@todo WXAPI.payBill(wx.getStorageSync('token'), amount).then(function (res) {
+@todo 优惠 WXAPI.payBill(wx.getStorageSync('token'), amount).then(function (res) {
 @todo WXAPI.payBillDiscounts().then(res => {
 
 

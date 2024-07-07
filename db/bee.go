@@ -5,9 +5,11 @@ import (
 	config2 "gitee.com/stuinfer/bee-api/config"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"sync"
 )
 
 var instance *DB
+var once sync.Once
 
 type DB struct {
 	db *gorm.DB
@@ -34,5 +36,13 @@ func InitDB() error {
 }
 
 func GetDB() *gorm.DB {
+	once.Do(func() {
+		if instance != nil {
+			return
+		}
+		if err := InitDB(); err != nil {
+			panic(err)
+		}
+	})
 	return instance.db
 }

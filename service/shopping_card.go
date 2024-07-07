@@ -1,6 +1,7 @@
 package service
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"gitee.com/stuinfer/bee-api/common"
@@ -10,7 +11,6 @@ import (
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
 	"gitee.com/stuinfer/bee-api/util"
-	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
 	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
@@ -32,7 +32,7 @@ func GetShoppingCartSrv() *ShoppingCartSrv {
 	return shoppingCartSrvInstance
 }
 
-func (srv *ShoppingCartSrv) Add(c *gin.Context, goodsId int64, num int64, sku string, addition string) (*proto.ShoppingCartInfo, error) {
+func (srv *ShoppingCartSrv) Add(c context.Context, goodsId int64, num int64, sku string, addition string) (*proto.ShoppingCartInfo, error) {
 	uid := kit.GetUid(c)
 	goodsSkuList := make([]*proto.ShoppingCartGoodsSku, 0, 10)
 	err := json.Unmarshal([]byte(sku), &goodsSkuList)
@@ -85,7 +85,7 @@ func (srv *ShoppingCartSrv) Add(c *gin.Context, goodsId int64, num int64, sku st
 	return srv.ModifyNumber(c, uid, curSkuInCart.Key, curSkuInCart.Number+num)
 }
 
-func (srv *ShoppingCartSrv) GetShoppingCart(c *gin.Context, userId int64) (*proto.ShoppingCartInfo, error) {
+func (srv *ShoppingCartSrv) GetShoppingCart(c context.Context, userId int64) (*proto.ShoppingCartInfo, error) {
 	var cartList []*model.BeeShoppingCart
 	err := db.GetDB().Where("uid = ? and is_deleted =0", userId).Find(&cartList).Error
 	if err != nil {
@@ -103,7 +103,7 @@ func (srv *ShoppingCartSrv) GetShoppingCart(c *gin.Context, userId int64) (*prot
 		cart := cartList[i]
 		resp.Number = resp.Number + cart.Number
 		resp.Price = resp.Price.Add(cart.Price.Mul(decimal.NewFromInt(cart.Number)))
-		shopInfo, err := GetShopSrv().GetShopInfo(cart.ShopId)
+		shopInfo, err := GetShopSrv().GetShopInfo(c, cart.ShopId, 0, 0)
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			shopInfo = &model.BeeShopInfo{}
 		} else if err != nil {
@@ -149,7 +149,7 @@ func (srv *ShoppingCartSrv) GetShoppingCart(c *gin.Context, userId int64) (*prot
 	return resp, err
 }
 
-func (srv *ShoppingCartSrv) ModifyNumber(c *gin.Context, userId int64, key string, number int64) (*proto.ShoppingCartInfo, error) {
+func (srv *ShoppingCartSrv) ModifyNumber(c context.Context, userId int64, key string, number int64) (*proto.ShoppingCartInfo, error) {
 	var info model.BeeShoppingCart
 	err := db.GetDB().Where("uid = ? and `key` = ?", userId, key).Take(&info).Error
 	if err != nil {
@@ -164,7 +164,7 @@ func (srv *ShoppingCartSrv) ModifyNumber(c *gin.Context, userId int64, key strin
 	return srv.GetShoppingCart(c, userId)
 }
 
-func (srv *ShoppingCartSrv) Remove(c *gin.Context, key string) (*proto.ShoppingCartInfo, error) {
+func (srv *ShoppingCartSrv) Remove(c context.Context, key string) (*proto.ShoppingCartInfo, error) {
 	var info model.BeeShoppingCart
 	var uid = kit.GetUid(c)
 	err := db.GetDB().Where("uid = ? and `key` = ?", uid, key).Delete(&info).Error
@@ -174,7 +174,7 @@ func (srv *ShoppingCartSrv) Remove(c *gin.Context, key string) (*proto.ShoppingC
 	return srv.GetShoppingCart(c, uid)
 }
 
-func (srv *ShoppingCartSrv) Empty(c *gin.Context) (*proto.ShoppingCartInfo, error) {
+func (srv *ShoppingCartSrv) Empty(c context.Context) (*proto.ShoppingCartInfo, error) {
 	var info model.BeeShoppingCart
 	var uid = kit.GetUid(c)
 	err := db.GetDB().Where("uid = ?", uid).Delete(&info).Error

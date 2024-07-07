@@ -1,9 +1,9 @@
 package api
 
 import (
-	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/service"
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/cast"
 )
 
 type ScoreApi struct {
@@ -11,8 +11,7 @@ type ScoreApi struct {
 }
 
 func (api ScoreApi) SignLogs(c *gin.Context) {
-	userInfo := api.GetUserInfo(c)
-	list, err := service.GetScoreSrv().GetSignLogs(userInfo.UserId)
+	list, err := service.GetScoreSrv().GetSignLogs(c)
 	api.Res(c, list, err)
 }
 
@@ -23,10 +22,13 @@ func (api ScoreApi) Sign(c *gin.Context) {
 
 // WxaGroup 转发微信群赠送用户积分
 func (api ScoreApi) WxaGroup(c *gin.Context) {
-	//@todo
-	api.Res(c, "success", nil)
+	err := service.GetScoreSrv().WxaGroup(c)
+	api.Res(c, nil, err)
 }
 
 func (api ScoreApi) Logs(c *gin.Context) {
-	api.Res(c, nil, enum.ErrNotImplement)
+	page := cast.ToInt64(c.PostForm("page"))
+	pageSize := cast.ToInt64(c.PostForm("pageSize"))
+	res, err := service.GetScoreSrv().GetScoreLogs(c, page, pageSize)
+	api.Res(c, res, err)
 }

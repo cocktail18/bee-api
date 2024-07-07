@@ -1,11 +1,11 @@
 package service
 
 import (
+	"context"
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
-	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
 	"sync"
 )
@@ -111,11 +111,17 @@ func (srv *CouponSrv) getCoupon(id int64) (*model.BeeCoupon, error) {
 
 func (srv *CouponSrv) GetUserCoupon(userId, id int64) (*model.BeeUserCoupon, error) {
 	var data model.BeeUserCoupon
-	err := db.GetDB().Where("id=? and uid  =?", id, userId).Find(&data).Error
+	err := db.GetDB().Where("id=? and uid  =?", id, userId).Take(&data).Error
 	return &data, err
 }
 
-func (srv *CouponSrv) CouponDetail(c *gin.Context, id int64) (*proto.CouponDetailResp, error) {
+func (srv *CouponSrv) GetUserCouponByIds(c context.Context, userId int64, ids []int64) ([]*model.BeeUserCoupon, error) {
+	var data []*model.BeeUserCoupon
+	err := db.GetDB().Where("id in ? and uid  =?", ids, userId).Find(&data).Error
+	return data, err
+}
+
+func (srv *CouponSrv) CouponDetail(c context.Context, id int64) (*proto.CouponDetailResp, error) {
 	var couponDetail model.BeeCoupon
 
 	err := db.GetDB().Where("id=?", id).Find(&couponDetail).Error

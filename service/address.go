@@ -1,6 +1,7 @@
 package service
 
 import (
+	"context"
 	"gitee.com/stuinfer/bee-api/common"
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/enum"
@@ -8,7 +9,6 @@ import (
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
 	"gitee.com/stuinfer/bee-api/util"
-	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
 	"sync"
@@ -29,7 +29,7 @@ func GetAddressSrv() *AddressSrv {
 	return addressSrvInstance
 }
 
-func (srv *AddressSrv) SetDefault(c *gin.Context, uid int64, addressId int64) error {
+func (srv *AddressSrv) SetDefault(c context.Context, uid int64, addressId int64) error {
 	return db.GetDB().Transaction(func(tx *gorm.DB) error {
 		if err := tx.Model(&model.BeeUserAddress{}).Where("uid = ? and is_default = 1", uid).
 			Updates(map[string]interface{}{"is_default": 0}).Error; err != nil {
@@ -40,7 +40,7 @@ func (srv *AddressSrv) SetDefault(c *gin.Context, uid int64, addressId int64) er
 	})
 }
 
-func (srv *AddressSrv) AddAddress(c *gin.Context, address *model.BeeUserAddress) (*proto.UserAddressResp, error) {
+func (srv *AddressSrv) AddAddress(c context.Context, address *model.BeeUserAddress) (*proto.UserAddressResp, error) {
 	resp := &proto.UserAddressResp{}
 	regionDistrict, err := GetRegionSrv().GetRegion(address.DistrictId)
 	if err != nil {
@@ -83,7 +83,7 @@ func (srv *AddressSrv) AddAddress(c *gin.Context, address *model.BeeUserAddress)
 	return resp, nil
 }
 
-func (srv *AddressSrv) SaveAddress(c *gin.Context, address *model.BeeUserAddress) (*proto.UserAddressResp, error) {
+func (srv *AddressSrv) SaveAddress(c context.Context, address *model.BeeUserAddress) (*proto.UserAddressResp, error) {
 	var oldAddress model.BeeUserAddress
 	err := db.GetDB().Where("id = ? and uid = ?", address.Id, address.Uid).Take(&oldAddress).Error
 	if err != nil {
@@ -127,9 +127,9 @@ func (srv *AddressSrv) SaveAddress(c *gin.Context, address *model.BeeUserAddress
 	return resp, nil
 }
 
-func (srv *AddressSrv) ListAddress(userId int64) ([]*proto.UserAddressResp, error) {
+func (srv *AddressSrv) ListAddress(c context.Context) ([]*proto.UserAddressResp, error) {
 	var list []*model.BeeUserAddress
-	err := db.GetDB().Where("uid", userId).Find(&list).Error
+	err := db.GetDB().Where("uid = ? and is_deleted = 0", kit.GetUid(c)).Find(&list).Error
 	if err != nil {
 		return nil, err
 	}
@@ -166,9 +166,15 @@ func (srv *AddressSrv) ListAddress(userId int64) ([]*proto.UserAddressResp, erro
 	return resp, nil
 }
 
-func (srv *AddressSrv) GetAddress(userId int64, id int64) (*proto.UserAddressDetailResp, error) {
+func (srv *AddressSrv) GetAddressDto(c context.Context, userId int64, id int64) (*model.BeeUserAddress, error) {
 	var address model.BeeUserAddress
 	err := db.GetDB().Where("id = ? and uid = ?", id, userId).Take(&address).Error
+	return &address, err
+}
+
+func (srv *AddressSrv) GetAddress(c context.Context, id int64) (*proto.UserAddressDetailResp, error) {
+	var address model.BeeUserAddress
+	err := db.GetDB().Where("id = ? and uid = ?", id, kit.GetUid(c)).Take(&address).Error
 	if err != nil {
 		return nil, err
 	}
@@ -214,7 +220,7 @@ func (srv *AddressSrv) DeleteAddress(userId int64, id int64) error {
 	return db.GetDB().Where("id = ? and uid = ?", id, userId).Delete(&address).Error
 }
 
-func (srv *AddressSrv) Default(c *gin.Context) (*proto.UserAddressDetailResp, error) {
+func (srv *AddressSrv) Default(c context.Context) (*proto.UserAddressDetailResp, error) {
 	var address model.BeeUserAddress
 	uid := kit.GetUid(c)
 	err := db.GetDB().Where("is_default = 1 and uid = ?", uid).Take(&address).Error
@@ -224,5 +230,5 @@ func (srv *AddressSrv) Default(c *gin.Context) (*proto.UserAddressDetailResp, er
 	if err != nil {
 		return nil, err
 	}
-	return srv.GetAddress(uid, address.Id)
+	return srv.GetAddress(c, address.Id)
 }

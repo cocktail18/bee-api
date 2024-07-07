@@ -14,54 +14,44 @@ type OrderApi struct {
 }
 
 func (api OrderApi) List(c *gin.Context) {
-	userId := api.GetUserInfo(c).UserId
 	var req proto.ListOrderReq
 	if err := c.Bind(&req); err != nil {
 		api.Res(c, nil, err)
 		return
 	}
-	rsp, err := service.GetOrderSrv().List(c, userId, &req)
+	rsp, err := service.GetOrderSrv().List(c, &req)
 	api.Res(c, rsp, err)
 }
 
 func (api OrderApi) Create(c *gin.Context) {
 
-	goodsJsonStr := c.PostForm("goodsJsonStr")
-	remark := c.PostForm("remark")
-	peisongType := c.PostForm("peisongType")
-	isCanHx := cast.ToBool(c.PostForm("isCanHx"))
-	shopIdZt := cast.ToInt64(c.PostForm("shopIdZt"))
-	couponId := cast.ToInt64(c.PostForm("couponId"))
-	extJsonStr := c.PostForm("extJsonStr")
-	calculate := cast.ToBool(c.PostForm("calculate"))
-
-	orderGoodsList := make([]*proto.BeeOrderGoods, 0, 10)
-	err := json.Unmarshal([]byte(goodsJsonStr), &orderGoodsList)
-	if err != nil {
+	var req proto.CreateOrderReq
+	if err := c.Bind(&req); err != nil {
 		api.Res(c, nil, err)
 		return
 	}
-	resp, err := service.GetOrderSrv().Create(c, orderGoodsList, remark, peisongType, isCanHx, shopIdZt, couponId, extJsonStr, calculate)
+	resp, err := service.GetOrderSrv().Create(c, c.ClientIP(), &req)
 	api.Res(c, resp, err)
 }
 
 func (api OrderApi) Close(c *gin.Context) {
-	userId := api.GetUserInfo(c).UserId
 	orderId := cast.ToInt64(c.PostForm("orderId"))
-
-	err := service.GetOrderSrv().Close(userId, orderId, "用户主动关闭")
+	err := service.GetOrderSrv().Close(c, orderId, "用户主动关闭")
 	api.Res(c, nil, err)
 }
 
 func (api OrderApi) Pay(c *gin.Context) {
-	api.Res(c, nil, enum.ErrNotImplement)
+	orderId := c.PostForm("orderId") // 订单id, 多个订单之间用英文逗号分隔
+	smsCode := c.PostForm("smsCode") // 短信验证码
+	pwd := c.PostForm("pwd")         // 密码
+	err := service.GetOrderSrv().PayByBalance(c, c.ClientIP(), orderId, smsCode, pwd)
+	api.Res(c, nil, err)
 }
 
 func (api OrderApi) Delete(c *gin.Context) {
-	userId := api.GetUserInfo(c).UserId
 	orderId := cast.ToInt64(c.PostForm("orderId"))
 
-	err := service.GetOrderSrv().Delete(c, userId, orderId)
+	err := service.GetOrderSrv().Delete(c, orderId)
 	api.Res(c, nil, err)
 }
 
@@ -88,4 +78,16 @@ func (api OrderApi) Hx(c *gin.Context) {
 	hxNumber := c.PostForm("hxNumber")
 	err := service.GetOrderSrv().Hx(c, hxNumber)
 	api.Res(c, nil, err)
+}
+
+func (api OrderApi) Detail(c *gin.Context) {
+	hxNumber := c.PostForm("hxNumber")
+	orderId := c.PostForm("orderId")
+	peisongOrderId := c.PostForm("peisongOrderId")
+	if peisongOrderId != "" {
+		api.Res(c, nil, enum.ErrNotImplement)
+		return
+	}
+	rsp, err := service.GetOrderSrv().Detail(c, cast.ToInt64(orderId), hxNumber)
+	api.Res(c, rsp, err)
 }

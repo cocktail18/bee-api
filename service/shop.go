@@ -1,11 +1,11 @@
 package service
 
 import (
+	"context"
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
-	"github.com/gin-gonic/gin"
 	"github.com/samber/lo"
 	"sync"
 )
@@ -24,17 +24,17 @@ func GetShopSrv() *ShopSrv {
 	return shopSrvInstance
 }
 
-func (srv *ShopSrv) GetShopInfo(id int64) (*model.BeeShopInfo, error) {
+func (srv *ShopSrv) GetShopInfo(c context.Context, id int64, lat, lon float64) (*model.BeeShopInfo, error) {
 	var info = &model.BeeShopInfo{}
-	err := db.GetDB().Where("id", id).Take(info).Error
+	err := db.GetDB().Where("id = ? and user_id = ?", id, kit.GetUserId(c)).Take(info).Error
 	if err != nil {
 		return nil, err
 	}
-	info.FillData(39.9042, 116.4074)
+	info.FillData(lat, lon)
 	return info, err
 }
 
-func (srv *ShopSrv) List(c *gin.Context, req *proto.ListShopReq) (proto.ListShopResp, error) {
+func (srv *ShopSrv) List(c context.Context, req *proto.ListShopReq) (proto.ListShopResp, error) {
 	var infos []*model.BeeShopInfo
 	err := db.GetDB().Where("user_id = ?", kit.GetUserId(c)).Find(&infos).Error
 	if err != nil {

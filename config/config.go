@@ -12,8 +12,9 @@ type AppConfig struct {
 	Default *DefaultConfig
 }
 type App struct {
-	Listen  string
-	DfsHost string
+	Listen       string
+	DfsHost      string
+	PayNotifyUrl string
 }
 
 type DefaultConfig struct {

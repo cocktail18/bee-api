@@ -2,7 +2,6 @@
 
 #### 介绍
 bee-api
-项目：https://github.com/woniudiancang/bee 的后端
 
 #### 软件架构
 软件架构说明
@@ -10,10 +9,9 @@ bee-api
 
 #### 安装教程
 
-1.  安装go 1.22
-2.  安装mysql or mariadb
-3.  复制配置config.yml.demo 为 config.yml
-4.  启动 go run main.go
+1.  xxxx
+2.  xxxx
+3.  xxxx
 
 #### 使用说明
 

@@ -1,13 +1,14 @@
 package service
 
 import (
+	"context"
 	"gitee.com/stuinfer/bee-api/common"
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
-	"github.com/gin-gonic/gin"
+	"gitee.com/stuinfer/bee-api/util"
 	"gorm.io/gorm"
 	"sync"
 	"time"
@@ -27,7 +28,7 @@ func GetCyTableSrv() *CyTableSrv {
 	return cyTableSvcInstance
 }
 
-func (s CyTableSrv) Token(c *gin.Context, tableId int64, key string) (*proto.CyTableTokenResp, error) {
+func (s CyTableSrv) Token(c context.Context, tableId int64, key string) (*proto.CyTableTokenResp, error) {
 	var info model.BeeCyTable
 	if err := model.DecryptCyTableData(key, &info); err != nil {
 		return nil, err
@@ -35,7 +36,7 @@ func (s CyTableSrv) Token(c *gin.Context, tableId int64, key string) (*proto.CyT
 	if info.Id != tableId {
 		return nil, enum.ErrParamError
 	}
-	resp, err := GetUserSrv().CreateUserToken(c, info.UserId, info.Uid, "")
+	resp, err := GetUserSrv().CreateUserToken(c, info.UserId, info.Uid, "", "")
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +44,7 @@ func (s CyTableSrv) Token(c *gin.Context, tableId int64, key string) (*proto.CyT
 }
 
 // CreateToken 扫码点餐需要一个虚拟用户token
-func (s CyTableSrv) CreateToken(c *gin.Context, info *model.BeeCyTable) (string, error) {
+func (s CyTableSrv) CreateToken(c context.Context, info *model.BeeCyTable) (string, error) {
 	// 创建一个虚拟用户
 	vUser := &model.BeeUser{
 		BaseModel: common.BaseModel{
@@ -52,7 +53,7 @@ func (s CyTableSrv) CreateToken(c *gin.Context, info *model.BeeCyTable) (string,
 		IsVirtual: true,
 	}
 	if err := db.GetDB().Transaction(func(tx *gorm.DB) error {
-		if err := GetUserSrv().CreateUser(tx, vUser); err != nil {
+		if err := GetUserSrv().CreateUser(c, tx, vUser); err != nil {
 			return err
 		}
 		info.Uid = vUser.Id
@@ -70,12 +71,19 @@ func (s CyTableSrv) CreateToken(c *gin.Context, info *model.BeeCyTable) (string,
 	return key, nil
 }
 
-func (s CyTableSrv) AddOrder(c *gin.Context, goods []*proto.BeeOrderGoods) error {
+func (s CyTableSrv) AddOrder(c context.Context, ip string, goods []*proto.BeeOrderGoods) error {
 	//@todo 参数校验，增加桌号信息
 	var cyTable model.BeeCyTable
 	if err := db.GetDB().Where("uid = ? and is_deleted=0", kit.GetUid(c)).Take(&cyTable).Error; err != nil {
 		return err
 	}
-	_, err := GetOrderSrv().Create(c, goods, "", "", true, 0, 0, "", false)
+	req := &proto.CreateOrderReq{
+		GoodsJsonStr: util.ToJsonWithoutErr(goods, "[]"),
+		PeisongType:  "zq",
+		ShopIdZt:     cyTable.ShopId,
+		TableNum:     cyTable.TableNum,
+		GoodsType:    "0",
+	}
+	_, err := GetOrderSrv().Create(c, ip, req)
 	return err
 }
