@@ -2,6 +2,8 @@
 
 #### 介绍
 bee-api
+项目：https://github.com/woniudiancang/bee 的后端
+对应的后台管理系统：https://github.com/cocktail18/bee-simple-admin   注意，分支是：bee-shop, main 分支是用来同步 gva 的
 
 #### 软件架构
 软件架构说明
@@ -9,9 +11,10 @@ bee-api
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  安装go 1.22
+2.  安装mysql or mariadb
+3.  复制配置config.yml.demo 为 config.yml
+4.  启动 go run main.go
 
 #### 使用说明
 
