@@ -11,7 +11,7 @@ subDomain: cocktailBeeOrder
 
 管理后台在线体验地址：
 http://bee-admin.fbsst.top/
-账号：admin  密码：123456
+账号：bee-demo  密码：123456
 
 #### 软件架构
 软件架构说明
