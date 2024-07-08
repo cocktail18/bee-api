@@ -5,6 +5,14 @@ bee-api
 项目：https://github.com/woniudiancang/bee 的后端
 对应的后台管理系统：https://github.com/cocktail18/bee-simple-admin   注意，分支是：bee-shop, main 分支是用来同步 gva 的
 
+api 在线体验地址：
+https://bee.fbsst.top/
+subDomain: cocktailBeeOrder
+
+管理后台在线体验地址：
+http://bee-admin.fbsst.top/
+账号：admin  密码：123456
+
 #### 软件架构
 软件架构说明
 
@@ -15,6 +23,8 @@ bee-api
 2.  安装mysql or mariadb
 3.  复制配置config.yml.demo 为 config.yml
 4.  启动 go run main.go
+5.  将小程序的 config.js 的 subDomain 改成对应的subDomain, 默认是 cocktailBeeOrder
+6.  将小程序的 miniprogram_npm/apifm-wxapi/index.js 的 API_BASE_URL 改为对应的域名， 默认开发环境：http://127.0.0.1:8081
 
 #### 使用说明
 
