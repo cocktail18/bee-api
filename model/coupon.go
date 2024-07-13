@@ -11,7 +11,7 @@ import (
 type BeeUserCoupon struct {
 	common.BaseModel
 	Uid           int64                `gorm:"column:uid;type:bigint(20);comment:用户id" json:"uid"`
-	DateStart     time.Time            `gorm:"column:date_start;type:datetime(3);comment:可以使用时间" json:"dateStart"`
+	DateStart     common.JsonTime      `gorm:"column:date_start;type:datetime(3);comment:可以使用时间" json:"dateStart"`
 	ExpiryMillis  int64                `gorm:"column:expiry_millis;type:bigint(11);comment:过期时间（毫秒）" json:"expiryMillis"`
 	Money         decimal.Decimal      `gorm:"column:money;type:decimal(20,2);comment:金额" json:"money"`
 	MoneyHreshold decimal.Decimal      `gorm:"column:money_hreshold;type:bigint(11);comment:满xx可用" json:"moneyHreshold"`
@@ -32,10 +32,14 @@ func (m *BeeUserCoupon) TableName() string {
 
 func (m *BeeUserCoupon) CanUse(amount decimal.Decimal) bool {
 	now := time.Now()
-	if !(m.DateStart.After(now) && m.DateStart.Add(time.Millisecond*time.Duration(m.ExpiryMillis)).After(now)) {
+	dateStart := time.Time(m.DateStart)
+	if amount.LessThanOrEqual(decimal.Zero) {
 		return false
 	}
-	if amount.LessThan(m.MoneyHreshold) {
+	if !(now.After(dateStart) && time.UnixMilli(m.ExpiryMillis).After(now)) {
+		return false
+	}
+	if amount.LessThan(m.MoneyHreshold) && !m.MoneyHreshold.Equal(decimal.Zero) {
 		return false
 	}
 	if m.Status != enum.CouponStatusNormal {
@@ -46,14 +50,14 @@ func (m *BeeUserCoupon) CanUse(amount decimal.Decimal) bool {
 
 func (m *BeeUserCoupon) IsExpire() bool {
 	now := time.Now()
-	return m.DateStart.Add(time.Millisecond * time.Duration(m.ExpiryMillis)).Before(now)
+	return time.UnixMilli(m.ExpiryMillis).Before(now)
 }
 
 // 优惠券
 type BeeCoupon struct {
 	common.BaseModel
 	BatchSendUid         int64                  `gorm:"column:batch_send_uid;type:bigint(11);comment:批量" json:"batchSendUid"`
-	DateEndDays          int64                  `gorm:"column:date_end_days;type:bigint(11);comment:第n天失效" json:"dateEndDays"`
+	DateEndDays          int                    `gorm:"column:date_end_days;type:int(11);comment:第n天失效" json:"dateEndDays"`
 	DateEnd              common.JsonTime        `gorm:"column:date_end;type:datetime(3);comment:失效日期" json:"dateEnd"`
 	DateEndType          enum.CouponDateEndType `gorm:"column:date_end_type;type:bigint(11);comment:失效类型，1n天后失效，0指定" json:"dateEndType"`
 	DateStart            common.JsonTime        `gorm:"column:date_start;type:datetime(3);comment:生效日期;NOT NULL" json:"dateStart"`
@@ -62,7 +66,7 @@ type BeeCoupon struct {
 	MoneyHreshold        decimal.Decimal        `gorm:"column:money_hreshold;type:decimal(20,2);comment:满xx可用" json:"moneyHreshold"`
 	MoneyMax             decimal.Decimal        `gorm:"column:money_max;type:decimal(20,2);comment:优惠券最大金额" json:"moneyMax"`
 	MoneyMin             decimal.Decimal        `gorm:"column:money_min;type:decimal(20,2);comment:优惠券最小金额" json:"moneyMin"`
-	MoneyType            int                    `gorm:"column:money_type;type:bigint(11);comment:类型，1满xx，2折扣" json:"moneyType"`
+	MoneyType            enum.CouponMoneyType   `gorm:"column:money_type;type:bigint(11);comment:类型，1满xx，2折扣" json:"moneyType"`
 	Name                 string                 `gorm:"column:name;type:varchar(100);comment:优惠券名字" json:"name"`
 	NeedAmount           decimal.Decimal        `gorm:"column:need_amount;type:decimal(20,2);comment:需要支付" json:"needAmount"`
 	NeedScore            decimal.Decimal        `gorm:"column:need_score;type:decimal(20,2);comment:需要积分" json:"needScore"`
@@ -84,4 +88,17 @@ type BeeCoupon struct {
 
 func (m *BeeCoupon) TableName() string {
 	return "bee_coupon"
+}
+
+type BeeUserCouponLog struct {
+	common.BaseModel
+	CouponId int64              `gorm:"column:coupon_id;type:bigint(11);comment:优惠券id" json:"couponId"`
+	Uid      int64              `gorm:"column:uid;type:bigint(11);comment:用户id" json:"uid"`
+	Uniq     string             `gorm:"column:uniq;type:varchar(100);comment:唯一值去重" json:"uniq"`
+	Remark   string             `gorm:"column:remark;type:varchar(100);comment:备注" json:"remark"`
+	Type     enum.CouponLogType `gorm:"column:type;type:bigint(11);comment:类型，1发放，2使用" json:"type"`
+}
+
+func (m *BeeUserCouponLog) TableName() string {
+	return "bee_user_coupon_log"
 }

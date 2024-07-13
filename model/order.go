@@ -172,6 +172,7 @@ type BeeOrderLog struct {
 	OrderId int64             `gorm:"column:order_id;type:bigint(100);comment:订单id" json:"orderId"`
 	Type    enum.OrderLogType `gorm:"column:type;type:bigint(11);comment:类型" json:"type"`
 	TypeStr string            `gorm:"-" json:"typeStr"`
+	Remark  string            `gorm:"column:remark;type:varchar(100);comment:备注" json:"remark"`
 }
 
 func (b *BeeOrderLog) TableName() string {

@@ -14,6 +14,10 @@ type MyQueueLog struct {
 	Name      string `json:"name"`
 }
 
+func (log *MyQueueLog) FillData() {
+	log.StatusStr = enum.BeeUserQueueStatusMap[log.Status]
+}
+
 type MyQueuingUpType struct {
 	CurNumber int64 `json:"curNumber"`
 	Minitus   int64 `json:"minitus"`

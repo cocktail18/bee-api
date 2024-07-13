@@ -40,7 +40,7 @@ func (srv *ScoreSrv) Sign(c context.Context) error {
 		return err
 	} else {
 		addDate := carbon.CreateFromStdTime(time.Time(last.DateAdd))
-		if addDate.ToDateString() == carbon.Now().ToDateString() {
+		if addDate.ToDateString() == carbon.Now().AddDays(-1).ToDateString() {
 			continues = last.Continues + 1
 		}
 	}
@@ -79,6 +79,18 @@ func (srv *ScoreSrv) GetSignLogs(c context.Context) ([]*model.BeeSignLog, error)
 		return nil, err
 	}
 	return list, nil
+}
+
+func (srv *ScoreSrv) GetLastSignLog(c context.Context) (*model.BeeSignLog, error) {
+	var item = &model.BeeSignLog{}
+	err := db.GetDB().Where("uid=? ", kit.GetUid(c)).Order("date_add desc").Take(item).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, nil
+	}
+	if err != nil {
+		return nil, err
+	}
+	return item, nil
 }
 
 func (srv *ScoreSrv) sameDay(t1, t2 time.Time) bool {

@@ -3,11 +3,10 @@ package service
 import (
 	"context"
 	"gitee.com/stuinfer/bee-api/db"
-	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/model"
-	"github.com/pkg/errors"
+	"gitee.com/stuinfer/bee-api/proto"
+	"gitee.com/stuinfer/bee-api/util"
 	"github.com/samber/lo"
-	"gorm.io/gorm"
 	"sync"
 )
 
@@ -31,69 +30,58 @@ func (srv *FreightTplSrv) GetBeeLogisticsDtoByIds(c context.Context, logisticsId
 	if err != nil {
 		return nil, err
 	}
-	var details []*model.BeeLogisticsDetail
-	err = db.GetDB().Where("logistics_id in ?", logisticsIds).Take(&details).Error
-	if err != nil {
-		return nil, err
-	}
-	var exceptions []*model.BeeShopLogisticsException
-	err = db.GetDB().Where("logistics_id in ?", logisticsIds).Find(&exceptions).Error
-	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, err
-	}
-	var freeShipping []*model.BeeShopLogisticsFreeShipping
-	err = db.GetDB().Where("logistics_id in ?", logisticsIds).Find(&freeShipping).Error
-	if err != nil {
-		return nil, err
-	}
 
-	detailById := lo.GroupBy(details, func(item *model.BeeLogisticsDetail) int64 {
-		return item.LogisticsId
-	})
-	exceptionsById := lo.GroupBy(exceptions, func(item *model.BeeShopLogisticsException) int64 {
-		return item.LogisticsId
-	})
-	freeShippingById := lo.GroupBy(freeShipping, func(item *model.BeeShopLogisticsFreeShipping) int64 {
-		return item.LogisticsId
-	})
 	lo.ForEach(tpls, func(item *model.BeeLogistics, _ int) {
-		item.Details = detailById[item.Id]
-		exceptionsByDetails := lo.GroupBy(exceptionsById[item.Id], func(item *model.BeeShopLogisticsException) int64 {
-			return item.DetailId
-		})
-		lo.ForEach(item.Details, func(item *model.BeeLogisticsDetail, _ int) {
-			item.Exceptions = exceptionsByDetails[item.Id]
-		})
-		item.FreeShippings = freeShippingById[item.Id]
+		var details []*model.BeeLogisticsDetail
+		var freeShipping []*model.BeeShopLogisticsFreeShipping
+		_ = util.UnmarshalJson(item.DetailsJsonStr, &details)
+		_ = util.UnmarshalJson(item.FreeShippingSetting, &freeShipping)
+		item.Details = details
+		item.FreeShippings = freeShipping
 	})
 	return tpls, nil
 }
 
-func (srv *FreightTplSrv) GetBeeLogistics(c context.Context, logisticsId int64, regionId string) (*model.BeeLogistics, error) {
-	var tpl model.BeeLogistics
-	err := db.GetDB().Where("id", logisticsId).Take(&tpl).Error
+func (srv *FreightTplSrv) GetBeeLogistics(c context.Context, logisticsId int64, regionId string) (*proto.GoodsLogistics, error) {
+	tpls, err := srv.GetBeeLogisticsDtoByIds(c, []int64{logisticsId})
 	if err != nil {
 		return nil, err
 	}
-	var detail model.BeeLogisticsDetail
-	err = db.GetDB().Where("logistics_id", tpl.Id).Take(&detail).Error
-	if err != nil {
-		return nil, err
+	if len(tpls) == 0 {
+		return nil, nil
 	}
-	var exceptions []*model.BeeShopLogisticsException
-	err = db.GetDB().Where("logistics_id", tpl.Id).Find(&exceptions).Error
-	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, err
+	tpl := tpls[0]
+	resp := &proto.GoodsLogistics{
+		IsFree:  tpl.IsFree,
+		FeeType: tpl.FeeType,
+		Details: make([]*proto.GoodsLogisticsDetail, 0),
 	}
-	var freeShipping []*model.BeeShopLogisticsFreeShipping
-	err = db.GetDB().Where("logistics_id", tpl.Id).Find(&freeShipping).Error
-	if err != nil {
-		return nil, err
+	var defaultDetail *proto.GoodsLogisticsDetail
+	resp.Details = lo.FilterMap(tpl.Details, func(item *model.BeeLogisticsDetail, _ int) (*proto.GoodsLogisticsDetail, bool) {
+		if item.Default {
+			defaultDetail = &proto.GoodsLogisticsDetail{
+				FirstAmount: item.FirstAmount,
+				FirstNumber: item.FirstNumber,
+				AddAmount:   item.AddAmount,
+				AddNumber:   item.AddNumber,
+				Type:        item.Type,
+			}
+			return nil, false
+		}
+		if lo.Contains(item.CityIds, regionId) {
+			return &proto.GoodsLogisticsDetail{
+				FirstAmount: item.FirstAmount,
+				FirstNumber: item.FirstNumber,
+				AddAmount:   item.AddAmount,
+				AddNumber:   item.AddNumber,
+				Type:        item.Type,
+			}, true
+		}
+		return nil, false
+	})
+	if len(resp.Details) <= 0 {
+		resp.Details = append(resp.Details, defaultDetail)
 	}
-	resp := &model.BeeLogistics{}
-	resp.FeeType = tpl.FeeType
-	resp.IsFree = tpl.IsFree
-	resp.FeeTypeStr = enum.BeeGoodsFeeTypeMap[resp.FeeType]
-	resp.Details = make([]*model.BeeLogisticsDetail, 0)
+	resp.FillData()
 	return resp, nil
 }

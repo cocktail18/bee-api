@@ -15,10 +15,18 @@ type BeeQueue struct {
 	Status    enum.BeeQueueStatus `gorm:"column:status;type:int(10);comment:状态" json:"status"`
 }
 
+func (m *BeeQueue) TableName() string {
+	return "bee_queue"
+}
+
 type BeeUserQueue struct {
 	common.BaseModel
 	Uid     int64                   `gorm:"column:uid;type:bigint(20)" json:"uid"`
 	QueueId int64                   `gorm:"column:queue_id;type:bigint(20)" json:"queueId"`
 	Number  int64                   `gorm:"column:number;type:bigint(20)" json:"number"`
 	Status  enum.BeeUserQueueStatus `gorm:"column:status;type:int(10);comment:状态" json:"status"`
+}
+
+func (m *BeeUserQueue) TableName() string {
+	return "bee_user_queue"
 }

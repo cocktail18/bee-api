@@ -41,7 +41,7 @@ func (api DiscountsApi) Fetch(c *gin.Context) {
 	//@todo 领取优惠券
 	userInfo := api.GetUserInfo(c)
 	id := cast.ToInt64(c.Query("id"))
-	err := service.GetCouponSrv().FetchCoupon(userInfo, id)
+	err := service.GetCouponSrv().FetchCoupon(c, userInfo, id)
 	api.Res(c, "success", err)
 	//api.Fail(c, 30001, "user score is not enough") //积分不足
 }

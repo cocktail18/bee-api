@@ -8,6 +8,7 @@ import (
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
+	"gitee.com/stuinfer/bee-api/util"
 	"github.com/samber/lo"
 	"gorm.io/gorm/clause"
 	"reflect"
@@ -46,6 +47,9 @@ var beeCmsInfoStr string
 
 //go:embed demo/bee_user_level.json
 var beeLevelStr string
+
+//go:embed demo/bee_queue.json
+var beeQueueStr string
 
 func (srv *UserSrv) InitBeeData(userId int64) error {
 	beeConfigArr := make([]*model.BeeConfig, 0)
@@ -90,6 +94,11 @@ func (srv *UserSrv) InitBeeData(userId int64) error {
 
 	beeLevelArr := make([]*model.BeeLevel, 0)
 	if err := initDbData(userId, beeLevelArr, beeLevelStr); err != nil {
+		return err
+	}
+
+	beeQueueArr := make([]*model.BeeQueue, 0)
+	if err := initDbData(userId, beeQueueArr, beeQueueStr); err != nil {
 		return err
 	}
 
@@ -151,17 +160,18 @@ func initBeeShopGoodsDetail(userId int64) error {
 		}
 
 		//运费
-		beeShopGoodsDetail.Logistics.Id = baseInfo.LogisticsId
-		beeShopGoodsDetail.Logistics.UserId = userId
+		logisticsModel := &model.BeeLogistics{
+			BaseModel: *kit.GetInsertBaseModelWithUserId(userId),
+		}
+		logisticsModel.Id = baseInfo.LogisticsId
+		logisticsModel.UserId = userId
+		logisticsModel.FeeType = beeShopGoodsDetail.Logistics.FeeType
+		logisticsModel.IsFree = true
+		logisticsModel.DetailsJsonStr = util.ToJsonWithoutErr(beeShopGoodsDetail.Logistics.Details, "")
+		logisticsModel.FreeShippingSetting = "[]"
+
 		if err := db.GetDB().Clauses(clause.OnConflict{DoNothing: true}).Create(beeShopGoodsDetail.Logistics).Error; err != nil {
 			return err
-		}
-		for _, logisticsDetail := range beeShopGoodsDetail.Logistics.Details {
-			logisticsDetail.LogisticsId = beeShopGoodsDetail.Logistics.Id
-			logisticsDetail.BaseModel = *kit.GetInsertBaseModelWithUserId(userId)
-			if err := db.GetDB().Clauses(clause.OnConflict{DoNothing: true}).Create(logisticsDetail).Error; err != nil {
-				return err
-			}
 		}
 
 		for _, beeShopGoodsProp := range beeShopGoodsDetail.Properties {

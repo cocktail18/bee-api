@@ -147,25 +147,27 @@ type GetOrderListResp struct {
 }
 
 type CreateOrderResp struct {
-	AmountLogistics     int               `json:"amountLogistics"`
-	Amount              decimal.Decimal   `json:"amount"`     //货款
-	AmountReal          decimal.Decimal   `json:"amountReal"` //实际需要支付金额
-	AmountTax           int               `json:"amountTax"`
-	AmountTaxGst        int               `json:"amountTaxGst"`
-	AmountTaxService    int               `json:"amountTaxService"`
-	AmountTotle         decimal.Decimal   `json:"amountTotle"`         //扣除积分、余额前的金额
-	AmountTotleOriginal decimal.Decimal   `json:"amountTotleOriginal"` //优惠前商品金额
-	AmountCoupons       decimal.Decimal   `json:"amountCoupons"`       //优惠券抵扣金额
-	CouponAmount        decimal.Decimal   `json:"couponAmount"`        //优惠券抵扣金额
-	CouponId            []int64           `json:"couponId"`
-	CouponUserList      []*UserCouponResp `json:"couponUserList"`
-	DeductionMoney      int               `json:"deductionMoney"`
-	DeductionScore      int               `json:"deductionScore"`
-	FreightScore        int               `json:"freightScore"`
-	GoodsNumber         int64             `json:"goodsNumber"`
-	IsNeedLogistics     bool              `json:"isNeedLogistics"`
-	Overseas            bool              `json:"overseas"`
-	Score               int               `json:"score"`
+	OrderId                int64             `json:orderId`
+	Amount                 decimal.Decimal   `json:"amount"`     //货款
+	AmountReal             decimal.Decimal   `json:"amountReal"` //实际需要支付金额
+	AmountTax              int               `json:"amountTax"`
+	AmountTaxGst           int               `json:"amountTaxGst"`
+	AmountTaxService       int               `json:"amountTaxService"`
+	AmountTotle            decimal.Decimal   `json:"amountTotle"`            //扣除积分、余额前的金额
+	AmountTotleOriginal    decimal.Decimal   `json:"amountTotleOriginal"`    //优惠前商品金额
+	AmountCoupons          decimal.Decimal   `json:"amountCoupons"`          //优惠券抵扣金额
+	AmountLogistics        decimal.Decimal   `json:"amountLogistics"`        //运费原价
+	AmountLogisticsReal    decimal.Decimal   `json:"amountLogisticsReal"`    //真实运费金额
+	AmountLogisticsCoupons decimal.Decimal   `json:"amountLogisticsCoupons"` //优惠券抵扣运费金额
+	CouponId               []int64           `json:"couponId"`
+	CouponUserList         []*UserCouponResp `json:"couponUserList"`
+	DeductionMoney         int               `json:"deductionMoney"`
+	DeductionScore         int               `json:"deductionScore"`
+	FreightScore           int               `json:"freightScore"`
+	GoodsNumber            int64             `json:"goodsNumber"`
+	IsNeedLogistics        bool              `json:"isNeedLogistics"`
+	Overseas               bool              `json:"overseas"`
+	Score                  int               `json:"score"`
 }
 
 type ListOrderResp struct {

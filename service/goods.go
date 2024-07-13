@@ -73,7 +73,6 @@ func (srv *GoodsSrv) GetGoodsDetail(c context.Context, id int64, regionId string
 	if err != nil {
 		return nil, err
 	}
-	//@todo 匹配运费模板
 	resp.BasicInfo = &goods
 	resp.Category = &category
 	resp.Content = content.Content

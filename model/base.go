@@ -15,6 +15,7 @@ var AllModel = []interface{}{
 	&BeeConfig{},
 	&BeeCoupon{},
 	&BeeUserCoupon{},
+	&BeeUserCouponLog{},
 	&BeeCyTable{},
 	&BeeUploadFile{},
 	&BeePeiSong{},
@@ -25,9 +26,6 @@ var AllModel = []interface{}{
 	&BeeShopGoodsContent{},
 	&BeeShopGoodsAddition{},
 	&BeeLogistics{},
-	&BeeLogisticsDetail{},
-	&BeeShopLogisticsFreeShipping{},
-	&BeeShopLogisticsException{},
 	&BeeNotice{},
 	&BeeOrder{},
 	&BeeOrderGoods{},
@@ -84,6 +82,6 @@ func InitDB() {
 }
 
 func InitDemoData() error {
-	//db.GetDB().Create()
+	//db.GetDB().CreateOrder()
 	return nil
 }

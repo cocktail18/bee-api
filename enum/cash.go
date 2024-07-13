@@ -14,6 +14,11 @@ var BeeCashLogTypeMap = map[BeeCashLogType]string{
 	BeeCashLogTypePayExchange: "积分兑换",
 }
 
+var BeeCashLogBehaviorMap = map[BeeCashLogBehavior]string{
+	BeeCashLogBehaviorIncome:  "收入",
+	BeeCashLogBehaviorConsume: "支出",
+}
+
 const (
 	BeeCashLogBehaviorIncome  BeeCashLogBehavior = 0
 	BeeCashLogBehaviorConsume BeeCashLogBehavior = 1

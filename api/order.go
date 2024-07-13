@@ -30,7 +30,7 @@ func (api OrderApi) Create(c *gin.Context) {
 		api.Res(c, nil, err)
 		return
 	}
-	resp, err := service.GetOrderSrv().Create(c, c.ClientIP(), &req)
+	resp, err := service.GetOrderSrv().CreateOrder(c, c.ClientIP(), &req)
 	api.Res(c, resp, err)
 }
 

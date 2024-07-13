@@ -3,6 +3,7 @@ package enum
 type CouponStatus int8
 type CouponMoneyType int32
 type CouponDateEndType int32
+type CouponLogType int32
 
 const (
 	CouponStatusNormal CouponStatus = 0
@@ -14,6 +15,9 @@ const (
 
 	CouponDateEndTypeFixed CouponDateEndType = 0 //指定日期过期
 	CouponDateEndTypeDelay CouponDateEndType = 1 //几天后过期
+
+	CouponLogTypeReceive CouponLogType = 1
+	CouponLogTypeConsume CouponLogType = 2
 )
 
 var CouponStatusMap = map[CouponStatus]string{

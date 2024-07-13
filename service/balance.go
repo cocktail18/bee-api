@@ -48,10 +48,13 @@ func (srv *BalanceSrv) balanceType2field(t enum.BalanceType) string {
 	panic("未定义的财产类型")
 }
 
-func (srv *BalanceSrv) OperAmount(c context.Context, userId int64, amountType enum.BalanceType, num decimal.Decimal, orderId string, mark string, extraTx ...func(tx *gorm.DB) error) (*model.BeeUserAmount, error) {
-	var amount model.BeeUserAmount
-
-	err := db.GetDB().Transaction(func(tx *gorm.DB) error {
+func (srv *BalanceSrv) OperAmountByTx(c context.Context, tx *gorm.DB, userId int64, amountType enum.BalanceType, num decimal.Decimal, orderId string, mark string, extraTx ...func(tx *gorm.DB) error) (*model.BeeUserAmount, error) {
+	shouldCommit := false
+	if tx == nil {
+		tx = db.GetDB().Begin()
+		shouldCommit = true
+	}
+	err := func() error {
 		field := srv.balanceType2field(amountType)
 		if num.IsZero() {
 			// 没发生改变
@@ -81,6 +84,19 @@ func (srv *BalanceSrv) OperAmount(c context.Context, userId int64, amountType en
 			Uid:         userId,
 			Mark:        mark,
 		}).Error
-	})
-	return &amount, err
+	}()
+	if err != nil {
+		if shouldCommit {
+			tx.Rollback()
+		}
+		return nil, err
+	}
+	if shouldCommit {
+		tx.Commit()
+	}
+	return srv.GetAmount(userId)
+}
+
+func (srv *BalanceSrv) OperAmount(c context.Context, userId int64, amountType enum.BalanceType, num decimal.Decimal, orderId string, mark string, extraTx ...func(tx *gorm.DB) error) (*model.BeeUserAmount, error) {
+	return srv.OperAmountByTx(c, nil, userId, amountType, num, orderId, mark, extraTx...)
 }

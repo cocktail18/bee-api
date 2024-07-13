@@ -45,7 +45,7 @@ func (srv *TokenSrv) CreateToken(c context.Context, uid int64, sessionKey string
 	info.Uid = uid
 	info.SessionKey = sessionKey
 	info.BaseModel = *kit.GetInsertBaseModel(c)
-	info.ExpireAt = time.Now().Add(time.Hour * 24 * 10).Unix()
+	info.ExpireAt = time.Now().Add(time.Hour * 1).Unix()
 	err := db.GetDB().Create(&info).Error
 	return info.Token, err
 }

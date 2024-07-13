@@ -8,3 +8,7 @@ const (
 
 	BeeUserStatusNormal BeeUserStatus = 0
 )
+
+var BeeUserSourceMap = map[BeeUserSource]string{
+	BeeUserSourceWx: "微信",
+}

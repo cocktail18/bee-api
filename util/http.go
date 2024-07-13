@@ -3,9 +3,14 @@ package util
 import (
 	"github.com/imroc/req/v3"
 	jsoniter "github.com/json-iterator/go"
+	"github.com/json-iterator/go/extra"
 	"github.com/samber/lo"
 	"time"
 )
+
+func init() {
+	extra.RegisterFuzzyDecoders()
+}
 
 var defaultHttpClient = req.C().SetTimeout(time.Second * 3)
 
@@ -32,4 +37,8 @@ func ToJson(data interface{}) (string, error) {
 		return "", err
 	}
 	return string(b), nil
+}
+
+func UnmarshalJson(jsonStr string, data interface{}) error {
+	return jsoniter.Unmarshal([]byte(jsonStr), data)
 }

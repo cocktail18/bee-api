@@ -1,0 +1,17 @@
+[{
+  "id": 1,
+  "userId": 100,
+  "isDeleted": false,
+  "dateAdd": "0001-01-01 00:00:00",
+  "dateUpdate": "0001-01-01 00:00:00",
+  "dateDelete": {
+    "Time": "0001-01-01T00:00:00Z",
+    "Valid": false
+  },
+  "name": "取号测试",
+  "curNumber": 0,
+  "numberGet": 0,
+  "maxNumber": 100,
+  "minutes": 1,
+  "status": 0
+}]

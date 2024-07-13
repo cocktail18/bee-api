@@ -84,6 +84,6 @@ func (s CyTableSrv) AddOrder(c context.Context, ip string, goods []*proto.BeeOrd
 		TableNum:     cyTable.TableNum,
 		GoodsType:    "0",
 	}
-	_, err := GetOrderSrv().Create(c, ip, req)
+	_, err := GetOrderSrv().CreateOrder(c, ip, req)
 	return err
 }

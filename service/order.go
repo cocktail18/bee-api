@@ -19,7 +19,6 @@ import (
 	"github.com/spf13/cast"
 	"gorm.io/gorm"
 	"math"
-	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -37,6 +36,13 @@ func GetOrderSrv() *OrderSrv {
 		orderSrvInstance = &OrderSrv{}
 	})
 	return orderSrvInstance
+}
+
+type LogisticsItem struct {
+	LogisticsId int64
+	Amount      decimal.Decimal
+	Num         decimal.Decimal
+	Weight      decimal.Decimal
 }
 
 func (s OrderSrv) Close(c context.Context, orderId int64, remark string) error {
@@ -91,7 +97,7 @@ func (s OrderSrv) Close(c context.Context, orderId int64, remark string) error {
 	})
 }
 
-// Create 生成订单
+// CreateOrder 生成订单
 // token: 2139988c3b3611ef857c0a2c448f23fc
 // goodsJsonStr: [{"propertyChildIds":",211245:1686933,211246:1686935,211247:1686938","goodsId":1808569,"number":1,"logisticsType":0,"inviter_id":0,"goodsTimesDay":"","goodsTimesItem":""}]
 // remark: 订单备注测试
@@ -100,14 +106,29 @@ func (s OrderSrv) Close(c context.Context, orderId int64, remark string) error {
 // shopIdZt: 391592
 // shopNameZt: 龙楼店（文昌市龙楼镇）
 // extJsonStr: {"联系电话":"18283848592","取餐时间":"09:30"}
-func (s OrderSrv) Create(c context.Context, ip string, req *proto.CreateOrderReq) (*proto.CreateOrderResp, error) {
+func (s OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOrderReq) (*proto.CreateOrderResp, error) {
 	var (
-		shopInfo *model.BeeShopInfo
-		err      error
+		shopInfo               *model.BeeShopInfo
+		userInfo               *model.BeeUser
+		err                    error
+		amount                 = decimal.Zero //商品总额
+		amountTotal            = decimal.Zero //包括运费、优惠券、积分
+		payTotal               = decimal.Zero //包括运费、优惠券、积分
+		amountLogistics        = decimal.Zero
+		amountLogisticsReal    = decimal.Zero
+		amountLogisticsCoupons = decimal.Zero
+		amountCoupon           = decimal.Zero
+		weightTotal            = decimal.Zero
 	)
 	needPeisong := true
 	if req.PeisongType == "zq" {
 		needPeisong = false
+	}
+	_ = needPeisong
+
+	userInfo, err = GetUserSrv().GetUserInfoByUid(c, kit.GetUid(c))
+	if err != nil {
+		return nil, err
 	}
 
 	if req.ShopIdZt > 0 {
@@ -159,18 +180,7 @@ func (s OrderSrv) Create(c context.Context, ip string, req *proto.CreateOrderReq
 	resp := &proto.CreateOrderResp{}
 	orderId := strings.ReplaceAll(carbon.Now().ToShortDateTimeNanoString(), ".", "")
 	now := carbon.Now()
-	var amount = decimal.Zero
-	var amountTotal = decimal.Zero
-	var amountLogistics = decimal.Zero
-	var amountCoupon = decimal.Zero
-	var weightTotal = decimal.Zero
 
-	type LogisticsItem struct {
-		LogisticsId int64
-		Amount      decimal.Decimal
-		Num         decimal.Decimal
-		Weight      decimal.Decimal
-	}
 	var logisticsId2item = make(map[int64]LogisticsItem)
 	var goodsNumTotal = int64(0)
 	for i, goods := range orderGoodsList {
@@ -216,66 +226,109 @@ func (s OrderSrv) Create(c context.Context, ip string, req *proto.CreateOrderReq
 		orderGoodsList[i].UserID = userId
 		orderGoodsList[i].UID = uid
 	}
-	//@todo 计算运费
 	amountTotal = amount
-	//logisticsIds := lo.Keys(logisticsId2item)
-	//GetFreightTplSrv().GetBeeLogisticsDtoByIds(c, logisticsIds)
-	//for _, logisticsItem := range logisticsId2item {
-	//
-	//}
 
-	// 计算配送费
-	distance := shopInfo.Distance
-	_ = distance
-	if needPeisong {
-		peiSong, err := GetFeeSrv().GetPeiSongById(c, cast.ToInt64(req.PeisongFeeId))
-		if err != nil {
-			return nil, err
+	if address != nil {
+		for logisticsId, item := range logisticsId2item {
+			goodsLogistic, err := GetFreightTplSrv().GetBeeLogistics(c, logisticsId, address.CityId)
+			if err != nil {
+				return nil, err
+			}
+			_amountLogistics := s.calFreight(c, goodsLogistic, item)
+			amountLogistics = amountLogistics.Add(_amountLogistics)
 		}
-		amountLogistics = amountLogistics.Add(peiSong.Fwf1Min)
 	}
 
+	// 计算配送费,@todo 达达配送接入
+	distance := shopInfo.Distance
+	_ = distance
+	//if needPeisong {
+	//	peiSong, err := GetFeeSrv().GetPeiSongById(c, cast.ToInt64(req.PeisongFeeId))
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//	amountLogistics = amountLogistics.Add(peiSong.Fwf1Min)
+	//}
+	amountTotal = amountTotal.Add(amountLogistics)
+	amountLogisticsReal = amountLogistics
 	// 获取优惠券
 	couponList, err := GetCouponSrv().GetMyCouponListByStatus(uid, enum.CouponStatusNormal)
 	if err != nil {
 		return nil, errors.Wrap(err, "获取优惠券失败")
 	}
 	var couponInfos = make([]*model.BeeUserCoupon, 0)
+	payTotal = amountTotal
 	if len(couponIds) > 0 {
 		couponInfos, err = GetCouponSrv().GetUserCouponByIds(c, uid, couponIds)
 		if err != nil {
 			return nil, errors.Wrap(err, "获取优惠券失败")
 		}
-		sort.Slice(couponInfos, func(i, j int) bool {
-			return couponInfos[i].MoneyHreshold.GreaterThan(couponInfos[j].MoneyHreshold)
-		})
+		//用户自己排序吧
+		//sort.Slice(couponInfos, func(i, j int) bool {
+		//	if couponInfos[i].OnlyFreight != couponInfos[j].OnlyFreight {
+		//		return couponInfos[i].OnlyFreight
+		//	}
+		//	return couponInfos[i].MoneyHreshold.GreaterThan(couponInfos[j].MoneyHreshold)
+		//})
 		for _, couponInfo := range couponInfos {
+			if !couponInfo.CanUse(payTotal) {
+				return nil, errors.New("优惠券暂时不可用")
+			}
+			if couponInfo.OnlyFreight && amountLogisticsReal.Equal(decimal.Zero) {
+				return nil, errors.New("不需要支付运费，优惠券暂时不可用")
+			}
 
-			if !couponInfo.CanUse(amountTotal.Sub(amountCoupon)) {
-				return nil, errors.New("优惠券暂时不可用")
-			}
-			if couponInfo.OnlyFreight {
-				//仅扣运费 @todo
-				return nil, errors.New("优惠券暂时不可用")
-			}
+			moneyCal := decimal.Zero
 			if couponInfo.MoneyType == enum.CouponMoneyTypeFixed {
 				// 固定值
-				amountCoupon.Add(couponInfo.Money)
+				moneyCal = couponInfo.Money
+			} else if couponInfo.MoneyType == enum.CouponMoneyTypeRatio {
+				if couponInfo.OnlyFreight {
+					moneyCal = amountLogistics.Mul(couponInfo.Money)
+				} else {
+					moneyCal = payTotal.Mul(couponInfo.Money)
+				}
+
+				if moneyCal.LessThan(couponInfo.MoneyMin) && !couponInfo.MoneyMin.Equal(decimal.Zero) {
+					moneyCal = couponInfo.MoneyMin
+				} else if moneyCal.GreaterThan(couponInfo.MoneyMax) && !couponInfo.MoneyMax.Equal(decimal.Zero) {
+					moneyCal = couponInfo.MoneyMax
+				}
 			} else {
-				logrus.Errorf("优惠券【%d】类型不可用", couponInfo.Id)
+				logrus.Errorf("优惠券【%d】类型【%d】不可用", couponInfo.Id, couponInfo.MoneyType)
 				return nil, errors.New("优惠券暂时不可用")
 			}
+
+			if couponInfo.OnlyFreight {
+				if moneyCal.GreaterThan(amountLogisticsReal) {
+					moneyCal = amountLogisticsReal
+				}
+				amountLogisticsReal = amountLogisticsReal.Sub(moneyCal)
+				amountLogisticsCoupons = amountLogisticsCoupons.Add(moneyCal)
+			} else {
+				if moneyCal.GreaterThan(payTotal) {
+					moneyCal = payTotal
+				}
+				amountCoupon = amountCoupon.Add(moneyCal)
+			}
+			payTotal = payTotal.Sub(moneyCal)
 		}
 	}
 
 	// 计算金额
 	resp.GoodsNumber = goodsNumTotal
 	resp.AmountTotleOriginal = amount
-	resp.AmountTotle = amountTotal.Sub(amountCoupon)
+	resp.Amount = amount
+	resp.AmountTotle = amountTotal.Sub(amountCoupon).Sub(amountLogisticsCoupons)
 	resp.CouponId = couponIds
 	resp.CouponUserList = make([]*proto.UserCouponResp, 0, 10)
-	resp.AmountReal = resp.AmountTotle //@todo 扣除余额
-	amountReal := resp.AmountReal      //@todo
+	resp.AmountReal = payTotal
+	resp.AmountLogistics = amountLogistics
+	resp.AmountLogisticsCoupons = amountLogisticsCoupons
+	resp.AmountLogisticsReal = amountLogisticsReal
+	resp.AmountCoupons = amountCoupon
+
+	amountReal := resp.AmountReal //扣除余额的值
 	for _, coupon := range couponList {
 		if !coupon.CanUse(amount) {
 			continue
@@ -290,15 +343,38 @@ func (s OrderSrv) Create(c context.Context, ip string, req *proto.CreateOrderReq
 		return nil, err
 	}
 	// 开始拼装保存数据
-	err = db.GetDB().Transaction(func(tx *gorm.DB) error {
+	// 获取余额
+	balance, err := GetBalanceSrv().GetAmount(uid)
+	if err != nil {
+		return nil, err
+	}
+	amountBalance := decimal.Zero
+	if balance.Balance.LessThanOrEqual(amountReal) {
+		amountBalance = balance.Balance
+		amountReal = amountReal.Sub(amountBalance)
+	} else {
+		amountBalance = amountReal
+		amountReal = decimal.Zero
+	}
 
+	err = db.GetDB().Transaction(func(tx *gorm.DB) error {
+		if amountBalance.GreaterThan(decimal.Zero) {
+			// 扣除用户余额
+			if _, err := GetBalanceSrv().OperAmountByTx(c, tx, uid, enum.BalanceTypeBalance, amountBalance, util.GetRandInt64(), "支付订单"); err != nil {
+				return err
+			}
+		}
+		payStatus := enum.OrderStatusUnPaid
+		if amountReal.Equal(decimal.Zero) {
+			payStatus = enum.OrderStatusPaid
+		}
 		order := &model.BeeOrder{
 			BaseModel:         *kit.GetInsertBaseModel(c),
 			Amount:            amount,
 			AmountCard:        decimal.Zero,
 			AmountCoupons:     amountCoupon,
 			AmountLogistics:   amountLogistics,
-			AmountBalance:     decimal.Zero, //@todo
+			AmountBalance:     amountBalance,
 			AmountReal:        amountReal,
 			AmountRefundTotal: decimal.Zero,
 			AmountTax:         decimal.Zero,
@@ -314,7 +390,7 @@ func (s OrderSrv) Create(c context.Context, ip string, req *proto.CreateOrderReq
 			IsEnd:             false,
 			IsHasBenefit:      false,
 			IsNeedLogistics:   true,
-			IsPay:             false,
+			IsPay:             payStatus == enum.OrderStatusPaid,
 			IsScoreOrder:      false,
 			IsSuccessPingtuan: false,
 			OrderNumber:       util.GetRandInt64(),
@@ -329,7 +405,7 @@ func (s OrderSrv) Create(c context.Context, ip string, req *proto.CreateOrderReq
 			ShopIdZt:          req.ShopIdZt,
 			ShopNameZt:        req.ShopNameZt,
 			ExtJsonStr:        req.ExtJsonStr,
-			Status:            enum.OrderStatusUnPaid,
+			Status:            payStatus,
 			Trips:             decimal.Zero,
 			Type:              enum.OrderTypeNormal,
 			Uid:               kit.GetUid(c),
@@ -337,6 +413,7 @@ func (s OrderSrv) Create(c context.Context, ip string, req *proto.CreateOrderReq
 		if err := tx.Create(order).Error; err != nil {
 			return err
 		}
+		resp.OrderId = order.Id
 		for _, goodsInfo := range orderGoodsList {
 			beeOrderGoods := &model.BeeOrderGoods{
 				BaseModel:        *kit.GetInsertBaseModel(c),
@@ -374,7 +451,7 @@ func (s OrderSrv) Create(c context.Context, ip string, req *proto.CreateOrderReq
 				return err
 			}
 		}
-		if needPeisong {
+		if address != nil {
 			orderLogistics := &model.BeeOrderLogistics{
 				BeeUserAddress: *address,
 				OrderId:        order.Id,
@@ -400,6 +477,16 @@ func (s OrderSrv) Create(c context.Context, ip string, req *proto.CreateOrderReq
 				CouponId:  coupon.Id,
 				Uid:       kit.GetUid(c),
 			}).Error; err != nil {
+				return err
+			}
+
+			// 更新用户优惠券状态
+			if err := GetCouponSrv().UseCoupon(c, tx, kit.GetUid(c), coupon.Id); err != nil {
+				return err
+			}
+		}
+		if payStatus == enum.OrderStatusPaid {
+			if err := s.afterPaySuccess(c, tx, userInfo, &proto.OrderDto{BeeOrder: *order}); err != nil {
 				return err
 			}
 		}
@@ -441,20 +528,36 @@ func (s OrderSrv) callAmount(goods *proto.BeeOrderGoods, goodsInfo *model.BeeSho
 	return decimal.NewFromInt(goods.Number).Mul(skuInfo.Price)
 }
 
-func (s OrderSrv) calFreight(c context.Context, beeLogistics *model.BeeLogistics, address *model.BeeUserAddress,
-	amountTotal decimal.Decimal, weight decimal.Decimal, goodsNum decimal.Decimal) decimal.Decimal {
+func (s OrderSrv) calFreight(c context.Context, logistic *proto.GoodsLogistics, item LogisticsItem) decimal.Decimal {
 	amount := decimal.Zero
-	return amount
-	//@todo
-	sort.Slice(beeLogistics.Details, func(i, j int) bool {
-		if beeLogistics.Details[i].AddNumber != beeLogistics.Details[j].AddNumber {
-			return beeLogistics.Details[i].AddNumber.GreaterThan(beeLogistics.Details[j].AddNumber)
+	if len(logistic.Details) <= 0 {
+		return amount
+	}
+	detail := logistic.Details[0]
+	switch logistic.FeeType {
+	case enum.BeeLogisticsTypeAmount:
+		if item.Amount.LessThanOrEqual(detail.FirstNumber) {
+			amount = detail.FirstAmount
+		} else {
+			amount = detail.FirstAmount
+			addNum := item.Amount.Div(detail.AddNumber).Ceil()
+			amount = amount.Add(detail.AddAmount.Mul(addNum))
 		}
-		return beeLogistics.Details[i].AddAmount.GreaterThan(beeLogistics.Details[j].AddAmount)
-	})
-	for _, detail := range beeLogistics.Details {
-		if detail.AddNumber.LessThanOrEqual(goodsNum) || detail.AddAmount.LessThanOrEqual(amountTotal) {
-
+	case enum.BeeLogisticsTypeNum:
+		if item.Num.LessThanOrEqual(detail.FirstNumber) {
+			amount = detail.FirstAmount
+		} else {
+			amount = detail.FirstAmount
+			addNum := item.Num.Div(detail.AddNumber).Ceil()
+			amount = amount.Add(detail.AddAmount.Mul(addNum))
+		}
+	case enum.BeeLogisticsTypeWeight:
+		if item.Weight.LessThanOrEqual(detail.FirstNumber) {
+			amount = detail.FirstAmount
+		} else {
+			amount = detail.FirstAmount
+			addNum := item.Weight.Div(detail.AddNumber).Ceil()
+			amount = amount.Add(detail.AddAmount.Mul(addNum))
 		}
 	}
 	return amount
@@ -641,6 +744,23 @@ func (s OrderSrv) Hx(c context.Context, number string) error {
 	})
 }
 
+func (s OrderSrv) afterPaySuccess(c context.Context, tx *gorm.DB, userInfo *model.BeeUser, orderInfo *proto.OrderDto) error {
+	if !userInfo.IsVirtual {
+		if err := GetUserSrv().IncrUserLevelAmount(c, tx, orderInfo.Uid, orderInfo.AmountReal); err != nil {
+			return errors.Wrap(err, "增加用户等级信息失败")
+		}
+	}
+	orderLog := &model.BeeOrderLog{
+		BaseModel: *kit.GetInsertBaseModel(c),
+		OrderId:   orderInfo.Id,
+		Type:      enum.OrderLogTypePay,
+	}
+	if err := tx.Create(orderLog).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
 func (s OrderSrv) PaySuccess(c context.Context, ip string, payLog *model.BeePayLog, orderId string, thirdId string, amount decimal.Decimal, extraTx ...func(tx *gorm.DB) error) error {
 	orderInfo, err := s.GetOrderByOrderId(c, cast.ToInt64(orderId))
 	if err != nil {
@@ -668,21 +788,11 @@ func (s OrderSrv) PaySuccess(c context.Context, ip string, payLog *model.BeePayL
 	// 更新支付状态
 	payTime := time.Now()
 	err = db.GetDB().Transaction(func(tx *gorm.DB) error {
-		updateLogRes := tx.Where("id = ?", payLog.Id).Updates(map[string]interface{}{
-			"status":      enum.PayLogStatusPaid,
-			"date_update": time.Now(),
-		})
-		if updateLogRes.Error != nil {
-			return err
-		}
-		if updateLogRes.RowsAffected != 1 {
-			return errors.New("操作冲突")
-		}
-
-		err = tx.Model(&model.BeeOrder{}).Where("order_id = ? and status = ?", orderInfo.Id, enum.OrderStatusUnPaid).
+		var err error
+		err = tx.Model(&model.BeeOrder{}).Where("id = ? and status = ?", orderInfo.Id, enum.OrderStatusUnPaid).
 			Updates(map[string]interface{}{
 				"status":      enum.OrderStatusPaid,
-				"is_pay":      1,
+				"is_pay":      true,
 				"ip":          ip,
 				"date_pay":    payTime,
 				"date_update": payTime,
@@ -691,22 +801,10 @@ func (s OrderSrv) PaySuccess(c context.Context, ip string, payLog *model.BeePayL
 			return errors.Wrap(err, "更新订单信息失败")
 		}
 
-		if !userInfo.IsVirtual {
-			err = GetUserSrv().IncrUserLevelAmount(c, tx, orderInfo.Uid, orderInfo.AmountReal)
-			if err != nil {
-				return errors.Wrap(err, "增加用户等级信息失败")
-			}
-		}
-		orderLog := &model.BeeOrderLog{
-			BaseModel: *kit.GetInsertBaseModel(c),
-			OrderId:   orderInfo.Id,
-			Type:      enum.OrderLogTypePay,
-		}
-		if err := tx.Create(orderLog).Error; err != nil {
+		if err = s.afterPaySuccess(c, tx, userInfo, orderInfo); err != nil {
 			return err
 		}
 
-		tx.Where("id = ?")
 		for _, fun := range extraTx {
 			if err := fun(tx); err != nil {
 				return err

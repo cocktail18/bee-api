@@ -13,6 +13,30 @@ type OrderGoodsStatus int32
 type OrderLogType int32
 type OrderPaisongStatus int32
 
+var OrderReputationMap = map[OrderReputation]string{
+	OrderReputationNone:   "无",
+	OrderReputationBad:    "差评",
+	OrderReputationMiddle: "中评",
+	OrderReputationGood:   "好评",
+}
+
+var OrderTypeMap = map[OrderType]string{
+	OrderTypeNormal:    "普通订单",
+	OrderTypePeriod:    "周期订单",
+	OrderTypeScan:      "扫码点餐订单",
+	OrderTypeJdVop:     "京东vop订单",
+	OrderTypeReceiving: "从区管进货",
+}
+
+var OrderStatusMap = map[OrderStatus]string{
+	OrderStatusClose:          "已关闭",
+	OrderStatusUnPaid:         "待支付",
+	OrderStatusPaid:           "已支付待发货",
+	OrderStatusShipped:        "已发货待确认",
+	OrderStatusConfirmShipped: "确认收货待评价",
+	OrderStatusHadComment:     "已评价",
+}
+
 var OrderLogTypeMap = map[OrderLogType]string{
 	OrderLogTypePayByOthers:    "代付",
 	OrderLogTypeCreate:         "下单",

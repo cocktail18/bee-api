@@ -9,3 +9,11 @@ const (
 	BalanceTypeGrowth            BalanceType = 4
 	BalanceTypeScore             BalanceType = 5
 )
+
+var BalanceTypeMap = map[BalanceType]string{
+	BalanceTypeBalance:           "余额",
+	BalanceTypeFreeze:            "冻结",
+	BalanceTypeFxCommisionPaying: "分销佣金",
+	BalanceTypeGrowth:            "成长值",
+	BalanceTypeScore:             "积分",
+}

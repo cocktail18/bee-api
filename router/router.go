@@ -237,10 +237,11 @@ func NewRouter() *gin.Engine {
 		dfsGroup.POST("/upload/file", (api.DfsApi{}).UploadFile)
 	}
 	//排队
-	queuingGroup := domainGroup.Group("/queuing", CheckToken())
+	queuingGroup := domainGroup.Group("/queuing")
 	{
+		queuingGroup.POST("/get", CheckToken(), (api.QueuingApi{}).Get)
 		queuingGroup.GET("/types", (api.QueuingApi{}).Types)
-		queuingGroup.GET("/my", (api.QueuingApi{}).My)
+		queuingGroup.GET("/my", CheckToken(), (api.QueuingApi{}).My)
 	}
 
 	return router

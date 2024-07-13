@@ -112,7 +112,7 @@ func (fee *PaySrv) WxNotify(c context.Context, ip string, req *wechat.V3NotifyRe
 	switch payType {
 	case enum.PayNextActionTypeRecharge:
 		_, err = GetBalanceSrv().OperAmount(c, payLog.Uid, enum.BalanceTypeBalance, decimal.NewFromInt(int64(payResult.Amount.PayerTotal)), "recharge_"+payResult.OutTradeNo, "充值", func(tx *gorm.DB) error {
-			updateLogRes := tx.Where("id = ?", payLog.Id).Updates(map[string]interface{}{
+			updateLogRes := tx.Model(&model.BeePayLog{}).Where("id = ?", payLog.Id).Updates(map[string]interface{}{
 				"status":      enum.PayLogStatusPaid,
 				"date_update": time.Now(),
 			})
@@ -125,11 +125,23 @@ func (fee *PaySrv) WxNotify(c context.Context, ip string, req *wechat.V3NotifyRe
 			return nil
 		})
 	case enum.PayNextActionTypePayOrder:
-		err = GetOrderSrv().PaySuccess(c, ip, payLog, nextActionJson.Get("id").MustString(), payResult.TransactionId, decimal.NewFromInt(int64(payResult.Amount.PayerTotal)))
+		err = GetOrderSrv().PaySuccess(c, ip, payLog, nextActionJson.Get("id").MustString(), payResult.TransactionId, decimal.NewFromInt(int64(payResult.Amount.PayerTotal)), func(tx *gorm.DB) error {
+			updateLogRes := tx.Model(&model.BeePayLog{}).Where("id = ?", payLog.Id).Updates(map[string]interface{}{
+				"status":      enum.PayLogStatusPaid,
+				"date_update": time.Now(),
+			})
+			if updateLogRes.Error != nil {
+				return err
+			}
+			if updateLogRes.RowsAffected != 1 {
+				return errors.New("操作冲突")
+			}
+			return nil
+		})
 	case enum.PayNextActionTypePayDirect:
 		//入账
 		err = db.GetDB().Transaction(func(tx *gorm.DB) error {
-			updateLogRes := tx.Where("id = ?", payLog.Id).Updates(map[string]interface{}{
+			updateLogRes := tx.Model(&model.BeePayLog{}).Where("id = ?", payLog.Id).Updates(map[string]interface{}{
 				"status":      enum.PayLogStatusPaid,
 				"date_update": time.Now(),
 			})

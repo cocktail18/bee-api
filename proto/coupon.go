@@ -5,6 +5,7 @@ import (
 	"gitee.com/stuinfer/bee-api/model"
 	"github.com/golang-module/carbon/v2"
 	"github.com/shopspring/decimal"
+	"time"
 )
 
 type UserCouponResp struct {
@@ -27,7 +28,7 @@ type UserCouponResp struct {
 
 func NewUserCouponResp(coupon *model.BeeUserCoupon) *UserCouponResp {
 	return &UserCouponResp{
-		DateStart:     coupon.DateStart.Format(carbon.DateTimeLayout),
+		DateStart:     time.Time(coupon.DateStart).Format(carbon.DateTimeLayout),
 		ExpiryMillis:  coupon.ExpiryMillis,
 		Id:            coupon.Id,
 		Money:         coupon.Money,

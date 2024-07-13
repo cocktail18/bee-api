@@ -1,6 +1,7 @@
 package config
 
 import (
+	"gitee.com/stuinfer/bee-api/util"
 	"github.com/spf13/viper"
 )
 
@@ -45,7 +46,13 @@ type AppDBConfig struct {
 
 func InitConfig() {
 	// 加载配置文件
-	viper.SetConfigFile("config.yml")
+	configFilePath := "./config.yml"
+	if ok, err := util.FileExists(configFilePath); err != nil {
+		panic(err)
+	} else if !ok {
+		configFilePath = "./../config.yml"
+	}
+	viper.SetConfigFile(configFilePath)
 	if err := viper.ReadInConfig(); err != nil {
 		panic(err)
 	}

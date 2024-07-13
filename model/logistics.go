@@ -8,10 +8,13 @@ import (
 
 type BeeLogistics struct {
 	common.BaseModel
-	Name          string                          `gorm:"column:name;type:varchar(100);comment:模板名" json:"name"`
-	FeeType       enum.BeeGoodsFeeType            `gorm:"column:fee_type;type:int(11);comment:计价方式，1按件，2按重量，3按金额" json:"feeType"`
-	FeeTypeStr    string                          `gorm:"-" json:"feeTypeStr"`
-	IsFree        bool                            `gorm:"column:is_free;type:tinyint(1);comment:是否包邮" json:"isFree"`
+	Name                string                `gorm:"column:name;type:varchar(100);comment:模板名" json:"name"`
+	FeeType             enum.BeeLogisticsType `gorm:"column:fee_type;type:int(11);comment:计价方式，1按件，2按重量，3按金额" json:"feeType"`
+	FeeTypeStr          string                `gorm:"-" json:"feeTypeStr"`
+	IsFree              bool                  `gorm:"column:is_free;type:tinyint(1);comment:是否包邮" json:"isFree"`
+	DetailsJsonStr      string                `gorm:"column:details_json;type:text" json:"detailsJson"`
+	FreeShippingSetting string                `gorm:"column:free_shipping_setting;type:text" json:"freeShippingSetting"`
+
 	Details       []*BeeLogisticsDetail           `gorm:"-" json:"details"`
 	FreeShippings []*BeeShopLogisticsFreeShipping `gorm:"-" json:"freeShipping"`
 }
@@ -21,48 +24,25 @@ func (m *BeeLogistics) TableName() string {
 }
 
 type BeeLogisticsDetail struct {
-	common.BaseModel
-	LogisticsId int64                        `gorm:"column:logistics_id;type:bigint(20)" json:"logisticsId"`
-	AddAmount   decimal.Decimal              `gorm:"column:add_amount;type:decimal(20,2);comment:条件包邮,满xx包邮" json:"addAmount"`
-	AddNumber   decimal.Decimal              `gorm:"column:add_number;type:decimal(20,2);comment:条件包邮,满xx件包邮" json:"addNumber"`
-	FirstAmount decimal.Decimal              `gorm:"column:first_amount;type:decimal(20,2);comment:首件价格" json:"firstAmount"`
-	FirstNumber decimal.Decimal              `gorm:"column:first_number;type:decimal(20,2);comment:首件数量" json:"firstNumber"`
-	Type        int                          `gorm:"column:type;type:int(11);comment:类型，1首件，2续件" json:"type"`
-	Exceptions  []*BeeShopLogisticsException `gorm:"-" json:"exceptions"`
-}
-
-func (m *BeeLogisticsDetail) TableName() string {
-	return "bee_logistics_detail"
+	Default     bool                  `json:"default,omitempty"`
+	Remark      string                `json:"remark"`
+	Names       []string              `json:"names" json:"names,omitempty"`
+	CityIds     []string              `json:"cityIds" json:"cityIds,omitempty"`
+	FirstNumber decimal.Decimal       `json:"firstNumber" json:"firstNumber,omitempty"`
+	FirstAmount decimal.Decimal       `json:"firstAmount" json:"firstAmount"`
+	AddNumber   decimal.Decimal       `json:"addNumber" json:"addNumber,omitempty"`
+	AddAmount   decimal.Decimal       `json:"addAmount" json:"addAmount"`
+	Type        enum.BeeLogisticsType `json:"type" json:"type,omitempty"`
+	CityId      string                `json:"cityId" json:"cityId,omitempty"`
 }
 
 // BeeShopLogisticsFreeShipping 条件包邮配置
 type BeeShopLogisticsFreeShipping struct {
-	common.BaseModel
-	CityId      string          `gorm:"column:city_id;type:varchar(100)" json:"cityId"`
-	ProvinceId  string          `gorm:"column:province_id;type:varchar(100)" json:"provinceId"`
-	Number      decimal.Decimal `gorm:"column:number;type:decimal(20,2)" json:"number"`
-	LogisticsId int64           `gorm:"column:logistics_id;type:bigint(20)" json:"logisticsId"`
-	Type        int             `gorm:"column:type;type:int(10);comment:0件，1重量，3金额" json:"type"`
-}
-
-func (m *BeeShopLogisticsFreeShipping) TableName() string {
-	return "bee_shop_logistics_free_shipping"
-}
-
-type BeeShopLogisticsException struct {
-	common.BaseModel
-	LogisticsId int64           `gorm:"column:logistics_id;type:bigint(20);comment:模板详情id" json:"logisticsId"`
-	DetailId    int64           `gorm:"column:detail_id;type:bigint(20);comment:模板详情id" json:"detailId"`
-	ProvinceId  string          `gorm:"column:province_id;type:varchar(100)" json:"provinceId"`
-	CityId      string          `gorm:"column:city_id;type:varchar(100)" json:"cityId"`
-	RegionId    string          `gorm:"column:region_id;type:varchar(100)" json:"regionId"`
-	RegionStr   string          `gorm:"column:region_str;type:varchar(100)" json:"regionStr"`
-	AddAmount   decimal.Decimal `gorm:"column:add_amount;type:decimal(20,2)" json:"addAmount"`
-	AddNumber   decimal.Decimal `gorm:"column:add_number;type:decimal(20,2)" json:"addNumber"`
-	FirstAmount decimal.Decimal `gorm:"column:first_amount;type:decimal(20,2)" json:"firstAmount"`
-	FirstNumber decimal.Decimal `gorm:"column:first_number;type:decimal(20,2)" json:"firstNumber"`
-}
-
-func (m *BeeShopLogisticsException) TableName() string {
-	return "bee_shop_logistics_exception"
+	Default  bool                  `json:"default,omitempty"`
+	Remark   string                `json:"remark"`
+	Names    []string              `json:"names"`
+	CityIds  []string              `json:"cityIds"`
+	Type     enum.BeeLogisticsType `json:"type"`
+	Number   decimal.Decimal       `json:"number"`
+	RegionId string                `json:"regionId"`
 }

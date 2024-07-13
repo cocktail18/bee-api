@@ -28,4 +28,6 @@ var (
 	ErrEmpty        = NewBussErr(ErrBuss, ResCodeEmpty, "数据为空")
 	ErrNotImplement = NewBussErr(ErrBuss, ResCodeFail, "未实现")
 	ErrParamError   = NewBussErr(ErrBuss, ResCodeForbidden, "参数错误")
+	ErrReceived     = NewBussErr(ErrBuss, 30002, "已经领取过了")
+	ErrIneligible   = NewBussErr(ErrBuss, 30003, "不符合条件")
 )

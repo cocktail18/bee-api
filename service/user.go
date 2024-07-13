@@ -10,7 +10,6 @@ import (
 	"gitee.com/stuinfer/bee-api/model/sys"
 	"gitee.com/stuinfer/bee-api/proto"
 	"gitee.com/stuinfer/bee-api/util"
-	"github.com/golang-module/carbon/v2"
 	"github.com/pkg/errors"
 	"github.com/samber/lo"
 	"github.com/shopspring/decimal"
@@ -177,14 +176,6 @@ func (srv *UserSrv) CreateUserToken(c context.Context, userId int64, uid int64, 
 	return resp, nil
 }
 
-func (srv *UserSrv) RecordIsSendRegisterCoupons(userId int64) error {
-	return db.GetDB().Where("id = ?", userId).Update("is_send_register_coupons", 1).Error
-}
-
-func (srv *UserSrv) RecordBirthdayProcessSuccessYear(userId int64) error {
-	return db.GetDB().Where("id = ?", userId).Update("birthday_process_success_year", carbon.Now().Year()).Error
-}
-
 func (srv *UserSrv) Amount(c context.Context, userId int64) (*proto.GetUserAmountResp, error) {
 	var userAmount model.BeeUserAmount
 	if err := db.GetDB().Where("user_id = ?", userId).Take(&userAmount).Error; err != nil {
@@ -331,11 +322,18 @@ func (srv *UserSrv) BindWxMobile(c context.Context, req *proto.BindWxMobileReq) 
 	if err != nil {
 		return "", err
 	}
+	var phoneNum string
+	//phoneRes, err := wxSrv.WeAppClient.NewPhonenumber().GetPhoneNumber(&phonenumber.GetPhoneNumberRequest{Code: req.Code})
+	//if err == nil && phoneRes.GetResponseError() == nil {
+	//	phoneNum = phoneRes.Data.PhoneNumber
+	//} else {
 	mobileRes, err := wxSrv.WeAppClient.DecryptMobile(kit.GetSessionKey(c), req.EncryptedData, req.Iv)
 	if err != nil {
 		return "", err
 	}
-	phoneNum := mobileRes.PhoneNumber
+	phoneNum = mobileRes.PhoneNumber
+	//}
+
 	userMobile := &model.BeeUserMobile{
 		BaseModel: *kit.GetInsertBaseModel(c),
 		Uid:       kit.GetUserId(c),
@@ -364,7 +362,11 @@ func (srv *UserSrv) GetUserWxOpenId(c context.Context) (string, error) {
 
 func GetTestContext() context.Context {
 	ctx := context.Background()
-	userInfo := &sys.SysUserModel{}
+	sysUserInfo := &sys.SysUserModel{}
+	db.GetDB().Order("id asc").First(sysUserInfo)
+	ctx = context.WithValue(ctx, string(enum.CtxKeySysUser), sysUserInfo)
+
+	userInfo := &model.BeeUser{}
 	db.GetDB().Order("id asc").First(userInfo)
 	ctx = context.WithValue(ctx, enum.UserInfoKey, userInfo)
 	return ctx

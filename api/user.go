@@ -87,6 +87,8 @@ func (api UserApi) BindMobile(c *gin.Context) {
 		api.Res(c, nil, err)
 		return
 	}
+	req.EncryptedData = c.PostForm("encryptedData")
+	req.Iv = c.PostForm("iv")
 	resp, err := service.GetUserSrv().BindWxMobile(c, req)
 	api.Res(c, resp, err)
 }
