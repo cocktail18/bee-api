@@ -170,7 +170,7 @@ func initBeeShopGoodsDetail(userId int64) error {
 		logisticsModel.DetailsJsonStr = util.ToJsonWithoutErr(beeShopGoodsDetail.Logistics.Details, "")
 		logisticsModel.FreeShippingSetting = "[]"
 
-		if err := db.GetDB().Clauses(clause.OnConflict{DoNothing: true}).Create(beeShopGoodsDetail.Logistics).Error; err != nil {
+		if err := db.GetDB().Clauses(clause.OnConflict{DoNothing: true}).Create(logisticsModel).Error; err != nil {
 			return err
 		}
 

@@ -17,7 +17,7 @@ func InitDB() {
 	if err := db.GetDB().AutoMigrate(allModel...); err != nil {
 		panic(err)
 	}
-	if config2.AppConfigIns.DB.Drop {
+	if config2.AppConfigIns.DB != nil && config2.AppConfigIns.DB.Drop {
 		logger.GetLogger().Infof("清空数据库")
 		for _, model := range allModel {
 			if err := db.GetDB().Session(&gorm.Session{AllowGlobalUpdate: true}).Delete(model).Error; err != nil {
