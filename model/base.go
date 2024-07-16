@@ -59,7 +59,7 @@ var AllModel = []interface{}{
 
 func InitDB() {
 	logger.GetLogger().Infof("开始初始化数据库，生产环境请禁用！！")
-	if config2.AppConfigIns.DB.Drop {
+	if config2.AppConfigIns.DB != nil && config2.AppConfigIns.DB.Drop {
 		logger.GetLogger().Infof("清空数据库")
 		if err := db.GetDB().Migrator().DropTable(AllModel...); err != nil {
 			panic(err)

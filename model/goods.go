@@ -63,8 +63,8 @@ type BeeShopGoods struct {
 	Status               enum.GoodsStatus `gorm:"column:status;type:bigint(11);comment:商品状态" json:"status"`
 	Stores               int64            `gorm:"column:stores;type:bigint(11);comment:库存" json:"stores"`
 	Stores0Unsale        bool             `gorm:"column:stores0_unsale;type:tinyint(1);comment:自动下架" json:"stores0Unsale"`
-	SellBeginTime        common.JsonTime  `gorm:"column:sell_begin_time;type:datetime;comment:开始售卖时间" json:"sellBeginTime"`
-	SellEndTime          common.JsonTime  `gorm:"column:sell_end_time;type:datetime;comment:结束售卖时间" json:"sellEndTime"`
+	SellBeginTime        common.JsonTime  `gorm:"column:sell_begin_time;type:datetime;comment:开始售卖时间;default:null" json:"sellBeginTime"`
+	SellEndTime          common.JsonTime  `gorm:"column:sell_end_time;type:datetime;comment:结束售卖时间;default:null" json:"sellEndTime"`
 	Weight               decimal.Decimal  `gorm:"column:weight;type:decimal(10,2);default:0.00;comment:重量，kg" json:"weight"`
 	Type                 int64            `gorm:"column:type;type:bigint(11);comment:类型" json:"type"`
 	Unit                 string           `gorm:"column:unit;type:varchar(100);comment:单位" json:"unit"`

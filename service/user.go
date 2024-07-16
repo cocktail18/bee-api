@@ -7,7 +7,6 @@ import (
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model"
-	"gitee.com/stuinfer/bee-api/model/sys"
 	"gitee.com/stuinfer/bee-api/proto"
 	"gitee.com/stuinfer/bee-api/util"
 	"github.com/pkg/errors"
@@ -358,16 +357,4 @@ func (srv *UserSrv) GetUserWxOpenId(c context.Context) (string, error) {
 		return "", err
 	}
 	return item.OpenId, nil
-}
-
-func GetTestContext() context.Context {
-	ctx := context.Background()
-	sysUserInfo := &sys.SysUserModel{}
-	db.GetDB().Order("id asc").First(sysUserInfo)
-	ctx = context.WithValue(ctx, string(enum.CtxKeySysUser), sysUserInfo)
-
-	userInfo := &model.BeeUser{}
-	db.GetDB().Order("id asc").First(userInfo)
-	ctx = context.WithValue(ctx, enum.UserInfoKey, userInfo)
-	return ctx
 }

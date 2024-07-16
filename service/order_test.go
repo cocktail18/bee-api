@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"gitee.com/stuinfer/bee-api/common"
 	"gitee.com/stuinfer/bee-api/config"
+	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model"
+	"gitee.com/stuinfer/bee-api/model/sys"
 	"gitee.com/stuinfer/bee-api/proto"
 	"gitee.com/stuinfer/bee-api/util"
 	"github.com/spf13/cast"
@@ -165,4 +167,15 @@ func NewRatioCoupon(c context.Context, ratio float64, onlyFreight bool) *model.B
 		Source:        "",
 		Status:        enum.CouponStatusNormal,
 	}
+}
+func GetTestContext() context.Context {
+	ctx := context.Background()
+	sysUserInfo := &sys.SysUserModel{}
+	db.GetDB().Order("id asc").First(sysUserInfo)
+	ctx = context.WithValue(ctx, string(enum.CtxKeySysUser), sysUserInfo)
+
+	userInfo := &model.BeeUser{}
+	db.GetDB().Order("id asc").First(userInfo)
+	ctx = context.WithValue(ctx, enum.UserInfoKey, userInfo)
+	return ctx
 }

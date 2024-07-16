@@ -59,13 +59,13 @@ func (srv *BalanceSrv) OperAmountByTx(c context.Context, tx *gorm.DB, userId int
 		if num.IsZero() {
 			// 没发生改变
 		} else if num.IsNegative() {
-			err := tx.Model(&model.BeeUserAmount{}).Where("user_id = ? and "+field+" >= ?", userId, num.String()).
+			err := tx.Model(&model.BeeUserAmount{}).Where("uid = ? and "+field+" >= ?", userId, num.String()).
 				Updates(map[string]interface{}{field: gorm.Expr(field+" + ?", num), "date_update": time.Now()}).Error
 			if err != nil {
 				return err
 			}
 		} else {
-			err := tx.Model(&model.BeeUserAmount{}).Where("user_id = ?", userId).
+			err := tx.Model(&model.BeeUserAmount{}).Where("uid = ?", userId).
 				Updates(map[string]interface{}{field: gorm.Expr(field+" + ?", num), "date_update": time.Now()}).Error
 			if err != nil {
 				return err
@@ -92,7 +92,9 @@ func (srv *BalanceSrv) OperAmountByTx(c context.Context, tx *gorm.DB, userId int
 		return nil, err
 	}
 	if shouldCommit {
-		tx.Commit()
+		if err := tx.Commit().Error; err != nil {
+			return nil, err
+		}
 	}
 	return srv.GetAmount(userId)
 }

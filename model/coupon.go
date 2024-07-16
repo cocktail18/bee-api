@@ -58,9 +58,9 @@ type BeeCoupon struct {
 	common.BaseModel
 	BatchSendUid         int64                  `gorm:"column:batch_send_uid;type:bigint(11);comment:批量" json:"batchSendUid"`
 	DateEndDays          int                    `gorm:"column:date_end_days;type:int(11);comment:第n天失效" json:"dateEndDays"`
-	DateEnd              common.JsonTime        `gorm:"column:date_end;type:datetime(3);comment:失效日期" json:"dateEnd"`
+	DateEnd              common.JsonTime        `gorm:"column:date_end;type:datetime(3);comment:失效日期;default:null" json:"dateEnd"`
 	DateEndType          enum.CouponDateEndType `gorm:"column:date_end_type;type:bigint(11);comment:失效类型，1n天后失效，0指定" json:"dateEndType"`
-	DateStart            common.JsonTime        `gorm:"column:date_start;type:datetime(3);comment:生效日期;NOT NULL" json:"dateStart"`
+	DateStart            common.JsonTime        `gorm:"column:date_start;type:datetime(3);comment:生效日期;default:null" json:"dateStart"`
 	DateStartDays        int64                  `gorm:"column:date_start_days;type:bigint(11);comment:第n天生效" json:"dateStartDays"`
 	DateStartType        int                    `gorm:"column:date_start_type;type:bigint(11);comment:生效时间，1立即，2次日，0指定时间" json:"dateStartType"`
 	MoneyHreshold        decimal.Decimal        `gorm:"column:money_hreshold;type:decimal(20,2);comment:满xx可用" json:"moneyHreshold"`

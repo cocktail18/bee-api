@@ -29,7 +29,7 @@ func (api PayApi) WxApp(c *gin.Context) {
 	nextAction := c.PostForm("nextAction") // {"type":4,"uid":6803950,"money":"123"}
 	payName := c.PostForm("payName")
 
-	res, err := service.GetPaySrv().GetWxAppPayInfo(c, money, remark, nextAction, payName)
+	res, err := service.GetPaySrv().GetWxAppPayInfo(c, c.Request.Host, money, remark, nextAction, payName)
 	api.Res(c, res, err)
 }
 

@@ -139,26 +139,42 @@ func (fee *PaySrv) WxNotify(c context.Context, ip string, req *wechat.V3NotifyRe
 			return nil
 		})
 	case enum.PayNextActionTypePayDirect:
-		//入账
-		err = db.GetDB().Transaction(func(tx *gorm.DB) error {
-			updateLogRes := tx.Model(&model.BeePayLog{}).Where("id = ?", payLog.Id).Updates(map[string]interface{}{
-				"status":      enum.PayLogStatusPaid,
-				"date_update": time.Now(),
-			})
-			if updateLogRes.Error != nil {
-				return err
-			}
-			if updateLogRes.RowsAffected != 1 {
-				return errors.New("操作冲突")
-			}
-			return nil
-		})
+		moneyTotal, err := nextActionJson.Get("money").Float64()
+		if err != nil {
+			return nil, errors.Wrap(err, "获取金额失败")
+		}
+		err = fee.payBill(c, decimal.NewFromFloat(moneyTotal), payLog)
 	}
-
 	if err != nil {
 		return nil, errors.Wrap(err, "处理支付结果失败~")
 	}
 	return nil, nil
+}
+
+func (fee *PaySrv) payBill(c context.Context, moneyTotal decimal.Decimal, payLog *model.BeePayLog) error {
+	//入账
+	return db.GetDB().Transaction(func(tx *gorm.DB) error {
+		// 扣余额
+		moneyAmount := moneyTotal.Sub(payLog.Money)
+		if moneyAmount.LessThan(decimal.Zero) {
+			return errors.New("扣除的余额不能是负数")
+		}
+		_, err := GetBalanceSrv().OperAmountByTx(c, tx, payLog.Uid, enum.BalanceTypeBalance, moneyAmount.Mul(decimal.NewFromInt(-1)), "pay_direct_"+payLog.OrderNo, payLog.Remark)
+		if err != nil {
+			return err
+		}
+		updateLogRes := tx.Model(&model.BeePayLog{}).Where("id = ?", payLog.Id).Updates(map[string]interface{}{
+			"status":      enum.PayLogStatusPaid,
+			"date_update": time.Now(),
+		})
+		if updateLogRes.Error != nil {
+			return err
+		}
+		if updateLogRes.RowsAffected != 1 {
+			return errors.New("操作冲突")
+		}
+		return nil
+	})
 }
 
 func (fee *PaySrv) GetWechatPayClient(ctx context.Context, cfg *WxPayConfig) (*wechat.ClientV3, error) {
@@ -197,7 +213,7 @@ func (fee *PaySrv) GetWechatPayClient(ctx context.Context, cfg *WxPayConfig) (*w
 	return wechatClient, nil
 }
 
-func (fee *PaySrv) GetWxAppPayInfo(c context.Context, money decimal.Decimal, remark string, nextAction string, name string) (*proto.GetWxPayInfoRes, error) {
+func (fee *PaySrv) GetWxAppPayInfo(c context.Context, appHost string, money decimal.Decimal, remark string, nextAction string, name string) (*proto.GetWxPayInfoRes, error) {
 	// 获取配置
 	var wxPayConfig model.BeeWxPayConfig
 	var payType = enum.PayNextActionTypeRecharge
@@ -229,13 +245,17 @@ func (fee *PaySrv) GetWxAppPayInfo(c context.Context, money decimal.Decimal, rem
 		}
 	}
 	payOrderId = util.GetRandInt64()
-
+	notifyUrl := strings.TrimRight(config.AppConfigIns.App.PayNotifyUrl, "/")
+	if notifyUrl == "" {
+		notifyUrl = "https://" + appHost
+	}
+	notifyUrl = notifyUrl + "/" + kit.GetDomain(c) + "/notify/wx/pay"
 	wxPayClient, err := fee.GetWechatPayClient(c, &WxPayConfig{
 		MchId:           wxPayConfig.MchId,
 		Secret:          wxPayConfig.AppSecret,
 		Token:           wxPayConfig.Token,
 		ReturnUrl:       "",
-		NotifyUrl:       "",
+		NotifyUrl:       notifyUrl,
 		PrivateCertPath: wxPayConfig.PrivateCert,
 	})
 	if err != nil {
@@ -246,8 +266,6 @@ func (fee *PaySrv) GetWxAppPayInfo(c context.Context, money decimal.Decimal, rem
 		return nil, err
 	}
 
-	notifyUrl := strings.TrimRight(config.AppConfigIns.App.PayNotifyUrl, "/")
-	notifyUrl = notifyUrl + "/" + kit.GetDomain(c) + "/notify/wx/pay"
 	wxResp, err := wxPayClient.V3TransactionJsapi(c, gopay.BodyMap{
 		"mchid":        wxPayConfig.MchId,
 		"out_trade_no": payOrderId,
