@@ -147,7 +147,7 @@ type GetOrderListResp struct {
 }
 
 type CreateOrderResp struct {
-	OrderId                int64             `json:orderId`
+	Id                     int64             `json:"id"`
 	Amount                 decimal.Decimal   `json:"amount"`     //货款
 	AmountReal             decimal.Decimal   `json:"amountReal"` //实际需要支付金额
 	AmountTax              int               `json:"amountTax"`
@@ -168,6 +168,11 @@ type CreateOrderResp struct {
 	IsNeedLogistics        bool              `json:"isNeedLogistics"`
 	Overseas               bool              `json:"overseas"`
 	Score                  int               `json:"score"`
+	HxNumber               string            `json:"hxNumber"`
+	IsPay                  bool              `json:"isPay"`
+	OrderNumber            string            `json:"orderNumber"`
+	NearbyCloseMillis      int64             `json:"nearbyCloseMillis"` // 订单关闭时间
+	Status                 enum.OrderStatus  `json:"status"`
 }
 
 type ListOrderResp struct {

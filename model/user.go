@@ -111,7 +111,7 @@ func (m *BeeUserLevel) TableName() string {
 type BeeUserMobile struct {
 	common.BaseModel
 	Uid    int64  `gorm:"column:uid;type:bigint(20)" json:"uid"`
-	Mobile string `gorm:"unique;column:mobile;type:varchar(100)" json:"mobile"`
+	Mobile string `gorm:"column:mobile;type:varchar(100)" json:"mobile"`
 }
 
 func (m *BeeUserMobile) TableName() string {

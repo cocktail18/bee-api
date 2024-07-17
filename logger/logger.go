@@ -1,24 +1,26 @@
 package logger
 
 import (
-	"github.com/sirupsen/logrus"
-	"os"
+	"go.uber.org/zap"
+	"sync"
 )
 
-var logger = logrus.New()
+var logger *zap.Logger
+var once = sync.Once{}
 
-func InitLogger() {
-	// Log as JSON instead of the default ASCII formatter.
-	logger.SetFormatter(&logrus.JSONFormatter{})
-
-	// Output to stdout instead of the default stderr
-	// Can be any io.Writer, see below for File example
-	logger.SetOutput(os.Stdout)
-
-	// Only logrus the warning severity or above.
-	logger.SetLevel(logrus.DebugLevel)
+func SetLogger(l *zap.Logger) {
+	logger = l
 }
 
-func GetLogger() *logrus.Logger {
+func GetLogger() *zap.Logger {
+	once.Do(func() {
+		if logger == nil {
+			var err error
+			logger, err = zap.NewDevelopment(zap.AddCaller())
+			if err != nil {
+				panic(err)
+			}
+		}
+	})
 	return logger
 }

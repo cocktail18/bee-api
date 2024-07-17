@@ -5,12 +5,13 @@ import (
 	"fmt"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/kit"
+	"gitee.com/stuinfer/bee-api/logger"
 	"gitee.com/stuinfer/bee-api/proto"
 	"gitee.com/stuinfer/bee-api/service"
 	"github.com/gin-gonic/gin"
 	"github.com/go-pay/gopay/wechat/v3"
 	"github.com/shopspring/decimal"
-	"github.com/sirupsen/logrus"
+	"go.uber.org/zap"
 	"io/ioutil"
 	"net/http"
 )
@@ -35,18 +36,23 @@ func (api PayApi) WxApp(c *gin.Context) {
 
 func (api PayApi) WxPayCallBack(c *gin.Context) {
 	//支付回调
-	logrus.Infof("微信回调：uri:%v userId:%v",
-		c.Request.RequestURI, kit.GetUserId(c))
+	logger.GetLogger().Info("微信回调",
+		zap.Any("uri", c.Request.RequestURI),
+		zap.Any("userId", kit.GetUserId(c)))
 
 	req, err := api.getWxV3NotifyReq(c)
 	if err != nil {
-		logrus.Errorf("微信回调处理失败：%v err:%+v", req.Id, err)
+		logger.GetLogger().Error("微信回调处理失败",
+			zap.Any("id", req.Id),
+			zap.Any("userId", kit.GetUserId(c)),
+			zap.Error(err))
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
 	ret, err := service.GetPaySrv().WxNotify(c, c.ClientIP(), req)
 	if err != nil {
-		logrus.Errorf("微信回调处理失败：%v err:%+v", req.Id, err)
+		logger.GetLogger().Error("微信回调处理失败",
+			zap.Any("id", req.Id), zap.Error(err))
 		c.Status(http.StatusInternalServerError)
 		c.AbortWithStatusJSON(http.StatusInternalServerError, &proto.WxPayNotifyResp{
 			Code:    "100",

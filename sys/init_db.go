@@ -18,13 +18,13 @@ func InitDB() {
 		panic(err)
 	}
 	if config2.AppConfigIns.DB != nil && config2.AppConfigIns.DB.Drop {
-		logger.GetLogger().Infof("清空数据库")
+		logger.GetLogger().Info("清空数据库")
 		for _, model := range allModel {
 			if err := db.GetDB().Session(&gorm.Session{AllowGlobalUpdate: true}).Delete(model).Error; err != nil {
 				panic(err)
 			}
 		}
-		logger.GetLogger().Infof("清空数据库成功")
+		logger.GetLogger().Info("清空数据库成功")
 	}
 	if err := InitDemoData(); err != nil {
 		panic(err)

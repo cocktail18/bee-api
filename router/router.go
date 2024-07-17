@@ -2,6 +2,7 @@ package router
 
 import (
 	"gitee.com/stuinfer/bee-api/api"
+	config2 "gitee.com/stuinfer/bee-api/config"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/service"
 	"gitee.com/stuinfer/bee-api/sys"
@@ -9,6 +10,8 @@ import (
 	"github.com/pkg/errors"
 	"github.com/samber/lo"
 	"gorm.io/gorm"
+	"net/http"
+	"os"
 	"strings"
 )
 
@@ -73,8 +76,27 @@ func CheckToken() gin.HandlerFunc {
 	}
 }
 
+type justFilesFilesystem struct {
+	fs http.FileSystem
+}
+
+func (fs justFilesFilesystem) Open(name string) (http.File, error) {
+	f, err := fs.fs.Open(name)
+	if err != nil {
+		return nil, err
+	}
+
+	stat, err := f.Stat()
+	if stat.IsDir() {
+		return nil, os.ErrPermission
+	}
+
+	return f, nil
+}
+
 func NewRouter() *gin.Engine {
 	router.Use(gin.Logger(), gin.Recovery())
+	router.StaticFS(config2.GetStorePath(), justFilesFilesystem{http.Dir(config2.GetStorePath())})
 	domainGroup := router.Group("/:domain", regSysUser())
 	configGroup := domainGroup.Group("/config")
 	{
@@ -231,7 +253,7 @@ func NewRouter() *gin.Engine {
 		feeGroup.GET("/peisong/list", (api.FeeAPi{}).ListPeiSong)
 	}
 
-	//配送费
+	//文件上传
 	dfsGroup := domainGroup.Group("/dfs", CheckToken())
 	{
 		dfsGroup.POST("/upload/file", (api.DfsApi{}).UploadFile)

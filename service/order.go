@@ -8,6 +8,7 @@ import (
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/kit"
+	"gitee.com/stuinfer/bee-api/logger"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
 	"gitee.com/stuinfer/bee-api/util"
@@ -15,8 +16,8 @@ import (
 	"github.com/pkg/errors"
 	"github.com/samber/lo"
 	"github.com/shopspring/decimal"
-	"github.com/sirupsen/logrus"
 	"github.com/spf13/cast"
+	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"math"
 	"strings"
@@ -119,6 +120,7 @@ func (s OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOrd
 		amountLogisticsCoupons = decimal.Zero
 		amountCoupon           = decimal.Zero
 		weightTotal            = decimal.Zero
+		amountBalance          = decimal.Zero
 	)
 	needPeisong := true
 	if req.PeisongType == "zq" {
@@ -130,6 +132,7 @@ func (s OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOrd
 	if err != nil {
 		return nil, err
 	}
+	_ = userInfo
 
 	if req.ShopIdZt > 0 {
 		shopInfo, err = GetShopSrv().GetShopInfo(c, req.ShopIdZt, cast.ToFloat64(req.Lat), cast.ToFloat64(req.Lng))
@@ -295,7 +298,9 @@ func (s OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOrd
 					moneyCal = couponInfo.MoneyMax
 				}
 			} else {
-				logrus.Errorf("优惠券【%d】类型【%d】不可用", couponInfo.Id, couponInfo.MoneyType)
+				logger.GetLogger().Error("优惠券类型不可用",
+					zap.Any("couponId", couponInfo.Id),
+					zap.Any("moneyType", couponInfo.MoneyType))
 				return nil, errors.New("优惠券暂时不可用")
 			}
 
@@ -343,77 +348,53 @@ func (s OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOrd
 		return nil, err
 	}
 	// 开始拼装保存数据
-	// 获取余额
-	balance, err := GetBalanceSrv().GetAmount(uid)
-	if err != nil {
-		return nil, err
-	}
-	amountBalance := decimal.Zero
-	if balance.Balance.LessThanOrEqual(amountReal) {
-		amountBalance = balance.Balance
-		amountReal = amountReal.Sub(amountBalance)
-	} else {
-		amountBalance = amountReal
-		amountReal = decimal.Zero
-	}
 
+	order := &model.BeeOrder{
+		BaseModel:         *kit.GetInsertBaseModel(c),
+		Amount:            amount,
+		AmountCard:        decimal.Zero,
+		AmountCoupons:     amountCoupon,
+		AmountLogistics:   amountLogistics,
+		AmountBalance:     amountBalance,
+		AmountReal:        amountReal,
+		AmountRefundTotal: decimal.Zero,
+		AmountTax:         decimal.Zero,
+		AmountTaxGst:      decimal.Zero,
+		AmountTaxService:  decimal.Zero,
+		AutoDeliverStatus: 0,
+		GoodsNumber:       goodsNumTotal,
+		HasRefund:         false,
+		HxNumber:          util.GetRandInt64(),
+		Ip:                ip,
+		IsCanHx:           cast.ToBool(req.IsCanHx),
+		IsDelUser:         false,
+		IsEnd:             false,
+		IsHasBenefit:      false,
+		IsNeedLogistics:   true,
+		IsPay:             false,
+		IsScoreOrder:      false,
+		IsSuccessPingtuan: false,
+		OrderNumber:       util.GetRandInt64(),
+		OrderType:         enum.OrderTypeNormal,
+		Pid:               0,
+		Qudanhao:          qudanHao,
+		RefundStatus:      enum.OrderRefundStatusNone,
+		Remark:            req.Remark,
+		Score:             0,
+		ScoreDeduction:    0,
+		ShopId:            shopInfo.Id,
+		ShopIdZt:          req.ShopIdZt,
+		ShopNameZt:        req.ShopNameZt,
+		ExtJsonStr:        req.ExtJsonStr,
+		Status:            enum.OrderStatusUnPaid,
+		Trips:             decimal.Zero,
+		Type:              enum.OrderTypeNormal,
+		Uid:               kit.GetUid(c),
+	}
 	err = db.GetDB().Transaction(func(tx *gorm.DB) error {
-		if amountBalance.GreaterThan(decimal.Zero) {
-			// 扣除用户余额
-			if _, err := GetBalanceSrv().OperAmountByTx(c, tx, uid, enum.BalanceTypeBalance, amountBalance, util.GetRandInt64(), "支付订单"); err != nil {
-				return err
-			}
-		}
-		payStatus := enum.OrderStatusUnPaid
-		if amountReal.Equal(decimal.Zero) {
-			payStatus = enum.OrderStatusPaid
-		}
-		order := &model.BeeOrder{
-			BaseModel:         *kit.GetInsertBaseModel(c),
-			Amount:            amount,
-			AmountCard:        decimal.Zero,
-			AmountCoupons:     amountCoupon,
-			AmountLogistics:   amountLogistics,
-			AmountBalance:     amountBalance,
-			AmountReal:        amountReal,
-			AmountRefundTotal: decimal.Zero,
-			AmountTax:         decimal.Zero,
-			AmountTaxGst:      decimal.Zero,
-			AmountTaxService:  decimal.Zero,
-			AutoDeliverStatus: 0,
-			GoodsNumber:       goodsNumTotal,
-			HasRefund:         false,
-			HxNumber:          util.GetRandInt64(),
-			Ip:                ip,
-			IsCanHx:           cast.ToBool(req.IsCanHx),
-			IsDelUser:         false,
-			IsEnd:             false,
-			IsHasBenefit:      false,
-			IsNeedLogistics:   true,
-			IsPay:             payStatus == enum.OrderStatusPaid,
-			IsScoreOrder:      false,
-			IsSuccessPingtuan: false,
-			OrderNumber:       util.GetRandInt64(),
-			OrderType:         enum.OrderTypeNormal,
-			Pid:               0,
-			Qudanhao:          qudanHao,
-			RefundStatus:      enum.OrderRefundStatusNone,
-			Remark:            req.Remark,
-			Score:             0,
-			ScoreDeduction:    0,
-			ShopId:            shopInfo.Id,
-			ShopIdZt:          req.ShopIdZt,
-			ShopNameZt:        req.ShopNameZt,
-			ExtJsonStr:        req.ExtJsonStr,
-			Status:            payStatus,
-			Trips:             decimal.Zero,
-			Type:              enum.OrderTypeNormal,
-			Uid:               kit.GetUid(c),
-		}
 		if err := tx.Create(order).Error; err != nil {
 			return err
 		}
-		resp.OrderId = order.Id
 		for _, goodsInfo := range orderGoodsList {
 			beeOrderGoods := &model.BeeOrderGoods{
 				BaseModel:        *kit.GetInsertBaseModel(c),
@@ -485,16 +466,18 @@ func (s OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOrd
 				return err
 			}
 		}
-		if payStatus == enum.OrderStatusPaid {
-			if err := s.afterPaySuccess(c, tx, userInfo, &proto.OrderDto{BeeOrder: *order}); err != nil {
-				return err
-			}
-		}
 		return nil
 	})
 	if err != nil {
 		return nil, err
 	}
+
+	resp.Id = order.Id
+	resp.HxNumber = order.HxNumber
+	resp.IsPay = order.IsPay
+	resp.OrderNumber = order.OrderNumber
+	resp.NearbyCloseMillis = 600000 //@todo 订单关闭订单
+	resp.Status = order.Status
 	return resp, nil
 }
 
@@ -571,7 +554,7 @@ func (s OrderSrv) List(c context.Context, req *proto.ListOrderReq) (*proto.ListO
 		page = 1
 	}
 	if pageSize <= 0 {
-		pageSize = 20
+		pageSize = 10000
 	}
 
 	dbIns := db.GetDB().Where("uid = ?", kit.GetUid(c)).Where("is_deleted = 0")
@@ -590,7 +573,7 @@ func (s OrderSrv) List(c context.Context, req *proto.ListOrderReq) (*proto.ListO
 	if err := dbIns.Model(&model.BeeOrder{}).Count(&cnt).Error; err != nil {
 		return nil, err
 	}
-	if err := dbIns.Offset((page - 1) * pageSize).Limit(pageSize).Find(&orderList).Error; err != nil {
+	if err := dbIns.Offset((page - 1) * pageSize).Order("id desc").Limit(pageSize).Find(&orderList).Error; err != nil {
 		return nil, err
 	}
 	orderIds := lo.Map(orderList, func(item *model.BeeOrder, index int) int64 {
@@ -761,6 +744,8 @@ func (s OrderSrv) afterPaySuccess(c context.Context, tx *gorm.DB, userInfo *mode
 	return nil
 }
 
+// PaySuccess 支付成功
+// amount 标志第三方支付金额，如果是用余额支付，请用0
 func (s OrderSrv) PaySuccess(c context.Context, ip string, payLog *model.BeePayLog, orderId string, thirdId string, amount decimal.Decimal, extraTx ...func(tx *gorm.DB) error) error {
 	orderInfo, err := s.GetOrderByOrderId(c, cast.ToInt64(orderId))
 	if err != nil {
@@ -775,27 +760,42 @@ func (s OrderSrv) PaySuccess(c context.Context, ip string, payLog *model.BeePayL
 	if orderInfo.Status != enum.OrderStatusUnPaid {
 		return errors.New("不是未支付状态")
 	}
-	if !amount.Equal(orderInfo.AmountReal) {
-		return fmt.Errorf("金额不正确，应该为：%v 实际为：%v", orderInfo.AmountReal, amount)
-	}
 
 	userInfo, err := GetUserSrv().GetUserInfoByUid(c, orderInfo.Uid)
 	if err != nil {
 		return errors.Wrap(err, "获取用户信息失败")
 	}
-	//@todo 部分支付
 
+	// 获取用户余额
+	userAmount, err := GetBalanceSrv().GetAmount(orderInfo.Uid)
+	if err != nil {
+		return errors.Wrap(err, "获取用户余额失败")
+	}
+
+	if !amount.Equal(orderInfo.AmountReal) && orderInfo.AmountReal.GreaterThan(userAmount.Balance.Add(amount)) {
+		return fmt.Errorf("金额不正确，应该为：%v 实际为：%v", orderInfo.AmountReal, userAmount.Balance.Add(amount))
+	}
+	amountBalance := orderInfo.AmountReal.Sub(amount)
 	// 更新支付状态
 	payTime := time.Now()
 	err = db.GetDB().Transaction(func(tx *gorm.DB) error {
 		var err error
+		// 扣除余额
+		if amountBalance.GreaterThan(decimal.Zero) {
+			_, err = GetBalanceSrv().OperAmountByTx(c, tx, orderInfo.Uid, enum.BalanceTypeBalance, amountBalance.Neg(), "pay"+orderInfo.OrderNumber, "订单支付")
+			if err != nil {
+				return errors.Wrap(err, "扣除余额失败")
+			}
+		}
+
 		err = tx.Model(&model.BeeOrder{}).Where("id = ? and status = ?", orderInfo.Id, enum.OrderStatusUnPaid).
 			Updates(map[string]interface{}{
-				"status":      enum.OrderStatusPaid,
-				"is_pay":      true,
-				"ip":          ip,
-				"date_pay":    payTime,
-				"date_update": payTime,
+				"status":         enum.OrderStatusPaid,
+				"amount_balance": amountBalance,
+				"is_pay":         true,
+				"ip":             ip,
+				"date_pay":       payTime,
+				"date_update":    payTime,
 			}).Error
 		if err != nil {
 			return errors.Wrap(err, "更新订单信息失败")
@@ -840,16 +840,16 @@ func (s OrderSrv) PayByBalance(c context.Context, ip, orderId string, code strin
 	if err != nil {
 		return err
 	}
-	if amount.Pwd != util.Md5(amount.GetPwdEncode(pwd)) {
+	if amount.Pwd != "" && amount.Pwd != util.Md5(amount.GetPwdEncode(pwd)) {
 		return errors.New("密码错误")
 	}
 	if len(orderNumArr) > 1 {
 		return errors.New("目前不支持同时支付多个订单")
 	}
 	// check余额
-	orderInfo, err := s.GetOrderByOrderNo(c, orderNumArr[0])
+	orderInfo, err := s.GetOrderByOrderId(c, cast.ToInt64(orderNumArr[0]))
 	if err != nil {
-		return err
+		return errors.Wrap(err, "获取订单信息失败")
 	}
 	if orderInfo.AmountReal.GreaterThan(amount.Balance) {
 		return errors.New("余额不足")
@@ -867,19 +867,11 @@ func (s OrderSrv) PayByBalance(c context.Context, ip, orderId string, code strin
 	if err = db.GetDB().Create(payLog).Error; err != nil {
 		return err
 	}
-	return s.PaySuccess(c, ip, payLog, orderInfo.OrderNumber, "balance_"+util.GetRandInt64(), orderInfo.AmountReal, func(tx *gorm.DB) error {
-		// 扣余额
-		rs := tx.Where("uid = ? and balance >= ?", kit.GetUid(c), orderInfo.AmountReal).Updates(map[string]interface{}{
-			"balance":     gorm.Expr("balance - ?", orderInfo.AmountReal),
+	return s.PaySuccess(c, ip, payLog, cast.ToString(orderInfo.Id), "balance_"+util.GetRandInt64(), decimal.Zero, func(tx *gorm.DB) error {
+		return db.GetDB().Model(&model.BeePayLog{}).Where("id = ?", payLog).Updates(map[string]interface{}{
+			"status":      enum.PayLogStatusPaid,
 			"date_update": time.Now(),
-		})
-		if rs.Error != nil {
-			return err
-		}
-		if rs.RowsAffected != 1 {
-			return errors.New("扣除余额失败")
-		}
-		return nil
+		}).Error
 	})
 }
 

@@ -116,9 +116,9 @@ func TestOrderSrv_PayOrder(t *testing.T) {
 		}
 		resp, err := srv.CreateOrder(ctx, "127.0.0.1", createOrderReq)
 		So(err, ShouldBeNil)
-		err = srv.PaySuccess(ctx, "ip", &model.BeePayLog{}, cast.ToString(resp.OrderId), "", resp.AmountReal)
+		err = srv.PaySuccess(ctx, "ip", &model.BeePayLog{}, cast.ToString(resp.Id), "", resp.AmountReal)
 		So(err, ShouldBeNil)
-		orderInfo, err := srv.GetOrderByOrderId(ctx, resp.OrderId)
+		orderInfo, err := srv.GetOrderByOrderId(ctx, resp.Id)
 		So(err, ShouldBeNil)
 		So(orderInfo.Status, ShouldEqual, enum.OrderStatusPaid)
 		So(orderInfo.IsPay, ShouldEqual, true)

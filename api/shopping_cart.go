@@ -2,10 +2,11 @@ package api
 
 import (
 	"gitee.com/stuinfer/bee-api/kit"
+	"gitee.com/stuinfer/bee-api/logger"
 	"gitee.com/stuinfer/bee-api/service"
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 	"github.com/spf13/cast"
+	"go.uber.org/zap"
 )
 
 type ShoppingCartAPi struct {
@@ -25,7 +26,12 @@ func (api ShoppingCartAPi) Add(c *gin.Context) {
 	sku := c.PostForm("sku")
 	//[{"optionId":142479,"optionValueId":1205135},{"optionId":142480,"optionValueId":1205137},{"optionId":142481,"optionValueId":1205139}]
 	addition := c.PostForm("addition")
-	logrus.Infof("添加购物车，%v %v %v %v %v", uid, goodsId, number, sku, addition)
+	logger.GetLogger().Info("添加购物车",
+		zap.Any("uid", uid),
+		zap.Any("goodsId", goodsId),
+		zap.Any("number", number),
+		zap.Any("sku", sku),
+		zap.Any("addition", addition))
 
 	resp, err := service.GetShoppingCartSrv().Add(c, goodsId, number, sku, addition)
 	api.Res(c, resp, err)
@@ -46,6 +52,10 @@ func (api ShoppingCartAPi) Remove(c *gin.Context) {
 }
 
 func (api ShoppingCartAPi) Empty(c *gin.Context) {
-	resp, err := service.GetShoppingCartSrv().Empty(c)
-	api.Res(c, resp, err)
+	_, err := service.GetShoppingCartSrv().Empty(c)
+	if err != nil {
+		api.Res(c, nil, err)
+		return
+	}
+	api.Success(c, nil)
 }

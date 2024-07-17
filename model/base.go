@@ -58,13 +58,13 @@ var AllModel = []interface{}{
 }
 
 func InitDB() {
-	logger.GetLogger().Infof("开始初始化数据库，生产环境请禁用！！")
+	logger.GetLogger().Info("开始初始化数据库，生产环境请禁用！！")
 	if config2.AppConfigIns.DB != nil && config2.AppConfigIns.DB.Drop {
-		logger.GetLogger().Infof("清空数据库")
+		logger.GetLogger().Info("清空数据库")
 		if err := db.GetDB().Migrator().DropTable(AllModel...); err != nil {
 			panic(err)
 		}
-		logger.GetLogger().Infof("清空数据库成功")
+		logger.GetLogger().Info("清空数据库成功")
 	}
 	if err := db.GetDB().AutoMigrate(
 		AllModel...,
@@ -72,13 +72,13 @@ func InitDB() {
 		panic(err)
 	}
 	// 清空数据库
-	logger.GetLogger().Infof("建表成功")
+	logger.GetLogger().Info("建表成功")
 
-	logger.GetLogger().Infof("开始初始化demo数据")
+	logger.GetLogger().Info("开始初始化demo数据")
 	if err := InitDemoData(); err != nil {
 		panic(err)
 	}
-	logger.GetLogger().Infof("初始化demo数据成功")
+	logger.GetLogger().Info("初始化demo数据成功")
 }
 
 func InitDemoData() error {

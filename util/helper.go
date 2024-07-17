@@ -3,6 +3,7 @@ package util
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"net"
 	"reflect"
 )
 
@@ -33,4 +34,17 @@ func IsEmptyArrayOrSlice(i interface{}) bool {
 
 	// 使用Len方法获取切片或数组的长度
 	return v.Len() == 0
+}
+
+func GetFreePort() (int, error) {
+	// 监听任意IP地址的一个空闲端口
+	listener, err := net.Listen("tcp", ":0")
+	if err != nil {
+		return 0, err
+	}
+	defer listener.Close()
+
+	// 获取监听的端口
+	addr := listener.Addr().(*net.TCPAddr)
+	return addr.Port, nil
 }

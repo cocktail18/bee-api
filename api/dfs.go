@@ -2,6 +2,7 @@ package api
 
 import (
 	"gitee.com/stuinfer/bee-api/service"
+	"gitee.com/stuinfer/bee-api/service/upload"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cast"
 )
@@ -20,12 +21,12 @@ func (a DfsApi) UploadFile(c *gin.Context) {
 	}
 
 	// 保存文件到指定路径
-	dst := "uploads/" + subDomain + "/" + file.Filename
-	err = c.SaveUploadedFile(file, dst)
+	// @todo 定时删除过期文件
+	filepath, filename, err := upload.NewOss().UploadFile(file)
 	if err != nil {
 		a.Res(c, "", err)
 		return
 	}
-	resp, err := service.GetDfsSrv().SaveUploadedFile(c, subDomain, file.Filename, dst, expireHours)
+	resp, err := service.GetDfsSrv().SaveUploadedFile(c, c.Request.Host, subDomain, filename, filepath, expireHours)
 	a.Res(c, resp, err)
 }

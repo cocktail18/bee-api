@@ -12,10 +12,11 @@ type GoodsApi struct {
 }
 
 func (api GoodsApi) List(c *gin.Context) {
+	shopId := cast.ToInt64(c.PostForm("shopId"))
 	categoryId := cast.ToInt64(c.PostForm("categoryId"))
 	page := cast.ToInt(c.PostForm("page"))
 	pageSize := cast.ToInt(c.PostForm("pageSize"))
-	list, err := service.GetGoodsSrv().GetGoodsList(categoryId, page, pageSize)
+	list, err := service.GetGoodsSrv().GetGoodsList(c, shopId, categoryId, page, pageSize)
 	if err != nil {
 		api.Fail(c, enum.ResCodeFail, err.Error())
 		return
@@ -53,7 +54,7 @@ func (api GoodsApi) TimesSchedule(c *gin.Context) {
 }
 
 func (api BaseApi) CategoryAll(c *gin.Context) {
-	list, err := service.GetGoodsSrv().GetCategoryAll()
+	list, err := service.GetGoodsSrv().GetCategoryAll(c)
 	if err != nil {
 		api.Fail(c, enum.ResCodeFail, err.Error())
 		return

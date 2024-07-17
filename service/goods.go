@@ -29,18 +29,24 @@ func GetGoodsSrv() *GoodsSrv {
 	return goodsSrvInstance
 }
 
-func (srv *GoodsSrv) GetGoodsList(categoryId int64, page, pageSize int) ([]*model.BeeShopGoods, error) {
+func (srv *GoodsSrv) GetGoodsList(c context.Context, shopId int64, categoryId int64, page, pageSize int) ([]*model.BeeShopGoods, error) {
 	var list []*model.BeeShopGoods
-	err := db.GetDB().Where(map[string]interface{}{
+	dbIns := db.GetDB().Where(map[string]interface{}{
 		"hidden":      0,
 		"category_id": categoryId,
-	}).Order("paixu desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&list).Error
+	})
+	dbIns = dbIns.Where("user_id = ?", kit.GetUserId(c))
+	if shopId > 0 {
+		dbIns = dbIns.Where("shop_id = ?", shopId)
+	}
+	err := dbIns.Order("paixu desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&list).Error
 	return list, err
 }
 
-func (srv *GoodsSrv) GetCategoryAll() ([]*model.BeeShopGoodsCategory, error) {
+func (srv *GoodsSrv) GetCategoryAll(c context.Context) ([]*model.BeeShopGoodsCategory, error) {
 	var list []*model.BeeShopGoodsCategory
-	err := db.GetDB().Where("is_use=?", 1).Order("paixu desc").Find(&list).Error
+	err := db.GetDB().Where("user_id = ?", kit.GetUserId(c)).
+		Where("is_use=?", 1).Order("paixu desc").Find(&list).Error
 	return list, err
 }
 

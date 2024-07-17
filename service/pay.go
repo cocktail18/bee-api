@@ -7,6 +7,7 @@ import (
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/kit"
+	"gitee.com/stuinfer/bee-api/logger"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
 	"gitee.com/stuinfer/bee-api/util"
@@ -15,8 +16,8 @@ import (
 	"github.com/go-pay/gopay/wechat/v3"
 	"github.com/pkg/errors"
 	"github.com/shopspring/decimal"
-	"github.com/sirupsen/logrus"
 	"github.com/spf13/cast"
+	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"io/ioutil"
 	"strings"
@@ -65,9 +66,9 @@ func (fee *PaySrv) WxNotify(c context.Context, ip string, req *wechat.V3NotifyRe
 	}
 	publicMap := payClient.WxPublicKeyMap()
 	for _, key := range publicMap {
-		logrus.Debugf("微信回调 publicMap key:%v", key)
+		logger.GetLogger().Debug("微信回调", zap.Any("key", key))
 	}
-	logrus.Debugf("微信回调 v.SignInfo.HeaderSerial:%v", req.SignInfo.HeaderSerial)
+	logger.GetLogger().Debug("微信回调", zap.Any("req.SignInfo.HeaderSerial", req.SignInfo.HeaderSerial))
 	err = req.VerifySignByPKMap(publicMap)
 	if err != nil {
 		return nil, errors.Wrap(err, "验证微信请求失败！")
@@ -77,12 +78,13 @@ func (fee *PaySrv) WxNotify(c context.Context, ip string, req *wechat.V3NotifyRe
 	if err != nil {
 		return nil, errors.Wrap(err, "回调数据解析失败")
 	}
-	logrus.Infof("微信支付回调内容：%v", util.ToJsonWithoutErr(payResult, ""))
+	logger.GetLogger().Info("微信回调", zap.Any("payResult", util.ToJsonWithoutErr(payResult, "")))
 	if payResult.Mchid != wxPayConfig.MchId {
 		return nil, fmt.Errorf("商户号不一致:%v %v！", payResult.Mchid, wxPayConfig.AppId)
 	}
 	if payResult.TradeState != "SUCCESS" {
-		logrus.Infof("未付款成功：%v %v", payResult.OutTradeNo, payResult.TradeState)
+		logger.GetLogger().Warn("未付款成功",
+			zap.Any("payResult", util.ToJsonWithoutErr(payResult, "")))
 		return nil, nil
 	}
 	if payResult.Amount.Currency != "CNY" {
@@ -94,7 +96,10 @@ func (fee *PaySrv) WxNotify(c context.Context, ip string, req *wechat.V3NotifyRe
 		return nil, errors.Wrap(err, "获取支付记录失败！")
 	}
 	if payLog.Status != enum.PayLogStatusUnPaid {
-		logrus.Infof("重复支付：%v %v", payResult.OutTradeNo, payLog.Status)
+		logger.GetLogger().Warn("重复支付",
+			zap.Any("payResult", util.ToJsonWithoutErr(payResult, "")),
+			zap.Any("payLog", util.ToJsonWithoutErr(payLog, "")),
+		)
 		return nil, nil
 	}
 	nextAction := payLog.NextAction

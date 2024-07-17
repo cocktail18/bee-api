@@ -54,6 +54,9 @@ func CreateOrSaveWxAppConfig(userId int64, wxConfig *config2.WxConfig) error {
 	} else if err != nil {
 		return err
 	} else {
+		if wxConfig.AppId == "" || wxConfig.Secret == "" {
+			return nil
+		}
 		curAppConfig.AppId = wxConfig.AppId
 		curAppConfig.AppSecret = wxConfig.Secret
 		curAppConfig.DateUpdate = common.JsonTime(time.Now())

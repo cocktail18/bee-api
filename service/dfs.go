@@ -2,11 +2,12 @@ package service
 
 import (
 	"context"
-	config2 "gitee.com/stuinfer/bee-api/config"
+	"gitee.com/stuinfer/bee-api/config"
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
+	"strings"
 	"sync"
 	"time"
 )
@@ -25,7 +26,7 @@ func GetDfsSrv() *DfsSrv {
 	return dfsSrvInstance
 }
 
-func (s DfsSrv) SaveUploadedFile(c context.Context, domain string, filename, dst string, hours int64) (*proto.UploadFileResp, error) {
+func (s DfsSrv) SaveUploadedFile(c context.Context, host string, domain string, filename, dst string, hours int64) (*proto.UploadFileResp, error) {
 	data := model.BeeUploadFile{
 		BaseModel: *kit.GetInsertBaseModel(c),
 		Domain:    domain,
@@ -37,6 +38,13 @@ func (s DfsSrv) SaveUploadedFile(c context.Context, domain string, filename, dst
 		return nil, err
 	}
 	return &proto.UploadFileResp{
-		Url: config2.AppConfigIns.App.DfsHost + "/" + dst,
+		Url: s.FillFileUrl(host, dst),
 	}, nil
+}
+
+func (s DfsSrv) FillFileUrl(host, path string) string {
+	if strings.HasPrefix(path, "http") {
+		return path
+	}
+	return strings.TrimRight(config.GetDfsHost(host), "/") + "/" + strings.TrimLeft(path, "/")
 }

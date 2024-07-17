@@ -8,7 +8,7 @@ import (
 	"gitee.com/stuinfer/bee-api/router"
 	"gitee.com/stuinfer/bee-api/sys"
 	"github.com/pkg/errors"
-	"github.com/sirupsen/logrus"
+	"go.uber.org/zap"
 	"log"
 	"net/http"
 	"os"
@@ -16,10 +16,6 @@ import (
 	"syscall"
 	"time"
 )
-
-func init() {
-	logger.InitLogger()
-}
 
 func Run(cfg *config2.AppConfig) {
 	config2.AppConfigIns = cfg
@@ -32,7 +28,7 @@ func Run(cfg *config2.AppConfig) {
 		sys.InitDB()
 	}
 	go func() {
-		logrus.Infof("服务启动：%v", svr.Addr)
+		logger.GetLogger().Info("服务启动", zap.Any("addr", svr.Addr))
 		err := svr.ListenAndServe()
 		if err != nil && !errors.Is(err, http.ErrServerClosed) {
 			log.Fatalln(err)
