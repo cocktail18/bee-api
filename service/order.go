@@ -231,7 +231,7 @@ func (s OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOrd
 	}
 	amountTotal = amount
 
-	if address != nil {
+	if address != nil && address.Id > 0 {
 		for logisticsId, item := range logisticsId2item {
 			goodsLogistic, err := GetFreightTplSrv().GetBeeLogistics(c, logisticsId, address.CityId)
 			if err != nil {
@@ -868,7 +868,7 @@ func (s OrderSrv) PayByBalance(c context.Context, ip, orderId string, code strin
 		return err
 	}
 	return s.PaySuccess(c, ip, payLog, cast.ToString(orderInfo.Id), "balance_"+util.GetRandInt64(), decimal.Zero, func(tx *gorm.DB) error {
-		return db.GetDB().Model(&model.BeePayLog{}).Where("id = ?", payLog).Updates(map[string]interface{}{
+		return db.GetDB().Model(&model.BeePayLog{}).Where("id = ?", payLog.Id).Updates(map[string]interface{}{
 			"status":      enum.PayLogStatusPaid,
 			"date_update": time.Now(),
 		}).Error
