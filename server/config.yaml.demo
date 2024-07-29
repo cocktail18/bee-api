@@ -1,0 +1,223 @@
+aliyun-oss:
+    endpoint: yourEndpoint
+    access-key-id: yourAccessKeyId
+    access-key-secret: yourAccessKeySecret
+    bucket-name: yourBucketName
+    bucket-url: yourBucketUrl
+    base-path: yourBasePath
+autocode:
+    server-model: /model/%s
+    server-router: /router/%s
+    server: /server
+    server-api: /api/v1/%s
+    server-plug: /plugin/%s
+    server-initialize: /initialize
+    root: /Users/lijingwei/workspace/cocktail/bee-simple-admin
+    web-table: /view
+    web: /web/src
+    server-service: /service/%s
+    server-request: /model/%s/request/
+    web-api: /api
+    web-form: /view
+    transfer-restart: true
+aws-s3:
+    bucket: xxxxx-10005608
+    region: ap-shanghai
+    endpoint: ""
+    secret-id: your-secret-id
+    secret-key: your-secret-key
+    base-url: https://gin.vue.admin
+    path-prefix: github.com/flipped-aurora/gin-vue-admin/server
+    s3-force-path-style: false
+    disable-ssl: false
+captcha:
+    key-long: 6
+    img-width: 240
+    img-height: 80
+    open-captcha: 0
+    open-captcha-timeout: 3600
+cors:
+    mode: strict-whitelist
+    whitelist:
+        - allow-origin: example1.com
+          allow-methods: POST, GET
+          allow-headers: Content-Type,AccessToken,X-CSRF-Token, Authorization, Token,X-Token,X-User-Id
+          expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type
+          allow-credentials: true
+        - allow-origin: example2.com
+          allow-methods: GET, POST
+          allow-headers: content-type
+          expose-headers: Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type
+          allow-credentials: true
+db-list:
+    - type: mysql
+      alias-name: bee
+      prefix: bee_
+      port: "3306"
+      config: charset=utf8mb4&parseTime=True&loc=Local
+      db-name: bee
+      username: root
+      password: "123456"
+      path: ""
+      engine: ""
+      log-mode: error
+      max-idle-conns: 10
+      max-open-conns: 100
+      singular: false
+      log-zap: false
+      disable: false
+disk-list:
+    - mount-point: /
+email:
+    to: xxx@qq.com
+    from: xxx@163.com
+    host: smtp.163.com
+    secret: xxx
+    nickname: test
+    port: 465
+    is-ssl: true
+excel:
+    dir: ./resource/excel/
+hua-wei-obs:
+    path: you-path
+    bucket: you-bucket
+    endpoint: you-endpoint
+    access-key: you-access-key
+    secret-key: you-secret-key
+jwt:
+    signing-key: a706de50-86a7-49e6-9a7e-dd7549cec72b
+    expires-time: 7d
+    buffer-time: 1d
+    issuer: qmPlus
+local:
+    path: uploads/file
+    store-path: uploads/file
+mongo:
+    coll: ""
+    options: ""
+    database: ""
+    username: ""
+    password: ""
+    auth-source: ""
+    min-pool-size: 0
+    max-pool-size: 100
+    socket-timeout-ms: 0
+    connect-timeout-ms: 0
+    is-zap: false
+    hosts:
+        - host: ""
+          port: ""
+mssql:
+    prefix: ""
+    port: ""
+    config: ""
+    db-name: ""
+    username: ""
+    password: ""
+    path: ""
+    engine: ""
+    log-mode: ""
+    max-idle-conns: 10
+    max-open-conns: 100
+    singular: false
+    log-zap: false
+mysql:
+    prefix: ""
+    port: "3306"
+    config: charset=utf8mb4&parseTime=True&loc=Local
+    db-name: ""
+    username: root
+    password: "123456"
+    path: 127.0.0.1
+    engine: ""
+    log-mode: error
+    max-idle-conns: 10
+    max-open-conns: 100
+    singular: false
+    log-zap: false
+oracle:
+    prefix: ""
+    port: ""
+    config: ""
+    db-name: ""
+    username: ""
+    password: ""
+    path: ""
+    engine: ""
+    log-mode: ""
+    max-idle-conns: 10
+    max-open-conns: 100
+    singular: false
+    log-zap: false
+pgsql:
+    prefix: ""
+    port: ""
+    config: ""
+    db-name: ""
+    username: ""
+    password: ""
+    path: ""
+    engine: ""
+    log-mode: ""
+    max-idle-conns: 10
+    max-open-conns: 100
+    singular: false
+    log-zap: false
+qiniu:
+    zone: ZoneHuaDong
+    bucket: first
+    img-path: http://cdn2.fbsst.top
+    access-key: UcFvPQaPPsNsyA0tl05QPQyO00s9NLoE47m-QWAV
+    secret-key: T6pSlkV_U4YYrB7zFLTL_P6YnPp6-8kLYbNyUMHc
+    use-https: false
+    use-cdn-domains: false
+redis:
+    addr: 127.0.0.1:6379
+    password: ""
+    db: 0
+    useCluster: false
+    clusterAddrs:
+        - 172.21.0.3:7000
+        - 172.21.0.4:7001
+        - 172.21.0.2:7002
+sqlite:
+    prefix: ""
+    port: ""
+    config: ""
+    db-name: ""
+    username: ""
+    password: ""
+    path: ""
+    engine: ""
+    log-mode: ""
+    max-idle-conns: 10
+    max-open-conns: 100
+    singular: false
+    log-zap: false
+system:
+    db-type: mysql
+    oss-type: local
+    router-prefix: ""
+    addr: 8888
+    iplimit-count: 15000
+    iplimit-time: 3600
+    use-multipoint: false
+    use-redis: false
+    use-mongo: false
+tencent-cos:
+    bucket: xxxxx-10005608
+    region: ap-shanghai
+    secret-id: your-secret-id
+    secret-key: your-secret-key
+    base-url: https://gin.vue.admin
+    path-prefix: github.com/flipped-aurora/gin-vue-admin/server
+zap:
+    level: info
+    prefix: '[github.com/flipped-aurora/gin-vue-admin/server]'
+    format: console
+    director: log
+    encode-level: LowercaseColorLevelEncoder
+    stacktrace-key: stacktrace
+    show-line: true
+    log-in-console: true
+    retention-day: -1

@@ -1,0 +1,2395 @@
+[{
+  "id": 99,
+  "created_at": "2024-06-24 11:46:31.311",
+  "updated_at": "2024-06-24 11:46:31.311",
+  "deleted_at": null,
+  "path": "\/beeUploadFile\/createBeeUploadFile",
+  "description": "新增beeUploadFile表",
+  "api_group": "beeUploadFile表",
+  "method": "POST"
+}, {
+  "id": 100,
+  "created_at": "2024-06-24 11:46:31.315",
+  "updated_at": "2024-06-24 11:46:31.315",
+  "deleted_at": null,
+  "path": "\/beeUploadFile\/deleteBeeUploadFile",
+  "description": "删除beeUploadFile表",
+  "api_group": "beeUploadFile表",
+  "method": "DELETE"
+}, {
+  "id": 101,
+  "created_at": "2024-06-24 11:46:31.317",
+  "updated_at": "2024-06-24 11:46:31.317",
+  "deleted_at": null,
+  "path": "\/beeUploadFile\/deleteBeeUploadFileByIds",
+  "description": "批量删除beeUploadFile表",
+  "api_group": "beeUploadFile表",
+  "method": "DELETE"
+}, {
+  "id": 102,
+  "created_at": "2024-06-24 11:46:31.319",
+  "updated_at": "2024-06-24 11:46:31.319",
+  "deleted_at": null,
+  "path": "\/beeUploadFile\/updateBeeUploadFile",
+  "description": "更新beeUploadFile表",
+  "api_group": "beeUploadFile表",
+  "method": "PUT"
+}, {
+  "id": 103,
+  "created_at": "2024-06-24 11:46:31.321",
+  "updated_at": "2024-06-24 11:46:31.321",
+  "deleted_at": null,
+  "path": "\/beeUploadFile\/findBeeUploadFile",
+  "description": "根据ID获取beeUploadFile表",
+  "api_group": "beeUploadFile表",
+  "method": "GET"
+}, {
+  "id": 104,
+  "created_at": "2024-06-24 11:46:31.329",
+  "updated_at": "2024-06-24 11:46:31.329",
+  "deleted_at": null,
+  "path": "\/beeUploadFile\/getBeeUploadFileList",
+  "description": "获取beeUploadFile表列表",
+  "api_group": "beeUploadFile表",
+  "method": "GET"
+}, {
+  "id": 105,
+  "created_at": "2024-06-24 11:56:41.742",
+  "updated_at": "2024-06-24 11:56:41.742",
+  "deleted_at": null,
+  "path": "\/beeUserMapper\/createBeeUserMapper",
+  "description": "新增用户第三方登录关联表",
+  "api_group": "用户第三方登录关联表",
+  "method": "POST"
+}, {
+  "id": 106,
+  "created_at": "2024-06-24 11:56:41.746",
+  "updated_at": "2024-06-24 11:56:41.746",
+  "deleted_at": null,
+  "path": "\/beeUserMapper\/deleteBeeUserMapper",
+  "description": "删除用户第三方登录关联表",
+  "api_group": "用户第三方登录关联表",
+  "method": "DELETE"
+}, {
+  "id": 107,
+  "created_at": "2024-06-24 11:56:41.749",
+  "updated_at": "2024-06-24 11:56:41.749",
+  "deleted_at": null,
+  "path": "\/beeUserMapper\/deleteBeeUserMapperByIds",
+  "description": "批量删除用户第三方登录关联表",
+  "api_group": "用户第三方登录关联表",
+  "method": "DELETE"
+}, {
+  "id": 108,
+  "created_at": "2024-06-24 11:56:41.751",
+  "updated_at": "2024-06-24 11:56:41.751",
+  "deleted_at": null,
+  "path": "\/beeUserMapper\/updateBeeUserMapper",
+  "description": "更新用户第三方登录关联表",
+  "api_group": "用户第三方登录关联表",
+  "method": "PUT"
+}, {
+  "id": 109,
+  "created_at": "2024-06-24 11:56:41.754",
+  "updated_at": "2024-06-24 11:56:41.754",
+  "deleted_at": null,
+  "path": "\/beeUserMapper\/findBeeUserMapper",
+  "description": "根据ID获取用户第三方登录关联表",
+  "api_group": "用户第三方登录关联表",
+  "method": "GET"
+}, {
+  "id": 110,
+  "created_at": "2024-06-24 11:56:41.759",
+  "updated_at": "2024-06-24 11:56:41.759",
+  "deleted_at": null,
+  "path": "\/beeUserMapper\/getBeeUserMapperList",
+  "description": "获取用户第三方登录关联表列表",
+  "api_group": "用户第三方登录关联表",
+  "method": "GET"
+}, {
+  "id": 111,
+  "created_at": "2024-06-24 11:58:37.677",
+  "updated_at": "2024-06-24 11:58:37.677",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsCategory\/createBeeShopGoodsCategory",
+  "description": "新增商品分类表",
+  "api_group": "商品分类表",
+  "method": "POST"
+}, {
+  "id": 112,
+  "created_at": "2024-06-24 11:58:37.681",
+  "updated_at": "2024-06-24 11:58:37.681",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsCategory\/deleteBeeShopGoodsCategory",
+  "description": "删除商品分类表",
+  "api_group": "商品分类表",
+  "method": "DELETE"
+}, {
+  "id": 113,
+  "created_at": "2024-06-24 11:58:37.683",
+  "updated_at": "2024-06-24 11:58:37.683",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsCategory\/deleteBeeShopGoodsCategoryByIds",
+  "description": "批量删除商品分类表",
+  "api_group": "商品分类表",
+  "method": "DELETE"
+}, {
+  "id": 114,
+  "created_at": "2024-06-24 11:58:37.686",
+  "updated_at": "2024-06-24 11:58:37.686",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsCategory\/updateBeeShopGoodsCategory",
+  "description": "更新商品分类表",
+  "api_group": "商品分类表",
+  "method": "PUT"
+}, {
+  "id": 115,
+  "created_at": "2024-06-24 11:58:37.689",
+  "updated_at": "2024-06-24 11:58:37.689",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsCategory\/findBeeShopGoodsCategory",
+  "description": "根据ID获取商品分类表",
+  "api_group": "商品分类表",
+  "method": "GET"
+}, {
+  "id": 116,
+  "created_at": "2024-06-24 11:58:37.692",
+  "updated_at": "2024-06-24 11:58:37.692",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsCategory\/getBeeShopGoodsCategoryList",
+  "description": "获取商品分类表列表",
+  "api_group": "商品分类表",
+  "method": "GET"
+}, {
+  "id": 117,
+  "created_at": "2024-06-25 14:07:54.326",
+  "updated_at": "2024-06-25 14:07:54.326",
+  "deleted_at": "2024-07-09 20:03:25.866",
+  "path": "\/beeShopFreightTpl\/createBeeShopFreightTpl",
+  "description": "新增商城运费模版",
+  "api_group": "商城运费模版",
+  "method": "POST"
+}, {
+  "id": 118,
+  "created_at": "2024-06-25 14:07:54.332",
+  "updated_at": "2024-06-25 14:07:54.332",
+  "deleted_at": "2024-07-09 20:03:25.866",
+  "path": "\/beeShopFreightTpl\/deleteBeeShopFreightTpl",
+  "description": "删除商城运费模版",
+  "api_group": "商城运费模版",
+  "method": "DELETE"
+}, {
+  "id": 119,
+  "created_at": "2024-06-25 14:07:54.335",
+  "updated_at": "2024-06-25 14:07:54.335",
+  "deleted_at": "2024-07-09 20:03:25.866",
+  "path": "\/beeShopFreightTpl\/deleteBeeShopFreightTplByIds",
+  "description": "批量删除商城运费模版",
+  "api_group": "商城运费模版",
+  "method": "DELETE"
+}, {
+  "id": 120,
+  "created_at": "2024-06-25 14:07:54.337",
+  "updated_at": "2024-06-25 14:07:54.337",
+  "deleted_at": "2024-07-09 20:03:25.866",
+  "path": "\/beeShopFreightTpl\/updateBeeShopFreightTpl",
+  "description": "更新商城运费模版",
+  "api_group": "商城运费模版",
+  "method": "PUT"
+}, {
+  "id": 121,
+  "created_at": "2024-06-25 14:07:54.340",
+  "updated_at": "2024-06-25 14:07:54.340",
+  "deleted_at": "2024-07-09 20:03:25.866",
+  "path": "\/beeShopFreightTpl\/findBeeShopFreightTpl",
+  "description": "根据ID获取商城运费模版",
+  "api_group": "商城运费模版",
+  "method": "GET"
+}, {
+  "id": 122,
+  "created_at": "2024-06-25 14:07:54.342",
+  "updated_at": "2024-06-25 14:07:54.342",
+  "deleted_at": "2024-07-09 20:03:25.866",
+  "path": "\/beeShopFreightTpl\/getBeeShopFreightTplList",
+  "description": "获取商城运费模版列表",
+  "api_group": "商城运费模版",
+  "method": "GET"
+}, {
+  "id": 123,
+  "created_at": "2024-06-25 17:35:05.817",
+  "updated_at": "2024-06-25 17:35:05.817",
+  "deleted_at": null,
+  "path": "\/beeShopInfo\/createBeeShopInfo",
+  "description": "新增商店信息",
+  "api_group": "商店信息",
+  "method": "POST"
+}, {
+  "id": 124,
+  "created_at": "2024-06-25 17:35:05.822",
+  "updated_at": "2024-06-25 17:35:05.822",
+  "deleted_at": null,
+  "path": "\/beeShopInfo\/deleteBeeShopInfo",
+  "description": "删除商店信息",
+  "api_group": "商店信息",
+  "method": "DELETE"
+}, {
+  "id": 125,
+  "created_at": "2024-06-25 17:35:05.824",
+  "updated_at": "2024-06-25 17:35:05.824",
+  "deleted_at": null,
+  "path": "\/beeShopInfo\/deleteBeeShopInfoByIds",
+  "description": "批量删除商店信息",
+  "api_group": "商店信息",
+  "method": "DELETE"
+}, {
+  "id": 126,
+  "created_at": "2024-06-25 17:35:05.827",
+  "updated_at": "2024-06-25 17:35:05.827",
+  "deleted_at": null,
+  "path": "\/beeShopInfo\/updateBeeShopInfo",
+  "description": "更新商店信息",
+  "api_group": "商店信息",
+  "method": "PUT"
+}, {
+  "id": 127,
+  "created_at": "2024-06-25 17:35:05.830",
+  "updated_at": "2024-06-25 17:35:05.830",
+  "deleted_at": null,
+  "path": "\/beeShopInfo\/findBeeShopInfo",
+  "description": "根据ID获取商店信息",
+  "api_group": "商店信息",
+  "method": "GET"
+}, {
+  "id": 128,
+  "created_at": "2024-06-25 17:35:05.832",
+  "updated_at": "2024-06-25 17:35:05.832",
+  "deleted_at": null,
+  "path": "\/beeShopInfo\/getBeeShopInfoList",
+  "description": "获取商店信息列表",
+  "api_group": "商店信息",
+  "method": "GET"
+}, {
+  "id": 129,
+  "created_at": "2024-06-25 17:36:27.150",
+  "updated_at": "2024-06-25 17:36:27.150",
+  "deleted_at": null,
+  "path": "\/beeUserBalanceLog\/createBeeUserBalanceLog",
+  "description": "新增用户消费记录",
+  "api_group": "用户消费记录",
+  "method": "POST"
+}, {
+  "id": 130,
+  "created_at": "2024-06-25 17:36:27.154",
+  "updated_at": "2024-06-25 17:36:27.154",
+  "deleted_at": null,
+  "path": "\/beeUserBalanceLog\/deleteBeeUserBalanceLog",
+  "description": "删除用户消费记录",
+  "api_group": "用户消费记录",
+  "method": "DELETE"
+}, {
+  "id": 131,
+  "created_at": "2024-06-25 17:36:27.157",
+  "updated_at": "2024-06-25 17:36:27.157",
+  "deleted_at": null,
+  "path": "\/beeUserBalanceLog\/deleteBeeUserBalanceLogByIds",
+  "description": "批量删除用户消费记录",
+  "api_group": "用户消费记录",
+  "method": "DELETE"
+}, {
+  "id": 132,
+  "created_at": "2024-06-25 17:36:27.159",
+  "updated_at": "2024-06-25 17:36:27.159",
+  "deleted_at": null,
+  "path": "\/beeUserBalanceLog\/updateBeeUserBalanceLog",
+  "description": "更新用户消费记录",
+  "api_group": "用户消费记录",
+  "method": "PUT"
+}, {
+  "id": 133,
+  "created_at": "2024-06-25 17:36:27.161",
+  "updated_at": "2024-06-25 17:36:27.161",
+  "deleted_at": null,
+  "path": "\/beeUserBalanceLog\/findBeeUserBalanceLog",
+  "description": "根据ID获取用户消费记录",
+  "api_group": "用户消费记录",
+  "method": "GET"
+}, {
+  "id": 134,
+  "created_at": "2024-06-25 17:36:27.163",
+  "updated_at": "2024-06-25 17:36:27.163",
+  "deleted_at": null,
+  "path": "\/beeUserBalanceLog\/getBeeUserBalanceLogList",
+  "description": "获取用户消费记录列表",
+  "api_group": "用户消费记录",
+  "method": "GET"
+}, {
+  "id": 135,
+  "created_at": "2024-06-25 17:54:39.344",
+  "updated_at": "2024-06-25 17:54:39.344",
+  "deleted_at": null,
+  "path": "\/beeCoupon\/createBeeCoupon",
+  "description": "新增优惠券",
+  "api_group": "优惠券",
+  "method": "POST"
+}, {
+  "id": 136,
+  "created_at": "2024-06-25 17:54:39.350",
+  "updated_at": "2024-06-25 17:54:39.350",
+  "deleted_at": null,
+  "path": "\/beeCoupon\/deleteBeeCoupon",
+  "description": "删除优惠券",
+  "api_group": "优惠券",
+  "method": "DELETE"
+}, {
+  "id": 137,
+  "created_at": "2024-06-25 17:54:39.353",
+  "updated_at": "2024-06-25 17:54:39.353",
+  "deleted_at": null,
+  "path": "\/beeCoupon\/deleteBeeCouponByIds",
+  "description": "批量删除优惠券",
+  "api_group": "优惠券",
+  "method": "DELETE"
+}, {
+  "id": 138,
+  "created_at": "2024-06-25 17:54:39.360",
+  "updated_at": "2024-06-25 17:54:39.360",
+  "deleted_at": null,
+  "path": "\/beeCoupon\/updateBeeCoupon",
+  "description": "更新优惠券",
+  "api_group": "优惠券",
+  "method": "PUT"
+}, {
+  "id": 139,
+  "created_at": "2024-06-25 17:54:39.362",
+  "updated_at": "2024-06-25 17:54:39.362",
+  "deleted_at": null,
+  "path": "\/beeCoupon\/findBeeCoupon",
+  "description": "根据ID获取优惠券",
+  "api_group": "优惠券",
+  "method": "GET"
+}, {
+  "id": 140,
+  "created_at": "2024-06-25 17:54:39.364",
+  "updated_at": "2024-06-25 17:54:39.364",
+  "deleted_at": null,
+  "path": "\/beeCoupon\/getBeeCouponList",
+  "description": "获取优惠券列表",
+  "api_group": "优惠券",
+  "method": "GET"
+}, {
+  "id": 141,
+  "created_at": "2024-06-25 17:55:32.290",
+  "updated_at": "2024-06-25 17:55:32.290",
+  "deleted_at": null,
+  "path": "\/beeUserCoupon\/createBeeUserCoupon",
+  "description": "新增用户优惠券",
+  "api_group": "用户优惠券",
+  "method": "POST"
+}, {
+  "id": 142,
+  "created_at": "2024-06-25 17:55:32.296",
+  "updated_at": "2024-06-25 17:55:32.296",
+  "deleted_at": null,
+  "path": "\/beeUserCoupon\/deleteBeeUserCoupon",
+  "description": "删除用户优惠券",
+  "api_group": "用户优惠券",
+  "method": "DELETE"
+}, {
+  "id": 143,
+  "created_at": "2024-06-25 17:55:32.304",
+  "updated_at": "2024-06-25 17:55:32.304",
+  "deleted_at": null,
+  "path": "\/beeUserCoupon\/deleteBeeUserCouponByIds",
+  "description": "批量删除用户优惠券",
+  "api_group": "用户优惠券",
+  "method": "DELETE"
+}, {
+  "id": 144,
+  "created_at": "2024-06-25 17:55:32.312",
+  "updated_at": "2024-06-25 17:55:32.312",
+  "deleted_at": null,
+  "path": "\/beeUserCoupon\/updateBeeUserCoupon",
+  "description": "更新用户优惠券",
+  "api_group": "用户优惠券",
+  "method": "PUT"
+}, {
+  "id": 145,
+  "created_at": "2024-06-25 17:55:32.315",
+  "updated_at": "2024-06-25 17:55:32.315",
+  "deleted_at": null,
+  "path": "\/beeUserCoupon\/findBeeUserCoupon",
+  "description": "根据ID获取用户优惠券",
+  "api_group": "用户优惠券",
+  "method": "GET"
+}, {
+  "id": 146,
+  "created_at": "2024-06-25 17:55:32.318",
+  "updated_at": "2024-06-25 17:55:32.318",
+  "deleted_at": null,
+  "path": "\/beeUserCoupon\/getBeeUserCouponList",
+  "description": "获取用户优惠券列表",
+  "api_group": "用户优惠券",
+  "method": "GET"
+}, {
+  "id": 147,
+  "created_at": "2024-06-25 17:56:37.669",
+  "updated_at": "2024-06-25 17:56:37.669",
+  "deleted_at": null,
+  "path": "\/beeCashLog\/createBeeCashLog",
+  "description": "新增用户现金消费记录",
+  "api_group": "用户现金消费记录",
+  "method": "POST"
+}, {
+  "id": 148,
+  "created_at": "2024-06-25 17:56:37.674",
+  "updated_at": "2024-06-25 17:56:37.674",
+  "deleted_at": null,
+  "path": "\/beeCashLog\/deleteBeeCashLog",
+  "description": "删除用户现金消费记录",
+  "api_group": "用户现金消费记录",
+  "method": "DELETE"
+}, {
+  "id": 149,
+  "created_at": "2024-06-25 17:56:37.677",
+  "updated_at": "2024-06-25 17:56:37.677",
+  "deleted_at": null,
+  "path": "\/beeCashLog\/deleteBeeCashLogByIds",
+  "description": "批量删除用户现金消费记录",
+  "api_group": "用户现金消费记录",
+  "method": "DELETE"
+}, {
+  "id": 150,
+  "created_at": "2024-06-25 17:56:37.679",
+  "updated_at": "2024-06-25 17:56:37.679",
+  "deleted_at": null,
+  "path": "\/beeCashLog\/updateBeeCashLog",
+  "description": "更新用户现金消费记录",
+  "api_group": "用户现金消费记录",
+  "method": "PUT"
+}, {
+  "id": 151,
+  "created_at": "2024-06-25 17:56:37.680",
+  "updated_at": "2024-06-25 17:56:37.680",
+  "deleted_at": null,
+  "path": "\/beeCashLog\/findBeeCashLog",
+  "description": "根据ID获取用户现金消费记录",
+  "api_group": "用户现金消费记录",
+  "method": "GET"
+}, {
+  "id": 152,
+  "created_at": "2024-06-25 17:56:37.682",
+  "updated_at": "2024-06-25 17:56:37.682",
+  "deleted_at": null,
+  "path": "\/beeCashLog\/getBeeCashLogList",
+  "description": "获取用户现金消费记录列表",
+  "api_group": "用户现金消费记录",
+  "method": "GET"
+}, {
+  "id": 153,
+  "created_at": "2024-06-25 17:57:38.820",
+  "updated_at": "2024-06-25 17:57:38.820",
+  "deleted_at": null,
+  "path": "\/beeConfig\/createBeeConfig",
+  "description": "新增公用配置表",
+  "api_group": "公用配置表",
+  "method": "POST"
+}, {
+  "id": 154,
+  "created_at": "2024-06-25 17:57:38.827",
+  "updated_at": "2024-06-25 17:57:38.827",
+  "deleted_at": null,
+  "path": "\/beeConfig\/deleteBeeConfig",
+  "description": "删除公用配置表",
+  "api_group": "公用配置表",
+  "method": "DELETE"
+}, {
+  "id": 155,
+  "created_at": "2024-06-25 17:57:38.830",
+  "updated_at": "2024-06-25 17:57:38.830",
+  "deleted_at": null,
+  "path": "\/beeConfig\/deleteBeeConfigByIds",
+  "description": "批量删除公用配置表",
+  "api_group": "公用配置表",
+  "method": "DELETE"
+}, {
+  "id": 156,
+  "created_at": "2024-06-25 17:57:38.834",
+  "updated_at": "2024-06-25 17:57:38.834",
+  "deleted_at": null,
+  "path": "\/beeConfig\/updateBeeConfig",
+  "description": "更新公用配置表",
+  "api_group": "公用配置表",
+  "method": "PUT"
+}, {
+  "id": 157,
+  "created_at": "2024-06-25 17:57:38.836",
+  "updated_at": "2024-06-25 17:57:38.836",
+  "deleted_at": null,
+  "path": "\/beeConfig\/findBeeConfig",
+  "description": "根据ID获取公用配置表",
+  "api_group": "公用配置表",
+  "method": "GET"
+}, {
+  "id": 158,
+  "created_at": "2024-06-25 17:57:38.838",
+  "updated_at": "2024-06-25 17:57:38.838",
+  "deleted_at": null,
+  "path": "\/beeConfig\/getBeeConfigList",
+  "description": "获取公用配置表列表",
+  "api_group": "公用配置表",
+  "method": "GET"
+}, {
+  "id": 159,
+  "created_at": "2024-06-26 09:55:47.348",
+  "updated_at": "2024-06-26 09:55:47.348",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsProp\/createBeeShopGoodsProp",
+  "description": "新增商品属性",
+  "api_group": "商品属性",
+  "method": "POST"
+}, {
+  "id": 160,
+  "created_at": "2024-06-26 09:55:47.360",
+  "updated_at": "2024-06-26 09:55:47.360",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsProp\/deleteBeeShopGoodsProp",
+  "description": "删除商品属性",
+  "api_group": "商品属性",
+  "method": "DELETE"
+}, {
+  "id": 161,
+  "created_at": "2024-06-26 09:55:47.368",
+  "updated_at": "2024-06-26 09:55:47.368",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsProp\/deleteBeeShopGoodsPropByIds",
+  "description": "批量删除商品属性",
+  "api_group": "商品属性",
+  "method": "DELETE"
+}, {
+  "id": 162,
+  "created_at": "2024-06-26 09:55:47.372",
+  "updated_at": "2024-06-26 09:55:47.372",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsProp\/updateBeeShopGoodsProp",
+  "description": "更新商品属性",
+  "api_group": "商品属性",
+  "method": "PUT"
+}, {
+  "id": 163,
+  "created_at": "2024-06-26 09:55:47.374",
+  "updated_at": "2024-06-26 09:55:47.374",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsProp\/findBeeShopGoodsProp",
+  "description": "根据ID获取商品属性",
+  "api_group": "商品属性",
+  "method": "GET"
+}, {
+  "id": 164,
+  "created_at": "2024-06-26 09:55:47.375",
+  "updated_at": "2024-06-26 09:55:47.375",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsProp\/getBeeShopGoodsPropList",
+  "description": "获取商品属性列表",
+  "api_group": "商品属性",
+  "method": "GET"
+}, {
+  "id": 165,
+  "created_at": "2024-06-26 09:56:55.626",
+  "updated_at": "2024-06-26 09:56:55.626",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsAddition\/createBeeShopGoodsAddition",
+  "description": "新增商品额外信息",
+  "api_group": "商品额外信息",
+  "method": "POST"
+}, {
+  "id": 166,
+  "created_at": "2024-06-26 09:56:55.632",
+  "updated_at": "2024-06-26 09:56:55.632",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsAddition\/deleteBeeShopGoodsAddition",
+  "description": "删除商品额外信息",
+  "api_group": "商品额外信息",
+  "method": "DELETE"
+}, {
+  "id": 167,
+  "created_at": "2024-06-26 09:56:55.636",
+  "updated_at": "2024-06-26 09:56:55.636",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsAddition\/deleteBeeShopGoodsAdditionByIds",
+  "description": "批量删除商品额外信息",
+  "api_group": "商品额外信息",
+  "method": "DELETE"
+}, {
+  "id": 168,
+  "created_at": "2024-06-26 09:56:55.639",
+  "updated_at": "2024-06-26 09:56:55.639",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsAddition\/updateBeeShopGoodsAddition",
+  "description": "更新商品额外信息",
+  "api_group": "商品额外信息",
+  "method": "PUT"
+}, {
+  "id": 169,
+  "created_at": "2024-06-26 09:56:55.643",
+  "updated_at": "2024-06-26 09:56:55.643",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsAddition\/findBeeShopGoodsAddition",
+  "description": "根据ID获取商品额外信息",
+  "api_group": "商品额外信息",
+  "method": "GET"
+}, {
+  "id": 170,
+  "created_at": "2024-06-26 09:56:55.645",
+  "updated_at": "2024-06-26 09:56:55.645",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsAddition\/getBeeShopGoodsAdditionList",
+  "description": "获取商品额外信息列表",
+  "api_group": "商品额外信息",
+  "method": "GET"
+}, {
+  "id": 171,
+  "created_at": "2024-06-26 10:00:39.280",
+  "updated_at": "2024-06-26 10:00:39.280",
+  "deleted_at": null,
+  "path": "\/beeShopGoods\/createBeeShopGoods",
+  "description": "新增商品表",
+  "api_group": "商品表",
+  "method": "POST"
+}, {
+  "id": 172,
+  "created_at": "2024-06-26 10:00:39.284",
+  "updated_at": "2024-06-26 10:00:39.284",
+  "deleted_at": null,
+  "path": "\/beeShopGoods\/deleteBeeShopGoods",
+  "description": "删除商品表",
+  "api_group": "商品表",
+  "method": "DELETE"
+}, {
+  "id": 173,
+  "created_at": "2024-06-26 10:00:39.287",
+  "updated_at": "2024-06-26 10:00:39.287",
+  "deleted_at": null,
+  "path": "\/beeShopGoods\/deleteBeeShopGoodsByIds",
+  "description": "批量删除商品表",
+  "api_group": "商品表",
+  "method": "DELETE"
+}, {
+  "id": 174,
+  "created_at": "2024-06-26 10:00:39.289",
+  "updated_at": "2024-06-26 10:00:39.289",
+  "deleted_at": null,
+  "path": "\/beeShopGoods\/updateBeeShopGoods",
+  "description": "更新商品表",
+  "api_group": "商品表",
+  "method": "PUT"
+}, {
+  "id": 175,
+  "created_at": "2024-06-26 10:00:39.295",
+  "updated_at": "2024-06-26 10:00:39.295",
+  "deleted_at": null,
+  "path": "\/beeShopGoods\/findBeeShopGoods",
+  "description": "根据ID获取商品表",
+  "api_group": "商品表",
+  "method": "GET"
+}, {
+  "id": 176,
+  "created_at": "2024-06-26 10:00:39.297",
+  "updated_at": "2024-06-26 10:00:39.297",
+  "deleted_at": null,
+  "path": "\/beeShopGoods\/getBeeShopGoodsList",
+  "description": "获取商品表列表",
+  "api_group": "商品表",
+  "method": "GET"
+}, {
+  "id": 177,
+  "created_at": "2024-06-26 10:39:41.211",
+  "updated_at": "2024-06-26 10:39:41.211",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsImages\/createBeeShopGoodsImages",
+  "description": "新增商品图",
+  "api_group": "商品图",
+  "method": "POST"
+}, {
+  "id": 178,
+  "created_at": "2024-06-26 10:39:41.215",
+  "updated_at": "2024-06-26 10:39:41.215",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsImages\/deleteBeeShopGoodsImages",
+  "description": "删除商品图",
+  "api_group": "商品图",
+  "method": "DELETE"
+}, {
+  "id": 179,
+  "created_at": "2024-06-26 10:39:41.216",
+  "updated_at": "2024-06-26 10:39:41.216",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsImages\/deleteBeeShopGoodsImagesByIds",
+  "description": "批量删除商品图",
+  "api_group": "商品图",
+  "method": "DELETE"
+}, {
+  "id": 180,
+  "created_at": "2024-06-26 10:39:41.217",
+  "updated_at": "2024-06-26 10:39:41.217",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsImages\/updateBeeShopGoodsImages",
+  "description": "更新商品图",
+  "api_group": "商品图",
+  "method": "PUT"
+}, {
+  "id": 181,
+  "created_at": "2024-06-26 10:39:41.218",
+  "updated_at": "2024-06-26 10:39:41.218",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsImages\/findBeeShopGoodsImages",
+  "description": "根据ID获取商品图",
+  "api_group": "商品图",
+  "method": "GET"
+}, {
+  "id": 182,
+  "created_at": "2024-06-26 10:39:41.219",
+  "updated_at": "2024-06-26 10:39:41.219",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsImages\/getBeeShopGoodsImagesList",
+  "description": "获取商品图列表",
+  "api_group": "商品图",
+  "method": "GET"
+}, {
+  "id": 183,
+  "created_at": "2024-06-26 10:41:09.314",
+  "updated_at": "2024-06-26 10:41:09.314",
+  "deleted_at": "2024-07-11 10:24:02.126",
+  "path": "\/beeShopLogisticsException\/createBeeShopLogisticsException",
+  "description": "新增运费排除项",
+  "api_group": "运费排除项",
+  "method": "POST"
+}, {
+  "id": 184,
+  "created_at": "2024-06-26 10:41:09.320",
+  "updated_at": "2024-06-26 10:41:09.320",
+  "deleted_at": "2024-07-11 10:24:02.126",
+  "path": "\/beeShopLogisticsException\/deleteBeeShopLogisticsException",
+  "description": "删除运费排除项",
+  "api_group": "运费排除项",
+  "method": "DELETE"
+}, {
+  "id": 185,
+  "created_at": "2024-06-26 10:41:09.324",
+  "updated_at": "2024-06-26 10:41:09.324",
+  "deleted_at": "2024-07-11 10:24:02.126",
+  "path": "\/beeShopLogisticsException\/deleteBeeShopLogisticsExceptionByIds",
+  "description": "批量删除运费排除项",
+  "api_group": "运费排除项",
+  "method": "DELETE"
+}, {
+  "id": 186,
+  "created_at": "2024-06-26 10:41:09.327",
+  "updated_at": "2024-06-26 10:41:09.327",
+  "deleted_at": "2024-07-11 10:24:02.126",
+  "path": "\/beeShopLogisticsException\/updateBeeShopLogisticsException",
+  "description": "更新运费排除项",
+  "api_group": "运费排除项",
+  "method": "PUT"
+}, {
+  "id": 187,
+  "created_at": "2024-06-26 10:41:09.329",
+  "updated_at": "2024-06-26 10:41:09.329",
+  "deleted_at": "2024-07-11 10:24:02.126",
+  "path": "\/beeShopLogisticsException\/findBeeShopLogisticsException",
+  "description": "根据ID获取运费排除项",
+  "api_group": "运费排除项",
+  "method": "GET"
+}, {
+  "id": 188,
+  "created_at": "2024-06-26 10:41:09.333",
+  "updated_at": "2024-06-26 10:41:09.333",
+  "deleted_at": "2024-07-11 10:24:02.126",
+  "path": "\/beeShopLogisticsException\/getBeeShopLogisticsExceptionList",
+  "description": "获取运费排除项列表",
+  "api_group": "运费排除项",
+  "method": "GET"
+}, {
+  "id": 189,
+  "created_at": "2024-06-26 10:42:49.863",
+  "updated_at": "2024-06-26 10:42:49.863",
+  "deleted_at": "2024-07-09 20:03:04.864",
+  "path": "\/beeShopFreightTplFreeShipping\/createBeeShopFreightTplFreeShipping",
+  "description": "新增运费模版免运费配置",
+  "api_group": "运费模版免运费配置",
+  "method": "POST"
+}, {
+  "id": 190,
+  "created_at": "2024-06-26 10:42:49.866",
+  "updated_at": "2024-06-26 10:42:49.866",
+  "deleted_at": "2024-07-09 20:03:04.864",
+  "path": "\/beeShopFreightTplFreeShipping\/deleteBeeShopFreightTplFreeShipping",
+  "description": "删除运费模版免运费配置",
+  "api_group": "运费模版免运费配置",
+  "method": "DELETE"
+}, {
+  "id": 191,
+  "created_at": "2024-06-26 10:42:49.868",
+  "updated_at": "2024-06-26 10:42:49.868",
+  "deleted_at": "2024-07-09 20:03:04.864",
+  "path": "\/beeShopFreightTplFreeShipping\/deleteBeeShopFreightTplFreeShippingByIds",
+  "description": "批量删除运费模版免运费配置",
+  "api_group": "运费模版免运费配置",
+  "method": "DELETE"
+}, {
+  "id": 192,
+  "created_at": "2024-06-26 10:42:49.869",
+  "updated_at": "2024-06-26 10:42:49.869",
+  "deleted_at": "2024-07-09 20:03:04.864",
+  "path": "\/beeShopFreightTplFreeShipping\/updateBeeShopFreightTplFreeShipping",
+  "description": "更新运费模版免运费配置",
+  "api_group": "运费模版免运费配置",
+  "method": "PUT"
+}, {
+  "id": 193,
+  "created_at": "2024-06-26 10:42:49.871",
+  "updated_at": "2024-06-26 10:42:49.871",
+  "deleted_at": "2024-07-09 20:03:04.864",
+  "path": "\/beeShopFreightTplFreeShipping\/findBeeShopFreightTplFreeShipping",
+  "description": "根据ID获取运费模版免运费配置",
+  "api_group": "运费模版免运费配置",
+  "method": "GET"
+}, {
+  "id": 194,
+  "created_at": "2024-06-26 10:42:49.873",
+  "updated_at": "2024-06-26 10:42:49.873",
+  "deleted_at": "2024-07-09 20:03:04.864",
+  "path": "\/beeShopFreightTplFreeShipping\/getBeeShopFreightTplFreeShippingList",
+  "description": "获取运费模版免运费配置列表",
+  "api_group": "运费模版免运费配置",
+  "method": "GET"
+}, {
+  "id": 195,
+  "created_at": "2024-06-26 10:43:48.864",
+  "updated_at": "2024-06-26 10:43:48.864",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsSku\/createBeeShopGoodsSku",
+  "description": "新增商品sku",
+  "api_group": "商品sku",
+  "method": "POST"
+}, {
+  "id": 196,
+  "created_at": "2024-06-26 10:43:48.868",
+  "updated_at": "2024-06-26 10:43:48.868",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsSku\/deleteBeeShopGoodsSku",
+  "description": "删除商品sku",
+  "api_group": "商品sku",
+  "method": "DELETE"
+}, {
+  "id": 197,
+  "created_at": "2024-06-26 10:43:48.870",
+  "updated_at": "2024-06-26 10:43:48.870",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsSku\/deleteBeeShopGoodsSkuByIds",
+  "description": "批量删除商品sku",
+  "api_group": "商品sku",
+  "method": "DELETE"
+}, {
+  "id": 198,
+  "created_at": "2024-06-26 10:43:48.872",
+  "updated_at": "2024-06-26 10:43:48.872",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsSku\/updateBeeShopGoodsSku",
+  "description": "更新商品sku",
+  "api_group": "商品sku",
+  "method": "PUT"
+}, {
+  "id": 199,
+  "created_at": "2024-06-26 10:43:48.874",
+  "updated_at": "2024-06-26 10:43:48.874",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsSku\/findBeeShopGoodsSku",
+  "description": "根据ID获取商品sku",
+  "api_group": "商品sku",
+  "method": "GET"
+}, {
+  "id": 200,
+  "created_at": "2024-06-26 10:43:48.876",
+  "updated_at": "2024-06-26 10:43:48.876",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsSku\/getBeeShopGoodsSkuList",
+  "description": "获取商品sku列表",
+  "api_group": "商品sku",
+  "method": "GET"
+}, {
+  "id": 201,
+  "created_at": "2024-06-26 10:45:08.443",
+  "updated_at": "2024-06-26 10:45:08.443",
+  "deleted_at": "2024-07-09 20:32:02.142",
+  "path": "\/beeShopGoodsAdditionItem\/createBeeShopGoodsAdditionItem",
+  "description": "新增商品额外信息绑定",
+  "api_group": "商品额外信息绑定",
+  "method": "POST"
+}, {
+  "id": 202,
+  "created_at": "2024-06-26 10:45:08.447",
+  "updated_at": "2024-06-26 10:45:08.447",
+  "deleted_at": "2024-07-09 20:32:02.142",
+  "path": "\/beeShopGoodsAdditionItem\/deleteBeeShopGoodsAdditionItem",
+  "description": "删除商品额外信息绑定",
+  "api_group": "商品额外信息绑定",
+  "method": "DELETE"
+}, {
+  "id": 203,
+  "created_at": "2024-06-26 10:45:08.451",
+  "updated_at": "2024-06-26 10:45:08.451",
+  "deleted_at": "2024-07-09 20:32:02.142",
+  "path": "\/beeShopGoodsAdditionItem\/deleteBeeShopGoodsAdditionItemByIds",
+  "description": "批量删除商品额外信息绑定",
+  "api_group": "商品额外信息绑定",
+  "method": "DELETE"
+}, {
+  "id": 204,
+  "created_at": "2024-06-26 10:45:08.454",
+  "updated_at": "2024-06-26 10:45:08.454",
+  "deleted_at": "2024-07-09 20:32:02.142",
+  "path": "\/beeShopGoodsAdditionItem\/updateBeeShopGoodsAdditionItem",
+  "description": "更新商品额外信息绑定",
+  "api_group": "商品额外信息绑定",
+  "method": "PUT"
+}, {
+  "id": 205,
+  "created_at": "2024-06-26 10:45:08.455",
+  "updated_at": "2024-06-26 10:45:08.455",
+  "deleted_at": "2024-07-09 20:32:02.142",
+  "path": "\/beeShopGoodsAdditionItem\/findBeeShopGoodsAdditionItem",
+  "description": "根据ID获取商品额外信息绑定",
+  "api_group": "商品额外信息绑定",
+  "method": "GET"
+}, {
+  "id": 206,
+  "created_at": "2024-06-26 10:45:08.458",
+  "updated_at": "2024-06-26 10:45:08.458",
+  "deleted_at": "2024-07-09 20:32:02.142",
+  "path": "\/beeShopGoodsAdditionItem\/getBeeShopGoodsAdditionItemList",
+  "description": "获取商品额外信息绑定列表",
+  "api_group": "商品额外信息绑定",
+  "method": "GET"
+}, {
+  "id": 207,
+  "created_at": "2024-06-26 10:47:12.667",
+  "updated_at": "2024-06-26 10:47:12.667",
+  "deleted_at": "2024-07-09 20:02:51.303",
+  "path": "\/beeShopFreightTplException\/createBeeShopFreightTplException",
+  "description": "新增运费模版排除项",
+  "api_group": "运费模版排除项",
+  "method": "POST"
+}, {
+  "id": 208,
+  "created_at": "2024-06-26 10:47:12.671",
+  "updated_at": "2024-06-26 10:47:12.671",
+  "deleted_at": "2024-07-09 20:02:51.303",
+  "path": "\/beeShopFreightTplException\/deleteBeeShopFreightTplException",
+  "description": "删除运费模版排除项",
+  "api_group": "运费模版排除项",
+  "method": "DELETE"
+}, {
+  "id": 209,
+  "created_at": "2024-06-26 10:47:12.674",
+  "updated_at": "2024-06-26 10:47:12.674",
+  "deleted_at": "2024-07-09 20:02:51.303",
+  "path": "\/beeShopFreightTplException\/deleteBeeShopFreightTplExceptionByIds",
+  "description": "批量删除运费模版排除项",
+  "api_group": "运费模版排除项",
+  "method": "DELETE"
+}, {
+  "id": 210,
+  "created_at": "2024-06-26 10:47:12.676",
+  "updated_at": "2024-06-26 10:47:12.676",
+  "deleted_at": "2024-07-09 20:02:51.303",
+  "path": "\/beeShopFreightTplException\/updateBeeShopFreightTplException",
+  "description": "更新运费模版排除项",
+  "api_group": "运费模版排除项",
+  "method": "PUT"
+}, {
+  "id": 211,
+  "created_at": "2024-06-26 10:47:12.678",
+  "updated_at": "2024-06-26 10:47:12.678",
+  "deleted_at": "2024-07-09 20:02:51.303",
+  "path": "\/beeShopFreightTplException\/findBeeShopFreightTplException",
+  "description": "根据ID获取运费模版排除项",
+  "api_group": "运费模版排除项",
+  "method": "GET"
+}, {
+  "id": 212,
+  "created_at": "2024-06-26 10:47:12.680",
+  "updated_at": "2024-06-26 10:47:12.680",
+  "deleted_at": "2024-07-09 20:02:51.303",
+  "path": "\/beeShopFreightTplException\/getBeeShopFreightTplExceptionList",
+  "description": "获取运费模版排除项列表",
+  "api_group": "运费模版排除项",
+  "method": "GET"
+}, {
+  "id": 213,
+  "created_at": "2024-06-26 10:48:09.794",
+  "updated_at": "2024-06-26 10:48:09.794",
+  "deleted_at": "2024-07-11 10:24:14.126",
+  "path": "\/beeLogisticsDetail\/createBeeLogisticsDetail",
+  "description": "新增运费模版详情",
+  "api_group": "运费模版详情",
+  "method": "POST"
+}, {
+  "id": 214,
+  "created_at": "2024-06-26 10:48:09.797",
+  "updated_at": "2024-06-26 10:48:09.797",
+  "deleted_at": "2024-07-11 10:24:14.126",
+  "path": "\/beeLogisticsDetail\/deleteBeeLogisticsDetail",
+  "description": "删除运费模版详情",
+  "api_group": "运费模版详情",
+  "method": "DELETE"
+}, {
+  "id": 215,
+  "created_at": "2024-06-26 10:48:09.801",
+  "updated_at": "2024-06-26 10:48:09.801",
+  "deleted_at": "2024-07-11 10:24:14.126",
+  "path": "\/beeLogisticsDetail\/deleteBeeLogisticsDetailByIds",
+  "description": "批量删除运费模版详情",
+  "api_group": "运费模版详情",
+  "method": "DELETE"
+}, {
+  "id": 216,
+  "created_at": "2024-06-26 10:48:09.804",
+  "updated_at": "2024-06-26 10:48:09.804",
+  "deleted_at": "2024-07-11 10:24:14.126",
+  "path": "\/beeLogisticsDetail\/updateBeeLogisticsDetail",
+  "description": "更新运费模版详情",
+  "api_group": "运费模版详情",
+  "method": "PUT"
+}, {
+  "id": 217,
+  "created_at": "2024-06-26 10:48:09.806",
+  "updated_at": "2024-06-26 10:48:09.806",
+  "deleted_at": "2024-07-11 10:24:14.126",
+  "path": "\/beeLogisticsDetail\/findBeeLogisticsDetail",
+  "description": "根据ID获取运费模版详情",
+  "api_group": "运费模版详情",
+  "method": "GET"
+}, {
+  "id": 218,
+  "created_at": "2024-06-26 10:48:09.808",
+  "updated_at": "2024-06-26 10:48:09.808",
+  "deleted_at": "2024-07-11 10:24:14.126",
+  "path": "\/beeLogisticsDetail\/getBeeLogisticsDetailList",
+  "description": "获取运费模版详情列表",
+  "api_group": "运费模版详情",
+  "method": "GET"
+}, {
+  "id": 219,
+  "created_at": "2024-06-26 10:51:44.100",
+  "updated_at": "2024-06-26 10:51:44.100",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsContent\/createBeeShopGoodsContent",
+  "description": "新增商品详情描述",
+  "api_group": "商品详情描述",
+  "method": "POST"
+}, {
+  "id": 220,
+  "created_at": "2024-06-26 10:51:44.104",
+  "updated_at": "2024-06-26 10:51:44.104",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsContent\/deleteBeeShopGoodsContent",
+  "description": "删除商品详情描述",
+  "api_group": "商品详情描述",
+  "method": "DELETE"
+}, {
+  "id": 221,
+  "created_at": "2024-06-26 10:51:44.106",
+  "updated_at": "2024-06-26 10:51:44.106",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsContent\/deleteBeeShopGoodsContentByIds",
+  "description": "批量删除商品详情描述",
+  "api_group": "商品详情描述",
+  "method": "DELETE"
+}, {
+  "id": 222,
+  "created_at": "2024-06-26 10:51:44.109",
+  "updated_at": "2024-06-26 10:51:44.109",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsContent\/updateBeeShopGoodsContent",
+  "description": "更新商品详情描述",
+  "api_group": "商品详情描述",
+  "method": "PUT"
+}, {
+  "id": 223,
+  "created_at": "2024-06-26 10:51:44.111",
+  "updated_at": "2024-06-26 10:51:44.111",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsContent\/findBeeShopGoodsContent",
+  "description": "根据ID获取商品详情描述",
+  "api_group": "商品详情描述",
+  "method": "GET"
+}, {
+  "id": 224,
+  "created_at": "2024-06-26 10:51:44.112",
+  "updated_at": "2024-06-26 10:51:44.112",
+  "deleted_at": null,
+  "path": "\/beeShopGoodsContent\/getBeeShopGoodsContentList",
+  "description": "获取商品详情描述列表",
+  "api_group": "商品详情描述",
+  "method": "GET"
+}, {
+  "id": 225,
+  "created_at": "2024-06-26 10:52:43.950",
+  "updated_at": "2024-06-26 10:52:43.950",
+  "deleted_at": null,
+  "path": "\/beeWxConfig\/createBeeWxConfig",
+  "description": "新增微信配置",
+  "api_group": "微信配置",
+  "method": "POST"
+}, {
+  "id": 226,
+  "created_at": "2024-06-26 10:52:43.956",
+  "updated_at": "2024-06-26 10:52:43.956",
+  "deleted_at": null,
+  "path": "\/beeWxConfig\/deleteBeeWxConfig",
+  "description": "删除微信配置",
+  "api_group": "微信配置",
+  "method": "DELETE"
+}, {
+  "id": 227,
+  "created_at": "2024-06-26 10:52:43.959",
+  "updated_at": "2024-06-26 10:52:43.959",
+  "deleted_at": null,
+  "path": "\/beeWxConfig\/deleteBeeWxConfigByIds",
+  "description": "批量删除微信配置",
+  "api_group": "微信配置",
+  "method": "DELETE"
+}, {
+  "id": 228,
+  "created_at": "2024-06-26 10:52:43.962",
+  "updated_at": "2024-06-26 10:52:43.962",
+  "deleted_at": null,
+  "path": "\/beeWxConfig\/updateBeeWxConfig",
+  "description": "更新微信配置",
+  "api_group": "微信配置",
+  "method": "PUT"
+}, {
+  "id": 229,
+  "created_at": "2024-06-26 10:52:43.964",
+  "updated_at": "2024-06-26 10:52:43.964",
+  "deleted_at": null,
+  "path": "\/beeWxConfig\/findBeeWxConfig",
+  "description": "根据ID获取微信配置",
+  "api_group": "微信配置",
+  "method": "GET"
+}, {
+  "id": 230,
+  "created_at": "2024-06-26 10:52:43.966",
+  "updated_at": "2024-06-26 10:52:43.966",
+  "deleted_at": null,
+  "path": "\/beeWxConfig\/getBeeWxConfigList",
+  "description": "获取微信配置列表",
+  "api_group": "微信配置",
+  "method": "GET"
+}, {
+  "id": 231,
+  "created_at": "2024-06-26 10:55:14.234",
+  "updated_at": "2024-06-26 10:55:14.234",
+  "deleted_at": "2024-06-26 11:01:54.722",
+  "path": "\/beeOrder\/createBeeOrder",
+  "description": "新增用户订单",
+  "api_group": "用户订单",
+  "method": "POST"
+}, {
+  "id": 232,
+  "created_at": "2024-06-26 10:55:14.238",
+  "updated_at": "2024-06-26 10:55:14.238",
+  "deleted_at": "2024-06-26 11:01:54.722",
+  "path": "\/beeOrder\/deleteBeeOrder",
+  "description": "删除用户订单",
+  "api_group": "用户订单",
+  "method": "DELETE"
+}, {
+  "id": 233,
+  "created_at": "2024-06-26 10:55:14.240",
+  "updated_at": "2024-06-26 10:55:14.240",
+  "deleted_at": "2024-06-26 11:01:54.722",
+  "path": "\/beeOrder\/deleteBeeOrderByIds",
+  "description": "批量删除用户订单",
+  "api_group": "用户订单",
+  "method": "DELETE"
+}, {
+  "id": 234,
+  "created_at": "2024-06-26 10:55:14.243",
+  "updated_at": "2024-06-26 10:55:14.243",
+  "deleted_at": "2024-06-26 11:01:54.722",
+  "path": "\/beeOrder\/updateBeeOrder",
+  "description": "更新用户订单",
+  "api_group": "用户订单",
+  "method": "PUT"
+}, {
+  "id": 235,
+  "created_at": "2024-06-26 10:55:14.245",
+  "updated_at": "2024-06-26 10:55:14.245",
+  "deleted_at": "2024-06-26 11:01:54.722",
+  "path": "\/beeOrder\/findBeeOrder",
+  "description": "根据ID获取用户订单",
+  "api_group": "用户订单",
+  "method": "GET"
+}, {
+  "id": 236,
+  "created_at": "2024-06-26 10:55:14.248",
+  "updated_at": "2024-06-26 10:55:14.248",
+  "deleted_at": "2024-06-26 11:01:54.722",
+  "path": "\/beeOrder\/getBeeOrderList",
+  "description": "获取用户订单列表",
+  "api_group": "用户订单",
+  "method": "GET"
+}, {
+  "id": 237,
+  "created_at": "2024-06-26 11:01:18.217",
+  "updated_at": "2024-06-26 11:01:18.217",
+  "deleted_at": null,
+  "path": "\/beeComment\/createBeeComment",
+  "description": "新增评论表",
+  "api_group": "评论表",
+  "method": "POST"
+}, {
+  "id": 238,
+  "created_at": "2024-06-26 11:01:18.222",
+  "updated_at": "2024-06-26 11:01:18.222",
+  "deleted_at": null,
+  "path": "\/beeComment\/deleteBeeComment",
+  "description": "删除评论表",
+  "api_group": "评论表",
+  "method": "DELETE"
+}, {
+  "id": 239,
+  "created_at": "2024-06-26 11:01:18.224",
+  "updated_at": "2024-06-26 11:01:18.224",
+  "deleted_at": null,
+  "path": "\/beeComment\/deleteBeeCommentByIds",
+  "description": "批量删除评论表",
+  "api_group": "评论表",
+  "method": "DELETE"
+}, {
+  "id": 240,
+  "created_at": "2024-06-26 11:01:18.226",
+  "updated_at": "2024-06-26 11:01:18.226",
+  "deleted_at": null,
+  "path": "\/beeComment\/updateBeeComment",
+  "description": "更新评论表",
+  "api_group": "评论表",
+  "method": "PUT"
+}, {
+  "id": 241,
+  "created_at": "2024-06-26 11:01:18.229",
+  "updated_at": "2024-06-26 11:01:18.229",
+  "deleted_at": null,
+  "path": "\/beeComment\/findBeeComment",
+  "description": "根据ID获取评论表",
+  "api_group": "评论表",
+  "method": "GET"
+}, {
+  "id": 242,
+  "created_at": "2024-06-26 11:01:18.231",
+  "updated_at": "2024-06-26 11:01:18.231",
+  "deleted_at": null,
+  "path": "\/beeComment\/getBeeCommentList",
+  "description": "获取评论表列表",
+  "api_group": "评论表",
+  "method": "GET"
+}, {
+  "id": 243,
+  "created_at": "2024-06-26 11:02:52.090",
+  "updated_at": "2024-06-26 11:02:52.090",
+  "deleted_at": null,
+  "path": "\/beeOrder\/createBeeOrder",
+  "description": "新增用户订单",
+  "api_group": "用户订单",
+  "method": "POST"
+}, {
+  "id": 244,
+  "created_at": "2024-06-26 11:02:52.094",
+  "updated_at": "2024-06-26 11:02:52.094",
+  "deleted_at": null,
+  "path": "\/beeOrder\/deleteBeeOrder",
+  "description": "删除用户订单",
+  "api_group": "用户订单",
+  "method": "DELETE"
+}, {
+  "id": 245,
+  "created_at": "2024-06-26 11:02:52.097",
+  "updated_at": "2024-06-26 11:02:52.097",
+  "deleted_at": null,
+  "path": "\/beeOrder\/deleteBeeOrderByIds",
+  "description": "批量删除用户订单",
+  "api_group": "用户订单",
+  "method": "DELETE"
+}, {
+  "id": 246,
+  "created_at": "2024-06-26 11:02:52.100",
+  "updated_at": "2024-06-26 11:02:52.100",
+  "deleted_at": null,
+  "path": "\/beeOrder\/updateBeeOrder",
+  "description": "更新用户订单",
+  "api_group": "用户订单",
+  "method": "PUT"
+}, {
+  "id": 247,
+  "created_at": "2024-06-26 11:02:52.103",
+  "updated_at": "2024-06-26 11:02:52.103",
+  "deleted_at": null,
+  "path": "\/beeOrder\/findBeeOrder",
+  "description": "根据ID获取用户订单",
+  "api_group": "用户订单",
+  "method": "GET"
+}, {
+  "id": 248,
+  "created_at": "2024-06-26 11:02:52.105",
+  "updated_at": "2024-06-26 11:02:52.105",
+  "deleted_at": null,
+  "path": "\/beeOrder\/getBeeOrderList",
+  "description": "获取用户订单列表",
+  "api_group": "用户订单",
+  "method": "GET"
+}, {
+  "id": 249,
+  "created_at": "2024-06-26 11:04:40.187",
+  "updated_at": "2024-06-26 11:04:40.187",
+  "deleted_at": null,
+  "path": "\/beeOrderReputation\/createBeeOrderReputation",
+  "description": "新增商品评价",
+  "api_group": "商品评价",
+  "method": "POST"
+}, {
+  "id": 250,
+  "created_at": "2024-06-26 11:04:40.191",
+  "updated_at": "2024-06-26 11:04:40.191",
+  "deleted_at": null,
+  "path": "\/beeOrderReputation\/deleteBeeOrderReputation",
+  "description": "删除商品评价",
+  "api_group": "商品评价",
+  "method": "DELETE"
+}, {
+  "id": 251,
+  "created_at": "2024-06-26 11:04:40.193",
+  "updated_at": "2024-06-26 11:04:40.193",
+  "deleted_at": null,
+  "path": "\/beeOrderReputation\/deleteBeeOrderReputationByIds",
+  "description": "批量删除商品评价",
+  "api_group": "商品评价",
+  "method": "DELETE"
+}, {
+  "id": 252,
+  "created_at": "2024-06-26 11:04:40.195",
+  "updated_at": "2024-06-26 11:04:40.195",
+  "deleted_at": null,
+  "path": "\/beeOrderReputation\/updateBeeOrderReputation",
+  "description": "更新商品评价",
+  "api_group": "商品评价",
+  "method": "PUT"
+}, {
+  "id": 253,
+  "created_at": "2024-06-26 11:04:40.197",
+  "updated_at": "2024-06-26 11:04:40.197",
+  "deleted_at": null,
+  "path": "\/beeOrderReputation\/findBeeOrderReputation",
+  "description": "根据ID获取商品评价",
+  "api_group": "商品评价",
+  "method": "GET"
+}, {
+  "id": 254,
+  "created_at": "2024-06-26 11:04:40.199",
+  "updated_at": "2024-06-26 11:04:40.199",
+  "deleted_at": null,
+  "path": "\/beeOrderReputation\/getBeeOrderReputationList",
+  "description": "获取商品评价列表",
+  "api_group": "商品评价",
+  "method": "GET"
+}, {
+  "id": 255,
+  "created_at": "2024-06-26 11:05:56.930",
+  "updated_at": "2024-06-26 11:05:56.930",
+  "deleted_at": null,
+  "path": "\/beeBanner\/createBeeBanner",
+  "description": "新增商店banner",
+  "api_group": "商店banner",
+  "method": "POST"
+}, {
+  "id": 256,
+  "created_at": "2024-06-26 11:05:56.935",
+  "updated_at": "2024-06-26 11:05:56.935",
+  "deleted_at": null,
+  "path": "\/beeBanner\/deleteBeeBanner",
+  "description": "删除商店banner",
+  "api_group": "商店banner",
+  "method": "DELETE"
+}, {
+  "id": 257,
+  "created_at": "2024-06-26 11:05:56.938",
+  "updated_at": "2024-06-26 11:05:56.938",
+  "deleted_at": null,
+  "path": "\/beeBanner\/deleteBeeBannerByIds",
+  "description": "批量删除商店banner",
+  "api_group": "商店banner",
+  "method": "DELETE"
+}, {
+  "id": 258,
+  "created_at": "2024-06-26 11:05:56.941",
+  "updated_at": "2024-06-26 11:05:56.941",
+  "deleted_at": null,
+  "path": "\/beeBanner\/updateBeeBanner",
+  "description": "更新商店banner",
+  "api_group": "商店banner",
+  "method": "PUT"
+}, {
+  "id": 259,
+  "created_at": "2024-06-26 11:05:56.943",
+  "updated_at": "2024-06-26 11:05:56.943",
+  "deleted_at": null,
+  "path": "\/beeBanner\/findBeeBanner",
+  "description": "根据ID获取商店banner",
+  "api_group": "商店banner",
+  "method": "GET"
+}, {
+  "id": 260,
+  "created_at": "2024-06-26 11:05:56.945",
+  "updated_at": "2024-06-26 11:05:56.945",
+  "deleted_at": null,
+  "path": "\/beeBanner\/getBeeBannerList",
+  "description": "获取商店banner列表",
+  "api_group": "商店banner",
+  "method": "GET"
+}, {
+  "id": 261,
+  "created_at": "2024-06-26 11:09:02.456",
+  "updated_at": "2024-06-26 11:09:02.456",
+  "deleted_at": null,
+  "path": "\/beeUserAmount\/createBeeUserAmount",
+  "description": "新增用户资产",
+  "api_group": "用户资产",
+  "method": "POST"
+}, {
+  "id": 262,
+  "created_at": "2024-06-26 11:09:02.464",
+  "updated_at": "2024-06-26 11:09:02.464",
+  "deleted_at": null,
+  "path": "\/beeUserAmount\/deleteBeeUserAmount",
+  "description": "删除用户资产",
+  "api_group": "用户资产",
+  "method": "DELETE"
+}, {
+  "id": 263,
+  "created_at": "2024-06-26 11:09:02.470",
+  "updated_at": "2024-06-26 11:09:02.470",
+  "deleted_at": null,
+  "path": "\/beeUserAmount\/deleteBeeUserAmountByIds",
+  "description": "批量删除用户资产",
+  "api_group": "用户资产",
+  "method": "DELETE"
+}, {
+  "id": 264,
+  "created_at": "2024-06-26 11:09:02.473",
+  "updated_at": "2024-06-26 11:09:02.473",
+  "deleted_at": null,
+  "path": "\/beeUserAmount\/updateBeeUserAmount",
+  "description": "更新用户资产",
+  "api_group": "用户资产",
+  "method": "PUT"
+}, {
+  "id": 265,
+  "created_at": "2024-06-26 11:09:02.475",
+  "updated_at": "2024-06-26 11:09:02.475",
+  "deleted_at": null,
+  "path": "\/beeUserAmount\/findBeeUserAmount",
+  "description": "根据ID获取用户资产",
+  "api_group": "用户资产",
+  "method": "GET"
+}, {
+  "id": 266,
+  "created_at": "2024-06-26 11:09:02.477",
+  "updated_at": "2024-06-26 11:09:02.477",
+  "deleted_at": null,
+  "path": "\/beeUserAmount\/getBeeUserAmountList",
+  "description": "获取用户资产列表",
+  "api_group": "用户资产",
+  "method": "GET"
+}, {
+  "id": 267,
+  "created_at": "2024-06-26 11:10:24.133",
+  "updated_at": "2024-06-26 11:10:24.133",
+  "deleted_at": null,
+  "path": "\/beeCyTable\/createBeeCyTable",
+  "description": "新增桌号信息",
+  "api_group": "桌号信息",
+  "method": "POST"
+}, {
+  "id": 268,
+  "created_at": "2024-06-26 11:10:24.138",
+  "updated_at": "2024-06-26 11:10:24.138",
+  "deleted_at": null,
+  "path": "\/beeCyTable\/deleteBeeCyTable",
+  "description": "删除桌号信息",
+  "api_group": "桌号信息",
+  "method": "DELETE"
+}, {
+  "id": 269,
+  "created_at": "2024-06-26 11:10:24.140",
+  "updated_at": "2024-06-26 11:10:24.140",
+  "deleted_at": null,
+  "path": "\/beeCyTable\/deleteBeeCyTableByIds",
+  "description": "批量删除桌号信息",
+  "api_group": "桌号信息",
+  "method": "DELETE"
+}, {
+  "id": 270,
+  "created_at": "2024-06-26 11:10:24.142",
+  "updated_at": "2024-06-26 11:10:24.142",
+  "deleted_at": null,
+  "path": "\/beeCyTable\/updateBeeCyTable",
+  "description": "更新桌号信息",
+  "api_group": "桌号信息",
+  "method": "PUT"
+}, {
+  "id": 271,
+  "created_at": "2024-06-26 11:10:24.144",
+  "updated_at": "2024-06-26 11:10:24.144",
+  "deleted_at": null,
+  "path": "\/beeCyTable\/findBeeCyTable",
+  "description": "根据ID获取桌号信息",
+  "api_group": "桌号信息",
+  "method": "GET"
+}, {
+  "id": 272,
+  "created_at": "2024-06-26 11:10:24.147",
+  "updated_at": "2024-06-26 11:10:24.147",
+  "deleted_at": null,
+  "path": "\/beeCyTable\/getBeeCyTableList",
+  "description": "获取桌号信息列表",
+  "api_group": "桌号信息",
+  "method": "GET"
+}, {
+  "id": 273,
+  "created_at": "2024-06-26 11:11:25.353",
+  "updated_at": "2024-06-26 11:11:25.353",
+  "deleted_at": "2024-07-09 18:23:47.513",
+  "path": "\/userModels\/createUserModels",
+  "description": "新增用户信息",
+  "api_group": "用户信息",
+  "method": "POST"
+}, {
+  "id": 274,
+  "created_at": "2024-06-26 11:11:25.357",
+  "updated_at": "2024-06-26 11:11:25.357",
+  "deleted_at": "2024-07-09 18:23:47.513",
+  "path": "\/userModels\/deleteUserModels",
+  "description": "删除用户信息",
+  "api_group": "用户信息",
+  "method": "DELETE"
+}, {
+  "id": 275,
+  "created_at": "2024-06-26 11:11:25.359",
+  "updated_at": "2024-06-26 11:11:25.359",
+  "deleted_at": "2024-07-09 18:23:47.513",
+  "path": "\/userModels\/deleteUserModelsByIds",
+  "description": "批量删除用户信息",
+  "api_group": "用户信息",
+  "method": "DELETE"
+}, {
+  "id": 276,
+  "created_at": "2024-06-26 11:11:25.362",
+  "updated_at": "2024-06-26 11:11:25.362",
+  "deleted_at": "2024-07-09 18:23:47.513",
+  "path": "\/userModels\/updateUserModels",
+  "description": "更新用户信息",
+  "api_group": "用户信息",
+  "method": "PUT"
+}, {
+  "id": 277,
+  "created_at": "2024-06-26 11:11:25.366",
+  "updated_at": "2024-06-26 11:11:25.366",
+  "deleted_at": "2024-07-09 18:23:47.513",
+  "path": "\/userModels\/findUserModels",
+  "description": "根据ID获取用户信息",
+  "api_group": "用户信息",
+  "method": "GET"
+}, {
+  "id": 278,
+  "created_at": "2024-06-26 11:11:25.369",
+  "updated_at": "2024-06-26 11:11:25.369",
+  "deleted_at": "2024-07-09 18:23:47.513",
+  "path": "\/userModels\/getUserModelsList",
+  "description": "获取用户信息列表",
+  "api_group": "用户信息",
+  "method": "GET"
+}, {
+  "id": 279,
+  "created_at": "2024-06-26 11:12:57.890",
+  "updated_at": "2024-06-26 11:12:57.890",
+  "deleted_at": null,
+  "path": "\/beeRegion\/createBeeRegion",
+  "description": "新增地址库",
+  "api_group": "地址库",
+  "method": "POST"
+}, {
+  "id": 280,
+  "created_at": "2024-06-26 11:12:57.895",
+  "updated_at": "2024-06-26 11:12:57.895",
+  "deleted_at": null,
+  "path": "\/beeRegion\/deleteBeeRegion",
+  "description": "删除地址库",
+  "api_group": "地址库",
+  "method": "DELETE"
+}, {
+  "id": 281,
+  "created_at": "2024-06-26 11:12:57.896",
+  "updated_at": "2024-06-26 11:12:57.896",
+  "deleted_at": null,
+  "path": "\/beeRegion\/deleteBeeRegionByIds",
+  "description": "批量删除地址库",
+  "api_group": "地址库",
+  "method": "DELETE"
+}, {
+  "id": 282,
+  "created_at": "2024-06-26 11:12:57.898",
+  "updated_at": "2024-06-26 11:12:57.898",
+  "deleted_at": null,
+  "path": "\/beeRegion\/updateBeeRegion",
+  "description": "更新地址库",
+  "api_group": "地址库",
+  "method": "PUT"
+}, {
+  "id": 283,
+  "created_at": "2024-06-26 11:12:57.899",
+  "updated_at": "2024-06-26 11:12:57.899",
+  "deleted_at": null,
+  "path": "\/beeRegion\/findBeeRegion",
+  "description": "根据ID获取地址库",
+  "api_group": "地址库",
+  "method": "GET"
+}, {
+  "id": 284,
+  "created_at": "2024-06-26 11:12:57.901",
+  "updated_at": "2024-06-26 11:12:57.901",
+  "deleted_at": null,
+  "path": "\/beeRegion\/getBeeRegionList",
+  "description": "获取地址库列表",
+  "api_group": "地址库",
+  "method": "GET"
+}, {
+  "id": 285,
+  "created_at": "2024-06-26 11:14:11.783",
+  "updated_at": "2024-06-26 11:14:11.783",
+  "deleted_at": null,
+  "path": "\/beeCmsInfo\/createBeeCmsInfo",
+  "description": "新增cms信息",
+  "api_group": "cms信息",
+  "method": "POST"
+}, {
+  "id": 286,
+  "created_at": "2024-06-26 11:14:11.787",
+  "updated_at": "2024-06-26 11:14:11.787",
+  "deleted_at": null,
+  "path": "\/beeCmsInfo\/deleteBeeCmsInfo",
+  "description": "删除cms信息",
+  "api_group": "cms信息",
+  "method": "DELETE"
+}, {
+  "id": 287,
+  "created_at": "2024-06-26 11:14:11.790",
+  "updated_at": "2024-06-26 11:14:11.790",
+  "deleted_at": null,
+  "path": "\/beeCmsInfo\/deleteBeeCmsInfoByIds",
+  "description": "批量删除cms信息",
+  "api_group": "cms信息",
+  "method": "DELETE"
+}, {
+  "id": 288,
+  "created_at": "2024-06-26 11:14:11.792",
+  "updated_at": "2024-06-26 11:14:11.792",
+  "deleted_at": null,
+  "path": "\/beeCmsInfo\/updateBeeCmsInfo",
+  "description": "更新cms信息",
+  "api_group": "cms信息",
+  "method": "PUT"
+}, {
+  "id": 289,
+  "created_at": "2024-06-26 11:14:11.794",
+  "updated_at": "2024-06-26 11:14:11.794",
+  "deleted_at": null,
+  "path": "\/beeCmsInfo\/findBeeCmsInfo",
+  "description": "根据ID获取cms信息",
+  "api_group": "cms信息",
+  "method": "GET"
+}, {
+  "id": 290,
+  "created_at": "2024-06-26 11:14:11.796",
+  "updated_at": "2024-06-26 11:14:11.796",
+  "deleted_at": null,
+  "path": "\/beeCmsInfo\/getBeeCmsInfoList",
+  "description": "获取cms信息列表",
+  "api_group": "cms信息",
+  "method": "GET"
+}, {
+  "id": 291,
+  "created_at": "2024-06-26 11:15:06.770",
+  "updated_at": "2024-06-26 11:15:06.770",
+  "deleted_at": null,
+  "path": "\/beeUserAddress\/createBeeUserAddress",
+  "description": "新增用户地址",
+  "api_group": "用户地址",
+  "method": "POST"
+}, {
+  "id": 292,
+  "created_at": "2024-06-26 11:15:06.774",
+  "updated_at": "2024-06-26 11:15:06.774",
+  "deleted_at": null,
+  "path": "\/beeUserAddress\/deleteBeeUserAddress",
+  "description": "删除用户地址",
+  "api_group": "用户地址",
+  "method": "DELETE"
+}, {
+  "id": 293,
+  "created_at": "2024-06-26 11:15:06.777",
+  "updated_at": "2024-06-26 11:15:06.777",
+  "deleted_at": null,
+  "path": "\/beeUserAddress\/deleteBeeUserAddressByIds",
+  "description": "批量删除用户地址",
+  "api_group": "用户地址",
+  "method": "DELETE"
+}, {
+  "id": 294,
+  "created_at": "2024-06-26 11:15:06.779",
+  "updated_at": "2024-06-26 11:15:06.779",
+  "deleted_at": null,
+  "path": "\/beeUserAddress\/updateBeeUserAddress",
+  "description": "更新用户地址",
+  "api_group": "用户地址",
+  "method": "PUT"
+}, {
+  "id": 295,
+  "created_at": "2024-06-26 11:15:06.782",
+  "updated_at": "2024-06-26 11:15:06.782",
+  "deleted_at": null,
+  "path": "\/beeUserAddress\/findBeeUserAddress",
+  "description": "根据ID获取用户地址",
+  "api_group": "用户地址",
+  "method": "GET"
+}, {
+  "id": 296,
+  "created_at": "2024-06-26 11:15:06.784",
+  "updated_at": "2024-06-26 11:15:06.784",
+  "deleted_at": null,
+  "path": "\/beeUserAddress\/getBeeUserAddressList",
+  "description": "获取用户地址列表",
+  "api_group": "用户地址",
+  "method": "GET"
+}, {
+  "id": 297,
+  "created_at": "2024-06-26 11:16:11.325",
+  "updated_at": "2024-06-26 11:16:11.325",
+  "deleted_at": "2024-06-27 10:20:53.378",
+  "path": "\/beePayLog\/createBeePayLog",
+  "description": "新增支付流水",
+  "api_group": "支付流水",
+  "method": "POST"
+}, {
+  "id": 298,
+  "created_at": "2024-06-26 11:16:11.328",
+  "updated_at": "2024-06-26 11:16:11.328",
+  "deleted_at": "2024-06-27 10:20:53.378",
+  "path": "\/beePayLog\/deleteBeePayLog",
+  "description": "删除支付流水",
+  "api_group": "支付流水",
+  "method": "DELETE"
+}, {
+  "id": 299,
+  "created_at": "2024-06-26 11:16:11.331",
+  "updated_at": "2024-06-26 11:16:11.331",
+  "deleted_at": "2024-06-27 10:20:53.378",
+  "path": "\/beePayLog\/deleteBeePayLogByIds",
+  "description": "批量删除支付流水",
+  "api_group": "支付流水",
+  "method": "DELETE"
+}, {
+  "id": 300,
+  "created_at": "2024-06-26 11:16:11.333",
+  "updated_at": "2024-06-26 11:16:11.333",
+  "deleted_at": "2024-06-27 10:20:53.378",
+  "path": "\/beePayLog\/updateBeePayLog",
+  "description": "更新支付流水",
+  "api_group": "支付流水",
+  "method": "PUT"
+}, {
+  "id": 301,
+  "created_at": "2024-06-26 11:16:11.335",
+  "updated_at": "2024-06-26 11:16:11.335",
+  "deleted_at": "2024-06-27 10:20:53.378",
+  "path": "\/beePayLog\/findBeePayLog",
+  "description": "根据ID获取支付流水",
+  "api_group": "支付流水",
+  "method": "GET"
+}, {
+  "id": 302,
+  "created_at": "2024-06-26 11:16:11.337",
+  "updated_at": "2024-06-26 11:16:11.337",
+  "deleted_at": "2024-06-27 10:20:53.378",
+  "path": "\/beePayLog\/getBeePayLogList",
+  "description": "获取支付流水列表",
+  "api_group": "支付流水",
+  "method": "GET"
+}, {
+  "id": 303,
+  "created_at": "2024-06-26 11:16:50.045",
+  "updated_at": "2024-06-26 11:16:50.045",
+  "deleted_at": null,
+  "path": "\/beePeiSong\/createBeePeiSong",
+  "description": "新增配送信息",
+  "api_group": "配送信息",
+  "method": "POST"
+}, {
+  "id": 304,
+  "created_at": "2024-06-26 11:16:50.048",
+  "updated_at": "2024-06-26 11:16:50.048",
+  "deleted_at": null,
+  "path": "\/beePeiSong\/deleteBeePeiSong",
+  "description": "删除配送信息",
+  "api_group": "配送信息",
+  "method": "DELETE"
+}, {
+  "id": 305,
+  "created_at": "2024-06-26 11:16:50.052",
+  "updated_at": "2024-06-26 11:16:50.052",
+  "deleted_at": null,
+  "path": "\/beePeiSong\/deleteBeePeiSongByIds",
+  "description": "批量删除配送信息",
+  "api_group": "配送信息",
+  "method": "DELETE"
+}, {
+  "id": 306,
+  "created_at": "2024-06-26 11:16:50.054",
+  "updated_at": "2024-06-26 11:16:50.054",
+  "deleted_at": null,
+  "path": "\/beePeiSong\/updateBeePeiSong",
+  "description": "更新配送信息",
+  "api_group": "配送信息",
+  "method": "PUT"
+}, {
+  "id": 307,
+  "created_at": "2024-06-26 11:16:50.057",
+  "updated_at": "2024-06-26 11:16:50.057",
+  "deleted_at": null,
+  "path": "\/beePeiSong\/findBeePeiSong",
+  "description": "根据ID获取配送信息",
+  "api_group": "配送信息",
+  "method": "GET"
+}, {
+  "id": 308,
+  "created_at": "2024-06-26 11:16:50.060",
+  "updated_at": "2024-06-26 11:16:50.060",
+  "deleted_at": null,
+  "path": "\/beePeiSong\/getBeePeiSongList",
+  "description": "获取配送信息列表",
+  "api_group": "配送信息",
+  "method": "GET"
+}, {
+  "id": 309,
+  "created_at": "2024-06-26 11:18:32.268",
+  "updated_at": "2024-06-26 11:18:32.268",
+  "deleted_at": null,
+  "path": "\/beeUser\/createBeeUser",
+  "description": "新增beeUser表",
+  "api_group": "beeUser表",
+  "method": "POST"
+}, {
+  "id": 310,
+  "created_at": "2024-06-26 11:18:32.277",
+  "updated_at": "2024-06-26 11:18:32.277",
+  "deleted_at": null,
+  "path": "\/beeUser\/deleteBeeUser",
+  "description": "删除beeUser表",
+  "api_group": "beeUser表",
+  "method": "DELETE"
+}, {
+  "id": 311,
+  "created_at": "2024-06-26 11:18:32.280",
+  "updated_at": "2024-06-26 11:18:32.280",
+  "deleted_at": null,
+  "path": "\/beeUser\/deleteBeeUserByIds",
+  "description": "批量删除beeUser表",
+  "api_group": "beeUser表",
+  "method": "DELETE"
+}, {
+  "id": 312,
+  "created_at": "2024-06-26 11:18:32.282",
+  "updated_at": "2024-06-26 11:18:32.282",
+  "deleted_at": null,
+  "path": "\/beeUser\/updateBeeUser",
+  "description": "更新beeUser表",
+  "api_group": "beeUser表",
+  "method": "PUT"
+}, {
+  "id": 313,
+  "created_at": "2024-06-26 11:18:32.284",
+  "updated_at": "2024-06-26 11:18:32.284",
+  "deleted_at": null,
+  "path": "\/beeUser\/findBeeUser",
+  "description": "根据ID获取beeUser表",
+  "api_group": "beeUser表",
+  "method": "GET"
+}, {
+  "id": 314,
+  "created_at": "2024-06-26 11:18:32.286",
+  "updated_at": "2024-06-26 11:18:32.286",
+  "deleted_at": null,
+  "path": "\/beeUser\/getBeeUserList",
+  "description": "获取beeUser表列表",
+  "api_group": "beeUser表",
+  "method": "GET"
+}, {
+  "id": 315,
+  "created_at": "2024-06-26 11:20:37.705",
+  "updated_at": "2024-06-26 11:20:37.705",
+  "deleted_at": null,
+  "path": "\/beeOrderGoods\/createBeeOrderGoods",
+  "description": "新增订单商品信息",
+  "api_group": "订单商品信息",
+  "method": "POST"
+}, {
+  "id": 316,
+  "created_at": "2024-06-26 11:20:37.710",
+  "updated_at": "2024-06-26 11:20:37.710",
+  "deleted_at": null,
+  "path": "\/beeOrderGoods\/deleteBeeOrderGoods",
+  "description": "删除订单商品信息",
+  "api_group": "订单商品信息",
+  "method": "DELETE"
+}, {
+  "id": 317,
+  "created_at": "2024-06-26 11:20:37.712",
+  "updated_at": "2024-06-26 11:20:37.712",
+  "deleted_at": null,
+  "path": "\/beeOrderGoods\/deleteBeeOrderGoodsByIds",
+  "description": "批量删除订单商品信息",
+  "api_group": "订单商品信息",
+  "method": "DELETE"
+}, {
+  "id": 318,
+  "created_at": "2024-06-26 11:20:37.714",
+  "updated_at": "2024-06-26 11:20:37.714",
+  "deleted_at": null,
+  "path": "\/beeOrderGoods\/updateBeeOrderGoods",
+  "description": "更新订单商品信息",
+  "api_group": "订单商品信息",
+  "method": "PUT"
+}, {
+  "id": 319,
+  "created_at": "2024-06-26 11:20:37.716",
+  "updated_at": "2024-06-26 11:20:37.716",
+  "deleted_at": null,
+  "path": "\/beeOrderGoods\/findBeeOrderGoods",
+  "description": "根据ID获取订单商品信息",
+  "api_group": "订单商品信息",
+  "method": "GET"
+}, {
+  "id": 320,
+  "created_at": "2024-06-26 11:20:37.718",
+  "updated_at": "2024-06-26 11:20:37.718",
+  "deleted_at": null,
+  "path": "\/beeOrderGoods\/getBeeOrderGoodsList",
+  "description": "获取订单商品信息列表",
+  "api_group": "订单商品信息",
+  "method": "GET"
+}, {
+  "id": 321,
+  "created_at": "2024-06-26 11:21:20.114",
+  "updated_at": "2024-06-26 11:21:20.114",
+  "deleted_at": null,
+  "path": "\/beeOrderLogistics\/createBeeOrderLogistics",
+  "description": "新增用户订单地址",
+  "api_group": "用户订单地址",
+  "method": "POST"
+}, {
+  "id": 322,
+  "created_at": "2024-06-26 11:21:20.119",
+  "updated_at": "2024-06-26 11:21:20.119",
+  "deleted_at": null,
+  "path": "\/beeOrderLogistics\/deleteBeeOrderLogistics",
+  "description": "删除用户订单地址",
+  "api_group": "用户订单地址",
+  "method": "DELETE"
+}, {
+  "id": 323,
+  "created_at": "2024-06-26 11:21:20.121",
+  "updated_at": "2024-06-26 11:21:20.121",
+  "deleted_at": null,
+  "path": "\/beeOrderLogistics\/deleteBeeOrderLogisticsByIds",
+  "description": "批量删除用户订单地址",
+  "api_group": "用户订单地址",
+  "method": "DELETE"
+}, {
+  "id": 324,
+  "created_at": "2024-06-26 11:21:20.123",
+  "updated_at": "2024-06-26 11:21:20.123",
+  "deleted_at": null,
+  "path": "\/beeOrderLogistics\/updateBeeOrderLogistics",
+  "description": "更新用户订单地址",
+  "api_group": "用户订单地址",
+  "method": "PUT"
+}, {
+  "id": 325,
+  "created_at": "2024-06-26 11:21:20.125",
+  "updated_at": "2024-06-26 11:21:20.125",
+  "deleted_at": null,
+  "path": "\/beeOrderLogistics\/findBeeOrderLogistics",
+  "description": "根据ID获取用户订单地址",
+  "api_group": "用户订单地址",
+  "method": "GET"
+}, {
+  "id": 326,
+  "created_at": "2024-06-26 11:21:20.127",
+  "updated_at": "2024-06-26 11:21:20.127",
+  "deleted_at": null,
+  "path": "\/beeOrderLogistics\/getBeeOrderLogisticsList",
+  "description": "获取用户订单地址列表",
+  "api_group": "用户订单地址",
+  "method": "GET"
+}, {
+  "id": 327,
+  "created_at": "2024-06-27 10:21:42.306",
+  "updated_at": "2024-06-27 10:21:42.306",
+  "deleted_at": null,
+  "path": "\/beePayLog\/createBeePayLog",
+  "description": "新增支付流水",
+  "api_group": "支付流水",
+  "method": "POST"
+}, {
+  "id": 328,
+  "created_at": "2024-06-27 10:21:42.310",
+  "updated_at": "2024-06-27 10:21:42.310",
+  "deleted_at": null,
+  "path": "\/beePayLog\/deleteBeePayLog",
+  "description": "删除支付流水",
+  "api_group": "支付流水",
+  "method": "DELETE"
+}, {
+  "id": 329,
+  "created_at": "2024-06-27 10:21:42.312",
+  "updated_at": "2024-06-27 10:21:42.312",
+  "deleted_at": null,
+  "path": "\/beePayLog\/deleteBeePayLogByIds",
+  "description": "批量删除支付流水",
+  "api_group": "支付流水",
+  "method": "DELETE"
+}, {
+  "id": 330,
+  "created_at": "2024-06-27 10:21:42.314",
+  "updated_at": "2024-06-27 10:21:42.314",
+  "deleted_at": null,
+  "path": "\/beePayLog\/updateBeePayLog",
+  "description": "更新支付流水",
+  "api_group": "支付流水",
+  "method": "PUT"
+}, {
+  "id": 331,
+  "created_at": "2024-06-27 10:21:42.317",
+  "updated_at": "2024-06-27 10:21:42.317",
+  "deleted_at": null,
+  "path": "\/beePayLog\/findBeePayLog",
+  "description": "根据ID获取支付流水",
+  "api_group": "支付流水",
+  "method": "GET"
+}, {
+  "id": 332,
+  "created_at": "2024-06-27 10:21:42.320",
+  "updated_at": "2024-06-27 10:21:42.320",
+  "deleted_at": null,
+  "path": "\/beePayLog\/getBeePayLogList",
+  "description": "获取支付流水列表",
+  "api_group": "支付流水",
+  "method": "GET"
+}, {
+  "id": 333,
+  "created_at": "2024-07-08 09:53:55.281",
+  "updated_at": "2024-07-08 09:53:55.281",
+  "deleted_at": null,
+  "path": "\/beeWxPayConfig\/createBeeWxPayConfig",
+  "description": "新增微信支付配置",
+  "api_group": "微信支付配置",
+  "method": "POST"
+}, {
+  "id": 334,
+  "created_at": "2024-07-08 09:53:55.288",
+  "updated_at": "2024-07-08 09:53:55.288",
+  "deleted_at": null,
+  "path": "\/beeWxPayConfig\/deleteBeeWxPayConfig",
+  "description": "删除微信支付配置",
+  "api_group": "微信支付配置",
+  "method": "DELETE"
+}, {
+  "id": 335,
+  "created_at": "2024-07-08 09:53:55.290",
+  "updated_at": "2024-07-08 09:53:55.290",
+  "deleted_at": null,
+  "path": "\/beeWxPayConfig\/deleteBeeWxPayConfigByIds",
+  "description": "批量删除微信支付配置",
+  "api_group": "微信支付配置",
+  "method": "DELETE"
+}, {
+  "id": 336,
+  "created_at": "2024-07-08 09:53:55.293",
+  "updated_at": "2024-07-08 09:53:55.293",
+  "deleted_at": null,
+  "path": "\/beeWxPayConfig\/updateBeeWxPayConfig",
+  "description": "更新微信支付配置",
+  "api_group": "微信支付配置",
+  "method": "PUT"
+}, {
+  "id": 337,
+  "created_at": "2024-07-08 09:53:55.295",
+  "updated_at": "2024-07-08 09:53:55.295",
+  "deleted_at": null,
+  "path": "\/beeWxPayConfig\/findBeeWxPayConfig",
+  "description": "根据ID获取微信支付配置",
+  "api_group": "微信支付配置",
+  "method": "GET"
+}, {
+  "id": 338,
+  "created_at": "2024-07-08 09:53:55.297",
+  "updated_at": "2024-07-08 09:53:55.297",
+  "deleted_at": null,
+  "path": "\/beeWxPayConfig\/getBeeWxPayConfigList",
+  "description": "获取微信支付配置列表",
+  "api_group": "微信支付配置",
+  "method": "GET"
+}, {
+  "id": 339,
+  "created_at": "2024-07-09 10:23:59.787",
+  "updated_at": "2024-07-09 10:23:59.787",
+  "deleted_at": null,
+  "path": "\/beeNotice\/createBeeNotice",
+  "description": "新增系统公告",
+  "api_group": "系统公告",
+  "method": "POST"
+}, {
+  "id": 340,
+  "created_at": "2024-07-09 10:23:59.793",
+  "updated_at": "2024-07-09 10:23:59.793",
+  "deleted_at": null,
+  "path": "\/beeNotice\/deleteBeeNotice",
+  "description": "删除系统公告",
+  "api_group": "系统公告",
+  "method": "DELETE"
+}, {
+  "id": 341,
+  "created_at": "2024-07-09 10:24:00.135",
+  "updated_at": "2024-07-09 10:24:00.135",
+  "deleted_at": null,
+  "path": "\/beeNotice\/deleteBeeNoticeByIds",
+  "description": "批量删除系统公告",
+  "api_group": "系统公告",
+  "method": "DELETE"
+}, {
+  "id": 342,
+  "created_at": "2024-07-09 10:24:00.139",
+  "updated_at": "2024-07-09 10:24:00.139",
+  "deleted_at": null,
+  "path": "\/beeNotice\/updateBeeNotice",
+  "description": "更新系统公告",
+  "api_group": "系统公告",
+  "method": "PUT"
+}, {
+  "id": 343,
+  "created_at": "2024-07-09 10:24:00.144",
+  "updated_at": "2024-07-09 10:24:00.144",
+  "deleted_at": null,
+  "path": "\/beeNotice\/findBeeNotice",
+  "description": "根据ID获取系统公告",
+  "api_group": "系统公告",
+  "method": "GET"
+}, {
+  "id": 344,
+  "created_at": "2024-07-09 10:24:00.146",
+  "updated_at": "2024-07-09 10:24:00.146",
+  "deleted_at": null,
+  "path": "\/beeNotice\/getBeeNoticeList",
+  "description": "获取系统公告列表",
+  "api_group": "系统公告",
+  "method": "GET"
+}, {
+  "id": 345,
+  "created_at": "2024-07-09 20:05:00.478",
+  "updated_at": "2024-07-09 20:05:00.478",
+  "deleted_at": null,
+  "path": "\/beeLogistics\/createBeeLogistics",
+  "description": "新增运费模版",
+  "api_group": "运费模版",
+  "method": "POST"
+}, {
+  "id": 346,
+  "created_at": "2024-07-09 20:05:00.483",
+  "updated_at": "2024-07-09 20:05:00.483",
+  "deleted_at": null,
+  "path": "\/beeLogistics\/deleteBeeLogistics",
+  "description": "删除运费模版",
+  "api_group": "运费模版",
+  "method": "DELETE"
+}, {
+  "id": 347,
+  "created_at": "2024-07-09 20:05:00.488",
+  "updated_at": "2024-07-09 20:05:00.488",
+  "deleted_at": null,
+  "path": "\/beeLogistics\/deleteBeeLogisticsByIds",
+  "description": "批量删除运费模版",
+  "api_group": "运费模版",
+  "method": "DELETE"
+}, {
+  "id": 348,
+  "created_at": "2024-07-09 20:05:00.491",
+  "updated_at": "2024-07-09 20:05:00.491",
+  "deleted_at": null,
+  "path": "\/beeLogistics\/updateBeeLogistics",
+  "description": "更新运费模版",
+  "api_group": "运费模版",
+  "method": "PUT"
+}, {
+  "id": 349,
+  "created_at": "2024-07-09 20:05:00.494",
+  "updated_at": "2024-07-09 20:05:00.494",
+  "deleted_at": null,
+  "path": "\/beeLogistics\/findBeeLogistics",
+  "description": "根据ID获取运费模版",
+  "api_group": "运费模版",
+  "method": "GET"
+}, {
+  "id": 350,
+  "created_at": "2024-07-09 20:05:00.496",
+  "updated_at": "2024-07-09 20:05:00.496",
+  "deleted_at": null,
+  "path": "\/beeLogistics\/getBeeLogisticsList",
+  "description": "获取运费模版列表",
+  "api_group": "运费模版",
+  "method": "GET"
+}, {
+  "id": 351,
+  "created_at": "2024-07-09 20:08:26.761",
+  "updated_at": "2024-07-09 20:08:26.761",
+  "deleted_at": "2024-07-11 10:24:22.296",
+  "path": "\/beeShopLogisticsFreeShipping\/createBeeShopLogisticsFreeShipping",
+  "description": "新增免邮规则",
+  "api_group": "免邮规则",
+  "method": "POST"
+}, {
+  "id": 352,
+  "created_at": "2024-07-09 20:08:26.764",
+  "updated_at": "2024-07-09 20:08:26.764",
+  "deleted_at": "2024-07-11 10:24:22.296",
+  "path": "\/beeShopLogisticsFreeShipping\/deleteBeeShopLogisticsFreeShipping",
+  "description": "删除免邮规则",
+  "api_group": "免邮规则",
+  "method": "DELETE"
+}, {
+  "id": 353,
+  "created_at": "2024-07-09 20:08:26.767",
+  "updated_at": "2024-07-09 20:08:26.767",
+  "deleted_at": "2024-07-11 10:24:22.296",
+  "path": "\/beeShopLogisticsFreeShipping\/deleteBeeShopLogisticsFreeShippingByIds",
+  "description": "批量删除免邮规则",
+  "api_group": "免邮规则",
+  "method": "DELETE"
+}, {
+  "id": 354,
+  "created_at": "2024-07-09 20:08:26.769",
+  "updated_at": "2024-07-09 20:08:26.769",
+  "deleted_at": "2024-07-11 10:24:22.296",
+  "path": "\/beeShopLogisticsFreeShipping\/updateBeeShopLogisticsFreeShipping",
+  "description": "更新免邮规则",
+  "api_group": "免邮规则",
+  "method": "PUT"
+}, {
+  "id": 355,
+  "created_at": "2024-07-09 20:08:26.772",
+  "updated_at": "2024-07-09 20:08:26.772",
+  "deleted_at": "2024-07-11 10:24:22.296",
+  "path": "\/beeShopLogisticsFreeShipping\/findBeeShopLogisticsFreeShipping",
+  "description": "根据ID获取免邮规则",
+  "api_group": "免邮规则",
+  "method": "GET"
+}, {
+  "id": 356,
+  "created_at": "2024-07-09 20:08:26.774",
+  "updated_at": "2024-07-09 20:08:26.774",
+  "deleted_at": "2024-07-11 10:24:22.296",
+  "path": "\/beeShopLogisticsFreeShipping\/getBeeShopLogisticsFreeShippingList",
+  "description": "获取免邮规则列表",
+  "api_group": "免邮规则",
+  "method": "GET"
+}, {
+  "id": 357,
+  "created_at": "2024-07-09 20:22:39.455",
+  "updated_at": "2024-07-09 20:22:39.455",
+  "deleted_at": null,
+  "path": "\/beeShopLogisticsFreeShipping\/getBeeShopLogisticsFreeShippingDataSource",
+  "description": "免邮规则数据源",
+  "api_group": "免邮规则",
+  "method": "GET"
+}, {
+  "id": 358,
+  "created_at": "2024-07-10 11:21:40.300",
+  "updated_at": "2024-07-10 11:21:40.300",
+  "deleted_at": null,
+  "path": "\/beeRegion\/getBeeRegionCityTree",
+  "description": "获取省市区列表",
+  "api_group": "地址库",
+  "method": "GET"
+}, {
+  "id": 359,
+  "created_at": "2024-07-10 19:36:26.674",
+  "updated_at": "2024-07-10 19:36:26.674",
+  "deleted_at": null,
+  "path": "\/beeOrderLog\/createBeeOrderLog",
+  "description": "新增订单日志",
+  "api_group": "订单日志",
+  "method": "POST"
+}, {
+  "id": 360,
+  "created_at": "2024-07-10 19:36:26.679",
+  "updated_at": "2024-07-10 19:36:26.679",
+  "deleted_at": null,
+  "path": "\/beeOrderLog\/deleteBeeOrderLog",
+  "description": "删除订单日志",
+  "api_group": "订单日志",
+  "method": "DELETE"
+}, {
+  "id": 361,
+  "created_at": "2024-07-10 19:36:26.682",
+  "updated_at": "2024-07-10 19:36:26.682",
+  "deleted_at": null,
+  "path": "\/beeOrderLog\/deleteBeeOrderLogByIds",
+  "description": "批量删除订单日志",
+  "api_group": "订单日志",
+  "method": "DELETE"
+}, {
+  "id": 362,
+  "created_at": "2024-07-10 19:36:26.685",
+  "updated_at": "2024-07-10 19:36:26.685",
+  "deleted_at": null,
+  "path": "\/beeOrderLog\/updateBeeOrderLog",
+  "description": "更新订单日志",
+  "api_group": "订单日志",
+  "method": "PUT"
+}, {
+  "id": 363,
+  "created_at": "2024-07-10 19:36:26.687",
+  "updated_at": "2024-07-10 19:36:26.687",
+  "deleted_at": null,
+  "path": "\/beeOrderLog\/findBeeOrderLog",
+  "description": "根据ID获取订单日志",
+  "api_group": "订单日志",
+  "method": "GET"
+}, {
+  "id": 364,
+  "created_at": "2024-07-10 19:36:26.689",
+  "updated_at": "2024-07-10 19:36:26.689",
+  "deleted_at": null,
+  "path": "\/beeOrderLog\/getBeeOrderLogList",
+  "description": "获取订单日志列表",
+  "api_group": "订单日志",
+  "method": "GET"
+}]
