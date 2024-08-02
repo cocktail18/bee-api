@@ -16,6 +16,7 @@ type BeeCyTable struct {
 	ShopId     *int       `json:"shopId" form:"shopId" gorm:"column:shop_id;comment:;size:19;"`         //shopId字段
 	TableNum   string     `json:"tableNum" form:"tableNum" gorm:"column:table_num;comment:;size:255;"`  //tableNum字段
 	Remark     string     `json:"remark" form:"remark" gorm:"column:remark;comment:;size:255;"`         //remark字段
+	Key        string     `json:"key" form:"key" gorm:"column:key;comment:;size:255;"`                  //key字段
 	Uid        *int       `json:"uid" form:"uid" gorm:"column:uid;comment:;size:19;"`                   //uid字段
 }
 

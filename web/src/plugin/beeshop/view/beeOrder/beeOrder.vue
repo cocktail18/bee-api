@@ -938,7 +938,7 @@ const enterDialog = async () => {
 }
 
 const gotoDetailPage = async(row) => {
-  await router.push('beeOrderDetail?id=1')
+  await router.push('beeOrderDetail?id='+row.id)
 }
 </script>
 

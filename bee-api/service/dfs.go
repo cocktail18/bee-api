@@ -30,6 +30,9 @@ func GetDfsSrv() *DfsSrv {
 }
 
 func (s DfsSrv) SaveUploadedFile(c context.Context, host string, file *multipart.FileHeader, domain, filename, dst string, hours int64) (*proto.UploadFileResp, error) {
+	if domain == "" {
+		domain = kit.GetDomain(c)
+	}
 	data := model.BeeUploadFile{
 		BaseModel: *kit.GetInsertBaseModel(c),
 		Domain:    domain,

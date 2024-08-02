@@ -30,14 +30,33 @@ func GetCyTableSrv() *CyTableSrv {
 
 func (s CyTableSrv) Token(c context.Context, tableId int64, key string) (*proto.CyTableTokenResp, error) {
 	var info model.BeeCyTable
-	if err := model.DecryptCyTableData(key, &info); err != nil {
-		return nil, err
-	}
-	if info.Id != tableId {
+	if err := db.GetDB().Where("id = ? and is_deleted = 0", tableId).Where("`key` = ?", key).Take(&info).Error; err != nil {
 		return nil, enum.ErrParamError
 	}
-	resp, err := GetUserSrv().CreateUserToken(c, info.UserId, info.Uid, "", "")
-	if err != nil {
+	var resp *proto.AuthorizeResp
+	if err := db.GetDB().Transaction(func(tx *gorm.DB) error {
+		if info.Uid == 0 {
+			// 创建一个虚拟用户
+			vUser := &model.BeeUser{
+				BaseModel: common.BaseModel{
+					UserId: info.UserId,
+				},
+				IsVirtual: true,
+			}
+			if err := GetUserSrv().CreateUser(c, tx, vUser); err != nil {
+				return err
+			}
+			info.Uid = vUser.Id
+			if err := db.GetDB().Model(&model.BeeCyTable{}).Where("id = ?", tableId).Updates(map[string]interface{}{
+				"uid": info.Uid,
+			}).Error; err != nil {
+				return err
+			}
+		}
+		var err error
+		resp, err = GetUserSrv().CreateUserToken(c, info.UserId, info.Uid, "", "")
+		return err
+	}); err != nil {
 		return nil, err
 	}
 	return (*proto.CyTableTokenResp)(resp), nil

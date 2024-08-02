@@ -5,7 +5,8 @@
 
 针对餐饮行业推出的一套完整的餐饮解决方案，实现了用户在线点餐下单、外卖、叫号排队、支付、配送等功能，完美的使餐饮行业更高效便捷！
 
-小程序端：https://github.com/woniudiancang/bee 
+- 小程序端（原版）：https://github.com/woniudiancang/bee 
+- 修改后的小程序端（建议使用）：https://github.com/cocktail18/bee
 
 
 ##### api 在线体验地址：
@@ -33,15 +34,13 @@ subDomain: `cocktailBeeOrder`
 
 1.  安装go 1.22
 2.  安装mysql or mariadb
-3.  mv server/config.yml.demo server/config.yml # 复制配置文件
-4.  将 db-list 下面的数据库账号密码改成你的， 注意：alias-name 不要改
-5.  cd server && go run main.go  # 启动后端
-6.  cd web && npm run serve # 启动前端
-7.  点击前往初始化，根据需要配置账号密码、数据库账号密码
-8.  重启下后端服务
-9.  将小程序的 config.js 的 subDomain 改成对应的subDomain, 默认是 cocktailBeeOrder
-10.  将小程序的 miniprogram_npm/apifm-wxapi/index.js 的 API_BASE_URL 改为对应的域名， 默认开发环境：http://127.0.0.1:18083
-11.  默认api端口：18083，管理后台：8888，可以使用nginx进行代理
+3.  cd server && go run main.go  # 启动后端
+4.  cd web && npm run serve # 启动前端
+5.  点击前往初始化，根据需要配置账号密码、数据库账号密码
+6.  重启下后端服务，(使用修改后的[小程序端](https://github.com/cocktail18/bee)可以跳过步奏7、8)
+7.  将小程序的 config.js 的 subDomain 改成对应的subDomain, 默认是 cocktailBeeOrder
+8.  将小程序的 miniprogram_npm/apifm-wxapi/index.js 的 API_BASE_URL 改为对应的域名， 默认开发环境：http://127.0.0.1:18083
+9.  默认api端口：18083，管理后台：8888，可以使用nginx进行代理（建议）
 
 #### 使用说明
 
@@ -51,6 +50,17 @@ subDomain: `cocktailBeeOrder`
     管理后台-》bee 商城-》微信配置-》微信支付配置 （没有则新增一条）
 3.  启动前端项目
 4.  api项目已经继承在管理后台项目中，不需要单独启动
+
+
+#### FAQ
+1. 启动没有看到菜单
+
+   a. 检查用户授权，进入后台-》超级管理员-》设置权限，勾选需要的权限，注意角色api 的也要勾选，如果不确定需要什么权限，直接全选即可
+2. 小程序文件上传报错
+
+   a.  搜索小程序的 miniprogram_npm/apifm-wxapi/index.js，将 `url: 'https://oss.apifm.com/upload2',` 替换成 `url: http://127.0.0.1:18083/upload2,`   
+
+
 
 #### 后台截图demo
 ![](imgs/demo01.jpg)
@@ -62,6 +72,9 @@ subDomain: `cocktailBeeOrder`
 ![](imgs/demo07.jpg)
 ![](imgs/demo08.jpg)
 
+
+#### 交流群
+![](imgs/qqgroup.jpg)
 
 #### 参与贡献
 

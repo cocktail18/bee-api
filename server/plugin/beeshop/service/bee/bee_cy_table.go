@@ -5,6 +5,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
+	"github.com/samber/lo"
 )
 
 type BeeCyTableService struct{}
@@ -12,6 +13,8 @@ type BeeCyTableService struct{}
 // CreateBeeCyTable 创建桌号信息记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeCyTableService *BeeCyTableService) CreateBeeCyTable(beeCyTable *bee.BeeCyTable) (err error) {
+	beeCyTable.Uid = nil
+	beeCyTable.Key = lo.RandomString(10, lo.LettersCharset)
 	beeCyTable.DateAdd = utils.NowPtr()
 	beeCyTable.DateUpdate = utils.NowPtr()
 	err = global.MustGetGlobalDBByDBName("bee").Create(beeCyTable).Error

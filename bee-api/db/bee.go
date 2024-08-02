@@ -27,6 +27,10 @@ func (d *DB) GetDB() *gorm.DB {
 	return d.db
 }
 
+func SetDB(db *gorm.DB) {
+	instance = &DB{db: db}
+}
+
 func InitDB() error {
 	var err error
 	dbCfg := config2.AppConfigIns.DB

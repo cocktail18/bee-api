@@ -113,7 +113,14 @@ func NewRouter() *gin.Engine {
 	router.Use(gin.Logger(), gin.Recovery())
 	router.StaticFS(config2.GetStorePath(), justFilesFilesystem{http.Dir(config2.GetStorePath())})
 	router.POST("/upload2", regSysUserByPostForm(), CheckToken(), (api.DfsApi{}).UploadFile)
+
 	domainGroup := router.Group("/:domain", regSysUser())
+	//文件上传
+	dfsGroup := domainGroup.Group("/dfs", CheckToken())
+	{
+		dfsGroup.POST("/upload/file", (api.DfsApi{}).UploadFile)
+	}
+
 	configGroup := domainGroup.Group("/config")
 	{
 		configGroup.GET("/values", (api.ConfigApi{}).Values)
@@ -258,9 +265,10 @@ func NewRouter() *gin.Engine {
 	}
 
 	//扫码点餐
-	cyTableGroup := domainGroup.Group("/cyTable", CheckToken())
+	cyTableGroup := domainGroup.Group("/cyTable")
+	//cyTableGroup := domainGroup.Group("/cyTable", CheckToken())
 	{
-		cyTableGroup.POST("/add-order", (api.CyTableAPi{}).AddOrder)
+		cyTableGroup.POST("/add-order", CheckToken(), (api.CyTableAPi{}).AddOrder)
 		cyTableGroup.POST("/token", (api.CyTableAPi{}).Token)
 	}
 	//配送费
@@ -269,11 +277,6 @@ func NewRouter() *gin.Engine {
 		feeGroup.GET("/peisong/list", (api.FeeAPi{}).ListPeiSong)
 	}
 
-	//文件上传
-	dfsGroup := domainGroup.Group("/dfs", CheckToken())
-	{
-		dfsGroup.POST("/upload/file", (api.DfsApi{}).UploadFile)
-	}
 	//排队
 	queuingGroup := domainGroup.Group("/queuing")
 	{

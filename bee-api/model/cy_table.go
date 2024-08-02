@@ -9,9 +9,10 @@ import (
 type BeeCyTable struct {
 	common.BaseModel
 	ShopId   int64  `gorm:"column:shop_id;type:bigint(20)" json:"shopId"`
+	Key      string `gorm:"column:key;unique;type:varchar(255)" json:"key"`     // key
 	TableNum string `gorm:"column:table_num;type:varchar(255)" json:"tableNum"` // 桌号
 	Remark   string `gorm:"column:remark;type:varchar(255)" json:"remark"`      // 备注
-	Uid      int64  `gorm:"column:uid;type:bigint(20)" json:"uid"`              // 虚拟用户id
+	Uid      int64  `gorm:"column:uid;type:bigint(20)" json:"uid"`              // 对应虚拟用户id
 }
 
 func (m *BeeCyTable) TableName() string {

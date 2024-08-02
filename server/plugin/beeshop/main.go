@@ -6,16 +6,15 @@ import (
 	"fmt"
 	"gitee.com/stuinfer/bee-api/cmd"
 	"gitee.com/stuinfer/bee-api/config"
+	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/logger"
 	"gitee.com/stuinfer/bee-api/util"
-	config2 "github.com/flipped-aurora/gin-vue-admin/server/config"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/middleware"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/router"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/plugin-tool/utils"
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/cast"
 	"io/ioutil"
 	"sort"
 	"strings"
@@ -49,7 +48,7 @@ type SysBaseMenu struct {
 }
 
 func CreateBeeShopPlug() *BeeShopPlugin {
-	if !global.GVA_CONFIG.BeeShop.Enable {
+	if global.GVA_CONFIG.BeeShop.Disable || global.GVA_DB == nil { //未初始化
 		return &BeeShopPlugin{}
 	}
 	menus := make([]SysBaseMenu, 0)
@@ -68,7 +67,7 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 			global.GVA_LOG.Info("存在同名menu，跳过")
 			continue
 		}
-		menuPath := "_" + menu.Path
+		menuPath := menu.Path
 		component := menu.Component
 		if component != "view/routerHolder.vue" {
 			component = strings.ReplaceAll(component, "view/bee/", "plugin/beeshop/view/")
@@ -141,18 +140,13 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 }
 
 func (*BeeShopPlugin) startBeeApi() {
-	var dbCfg config2.SpecializedDB
-	for _, info := range global.GVA_CONFIG.DBList {
-		if info.Disable { // 禁用数据库
-			continue
-		}
-		if info.AliasName == "bee" {
-			dbCfg = info
-		}
+	beeDb := global.GetGlobalDBByDBName("bee")
+	if beeDb == nil { //直接用同一个库
+		db.SetDB(global.GVA_DB)
+	} else {
+		db.SetDB(beeDb)
 	}
-	if dbCfg.Path == "" {
-		dbCfg.Path = "127.0.0.1"
-	}
+
 	lockFile := "./bee-init.lock"
 	b, err := util.FileExists(lockFile)
 	if err != nil {
@@ -168,11 +162,6 @@ func (*BeeShopPlugin) startBeeApi() {
 			DfsHost: "",
 		},
 		DB: &config.AppDBConfig{
-			Host:     dbCfg.Path,
-			Port:     cast.ToInt(dbCfg.Port),
-			User:     dbCfg.Username,
-			Password: dbCfg.Password,
-			Database: dbCfg.Dbname,
 			Drop:     false,
 			NeedInit: !b,
 		},

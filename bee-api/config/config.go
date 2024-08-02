@@ -81,7 +81,7 @@ func GetStorePath() string {
 }
 
 func GetDfsHost(host string) string {
-	return util.IF(AppConfigIns.App.DfsHost == "", "https://"+host, AppConfigIns.App.DfsHost)
+	return util.IF(AppConfigIns.App.DfsHost == "", "http://"+host, AppConfigIns.App.DfsHost)
 }
 
 func GetOssType() string {

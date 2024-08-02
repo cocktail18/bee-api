@@ -4,6 +4,7 @@ import (
 	config2 "gitee.com/stuinfer/bee-api/config"
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/logger"
+	"io/ioutil"
 )
 
 var AllModel = []interface{}{
@@ -79,6 +80,23 @@ func InitDB() {
 		panic(err)
 	}
 	logger.GetLogger().Info("初始化demo数据成功")
+
+	// 导入地址库
+
+	// 2. Read SQL file content
+	sqlFile, err := ioutil.ReadFile("data/bee_region.sql")
+	if err != nil {
+		panic(err)
+	}
+	sqlCommands := string(sqlFile)
+
+	// 3. Execute SQL commands
+	err = db.GetDB().Exec(sqlCommands).Error
+	if err != nil {
+		panic(err)
+	}
+
+	logger.GetLogger().Info("SQL file imported successfully.")
 }
 
 func InitDemoData() error {

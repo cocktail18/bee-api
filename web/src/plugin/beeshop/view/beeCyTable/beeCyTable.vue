@@ -49,11 +49,12 @@
         >
         <el-table-column type="selection" width="55" />
         
-        <el-table-column align="left" label="id字段" prop="id" width="120" />
-        <el-table-column sortable align="left" label="shopId字段" prop="shopId" width="120" />
-        <el-table-column sortable align="left" label="tableNum字段" prop="tableNum" width="120" />
+        <el-table-column align="left" label="id" prop="id" width="120" />
+        <el-table-column sortable align="left" label="商店id" prop="shopId" width="120" />
+        <el-table-column sortable align="left" label="卓号" prop="tableNum" width="120" />
+        <el-table-column sortable align="left" label="key" prop="key" width="120" />
         <el-table-column align="left" label="备注" prop="remark" width="120" />
-        <el-table-column sortable align="left" label="uid字段" prop="uid" width="120" />
+        <el-table-column sortable align="left" label="虚拟uid" prop="uid" width="120" />
         <el-table-column align="left" label="已删除" prop="isDeleted" width="120">
           <template #default="scope">{{ formatBoolean(scope.row.isDeleted) }}</template>
         </el-table-column>
@@ -97,7 +98,7 @@
             </template>
 
           <el-form :model="formData" label-position="top" ref="elFormRef" :rules="rule" label-width="80px">
-            <el-form-item label="id字段:"  prop="id" >
+            <el-form-item label="id:"  prop="id" >
               <el-input v-model.number="formData.id" :clearable="true" placeholder="请输入id字段" />
             </el-form-item>
             <!--            <el-form-item label="已删除:"  prop="isDeleted" >-->
@@ -112,17 +113,20 @@
 <!--            <el-form-item label="删除时间:"  prop="dateDelete" >-->
 <!--              <el-date-picker v-model="formData.dateDelete" type="date" style="width:100%" placeholder="选择日期" :clearable="true"  />-->
 <!--            </el-form-item>-->
-            <el-form-item label="shopId字段:"  prop="shopId" >
-              <el-input v-model.number="formData.shopId" :clearable="true" placeholder="请输入shopId字段" />
+            <el-form-item label="商店id:"  prop="shopId" >
+              <el-input v-model.number="formData.shopId" :clearable="true" placeholder="请输入商店id字段" />
             </el-form-item>
-            <el-form-item label="tableNum字段:"  prop="tableNum" >
-              <el-input v-model="formData.tableNum" :clearable="true"  placeholder="请输入tableNum字段" />
+            <el-form-item label="key:"  prop="key" >
+              <el-input v-model.number="formData.key" :clearable="true" placeholder="新增留空即可" />
             </el-form-item>
-            <el-form-item label="remark字段:"  prop="remark" >
-              <el-input v-model="formData.remark" :clearable="true"  placeholder="请输入remark字段" />
+            <el-form-item label="桌号:"  prop="tableNum" >
+              <el-input v-model="formData.tableNum" :clearable="true"  placeholder="请输入卓号" />
             </el-form-item>
-            <el-form-item label="uid字段:"  prop="uid" >
-              <el-input v-model.number="formData.uid" :clearable="true" placeholder="请输入uid字段" />
+            <el-form-item label="备注:"  prop="remark" >
+              <el-input v-model="formData.remark" :clearable="true"  placeholder="请输入备注" />
+            </el-form-item>
+            <el-form-item label="uid:"  prop="uid" >
+              <el-input v-model.number="formData.uid" :clearable="true" placeholder="新增留空即可" />
             </el-form-item>
           </el-form>
     </el-drawer>
@@ -160,6 +164,7 @@ const formData = ref({
         dateDelete: new Date(),
         shopId: undefined,
         tableNum: '',
+        key: '',
         remark: '',
         uid: undefined,
         })
@@ -370,6 +375,7 @@ const closeDialog = () => {
         shopId: undefined,
         tableNum: '',
         remark: '',
+        key: '',
         uid: undefined,
         }
 }

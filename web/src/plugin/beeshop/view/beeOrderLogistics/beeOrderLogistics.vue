@@ -135,13 +135,13 @@
               <el-switch v-model="formData.isDefault" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否" clearable ></el-switch>
             </el-form-item>
             <el-form-item label="纬度:"  prop="latitude" >
-              <el-input-number v-model="formData.latitude"  style="width:100%" :precision="2" :clearable="true"  />
+              <el-input-number v-model="formData.latitude"  style="width:100%" :precision="10" :clearable="true"  />
             </el-form-item>
             <el-form-item label="联系人:"  prop="linkMan" >
               <el-input v-model="formData.linkMan" :clearable="true"  placeholder="请输入联系人" />
             </el-form-item>
             <el-form-item label="经度:"  prop="longitude" >
-              <el-input-number v-model="formData.longitude"  style="width:100%" :precision="2" :clearable="true"  />
+              <el-input-number v-model="formData.longitude"  style="width:100%" :precision="10" :clearable="true"  />
             </el-form-item>
             <el-form-item label="联系电话:"  prop="mobile" >
               <el-input v-model="formData.mobile" :clearable="true"  placeholder="请输入联系电话" />

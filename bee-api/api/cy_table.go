@@ -21,15 +21,15 @@ func (p CyTableAPi) AddOrder(c *gin.Context) {
 		return
 	}
 	err := service.GetCyTableSrv().AddOrder(c, c.ClientIP(), goods)
-	p.Res(c, nil, err)
+	p.Res(c, "success", err)
 }
 
 // Token 分配虚拟用户跟token
 func (p CyTableAPi) Token(c *gin.Context) {
 	//● tableId 桌码的id，不是名称也不是code，是id
-	tableId := cast.ToInt64(c.PostForm("tableId"))
+	tableId := cast.ToInt64(c.PostForm("id"))
 	//● key 桌子密钥
-	key := c.PostForm("key")
+	key := c.PostForm("k")
 	if tableId == 0 || key == "" {
 		p.Res(c, "", enum.ErrParamError)
 		return

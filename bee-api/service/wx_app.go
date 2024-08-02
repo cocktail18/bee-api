@@ -28,7 +28,7 @@ func GetWxAppSrv(c context.Context) (*WxAppSrv, error) {
 	//@todo cache
 	userId := kit.GetUserId(c)
 	var wxConfig model.BeeWxConfig
-	if err := db.GetDB().Where("user_id = ?", userId).First(&wxConfig).Error; err != nil {
+	if err := db.GetDB().Where("user_id = ? and is_deleted = 0", userId).Order("id desc").First(&wxConfig).Error; err != nil {
 		return nil, errors.New("未配置微信小程序")
 	}
 	appSrv := &WxAppSrv{}
