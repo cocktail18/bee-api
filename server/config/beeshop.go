@@ -1,6 +1,6 @@
 package config
 
 type BeeShop struct {
-	Enable bool   `mapstructure:"enable" json:"enable" yaml:"enable"`
-	Listen string `mapstructure:"listen" json:"listen" yaml:"listen"`
+	Disable bool   `mapstructure:"disable" json:"disable" yaml:"disable"`
+	Listen  string `mapstructure:"listen" json:"listen" yaml:"listen"`
 }
