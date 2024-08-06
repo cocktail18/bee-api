@@ -46,6 +46,10 @@ func (srv *PrinterSrv) printOrder(ctx context.Context, item *model.BeeOrderPrint
 		return err
 	}
 	for _, _printer := range printers {
+		if _printer.ShopId > 0 && orderDto.ShopId != _printer.ShopId {
+			logger.GetLogger().Debug("订单不属于该打印机", zap.Any("printer", _printer), zap.Any("order", orderDto))
+			continue
+		}
 		content, err := srv.buildContent(ctx, _printer.Template, orderDto)
 		if err != nil {
 			return err
