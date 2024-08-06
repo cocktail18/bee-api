@@ -1,7 +1,6 @@
 package bee
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -14,14 +13,14 @@ type BeeUserAddressService struct{}
 func (beeUserAddressService *BeeUserAddressService) CreateBeeUserAddress(beeUserAddress *bee.BeeUserAddress) (err error) {
 	beeUserAddress.DateAdd = utils.NowPtr()
 	beeUserAddress.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Create(beeUserAddress).Error
+	err = GetBeeDB().Create(beeUserAddress).Error
 	return err
 }
 
 // DeleteBeeUserAddress 删除用户地址记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUserAddressService *BeeUserAddressService) DeleteBeeUserAddress(id string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUserAddress{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeUserAddress{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -32,7 +31,7 @@ func (beeUserAddressService *BeeUserAddressService) DeleteBeeUserAddress(id stri
 // DeleteBeeUserAddressByIds 批量删除用户地址记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUserAddressService *BeeUserAddressService) DeleteBeeUserAddressByIds(ids []string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUserAddress{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeUserAddress{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -44,14 +43,14 @@ func (beeUserAddressService *BeeUserAddressService) DeleteBeeUserAddressByIds(id
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUserAddressService *BeeUserAddressService) UpdateBeeUserAddress(beeUserAddress bee.BeeUserAddress, shopUserId int) (err error) {
 	beeUserAddress.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUserAddress{}).Where("id = ? and user_id = ?", beeUserAddress.Id, shopUserId).Updates(&beeUserAddress).Error
+	err = GetBeeDB().Model(&bee.BeeUserAddress{}).Where("id = ? and user_id = ?", beeUserAddress.Id, shopUserId).Updates(&beeUserAddress).Error
 	return err
 }
 
 // GetBeeUserAddress 根据id获取用户地址记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUserAddressService *BeeUserAddressService) GetBeeUserAddress(id string, shopUserId int) (beeUserAddress bee.BeeUserAddress, err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Where("id = ? and user_id = ?", id, shopUserId).First(&beeUserAddress).Error
+	err = GetBeeDB().Where("id = ? and user_id = ?", id, shopUserId).First(&beeUserAddress).Error
 	return
 }
 
@@ -61,7 +60,7 @@ func (beeUserAddressService *BeeUserAddressService) GetBeeUserAddressInfoList(in
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUserAddress{})
+	db := GetBeeDB().Model(&bee.BeeUserAddress{})
 	db = db.Where("user_id = ?", shopUserId)
 	var beeUserAddresss []bee.BeeUserAddress
 	// 如果有条件搜索 下方会自动创建搜索语句

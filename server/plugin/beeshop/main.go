@@ -15,9 +15,11 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/router"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/plugin-tool/utils"
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 	"io/ioutil"
 	"sort"
 	"strings"
+	"time"
 )
 
 type BeeShopPlugin struct {
@@ -48,6 +50,7 @@ type SysBaseMenu struct {
 }
 
 func CreateBeeShopPlug() *BeeShopPlugin {
+	ins := &BeeShopPlugin{}
 	if global.GVA_CONFIG.BeeShop.Disable || global.GVA_DB == nil { //未初始化
 		return &BeeShopPlugin{}
 	}
@@ -114,7 +117,7 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 		apiAdd = append(apiAdd, system.SysApi{
 			Path:        "/bee-shop" + api.Path,
 			Description: api.Description,
-			ApiGroup:    api.ApiGroup,
+			ApiGroup:    "bee-shop",
 			Method:      api.Method,
 		})
 	}
@@ -122,6 +125,14 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 	utils.RegisterApis(
 		apiAdd...,
 	)
+	utils.RegisterApis(ins.genPluginApi("beePrinter", "打印机")...)
+	ins.registerBaseMenu("shop-base-info", system.SysBaseMenu{
+		Path: "beePrinter",
+		Name: "beePrinter",
+		Meta: system.Meta{
+			Title: "打印机配置",
+		},
+	})
 	// 下方会自动注册api 以下格式为示例格式，请按照实际情况修改
 	//utils.RegisterApis(
 	//	system.SysApi{
@@ -132,11 +143,52 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 	//	},
 	//)
 	initBeeDict()
-	ins := &BeeShopPlugin{}
+
 	go func() {
 		ins.startBeeApi()
 	}()
 	return ins
+}
+
+func (*BeeShopPlugin) registerBaseMenu(parentMenu string, menu system.SysBaseMenu) {
+	var cnt int64
+	global.GVA_DB.Find(&[]system.SysBaseMenu{}, "name in (?)", menu.Name).Count(&cnt)
+	if cnt > 0 {
+		global.GVA_LOG.Info("存在同名menu，跳过", zap.String("name", menu.Name))
+		return
+	}
+	var parent system.SysBaseMenu
+	if err := global.GVA_DB.Where("name = ?", parentMenu).First(&parent).Error; err != nil {
+		global.GVA_LOG.Error("获取父菜单失败", zap.Error(err), zap.String("name", parentMenu))
+		return
+	}
+	menu.CreatedAt = time.Now()
+	menu.ParentId = parent.ID
+	menu.Hidden = false
+	if menu.Component == "" {
+		menu.Component = fmt.Sprintf("plugin/beeshop/view/%s/%s.vue", menu.Name, menu.Name)
+	}
+	if err := global.GVA_DB.Create(&menu).Error; err != nil {
+		global.GVA_LOG.Error("生成菜单失败", zap.Error(err), zap.String("name", menu.Name))
+		return
+	}
+}
+
+func (*BeeShopPlugin) genPluginApi(tableName string, remark string) []system.SysApi {
+	tpls := []system.SysApi{
+		{ApiGroup: "bee-shop", Path: "/bee-shop/{{tbName}}/create{{tbNameFirstLetterUpper}}", Method: "POST", Description: "新增{{remark}}"},
+		{ApiGroup: "bee-shop", Path: "/bee-shop/{{tbName}}/delete{{tbNameFirstLetterUpper}}", Method: "DELETE", Description: "删除{{remark}}"},
+		{ApiGroup: "bee-shop", Path: "/bee-shop/{{tbName}}/delete{{tbNameFirstLetterUpper}}ByIds", Method: "DELETE", Description: "批量删除{{remark}}"},
+		{ApiGroup: "bee-shop", Path: "/bee-shop/{{tbName}}/update{{tbNameFirstLetterUpper}}", Method: "PUT", Description: "更新{{remark}}"},
+		{ApiGroup: "bee-shop", Path: "/bee-shop/{{tbName}}/find{{tbNameFirstLetterUpper}}", Method: "GET", Description: "根据ID获取{{remark}}"},
+		{ApiGroup: "bee-shop", Path: "/bee-shop/{{tbName}}/get{{tbNameFirstLetterUpper}}List", Method: "GET", Description: "获取{{remark}}列表"},
+	}
+	for i, tpl := range tpls {
+		tpls[i].Description = strings.ReplaceAll(tpl.Description, "{{remark}}", remark)
+		tpls[i].Path = strings.ReplaceAll(tpls[i].Path, "{{tbName}}", tableName)
+		tpls[i].Path = strings.ReplaceAll(tpls[i].Path, "{{tbNameFirstLetterUpper}}", strings.ToUpper(string(tableName[0]))+tableName[1:])
+	}
+	return tpls
 }
 
 func (*BeeShopPlugin) startBeeApi() {
@@ -280,6 +332,7 @@ func (*BeeShopPlugin) Register(group *gin.RouterGroup) {
 	beeRouter.InitBeeLogisticsRouter(privateGroup, publicGroup)
 
 	beeRouter.InitBeeOrderLogRouter(privateGroup, publicGroup)
+	beeRouter.InitBeePrinterRouter(privateGroup, publicGroup)
 }
 
 func (*BeeShopPlugin) RouterPath() string {

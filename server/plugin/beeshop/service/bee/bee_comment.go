@@ -1,7 +1,6 @@
 package bee
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -14,14 +13,14 @@ type BeeCommentService struct{}
 func (beeCommentService *BeeCommentService) CreateBeeComment(beeComment *bee.BeeComment) (err error) {
 	beeComment.DateAdd = utils.NowPtr()
 	beeComment.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Create(beeComment).Error
+	err = GetBeeDB().Create(beeComment).Error
 	return err
 }
 
 // DeleteBeeComment 删除评论表记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeCommentService *BeeCommentService) DeleteBeeComment(id string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeComment{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeComment{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -32,7 +31,7 @@ func (beeCommentService *BeeCommentService) DeleteBeeComment(id string, shopUser
 // DeleteBeeCommentByIds 批量删除评论表记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeCommentService *BeeCommentService) DeleteBeeCommentByIds(ids []string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeComment{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeComment{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -44,14 +43,14 @@ func (beeCommentService *BeeCommentService) DeleteBeeCommentByIds(ids []string, 
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeCommentService *BeeCommentService) UpdateBeeComment(beeComment bee.BeeComment, shopUserId int) (err error) {
 	beeComment.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeComment{}).Where("id = ? and user_id = ?", beeComment.Id, shopUserId).Updates(&beeComment).Error
+	err = GetBeeDB().Model(&bee.BeeComment{}).Where("id = ? and user_id = ?", beeComment.Id, shopUserId).Updates(&beeComment).Error
 	return err
 }
 
 // GetBeeComment 根据id获取评论表记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeCommentService *BeeCommentService) GetBeeComment(id string, shopUserId int) (beeComment bee.BeeComment, err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Where("id = ? and user_id = ?", id, shopUserId).First(&beeComment).Error
+	err = GetBeeDB().Where("id = ? and user_id = ?", id, shopUserId).First(&beeComment).Error
 	return
 }
 
@@ -61,7 +60,7 @@ func (beeCommentService *BeeCommentService) GetBeeCommentInfoList(info beeReq.Be
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeComment{})
+	db := GetBeeDB().Model(&bee.BeeComment{})
 	db = db.Where("user_id = ?", shopUserId)
 	var beeComments []bee.BeeComment
 	// 如果有条件搜索 下方会自动创建搜索语句

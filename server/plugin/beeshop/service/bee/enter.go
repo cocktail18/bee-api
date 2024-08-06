@@ -35,4 +35,5 @@ type ServiceGroup struct {
 	BeeNoticeService
 	BeeLogisticsService
 	BeeOrderLogService
+	BeePrinterService
 }

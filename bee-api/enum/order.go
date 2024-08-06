@@ -13,6 +13,8 @@ type OrderGoodsStatus int32
 type OrderLogType int32
 type OrderPaisongStatus int32
 
+type OrderPrinterStatus int32
+
 var OrderReputationMap = map[OrderReputation]string{
 	OrderReputationNone:   "无",
 	OrderReputationBad:    "差评",
@@ -95,4 +97,8 @@ const (
 	OrderLogTypeHx             OrderLogType = 21  // 11 核销
 
 	OrderPaisongStatusNone OrderPaisongStatus = 0
+
+	OrderPrinterStatusWaiting OrderPrinterStatus = 0
+	OrderPrinterStatusDone    OrderPrinterStatus = 1
+	OrderPrinterStatusErr     OrderPrinterStatus = 2
 )

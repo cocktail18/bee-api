@@ -1,7 +1,6 @@
 package bee
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -14,14 +13,14 @@ type BeeCmsInfoService struct{}
 func (beeCmsInfoService *BeeCmsInfoService) CreateBeeCmsInfo(beeCmsInfo *bee.BeeCmsInfo) (err error) {
 	beeCmsInfo.DateAdd = utils.NowPtr()
 	beeCmsInfo.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Create(beeCmsInfo).Error
+	err = GetBeeDB().Create(beeCmsInfo).Error
 	return err
 }
 
 // DeleteBeeCmsInfo 删除cms信息记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeCmsInfoService *BeeCmsInfoService) DeleteBeeCmsInfo(id string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeCmsInfo{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeCmsInfo{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -32,7 +31,7 @@ func (beeCmsInfoService *BeeCmsInfoService) DeleteBeeCmsInfo(id string, shopUser
 // DeleteBeeCmsInfoByIds 批量删除cms信息记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeCmsInfoService *BeeCmsInfoService) DeleteBeeCmsInfoByIds(ids []string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeCmsInfo{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeCmsInfo{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -44,14 +43,14 @@ func (beeCmsInfoService *BeeCmsInfoService) DeleteBeeCmsInfoByIds(ids []string, 
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeCmsInfoService *BeeCmsInfoService) UpdateBeeCmsInfo(beeCmsInfo bee.BeeCmsInfo, shopUserId int) (err error) {
 	beeCmsInfo.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeCmsInfo{}).Where("id = ? and user_id = ?", beeCmsInfo.Id, shopUserId).Updates(&beeCmsInfo).Error
+	err = GetBeeDB().Model(&bee.BeeCmsInfo{}).Where("id = ? and user_id = ?", beeCmsInfo.Id, shopUserId).Updates(&beeCmsInfo).Error
 	return err
 }
 
 // GetBeeCmsInfo 根据id获取cms信息记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeCmsInfoService *BeeCmsInfoService) GetBeeCmsInfo(id string, shopUserId int) (beeCmsInfo bee.BeeCmsInfo, err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Where("id = ? and user_id = ?", id, shopUserId).First(&beeCmsInfo).Error
+	err = GetBeeDB().Where("id = ? and user_id = ?", id, shopUserId).First(&beeCmsInfo).Error
 	return
 }
 
@@ -61,7 +60,7 @@ func (beeCmsInfoService *BeeCmsInfoService) GetBeeCmsInfoInfoList(info beeReq.Be
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeCmsInfo{})
+	db := GetBeeDB().Model(&bee.BeeCmsInfo{})
 	db = db.Where("user_id = ?", shopUserId)
 	var beeCmsInfos []bee.BeeCmsInfo
 	// 如果有条件搜索 下方会自动创建搜索语句

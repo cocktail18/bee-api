@@ -6,6 +6,7 @@ import (
 	"gitee.com/stuinfer/bee-api/logger"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/router"
+	"gitee.com/stuinfer/bee-api/service"
 	"gitee.com/stuinfer/bee-api/sys"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
@@ -27,6 +28,7 @@ func Run(cfg *config2.AppConfig) {
 		model.InitDB()
 		sys.InitDB()
 	}
+	service.GetPrinterSrv().StartDaemon()
 	go func() {
 		logger.GetLogger().Info("服务启动", zap.Any("addr", svr.Addr))
 		err := svr.ListenAndServe()

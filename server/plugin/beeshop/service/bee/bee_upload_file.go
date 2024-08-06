@@ -1,7 +1,6 @@
 package bee
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -14,14 +13,14 @@ type BeeUploadFileService struct{}
 func (beeUploadFileService *BeeUploadFileService) CreateBeeUploadFile(beeUploadFile *bee.BeeUploadFile) (err error) {
 	beeUploadFile.DateAdd = utils.NowPtr()
 	beeUploadFile.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Create(beeUploadFile).Error
+	err = GetBeeDB().Create(beeUploadFile).Error
 	return err
 }
 
 // DeleteBeeUploadFile 删除用户上传文件记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUploadFileService *BeeUploadFileService) DeleteBeeUploadFile(id string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUploadFile{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeUploadFile{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -32,7 +31,7 @@ func (beeUploadFileService *BeeUploadFileService) DeleteBeeUploadFile(id string,
 // DeleteBeeUploadFileByIds 批量删除用户上传文件记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUploadFileService *BeeUploadFileService) DeleteBeeUploadFileByIds(ids []string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUploadFile{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeUploadFile{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -44,14 +43,14 @@ func (beeUploadFileService *BeeUploadFileService) DeleteBeeUploadFileByIds(ids [
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUploadFileService *BeeUploadFileService) UpdateBeeUploadFile(beeUploadFile bee.BeeUploadFile, shopUserId int) (err error) {
 	beeUploadFile.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUploadFile{}).Where("id = ? and user_id = ?", beeUploadFile.Id, shopUserId).Updates(&beeUploadFile).Error
+	err = GetBeeDB().Model(&bee.BeeUploadFile{}).Where("id = ? and user_id = ?", beeUploadFile.Id, shopUserId).Updates(&beeUploadFile).Error
 	return err
 }
 
 // GetBeeUploadFile 根据id获取用户上传文件记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUploadFileService *BeeUploadFileService) GetBeeUploadFile(id string, shopUserId int) (beeUploadFile bee.BeeUploadFile, err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Where("id = ? and user_id = ?", id, shopUserId).First(&beeUploadFile).Error
+	err = GetBeeDB().Where("id = ? and user_id = ?", id, shopUserId).First(&beeUploadFile).Error
 	return
 }
 
@@ -61,7 +60,7 @@ func (beeUploadFileService *BeeUploadFileService) GetBeeUploadFileInfoList(info 
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUploadFile{})
+	db := GetBeeDB().Model(&bee.BeeUploadFile{})
 	db = db.Where("user_id = ?", shopUserId)
 	var beeUploadFiles []bee.BeeUploadFile
 	// 如果有条件搜索 下方会自动创建搜索语句

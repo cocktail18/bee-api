@@ -1,7 +1,6 @@
 package bee
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -14,14 +13,14 @@ type BeeWxConfigService struct{}
 func (beeWxConfigService *BeeWxConfigService) CreateBeeWxConfig(beeWxConfig *bee.BeeWxConfig) (err error) {
 	beeWxConfig.DateAdd = utils.NowPtr()
 	beeWxConfig.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Create(beeWxConfig).Error
+	err = GetBeeDB().Create(beeWxConfig).Error
 	return err
 }
 
 // DeleteBeeWxConfig 删除微信配置记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeWxConfigService *BeeWxConfigService) DeleteBeeWxConfig(id string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeWxConfig{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeWxConfig{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -32,7 +31,7 @@ func (beeWxConfigService *BeeWxConfigService) DeleteBeeWxConfig(id string, shopU
 // DeleteBeeWxConfigByIds 批量删除微信配置记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeWxConfigService *BeeWxConfigService) DeleteBeeWxConfigByIds(ids []string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeWxConfig{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeWxConfig{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -44,14 +43,14 @@ func (beeWxConfigService *BeeWxConfigService) DeleteBeeWxConfigByIds(ids []strin
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeWxConfigService *BeeWxConfigService) UpdateBeeWxConfig(beeWxConfig bee.BeeWxConfig, shopUserId int) (err error) {
 	beeWxConfig.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeWxConfig{}).Where("id = ? and user_id = ?", beeWxConfig.Id, shopUserId).Updates(&beeWxConfig).Error
+	err = GetBeeDB().Model(&bee.BeeWxConfig{}).Where("id = ? and user_id = ?", beeWxConfig.Id, shopUserId).Updates(&beeWxConfig).Error
 	return err
 }
 
 // GetBeeWxConfig 根据id获取微信配置记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeWxConfigService *BeeWxConfigService) GetBeeWxConfig(id string, shopUserId int) (beeWxConfig bee.BeeWxConfig, err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Where("id = ? and user_id = ?", id, shopUserId).First(&beeWxConfig).Error
+	err = GetBeeDB().Where("id = ? and user_id = ?", id, shopUserId).First(&beeWxConfig).Error
 	return
 }
 
@@ -61,7 +60,7 @@ func (beeWxConfigService *BeeWxConfigService) GetBeeWxConfigInfoList(info beeReq
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeWxConfig{})
+	db := GetBeeDB().Model(&bee.BeeWxConfig{})
 	db = db.Where("user_id = ?", shopUserId)
 	var beeWxConfigs []bee.BeeWxConfig
 	// 如果有条件搜索 下方会自动创建搜索语句

@@ -7,6 +7,7 @@ import (
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/logger"
 	"go.uber.org/zap"
+	"gorm.io/gorm"
 	"io"
 	"log"
 	"os"
@@ -46,6 +47,7 @@ var AllModel = []interface{}{
 	&BeeShopInfo{},
 	&BeeShopGoodsSku{},
 	&BeeShoppingCart{},
+	&BeePrinter{},
 	&BeeSignLog{},
 	&BeeScoreLog{},
 	&BeeUser{},
@@ -61,6 +63,7 @@ var AllModel = []interface{}{
 	&BeeWxPayConfig{},
 	&BeeQueue{},
 	&BeeUserQueue{},
+	&BeeOrderPrintLog{},
 }
 
 func InitDB() {
@@ -108,15 +111,27 @@ func initBeeRegion() {
 	scanner := bufio.NewScanner(file)
 	logger.GetLogger().Info("导入地址库中，请勿关闭或者停止")
 	// 循环读取每一行
+	i := 0
+	var tx *gorm.DB
+	tx = db.GetDB().Begin()
 	for scanner.Scan() {
+		i++
 		// 获取当前行的内容
 		line := scanner.Text()
-		if err := db.GetDB().Exec(line).Error; err != nil {
+		if err := tx.Exec(line).Error; err != nil {
 			logger.GetLogger().Error("写入地址库失败", zap.Error(err))
 			continue
 		}
+		if i%2000 == 0 {
+			if err := tx.Commit().Error; err != nil {
+				logger.GetLogger().Error("写入地址库失败", zap.Error(err))
+			}
+			tx = db.GetDB().Begin()
+		}
 	}
-
+	if err := tx.Commit().Error; err != nil {
+		logger.GetLogger().Error("写入地址库失败", zap.Error(err))
+	}
 	// 检查 Scan 是否发生错误
 	if err := scanner.Err(); err != nil && !errors.Is(err, io.EOF) {
 		log.Fatal(err)

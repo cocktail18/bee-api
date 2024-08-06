@@ -1,7 +1,6 @@
 package bee
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -14,14 +13,14 @@ type BeePayLogService struct{}
 func (beePayLogService *BeePayLogService) CreateBeePayLog(beePayLog *bee.BeePayLog) (err error) {
 	beePayLog.DateAdd = utils.NowPtr()
 	beePayLog.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Create(beePayLog).Error
+	err = GetBeeDB().Create(beePayLog).Error
 	return err
 }
 
 // DeleteBeePayLog 删除支付流水记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beePayLogService *BeePayLogService) DeleteBeePayLog(id string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeePayLog{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeePayLog{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -32,7 +31,7 @@ func (beePayLogService *BeePayLogService) DeleteBeePayLog(id string, shopUserId 
 // DeleteBeePayLogByIds 批量删除支付流水记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beePayLogService *BeePayLogService) DeleteBeePayLogByIds(ids []string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeePayLog{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeePayLog{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -44,14 +43,14 @@ func (beePayLogService *BeePayLogService) DeleteBeePayLogByIds(ids []string, sho
 // Author [piexlmax](https://github.com/piexlmax)
 func (beePayLogService *BeePayLogService) UpdateBeePayLog(beePayLog bee.BeePayLog, shopUserId int) (err error) {
 	beePayLog.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeePayLog{}).Where("id = ? and user_id = ?", beePayLog.Id, shopUserId).Updates(&beePayLog).Error
+	err = GetBeeDB().Model(&bee.BeePayLog{}).Where("id = ? and user_id = ?", beePayLog.Id, shopUserId).Updates(&beePayLog).Error
 	return err
 }
 
 // GetBeePayLog 根据id获取支付流水记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beePayLogService *BeePayLogService) GetBeePayLog(id string, shopUserId int) (beePayLog bee.BeePayLog, err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Where("id = ? and user_id = ?", id, shopUserId).First(&beePayLog).Error
+	err = GetBeeDB().Where("id = ? and user_id = ?", id, shopUserId).First(&beePayLog).Error
 	return
 }
 
@@ -61,7 +60,7 @@ func (beePayLogService *BeePayLogService) GetBeePayLogInfoList(info beeReq.BeePa
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.MustGetGlobalDBByDBName("bee").Model(&bee.BeePayLog{})
+	db := GetBeeDB().Model(&bee.BeePayLog{})
 	db = db.Where("user_id = ?", shopUserId)
 	var beePayLogs []bee.BeePayLog
 	// 如果有条件搜索 下方会自动创建搜索语句

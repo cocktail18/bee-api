@@ -1,7 +1,6 @@
 package bee
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -14,14 +13,14 @@ type BeeShopGoodsImagesService struct{}
 func (beeShopGoodsImagesService *BeeShopGoodsImagesService) CreateBeeShopGoodsImages(beeShopGoodsImages *bee.BeeShopGoodsImages) (err error) {
 	beeShopGoodsImages.DateAdd = utils.NowPtr()
 	beeShopGoodsImages.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Create(beeShopGoodsImages).Error
+	err = GetBeeDB().Create(beeShopGoodsImages).Error
 	return err
 }
 
 // DeleteBeeShopGoodsImages 删除商品图记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeShopGoodsImagesService *BeeShopGoodsImagesService) DeleteBeeShopGoodsImages(id string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeShopGoodsImages{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeShopGoodsImages{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -32,7 +31,7 @@ func (beeShopGoodsImagesService *BeeShopGoodsImagesService) DeleteBeeShopGoodsIm
 // DeleteBeeShopGoodsImagesByIds 批量删除商品图记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeShopGoodsImagesService *BeeShopGoodsImagesService) DeleteBeeShopGoodsImagesByIds(ids []string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeShopGoodsImages{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeShopGoodsImages{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -44,14 +43,14 @@ func (beeShopGoodsImagesService *BeeShopGoodsImagesService) DeleteBeeShopGoodsIm
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeShopGoodsImagesService *BeeShopGoodsImagesService) UpdateBeeShopGoodsImages(beeShopGoodsImages bee.BeeShopGoodsImages, shopUserId int) (err error) {
 	beeShopGoodsImages.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeShopGoodsImages{}).Where("id = ? and user_id = ?", beeShopGoodsImages.Id, shopUserId).Updates(&beeShopGoodsImages).Error
+	err = GetBeeDB().Model(&bee.BeeShopGoodsImages{}).Where("id = ? and user_id = ?", beeShopGoodsImages.Id, shopUserId).Updates(&beeShopGoodsImages).Error
 	return err
 }
 
 // GetBeeShopGoodsImages 根据id获取商品图记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeShopGoodsImagesService *BeeShopGoodsImagesService) GetBeeShopGoodsImages(id string, shopUserId int) (beeShopGoodsImages bee.BeeShopGoodsImages, err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Where("id = ? and user_id = ?", id, shopUserId).First(&beeShopGoodsImages).Error
+	err = GetBeeDB().Where("id = ? and user_id = ?", id, shopUserId).First(&beeShopGoodsImages).Error
 	return
 }
 
@@ -61,7 +60,7 @@ func (beeShopGoodsImagesService *BeeShopGoodsImagesService) GetBeeShopGoodsImage
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeShopGoodsImages{})
+	db := GetBeeDB().Model(&bee.BeeShopGoodsImages{})
 	db = db.Where("user_id = ?", shopUserId)
 	var beeShopGoodsImagess []bee.BeeShopGoodsImages
 	// 如果有条件搜索 下方会自动创建搜索语句

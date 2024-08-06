@@ -1,7 +1,6 @@
 package bee
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -14,14 +13,14 @@ type BeeConfigService struct{}
 func (beeConfigService *BeeConfigService) CreateBeeConfig(beeConfig *bee.BeeConfig) (err error) {
 	beeConfig.DateAdd = utils.NowPtr()
 	beeConfig.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Create(beeConfig).Error
+	err = GetBeeDB().Create(beeConfig).Error
 	return err
 }
 
 // DeleteBeeConfig 删除公用配置表记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeConfigService *BeeConfigService) DeleteBeeConfig(id string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeConfig{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeConfig{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -32,7 +31,7 @@ func (beeConfigService *BeeConfigService) DeleteBeeConfig(id string, shopUserId 
 // DeleteBeeConfigByIds 批量删除公用配置表记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeConfigService *BeeConfigService) DeleteBeeConfigByIds(ids []string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeConfig{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeConfig{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -44,14 +43,14 @@ func (beeConfigService *BeeConfigService) DeleteBeeConfigByIds(ids []string, sho
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeConfigService *BeeConfigService) UpdateBeeConfig(beeConfig bee.BeeConfig, shopUserId int) (err error) {
 	beeConfig.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeConfig{}).Where("id = ? and user_id = ?", beeConfig.Id, shopUserId).Updates(&beeConfig).Error
+	err = GetBeeDB().Model(&bee.BeeConfig{}).Where("id = ? and user_id = ?", beeConfig.Id, shopUserId).Updates(&beeConfig).Error
 	return err
 }
 
 // GetBeeConfig 根据id获取公用配置表记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeConfigService *BeeConfigService) GetBeeConfig(id string, shopUserId int) (beeConfig bee.BeeConfig, err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Where("id = ? and user_id = ?", id, shopUserId).First(&beeConfig).Error
+	err = GetBeeDB().Where("id = ? and user_id = ?", id, shopUserId).First(&beeConfig).Error
 	return
 }
 
@@ -61,7 +60,7 @@ func (beeConfigService *BeeConfigService) GetBeeConfigInfoList(info beeReq.BeeCo
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeConfig{})
+	db := GetBeeDB().Model(&bee.BeeConfig{})
 	db = db.Where("user_id = ?", shopUserId)
 	var beeConfigs []bee.BeeConfig
 	// 如果有条件搜索 下方会自动创建搜索语句

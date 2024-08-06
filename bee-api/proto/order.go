@@ -214,7 +214,15 @@ type ListOrderReq struct {
 
 type OrderDto struct {
 	model.BeeOrder
-	DifferHours int64 `json:"differ_hours,omitempty"` // 下单离现在相差多少个小时
+	DifferHours int64 `json:"differHours,omitempty"` // 下单离现在相差多少个小时
+
+}
+
+type OrderDetailDto struct {
+	OrderDto
+
+	OrderGoods     []*model.BeeOrderGoods `json:"orderGoods,omitempty"`
+	OrderLogistics *model.BeeOrderLogistics
 }
 
 func BeeOrder2Dto(item *model.BeeOrder) *OrderDto {

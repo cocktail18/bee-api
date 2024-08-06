@@ -746,6 +746,14 @@ func (s OrderSrv) afterPaySuccess(c context.Context, tx *gorm.DB, userInfo *mode
 	if err := tx.Create(orderLog).Error; err != nil {
 		return err
 	}
+	if err := tx.Create(&model.BeeOrderPrintLog{
+		BaseModel: *kit.GetInsertBaseModel(c),
+		OrderId:   orderInfo.Id,
+		Condition: enum.PrinterConditionAfterPaySuccess,
+		Status:    enum.OrderPrinterStatusWaiting,
+	}).Error; err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -836,6 +844,28 @@ func (s OrderSrv) GetOrderByOrderId(c context.Context, orderId int64) (*proto.Or
 		return nil, err
 	}
 	return proto.BeeOrder2Dto(item), nil
+}
+
+func (s OrderSrv) GetOrderDetailByOrderId(c context.Context, orderId int64) (*proto.OrderDetailDto, error) {
+	orderInfo, err := s.GetOrderByOrderId(c, orderId)
+	if err != nil {
+		return nil, err
+	}
+	//获取地址
+	var logistics model.BeeOrderLogistics
+	var orderGoods = make([]*model.BeeOrderGoods, 0)
+	if err = db.GetDB().Where("order_id = ?", orderInfo.Id).Take(&logistics).Error; err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, err
+	}
+	// 获取商品
+	if err = db.GetDB().Where("order_id = ?", orderInfo.Id).Find(&orderGoods).Error; err != nil {
+		return nil, err
+	}
+	return &proto.OrderDetailDto{
+		OrderDto:       *orderInfo,
+		OrderGoods:     orderGoods,
+		OrderLogistics: &logistics,
+	}, nil
 }
 
 func (s OrderSrv) PayByBalance(c context.Context, ip, orderId string, code string, pwd string) error {

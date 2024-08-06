@@ -193,3 +193,17 @@ type BeeOrderCoupon struct {
 func (m *BeeOrderCoupon) TableName() string {
 	return "bee_order_coupon"
 }
+
+type BeeOrderPrintLog struct {
+	common.BaseModel
+	OrderId     int64                   `gorm:"column:order_id;type:bigint(100);comment:订单id" json:"orderId"`
+	Condition   enum.PrinterCondition   `gorm:"column:condition;type:int(11);comment:打印条件" json:"condition"`
+	Status      enum.OrderPrinterStatus `gorm:"column:status;type:int(11);comment:状态" json:"status"`
+	ErrMsg      string                  `gorm:"column:err_msg;type:varchar(100);comment:错误信息" json:"errMsg"`
+	TryTimes    int                     `gorm:"column:try_times;type:int(11);comment:尝试次数" json:"tryTimes"`
+	LastTryUnix int64                   `gorm:"column:last_try_unix;type:bigint(20);comment:最后尝试时间" json:"lastTryUnix"`
+}
+
+func (m *BeeOrderPrintLog) TableName() string {
+	return "bee_order_print_log"
+}

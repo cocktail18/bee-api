@@ -1,7 +1,6 @@
 package bee
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -14,14 +13,14 @@ type BeeShopGoodsCategoryService struct{}
 func (beeShopGoodsCategoryService *BeeShopGoodsCategoryService) CreateBeeShopGoodsCategory(beeShopGoodsCategory *bee.BeeShopGoodsCategory) (err error) {
 	beeShopGoodsCategory.DateAdd = utils.NowPtr()
 	beeShopGoodsCategory.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Create(beeShopGoodsCategory).Error
+	err = GetBeeDB().Create(beeShopGoodsCategory).Error
 	return err
 }
 
 // DeleteBeeShopGoodsCategory 删除商品分类记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeShopGoodsCategoryService *BeeShopGoodsCategoryService) DeleteBeeShopGoodsCategory(id string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeShopGoodsCategory{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeShopGoodsCategory{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -32,7 +31,7 @@ func (beeShopGoodsCategoryService *BeeShopGoodsCategoryService) DeleteBeeShopGoo
 // DeleteBeeShopGoodsCategoryByIds 批量删除商品分类记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeShopGoodsCategoryService *BeeShopGoodsCategoryService) DeleteBeeShopGoodsCategoryByIds(ids []string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeShopGoodsCategory{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeShopGoodsCategory{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -44,14 +43,14 @@ func (beeShopGoodsCategoryService *BeeShopGoodsCategoryService) DeleteBeeShopGoo
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeShopGoodsCategoryService *BeeShopGoodsCategoryService) UpdateBeeShopGoodsCategory(beeShopGoodsCategory bee.BeeShopGoodsCategory, shopUserId int) (err error) {
 	beeShopGoodsCategory.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeShopGoodsCategory{}).Where("id = ? and user_id = ?", beeShopGoodsCategory.Id, shopUserId).Updates(&beeShopGoodsCategory).Error
+	err = GetBeeDB().Model(&bee.BeeShopGoodsCategory{}).Where("id = ? and user_id = ?", beeShopGoodsCategory.Id, shopUserId).Updates(&beeShopGoodsCategory).Error
 	return err
 }
 
 // GetBeeShopGoodsCategory 根据id获取商品分类记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeShopGoodsCategoryService *BeeShopGoodsCategoryService) GetBeeShopGoodsCategory(id string, shopUserId int) (beeShopGoodsCategory bee.BeeShopGoodsCategory, err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Where("id = ? and user_id = ?", id, shopUserId).First(&beeShopGoodsCategory).Error
+	err = GetBeeDB().Where("id = ? and user_id = ?", id, shopUserId).First(&beeShopGoodsCategory).Error
 	return
 }
 
@@ -61,7 +60,7 @@ func (beeShopGoodsCategoryService *BeeShopGoodsCategoryService) GetBeeShopGoodsC
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeShopGoodsCategory{})
+	db := GetBeeDB().Model(&bee.BeeShopGoodsCategory{})
 	db = db.Where("user_id = ?", shopUserId)
 	var beeShopGoodsCategorys []bee.BeeShopGoodsCategory
 	// 如果有条件搜索 下方会自动创建搜索语句

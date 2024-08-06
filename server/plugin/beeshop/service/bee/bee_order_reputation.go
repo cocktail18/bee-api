@@ -1,7 +1,6 @@
 package bee
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -14,14 +13,14 @@ type BeeOrderReputationService struct{}
 func (beeOrderReputationService *BeeOrderReputationService) CreateBeeOrderReputation(beeOrderReputation *bee.BeeOrderReputation) (err error) {
 	beeOrderReputation.DateAdd = utils.NowPtr()
 	beeOrderReputation.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Create(beeOrderReputation).Error
+	err = GetBeeDB().Create(beeOrderReputation).Error
 	return err
 }
 
 // DeleteBeeOrderReputation 删除商品评价记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeOrderReputationService *BeeOrderReputationService) DeleteBeeOrderReputation(id string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeOrderReputation{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeOrderReputation{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -32,7 +31,7 @@ func (beeOrderReputationService *BeeOrderReputationService) DeleteBeeOrderReputa
 // DeleteBeeOrderReputationByIds 批量删除商品评价记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeOrderReputationService *BeeOrderReputationService) DeleteBeeOrderReputationByIds(ids []string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeOrderReputation{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeOrderReputation{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -44,14 +43,14 @@ func (beeOrderReputationService *BeeOrderReputationService) DeleteBeeOrderReputa
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeOrderReputationService *BeeOrderReputationService) UpdateBeeOrderReputation(beeOrderReputation bee.BeeOrderReputation, shopUserId int) (err error) {
 	beeOrderReputation.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeOrderReputation{}).Where("id = ? and user_id = ?", beeOrderReputation.Id, shopUserId).Updates(&beeOrderReputation).Error
+	err = GetBeeDB().Model(&bee.BeeOrderReputation{}).Where("id = ? and user_id = ?", beeOrderReputation.Id, shopUserId).Updates(&beeOrderReputation).Error
 	return err
 }
 
 // GetBeeOrderReputation 根据id获取商品评价记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeOrderReputationService *BeeOrderReputationService) GetBeeOrderReputation(id string, shopUserId int) (beeOrderReputation bee.BeeOrderReputation, err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Where("id = ? and user_id = ?", id, shopUserId).First(&beeOrderReputation).Error
+	err = GetBeeDB().Where("id = ? and user_id = ?", id, shopUserId).First(&beeOrderReputation).Error
 	return
 }
 
@@ -61,7 +60,7 @@ func (beeOrderReputationService *BeeOrderReputationService) GetBeeOrderReputatio
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeOrderReputation{})
+	db := GetBeeDB().Model(&bee.BeeOrderReputation{})
 	db = db.Where("user_id = ?", shopUserId)
 	var beeOrderReputations []bee.BeeOrderReputation
 	// 如果有条件搜索 下方会自动创建搜索语句

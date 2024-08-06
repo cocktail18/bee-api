@@ -1,7 +1,6 @@
 package bee
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -14,14 +13,14 @@ type BeeCouponService struct{}
 func (beeCouponService *BeeCouponService) CreateBeeCoupon(beeCoupon *bee.BeeCoupon) (err error) {
 	beeCoupon.DateAdd = utils.NowPtr()
 	beeCoupon.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Create(beeCoupon).Error
+	err = GetBeeDB().Create(beeCoupon).Error
 	return err
 }
 
 // DeleteBeeCoupon 删除优惠券记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeCouponService *BeeCouponService) DeleteBeeCoupon(id string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeCoupon{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeCoupon{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -32,7 +31,7 @@ func (beeCouponService *BeeCouponService) DeleteBeeCoupon(id string, shopUserId 
 // DeleteBeeCouponByIds 批量删除优惠券记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeCouponService *BeeCouponService) DeleteBeeCouponByIds(ids []string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeCoupon{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeCoupon{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -44,14 +43,14 @@ func (beeCouponService *BeeCouponService) DeleteBeeCouponByIds(ids []string, sho
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeCouponService *BeeCouponService) UpdateBeeCoupon(beeCoupon bee.BeeCoupon, shopUserId int) (err error) {
 	beeCoupon.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeCoupon{}).Where("id = ? and user_id = ?", beeCoupon.Id, shopUserId).Updates(&beeCoupon).Error
+	err = GetBeeDB().Model(&bee.BeeCoupon{}).Where("id = ? and user_id = ?", beeCoupon.Id, shopUserId).Updates(&beeCoupon).Error
 	return err
 }
 
 // GetBeeCoupon 根据id获取优惠券记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeCouponService *BeeCouponService) GetBeeCoupon(id string, shopUserId int) (beeCoupon bee.BeeCoupon, err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Where("id = ? and user_id = ?", id, shopUserId).First(&beeCoupon).Error
+	err = GetBeeDB().Where("id = ? and user_id = ?", id, shopUserId).First(&beeCoupon).Error
 	return
 }
 
@@ -61,7 +60,7 @@ func (beeCouponService *BeeCouponService) GetBeeCouponInfoList(info beeReq.BeeCo
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeCoupon{})
+	db := GetBeeDB().Model(&bee.BeeCoupon{})
 	db = db.Where("user_id = ?", shopUserId)
 	var beeCoupons []bee.BeeCoupon
 	// 如果有条件搜索 下方会自动创建搜索语句

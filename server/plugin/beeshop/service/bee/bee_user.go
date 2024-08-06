@@ -1,7 +1,6 @@
 package bee
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -14,14 +13,14 @@ type BeeUserService struct{}
 func (beeUserService *BeeUserService) CreateBeeUser(beeUser *bee.BeeUser) (err error) {
 	beeUser.DateAdd = utils.NowPtr()
 	beeUser.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Create(beeUser).Error
+	err = GetBeeDB().Create(beeUser).Error
 	return err
 }
 
 // DeleteBeeUser 删除beeUser表记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUserService *BeeUserService) DeleteBeeUser(id string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUser{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeUser{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -32,7 +31,7 @@ func (beeUserService *BeeUserService) DeleteBeeUser(id string, shopUserId int) (
 // DeleteBeeUserByIds 批量删除beeUser表记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUserService *BeeUserService) DeleteBeeUserByIds(ids []string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUser{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeUser{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -44,14 +43,14 @@ func (beeUserService *BeeUserService) DeleteBeeUserByIds(ids []string, shopUserI
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUserService *BeeUserService) UpdateBeeUser(beeUser bee.BeeUser, shopUserId int) (err error) {
 	beeUser.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUser{}).Where("id = ? and user_id = ?", beeUser.Id, shopUserId).Updates(&beeUser).Error
+	err = GetBeeDB().Model(&bee.BeeUser{}).Where("id = ? and user_id = ?", beeUser.Id, shopUserId).Updates(&beeUser).Error
 	return err
 }
 
 // GetBeeUser 根据id获取beeUser表记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUserService *BeeUserService) GetBeeUser(id string, shopUserId int) (beeUser bee.BeeUser, err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Where("id = ? and user_id = ?", id, shopUserId).First(&beeUser).Error
+	err = GetBeeDB().Where("id = ? and user_id = ?", id, shopUserId).First(&beeUser).Error
 	return
 }
 
@@ -61,7 +60,7 @@ func (beeUserService *BeeUserService) GetBeeUserInfoList(info beeReq.BeeUserSear
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUser{})
+	db := GetBeeDB().Model(&bee.BeeUser{})
 	db = db.Where("user_id = ?", shopUserId)
 	var beeUsers []bee.BeeUser
 	// 如果有条件搜索 下方会自动创建搜索语句

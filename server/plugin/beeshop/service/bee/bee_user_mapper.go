@@ -1,7 +1,6 @@
 package bee
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -14,14 +13,14 @@ type BeeUserMapperService struct{}
 func (beeUserMapperService *BeeUserMapperService) CreateBeeUserMapper(beeUserMapper *bee.BeeUserMapper) (err error) {
 	beeUserMapper.DateAdd = utils.NowPtr()
 	beeUserMapper.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Create(beeUserMapper).Error
+	err = GetBeeDB().Create(beeUserMapper).Error
 	return err
 }
 
 // DeleteBeeUserMapper 删除beeUserMapper表记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUserMapperService *BeeUserMapperService) DeleteBeeUserMapper(id string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUserMapper{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeUserMapper{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -32,7 +31,7 @@ func (beeUserMapperService *BeeUserMapperService) DeleteBeeUserMapper(id string,
 // DeleteBeeUserMapperByIds 批量删除beeUserMapper表记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUserMapperService *BeeUserMapperService) DeleteBeeUserMapperByIds(ids []string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUserMapper{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeUserMapper{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -44,14 +43,14 @@ func (beeUserMapperService *BeeUserMapperService) DeleteBeeUserMapperByIds(ids [
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUserMapperService *BeeUserMapperService) UpdateBeeUserMapper(beeUserMapper bee.BeeUserMapper, shopUserId int) (err error) {
 	beeUserMapper.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUserMapper{}).Where("id = ? and user_id = ?", beeUserMapper.Id, shopUserId).Updates(&beeUserMapper).Error
+	err = GetBeeDB().Model(&bee.BeeUserMapper{}).Where("id = ? and user_id = ?", beeUserMapper.Id, shopUserId).Updates(&beeUserMapper).Error
 	return err
 }
 
 // GetBeeUserMapper 根据id获取beeUserMapper表记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUserMapperService *BeeUserMapperService) GetBeeUserMapper(id string, shopUserId int) (beeUserMapper bee.BeeUserMapper, err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Where("id = ? and user_id = ?", id, shopUserId).First(&beeUserMapper).Error
+	err = GetBeeDB().Where("id = ? and user_id = ?", id, shopUserId).First(&beeUserMapper).Error
 	return
 }
 
@@ -61,7 +60,7 @@ func (beeUserMapperService *BeeUserMapperService) GetBeeUserMapperInfoList(info 
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUserMapper{})
+	db := GetBeeDB().Model(&bee.BeeUserMapper{})
 	db = db.Where("user_id = ?", shopUserId)
 	var beeUserMappers []bee.BeeUserMapper
 	// 如果有条件搜索 下方会自动创建搜索语句

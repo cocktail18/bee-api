@@ -1,7 +1,6 @@
 package bee
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -14,14 +13,14 @@ type BeeUserAmountService struct{}
 func (beeUserAmountService *BeeUserAmountService) CreateBeeUserAmount(beeUserAmount *bee.BeeUserAmount) (err error) {
 	beeUserAmount.DateAdd = utils.NowPtr()
 	beeUserAmount.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Create(beeUserAmount).Error
+	err = GetBeeDB().Create(beeUserAmount).Error
 	return err
 }
 
 // DeleteBeeUserAmount 删除用户资产记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUserAmountService *BeeUserAmountService) DeleteBeeUserAmount(id string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUserAmount{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeUserAmount{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -32,7 +31,7 @@ func (beeUserAmountService *BeeUserAmountService) DeleteBeeUserAmount(id string,
 // DeleteBeeUserAmountByIds 批量删除用户资产记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUserAmountService *BeeUserAmountService) DeleteBeeUserAmountByIds(ids []string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUserAmount{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeUserAmount{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -44,14 +43,14 @@ func (beeUserAmountService *BeeUserAmountService) DeleteBeeUserAmountByIds(ids [
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUserAmountService *BeeUserAmountService) UpdateBeeUserAmount(beeUserAmount bee.BeeUserAmount, shopUserId int) (err error) {
 	beeUserAmount.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUserAmount{}).Where("id = ? and user_id = ?", beeUserAmount.Id, shopUserId).Updates(&beeUserAmount).Error
+	err = GetBeeDB().Model(&bee.BeeUserAmount{}).Where("id = ? and user_id = ?", beeUserAmount.Id, shopUserId).Updates(&beeUserAmount).Error
 	return err
 }
 
 // GetBeeUserAmount 根据id获取用户资产记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeUserAmountService *BeeUserAmountService) GetBeeUserAmount(id string, shopUserId int) (beeUserAmount bee.BeeUserAmount, err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Where("id = ? and user_id = ?", id, shopUserId).First(&beeUserAmount).Error
+	err = GetBeeDB().Where("id = ? and user_id = ?", id, shopUserId).First(&beeUserAmount).Error
 	return
 }
 
@@ -61,7 +60,7 @@ func (beeUserAmountService *BeeUserAmountService) GetBeeUserAmountInfoList(info 
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeUserAmount{})
+	db := GetBeeDB().Model(&bee.BeeUserAmount{})
 	db = db.Where("user_id = ?", shopUserId)
 	var beeUserAmounts []bee.BeeUserAmount
 	// 如果有条件搜索 下方会自动创建搜索语句

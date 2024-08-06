@@ -29,6 +29,8 @@ func initBeeDict() {
 	initByMap("运费模版类型", "BeeLogisticsType", enum.BeeLogisticsTypeMap)
 	initByMap("运费模版单位", "BeeLogisticsUnit", enum.BeeLogisticsUnitMap)
 	initByMap("支付流水状态", "BeePayLogStatus", enum.PayLogStatusMap)
+	initByMap("打印机品牌", "BeePrinterBrand", enum.PrinterBrandMap)
+	initByMap("打印条件", "BeePrinterCondition", enum.PrinterConditionMap)
 }
 
 func initByMap[T1 comparable, T2 any](name string, t string, m map[T1]T2) {
@@ -61,8 +63,8 @@ func initByMap[T1 comparable, T2 any](name string, t string, m map[T1]T2) {
 		Desc:      name + "字典",
 	})
 	for key, value := range m {
-		item, err := svrDetail.GetDictionaryInfoByTypeValue(t, cast.ToString(key))
-		if errors.Is(err, gorm.ErrRecordNotFound) {
+		item, _ := svrDetail.GetDictionaryInfoByTypeValue(t, fmt.Sprintf("%d", key))
+		if item.ID == 0 {
 			_ = svrDetail.CreateSysDictionaryDetail(system_model.SysDictionaryDetail{
 				Label:           cast.ToString(value),
 				Value:           fmt.Sprintf("%d", key),

@@ -1,7 +1,6 @@
 package bee
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -14,14 +13,14 @@ type BeeOrderGoodsService struct{}
 func (beeOrderGoodsService *BeeOrderGoodsService) CreateBeeOrderGoods(beeOrderGoods *bee.BeeOrderGoods) (err error) {
 	beeOrderGoods.DateAdd = utils.NowPtr()
 	beeOrderGoods.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Create(beeOrderGoods).Error
+	err = GetBeeDB().Create(beeOrderGoods).Error
 	return err
 }
 
 // DeleteBeeOrderGoods 删除订单商品信息记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeOrderGoodsService *BeeOrderGoodsService) DeleteBeeOrderGoods(id string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeOrderGoods{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeOrderGoods{}).Where("id = ?", id).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -32,7 +31,7 @@ func (beeOrderGoodsService *BeeOrderGoodsService) DeleteBeeOrderGoods(id string,
 // DeleteBeeOrderGoodsByIds 批量删除订单商品信息记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeOrderGoodsService *BeeOrderGoodsService) DeleteBeeOrderGoodsByIds(ids []string, shopUserId int) (err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeOrderGoods{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
+	err = GetBeeDB().Model(&bee.BeeOrderGoods{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
 		Updates(map[string]interface{}{
 			"is_deleted":  1,
 			"date_delete": utils.NowPtr(),
@@ -44,14 +43,14 @@ func (beeOrderGoodsService *BeeOrderGoodsService) DeleteBeeOrderGoodsByIds(ids [
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeOrderGoodsService *BeeOrderGoodsService) UpdateBeeOrderGoods(beeOrderGoods bee.BeeOrderGoods, shopUserId int) (err error) {
 	beeOrderGoods.DateUpdate = utils.NowPtr()
-	err = global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeOrderGoods{}).Where("id = ? and user_id = ?", beeOrderGoods.Id, shopUserId).Updates(&beeOrderGoods).Error
+	err = GetBeeDB().Model(&bee.BeeOrderGoods{}).Where("id = ? and user_id = ?", beeOrderGoods.Id, shopUserId).Updates(&beeOrderGoods).Error
 	return err
 }
 
 // GetBeeOrderGoods 根据id获取订单商品信息记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeOrderGoodsService *BeeOrderGoodsService) GetBeeOrderGoods(id string, shopUserId int) (beeOrderGoods bee.BeeOrderGoods, err error) {
-	err = global.MustGetGlobalDBByDBName("bee").Where("id = ? and user_id = ?", id, shopUserId).First(&beeOrderGoods).Error
+	err = GetBeeDB().Where("id = ? and user_id = ?", id, shopUserId).First(&beeOrderGoods).Error
 	return
 }
 
@@ -61,7 +60,7 @@ func (beeOrderGoodsService *BeeOrderGoodsService) GetBeeOrderGoodsInfoList(info 
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := global.MustGetGlobalDBByDBName("bee").Model(&bee.BeeOrderGoods{})
+	db := GetBeeDB().Model(&bee.BeeOrderGoods{})
 	db = db.Where("user_id = ?", shopUserId)
 	var beeOrderGoodss []bee.BeeOrderGoods
 	// 如果有条件搜索 下方会自动创建搜索语句
