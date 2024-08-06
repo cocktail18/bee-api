@@ -34,7 +34,7 @@ subDomain: `cocktailBeeOrder`
 
 1.  安装go 1.22
 2.  安装mysql or mariadb
-3.  cd server && go run main.go  # 启动后端
+3.  cd server && mv config.yaml.demo config.yaml && go run main.go  # 启动后端，如果没有科学上网先执行： `go env -w GOPROXY=https://goproxy.cn,direct`
 4.  cd web && npm run serve # 启动前端
 5.  点击前往初始化，根据需要配置账号密码、数据库账号密码
 6.  重启下后端服务，(使用修改后的[小程序端](https://github.com/cocktail18/bee)可以跳过步奏7、8)
