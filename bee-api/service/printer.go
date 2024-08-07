@@ -3,12 +3,12 @@ package service
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/logger"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/printer"
-	"gitee.com/stuinfer/bee-api/proto"
 	"gitee.com/stuinfer/bee-api/util"
 	"github.com/samber/lo"
 	"go.uber.org/zap"
@@ -45,12 +45,35 @@ func (srv *PrinterSrv) printOrder(ctx context.Context, item *model.BeeOrderPrint
 	if err != nil {
 		return err
 	}
+	userBalance, err := GetBalanceSrv().GetAmount(item.UserId)
+	if err != nil {
+		return err
+	}
+
+	userInfo, err := GetUserSrv().GetUserInfoByUid(ctx, item.UserId)
+	if err != nil {
+		return err
+	}
+	var extJson map[string]interface{}
+	if orderDto.ExtJsonStr != "" {
+		_ = json.Unmarshal([]byte(orderDto.ExtJsonStr), &extJson)
+	}
+	var nowStr = time.Now().Format("2006-01-02 15:04:05")
 	for _, _printer := range printers {
 		if _printer.ShopId > 0 && orderDto.ShopId != _printer.ShopId {
 			logger.GetLogger().Debug("订单不属于该打印机", zap.Any("printer", _printer), zap.Any("order", orderDto))
 			continue
 		}
-		content, err := srv.buildContent(ctx, _printer.Template, orderDto)
+
+		content, err := srv.buildContent(ctx, _printer.Template, map[string]interface{}{
+			"order":     orderDto,
+			"userCash":  userBalance,
+			"user":      userInfo,
+			"logistics": orderDto.OrderLogistics,
+			"goods":     orderDto.OrderGoods,
+			"extJson":   extJson,
+			"nowStr":    nowStr,
+		})
 		if err != nil {
 			return err
 		}
@@ -61,14 +84,14 @@ func (srv *PrinterSrv) printOrder(ctx context.Context, item *model.BeeOrderPrint
 	return nil
 }
 
-func (srv *PrinterSrv) buildContent(ctx context.Context, tpl string, orderDto *proto.OrderDetailDto) (string, error) {
+func (srv *PrinterSrv) buildContent(ctx context.Context, tpl string, data any) (string, error) {
 	t := template.New("tmp")
 	tplInstance, err := t.Parse(tpl)
 	if err != nil {
 		return "", err
 	}
 	buf := bytes.NewBuffer(nil)
-	if err := tplInstance.Execute(buf, orderDto); err != nil {
+	if err := tplInstance.Execute(buf, data); err != nil {
 		return "", err
 	}
 	return buf.String(), nil

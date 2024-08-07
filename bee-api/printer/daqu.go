@@ -28,6 +28,14 @@ func NewDaQu() *DaQuPrinter {
 	}
 }
 
+func (d *DaQuPrinter) DelPrinter(config *model.BeePrinter, codes []string) error {
+	_, err := d.post(d.printUrl, config, codes)
+	if err != nil {
+		return err
+	}
+	return err
+}
+
 func (d *DaQuPrinter) AddPrinter(config *model.BeePrinter) error {
 	data := []map[string]interface{}{
 		{
