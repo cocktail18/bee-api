@@ -90,6 +90,8 @@ func (beeOrderGoodsService *BeeOrderGoodsService) GetBeeOrderGoodsInfoList(info 
 	orderMap := make(map[string]bool)
 	orderMap["date_add"] = true
 	orderMap["date_update"] = true
+	orderMap["id"] = true
+	orderMap["order_id"] = true
 	if orderMap[info.Sort] {
 		OrderStr = info.Sort
 		if info.Order == "descending" {

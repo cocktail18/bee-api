@@ -138,6 +138,25 @@
 <!--        <el-form-item label="删除时间:"  prop="dateDelete" >-->
 <!--          <el-date-picker v-model="formData.dateDelete" type="date" style="width:100%" placeholder="选择日期" :clearable="true"  />-->
 <!--        </el-form-item>-->
+        <div>
+          打印模板使用的go原生template进行模板渲染，使用语法请看：
+          <div>
+            <a href="https://www.cnblogs.com/f-ck-need-u/p/10053124.html">https://www.cnblogs.com/f-ck-need-u/p/10053124.html</a>
+          </div>
+          <div>
+            可用变量：
+            <pre>
+            "order":     订单信息,
+            "userCash":  用户余额,
+            "user":      用户信息,
+            "logistics": 收获地址,
+            "goods":     订单商品,
+            "extJson":   extJson,
+            "nowStr":    当前时间2006-01-02 15:04:05,
+            </pre>
+          </div>
+        </div>
+        <a href="https://gitee.com/jhbopenapi/juhebei-opendoc" target="_blank">点击前往大趋开放平台申请地址</a>
       </el-form>
     </el-drawer>
   </div>

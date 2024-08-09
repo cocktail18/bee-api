@@ -105,8 +105,16 @@
           </template>
         </el-table-column>
         <el-table-column align="left" label="条码" prop="barCode" width="120" />
-        <el-table-column align="left" label="售后说明,1仅退款，2退款退货，3换货" prop="afterSale" width="120" />
-        <el-table-column align="left" label="分类id" prop="categoryId" width="120" >
+        <el-table-column align="left" label="售后说明" prop="afterSale" width="120" >
+          <template #default="scope">
+            <template v-for="(item, index) in scope.row.afterSale.split(',')"  :key="index">
+              <span v-if="item && item != ''">
+               {{ formatByList(item, beeGoodsAfterSale, 'value', 'label') }},
+              </span>
+            </template>
+          </template>
+        </el-table-column>
+        <el-table-column align="left" label="分类" prop="categoryId" width="120" >
           <template #default="scope">{{ formatByList(scope.row.categoryId, goodsCategoryList, 'id', 'name') }}</template>
         </el-table-column>
 <!--        <el-table-column align="left" label="积分奖励" prop="commission" width="120" />-->
@@ -146,9 +154,9 @@
         <el-table-column align="left" label="评分数量" prop="numberReputation" width="120" />
         <el-table-column align="left" label="销售数量" prop="numberSells" width="120" />
         <el-table-column align="left" label="原价" prop="originalPrice" width="120" />
-        <el-table-column align="left" label="海外直邮" prop="overseas" width="120">
-            <template #default="scope">{{ formatBoolean(scope.row.overseas) }}</template>
-        </el-table-column>
+<!--        <el-table-column align="left" label="海外直邮" prop="overseas" width="120">-->
+<!--            <template #default="scope">{{ formatBoolean(scope.row.overseas) }}</template>-->
+<!--        </el-table-column>-->
         <el-table-column sortable align="left" label="排序" prop="paixu" width="120" />
 <!--        <el-table-column align="left" label="用户" prop="persion" width="120" />-->
 
@@ -256,10 +264,10 @@
             <el-form-item label="条码:"  prop="barCode" >
               <el-input v-model="formData.barCode" :clearable="true"  placeholder="请输入条码" />
             </el-form-item>
-            <el-form-item label="售后说明,1仅退款，2退款退货，3换货:"  prop="afterSale" >
-              <el-input v-model="formData.afterSale" :clearable="true"  placeholder="请输入售后说明,1仅退款，2退款退货，3换货" />
+            <el-form-item label="售后说明:"  prop="afterSale" >
+              <bee-mul-select v-model="formData.afterSale" :options="beeGoodsAfterSale" :field="'value'" :label="'label'"  ></bee-mul-select>
             </el-form-item>
-            <el-form-item label="分类id:"  prop="categoryId" >
+            <el-form-item label="分类:"  prop="categoryId" >
               <el-select
                   v-model="formData.categoryId"
                   :clearable="true"
@@ -302,7 +310,7 @@
 <!--            <el-form-item label="限制:"  prop="limitation" >-->
 <!--              <el-switch v-model="formData.limitation" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否" clearable ></el-switch>-->
 <!--            </el-form-item>-->
-            <el-form-item label="物流id:"  prop="logisticsId" >
+            <el-form-item label="运费模版:"  prop="logisticsId" >
               <el-select
                   v-model="formData.logisticsId"
                   :clearable="true"
@@ -351,9 +359,9 @@
             <el-form-item label="原价:"  prop="originalPrice" >
               <el-input-number v-model="formData.originalPrice"  style="width:100%" :precision="2" :clearable="true"  />
             </el-form-item>
-            <el-form-item label="海外直邮:"  prop="overseas" >
-              <el-switch v-model="formData.overseas" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否" clearable ></el-switch>
-            </el-form-item>
+<!--            <el-form-item label="海外直邮:"  prop="overseas" >-->
+<!--              <el-switch v-model="formData.overseas" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否" clearable ></el-switch>-->
+<!--            </el-form-item>-->
             <el-form-item label="排序:"  prop="paixu" >
               <el-input v-model.number="formData.paixu" :clearable="true" placeholder="请输入排序" />
             </el-form-item>
@@ -372,8 +380,8 @@
 <!--            <el-form-item label="拼团价格:"  prop="pingtuanPrice" >-->
 <!--              <el-input-number v-model="formData.pingtuanPrice"  style="width:100%" :precision="2" :clearable="true"  />-->
 <!--            </el-form-item>-->
-            <el-form-item label="属性id:"  prop="propertyIds" >
-              <el-input v-model="formData.propertyIds" :clearable="true"  placeholder="请输入属性id" />
+            <el-form-item label="商品属性:"  prop="propertyIds" >
+              <bee-mul-select v-model="formData.propertyIds" :options="goodsPropList.filter(item=>item.propertyId===0)" :field="'id'" :label="'name'"  ></bee-mul-select>
             </el-form-item>
 <!--            <el-form-item label="推荐状态:"  prop="recommendStatus" >-->
 <!--              <el-input v-model.number="formData.recommendStatus" :clearable="true" placeholder="请输入推荐状态" />-->
@@ -382,7 +390,9 @@
 <!--              <el-input v-model.number="formData.seckillBuyNumber" :clearable="true" placeholder="请输入秒杀最低购买数量" />-->
 <!--            </el-form-item>-->
             <el-form-item label="商店id:"  prop="shopId" >
-              <el-input v-model.number="formData.shopId" :clearable="true" placeholder="请输入商店id" />
+              <el-select v-model="formData.shopId" clearable placeholder="请选择" :clearable="false">
+                <el-option v-for="(item,key) in shopList" :key="key" :label="item.id + (item.isDeleted ? '(已删除)' :'') " :value="parseInt(item.id)" />
+              </el-select>
             </el-form-item>
             <el-form-item label="商品状态:"  prop="status" >
               <el-select v-model="formData.status" clearable placeholder="请选择" :clearable="false">
@@ -444,6 +454,8 @@ import {getBeeShopGoodsCategoryList} from "@/plugin/beeshop/api/beeShopGoodsCate
 import {getBeeLogisticsList} from "@/plugin/beeshop/api/beeLogistics";
 import {getBeeShopGoodsPropList} from "@/plugin/beeshop/api/beeShopGoodsProp";
 import {useRouter} from "vue-router";
+import BeeMulSelect from "@/plugin/beeshop/view/components/beeEnumSelect/beeMulSelect.vue";
+import {getBeeShopInfoList} from "@/plugin/beeshop/api/beeShopInfo";
 
 defineOptions({
     name: 'BeeShopGoods'
@@ -454,9 +466,11 @@ const showAllQuery = ref(false)
 
 
 const beeGoodsStatus = ref([])
+const beeGoodsAfterSale = ref([])
 const init = async () => {
   // 获取字典（可能为空）
   beeGoodsStatus.value = await getDictFunc('BeeGoodsStatus')
+  beeGoodsAfterSale.value = await getDictFunc('BeeGoodsAfterSale')
 }
 init()
 
@@ -652,6 +666,16 @@ const getTableData = async() => {
     pageSize.value = table.data.pageSize
   }
 }
+
+
+const shopList = ref([])
+const getShopList = async() => {
+  const table = await getBeeShopInfoList({ page: 1, pageSize: 10000 })
+  if (table.code === 0) {
+    shopList.value = table.data.list
+  }
+}
+getShopList()
 
 const goodsCategoryList = ref([])
 const getGoodsCategoryList = async() => {

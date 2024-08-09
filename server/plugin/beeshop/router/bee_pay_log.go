@@ -24,6 +24,7 @@ func (s *BeePayLogRouter) InitBeePayLogRouter(Router *gin.RouterGroup, PublicRou
 	{
 		beePayLogRouterWithoutRecord.GET("findBeePayLog", beePayLogApi.FindBeePayLog)       // 根据ID获取支付流水
 		beePayLogRouterWithoutRecord.GET("getBeePayLogList", beePayLogApi.GetBeePayLogList) // 获取支付流水列表
+		beePayLogRouterWithoutRecord.GET("getBeePayTotal", beePayLogApi.GetBeePayTotal)     // 获取支付总额
 	}
 	{
 		beePayLogRouterWithoutAuth.GET("getBeePayLogPublic", beePayLogApi.GetBeePayLogPublic) // 获取支付流水列表

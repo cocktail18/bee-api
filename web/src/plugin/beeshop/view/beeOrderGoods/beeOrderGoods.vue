@@ -81,8 +81,8 @@
         >
         <el-table-column type="selection" width="55" />
         
-        <el-table-column align="left" label="id字段" prop="id" width="120" />
-        <el-table-column align="left" label="订单id" prop="orderId" width="120" />
+        <el-table-column align="left" sortable label="id字段" prop="id" width="120" />
+        <el-table-column align="left" sortable label="订单id" prop="orderId" width="120" />
         <el-table-column align="left" label="用户id" prop="uid" width="120" />
         <el-table-column align="left" label="售后类型" prop="afterSale" width="120" />
         <el-table-column align="left" label="总金额" prop="amount" width="120" />

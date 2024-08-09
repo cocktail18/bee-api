@@ -156,6 +156,33 @@ func (beePayLogApi *BeePayLogApi) GetBeePayLogList(c *gin.Context) {
 	}
 }
 
+// GetBeePayTotal 分页获取支付流水列表
+// @Tags BeePayLog
+// @Summary 获取支付总额
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query beeReq.BeePayLogSearch true "分页获取支付流水列表"
+// @Success 200 {object} response.Response{data=response.PageResult,msg=string} "获取成功"
+// @Router /beePayLog/getBeePayTotal [get]
+func (beePayLogApi *BeePayLogApi) GetBeePayTotal(c *gin.Context) {
+	var pageInfo beeReq.BeePayLogSearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	shopUserId := int(utils.GetShopUserID(c))
+	if total, err := beePayLogService.GetBeePayTotal(pageInfo, shopUserId); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithData(map[string]interface{}{
+			"total": total,
+		}, c)
+	}
+}
+
 // GetBeePayLogPublic 不需要鉴权的支付流水接口
 // @Tags BeePayLog
 // @Summary 不需要鉴权的支付流水接口

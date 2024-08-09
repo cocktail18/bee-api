@@ -79,20 +79,7 @@
           </el-select>
 
         </el-form-item>
-        <el-form-item label="小费金额" prop="trips">
 
-          <el-input v-model.number="searchInfo.startTrips" placeholder="最小值"/>
-          —
-          <el-input v-model.number="searchInfo.endTrips" placeholder="最大值"/>
-
-        </el-form-item>
-        <el-form-item label="订单类型" prop="type">
-
-          <el-select v-model="searchInfo.type" clearable placeholder="请选择" :clearable="false">
-            <el-option v-for="(item,key) in beeOrderStatus" :key="key" :label="item.label"
-                       :value="parseInt(item.value)"/>
-          </el-select>
-        </el-form-item>
         <el-form-item label="用户id" prop="uid">
 
           <el-input v-model.number="searchInfo.uid" placeholder="搜索条件"/>
@@ -101,6 +88,20 @@
 
         <template v-if="showAllQuery">
           <!-- 将需要控制显示状态的查询条件添加到此范围内 -->
+<!--          <el-form-item label="小费金额" prop="trips">-->
+
+<!--            <el-input v-model.number="searchInfo.startTrips" placeholder="最小值"/>-->
+<!--            —-->
+<!--            <el-input v-model.number="searchInfo.endTrips" placeholder="最大值"/>-->
+
+<!--          </el-form-item>-->
+<!--          <el-form-item label="订单类型" prop="type">-->
+
+<!--            <el-select v-model="searchInfo.type" clearable placeholder="请选择" :clearable="false">-->
+<!--              <el-option v-for="(item,key) in beeOrderType" :key="key" :label="item.label"-->
+<!--                         :value="parseInt(item.value)"/>-->
+<!--            </el-select>-->
+<!--          </el-form-item>-->
           <el-form-item label="运费" prop="amountLogistics">
 
             <el-input v-model.number="searchInfo.startAmountLogistics" placeholder="最小值"/>
@@ -271,7 +272,9 @@
         <!--        <el-table-column align="left" label="是否拼团成功" prop="isSuccessPingtuan" width="120">-->
         <!--            <template #default="scope">{{ formatBoolean(scope.row.isSuccessPingtuan) }}</template>-->
         <!--        </el-table-column>-->
-        <el-table-column align="left" label="订单类型" prop="orderType" width="120"/>
+        <el-table-column align="left" label="订单类型" prop="orderType" width="120">
+          <template #default="scope">{{ formatEnum(scope.row.orderType, beeOrderType) }}</template>
+        </el-table-column>
         <el-table-column align="left" label="取单号" prop="qudanhao" width="120"/>
         <el-table-column align="left" label="退款状态" prop="refundStatus" width="120"/>
         <el-table-column align="left" label="备注" prop="remark" width="120"/>

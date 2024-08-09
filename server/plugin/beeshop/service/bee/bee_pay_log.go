@@ -1,6 +1,7 @@
 package bee
 
 import (
+	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -64,6 +65,9 @@ func (beePayLogService *BeePayLogService) GetBeePayLogInfoList(info beeReq.BeePa
 	db = db.Where("user_id = ?", shopUserId)
 	var beePayLogs []bee.BeePayLog
 	// 如果有条件搜索 下方会自动创建搜索语句
+	if info.Distinct != "" {
+		db.Select(fmt.Sprintf("distinct(%s)", info.Distinct))
+	}
 	if info.StartDateAdd != nil && info.EndDateAdd != nil {
 		db = db.Where("date_add BETWEEN ? AND ? ", info.StartDateAdd, info.EndDateAdd)
 	}
@@ -108,4 +112,22 @@ func (beePayLogService *BeePayLogService) GetBeePayLogInfoList(info beeReq.BeePa
 
 	err = db.Find(&beePayLogs).Error
 	return beePayLogs, total, err
+}
+
+// GetBeePayTotal 获取支付流水总数
+func (beePayLogService *BeePayLogService) GetBeePayTotal(info beeReq.BeePayLogSearch, shopUserId int) (total float64, err error) {
+	// 创建db
+	db := GetBeeDB().Model(&bee.BeePayLog{})
+	db = db.Where("user_id = ?", shopUserId)
+	if info.StartDateAdd != nil && info.EndDateAdd != nil {
+		db = db.Where("date_add BETWEEN ? AND ? ", info.StartDateAdd, info.EndDateAdd)
+	}
+	var totalDb = struct {
+		Total float64 `gorm:"total"`
+	}{}
+	if err = db.Select("sum(" + info.Sum + ") as total").Take(&totalDb).Error; err != nil {
+		return 0, err
+	}
+	total = totalDb.Total
+	return total, nil
 }

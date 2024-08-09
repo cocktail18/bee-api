@@ -85,6 +85,9 @@ func (beeShopGoodsService *BeeShopGoodsService) GetBeeShopGoodsInfoList(info bee
 	if info.StartSellEndTime != nil && info.EndSellEndTime != nil {
 		db = db.Where("sell_end_time BETWEEN ? AND ? ", info.StartSellEndTime, info.EndSellEndTime)
 	}
+	if info.StartDateAdd != nil && info.EndDateAdd != nil {
+		db = db.Where("date_add BETWEEN ? AND ? ", info.StartDateAdd, info.EndDateAdd)
+	}
 	err = db.Count(&total).Error
 	if err != nil {
 		return

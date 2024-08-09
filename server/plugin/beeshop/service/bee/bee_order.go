@@ -141,7 +141,7 @@ func (beeOrderService *BeeOrderService) GetBeeOrderInfoList(info beeReq.BeeOrder
 		db = db.Where("trips BETWEEN ? AND ? ", info.StartTrips, info.EndTrips)
 	}
 	if info.Type != nil {
-		db = db.Where("type = ?", info.Type)
+		db = db.Where("`type` = ?", info.Type)
 	}
 	if info.Uid != nil {
 		db = db.Where("uid = ?", info.Uid)

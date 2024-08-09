@@ -166,24 +166,22 @@ func (srv *GoodsSrv) GetGoodsWithSku(c context.Context, goodsId int64, propertyC
 func (srv *GoodsSrv) getPropertyChildNames(c context.Context, propertyChildIds string) (string, error) {
 	propIds := kit.GetPropIdsByStr(propertyChildIds)
 	var props []*model.BeeShopGoodsProp
-	err := db.GetDB().Where("id in (?) or property_id in (?)", propIds, propIds).Find(&props).Error
+	err := db.GetDB().Where("id in (?) ", propIds).Find(&props).Error
 	if err != nil {
 		return "", err
 	}
 
-	propsId2props := make(map[int64]*model.BeeShopGoodsProp)
-	for _, tmpProp := range props {
-		prop := tmpProp
-		propsId2props[prop.PropertyId] = prop
-	}
+	id2prop := lo.KeyBy(props, func(item *model.BeeShopGoodsProp) int64 {
+		return item.Id
+	})
 	propChildNames := strings.Builder{}
 	for _, str := range strings.Split(propertyChildIds, ",") {
 		if str == "" {
 			continue
 		}
 		strArr := strings.Split(str, ":")
-		propParent := propsId2props[cast.ToInt64(strArr[0])]
-		propChild := propsId2props[cast.ToInt64(strArr[1])]
+		propParent := id2prop[cast.ToInt64(strArr[0])]
+		propChild := id2prop[cast.ToInt64(strArr[1])]
 		if propParent == nil {
 			propParent = &model.BeeShopGoodsProp{
 				Name: "未知",

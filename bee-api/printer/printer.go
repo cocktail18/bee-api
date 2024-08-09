@@ -6,7 +6,7 @@ import (
 )
 
 type Printer interface {
-	Print(config *model.BeePrinter, content string) error
+	Print(config *model.BeePrinter, voice, content string) error
 	AddPrinter(config *model.BeePrinter) error
 	DelPrinter(config *model.BeePrinter, codes []string) error
 }

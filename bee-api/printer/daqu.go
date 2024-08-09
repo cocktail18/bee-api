@@ -51,7 +51,7 @@ func (d *DaQuPrinter) AddPrinter(config *model.BeePrinter) error {
 	return err
 }
 
-func (d *DaQuPrinter) Print(config *model.BeePrinter, content string) error {
+func (d *DaQuPrinter) Print(config *model.BeePrinter, voice, content string) error {
 	data := map[string]interface{}{
 		"sn":      config.Code, //打印机编号
 		"content": content,     //内容

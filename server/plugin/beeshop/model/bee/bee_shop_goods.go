@@ -22,7 +22,7 @@ type BeeShopGoods struct {
 	CommissionUserType   *int       `json:"commissionUserType" form:"commissionUserType" gorm:"column:commission_user_type;comment:积分奖励用户类型;size:19;"`       //积分奖励用户类型
 	HasAddition          *bool      `json:"hasAddition" form:"hasAddition" gorm:"column:has_addition;comment:有附加;"`                                          //有附加
 	HasTourJourney       *bool      `json:"hasTourJourney" form:"hasTourJourney" gorm:"column:has_tour_journey;comment:有团购;"`                                //有团购
-	Hidden               *int       `json:"hidden" form:"hidden" gorm:"column:hidden;comment:隐藏;size:19;"`                                                   //隐藏
+	Hidden               *bool      `json:"hidden" form:"hidden" gorm:"column:hidden;comment:隐藏;size:19;"`                                                   //隐藏
 	Kanjia               *bool      `json:"kanjia" form:"kanjia" gorm:"column:kanjia;comment:允许砍价;"`                                                         //允许砍价
 	KanjiaPrice          *float64   `json:"kanjiaPrice" form:"kanjiaPrice" gorm:"column:kanjia_price;comment:砍价价格;size:10;"`                                 //砍价价格
 	Limitation           *bool      `json:"limitation" form:"limitation" gorm:"column:limitation;comment:限制;"`                                               //限制

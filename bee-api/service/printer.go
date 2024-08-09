@@ -77,7 +77,7 @@ func (srv *PrinterSrv) printOrder(ctx context.Context, item *model.BeeOrderPrint
 		if err != nil {
 			return err
 		}
-		if err := printer.GetPrinter(_printer).Print(_printer, content); err != nil {
+		if err := printer.GetPrinter(_printer).Print(_printer, "10", content); err != nil {
 			return err
 		}
 	}

@@ -24,6 +24,7 @@ func initBeeDict() {
 	initByMap("订单评价", "OrderReputation", enum.OrderReputationMap)
 	initByMap("运费类型", "BeeGoodsFeeType", enum.BeeGoodsFeeTypeMap)
 	initByMap("商品状态", "BeeGoodsStatus", enum.GoodsStatusStrMap)
+	initByMap("商品售后类型", "BeeGoodsAfterSale", enum.GoodsAfterSaleStrMap)
 	initByMap("点餐订单状态", "BeeCyTableStatus", enum.CyTableStatusStrMap)
 	initByMap("订单日志类型", "BeeOrderLogType", enum.OrderLogTypeMap)
 	initByMap("运费模版类型", "BeeLogisticsType", enum.BeeLogisticsTypeMap)

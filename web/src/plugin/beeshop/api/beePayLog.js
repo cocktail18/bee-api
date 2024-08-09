@@ -95,3 +95,19 @@ export const getBeePayLogList = (params) => {
     params
   })
 }
+
+// @Tags BeePayLog
+// @Summary 分页获取支付流水列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query request.PageInfo true "分页获取支付流水总额"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router /beePayLog/getBeePayTotal [get]
+export const getBeePayTotal = (params) => {
+  return service({
+    url: '/bee-shop/beePayLog/getBeePayTotal',
+    method: 'get',
+    params
+  })
+}

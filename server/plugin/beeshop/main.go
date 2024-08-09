@@ -125,12 +125,28 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 	utils.RegisterApis(
 		apiAdd...,
 	)
+	utils.RegisterApis(
+		system.SysApi{
+			Path:        "/bee-shop/beePayLog/getBeePayTotal",
+			Description: "支付总额",
+			ApiGroup:    "bee-shop",
+			Method:      "GET",
+		},
+	)
 	utils.RegisterApis(ins.genPluginApi("beePrinter", "打印机")...)
+
 	ins.registerBaseMenu("shop-base-info", system.SysBaseMenu{
 		Path: "beePrinter",
 		Name: "beePrinter",
 		Meta: system.Meta{
 			Title: "打印机配置",
+		},
+	})
+	ins.registerBaseMenu("bee_index", system.SysBaseMenu{
+		Path: "beeDashboard",
+		Name: "beeDashboard",
+		Meta: system.Meta{
+			Title: "商城大盘",
 		},
 	})
 	// 下方会自动注册api 以下格式为示例格式，请按照实际情况修改
@@ -166,7 +182,7 @@ func (*BeeShopPlugin) registerBaseMenu(parentMenu string, menu system.SysBaseMen
 	menu.ParentId = parent.ID
 	menu.Hidden = false
 	if menu.Component == "" {
-		menu.Component = fmt.Sprintf("plugin/beeshop/view/%s/%s.vue", menu.Name, menu.Name)
+		menu.Component = fmt.Sprintf("plugin/beeshop/view/%s/%s.vue", menu.Path, menu.Path)
 	}
 	if err := global.GVA_DB.Create(&menu).Error; err != nil {
 		global.GVA_LOG.Error("生成菜单失败", zap.Error(err), zap.String("name", menu.Name))

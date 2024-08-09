@@ -79,6 +79,9 @@ func (beeUserService *BeeUserService) GetBeeUserInfoList(info beeReq.BeeUserSear
 	if info.Status != nil {
 		db = db.Where("status = ?", info.Status)
 	}
+	if info.StartDateAdd != nil && info.EndDateAdd != nil {
+		db = db.Where("date_add BETWEEN ? AND ? ", info.StartDateAdd, info.EndDateAdd)
+	}
 	err = db.Count(&total).Error
 	if err != nil {
 		return

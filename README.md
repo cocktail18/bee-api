@@ -74,7 +74,8 @@ subDomain: `cocktailBeeOrder`
 
 
 #### 交流群
-![](imgs/qqgroup.jpg)
+<img src="imgs/qqgroup.jpg" alt="qq交流群：963437155" style="width: 200px; height: auto;">
+
 
 #### 参与贡献
 

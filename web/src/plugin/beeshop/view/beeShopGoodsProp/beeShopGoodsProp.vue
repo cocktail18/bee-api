@@ -130,11 +130,11 @@
                 />
               </el-select>
             </el-form-item>
-            <el-form-item label="name字段:"  prop="name" >
-              <el-input v-model="formData.name" :clearable="true"  placeholder="请输入name字段" />
+            <el-form-item label="名称:"  prop="name" >
+              <el-input v-model="formData.name" :clearable="true"  placeholder="请输入名称" />
             </el-form-item>
-            <el-form-item label="paixu字段:"  prop="paixu" >
-              <el-input v-model.number="formData.paixu" :clearable="true" placeholder="请输入paixu字段" />
+            <el-form-item label="排序:"  prop="paixu" >
+              <el-input v-model.number="formData.paixu" :clearable="true" placeholder="请输入排序" />
             </el-form-item>
           </el-form>
     </el-drawer>
