@@ -132,6 +132,32 @@ func (beeOrderApi *BeeOrderApi) UpdateBeeOrderExtJsonStr(c *gin.Context) {
 	}
 }
 
+// UpdateBeeOrderStatus 更新用户订单 status 字段
+// @Tags BeeOrder
+// @Summary 更新用户订单 status
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body bee.BeeOrder true "更新用户订单 status"
+// @Success 200 {object} response.Response{msg=string} "更新成功"
+// @Router /beeOrder/UpdateBeeOrderExtJsonStr [put]
+func (beeOrderApi *BeeOrderApi) UpdateBeeOrderStatus(c *gin.Context) {
+	var beeOrder bee.BeeOrder
+	err := c.ShouldBindJSON(&beeOrder)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	shopUserId := int(utils.GetShopUserID(c))
+	beeOrder.UserId = &shopUserId
+	if err := beeOrderService.UpdateBeeOrderStatus(beeOrder, shopUserId); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败", c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
+}
+
 // FindBeeOrder 用id查询用户订单
 // @Tags BeeOrder
 // @Summary 用id查询用户订单

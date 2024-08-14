@@ -21,6 +21,7 @@ func (s *BeeOrderRouter) InitBeeOrderRouter(Router *gin.RouterGroup, PublicRoute
 		beeOrderRouter.DELETE("deleteBeeOrderByIds", beeOrderApi.DeleteBeeOrderByIds)        // 批量删除用户订单
 		beeOrderRouter.PUT("updateBeeOrder", beeOrderApi.UpdateBeeOrder)                     // 更新用户订单
 		beeOrderRouter.PUT("updateBeeOrderExtJsonStr", beeOrderApi.UpdateBeeOrderExtJsonStr) // 更新用户订单extJsonStr字段
+		beeOrderRouter.PUT("updateBeeOrderStatus", beeOrderApi.UpdateBeeOrderStatus)         // 更新用户订单status字段
 		beeOrderRouter.PUT("markBeeOrderDone", beeOrderApi.MarkBeeOrderDone)                 // 设置为已完成订单
 		beeOrderRouter.PUT("markBeeOrderPaid", beeOrderApi.MarkBeeOrderPaid)                 // 设置为已支付订单
 	}

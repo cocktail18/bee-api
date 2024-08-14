@@ -336,6 +336,26 @@ const formData = ref({
 
 // 验证规则
 const rule = reactive({
+  address : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
+  latitude : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
+  longitude : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
+  name : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
 })
 
 const searchRule = reactive({

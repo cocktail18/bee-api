@@ -46,7 +46,7 @@ type LogisticsItem struct {
 	Weight      decimal.Decimal
 }
 
-func (s OrderSrv) Close(c context.Context, orderId int64, remark string) error {
+func (s *OrderSrv) Close(c context.Context, orderId int64, remark string) error {
 	var orderInfo model.BeeOrder
 	if err := db.GetDB().Where("id = ? and uid = ?", orderId, kit.GetUid(c)).Take(&orderInfo).Error; err != nil {
 		return err
@@ -107,7 +107,7 @@ func (s OrderSrv) Close(c context.Context, orderId int64, remark string) error {
 // shopIdZt: 391592
 // shopNameZt: 龙楼店（文昌市龙楼镇）
 // extJsonStr: {"联系电话":"18283848592","取餐时间":"09:30"}
-func (s OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOrderReq) (*proto.CreateOrderResp, error) {
+func (s *OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOrderReq) (*proto.CreateOrderResp, error) {
 	var (
 		shopInfo               *model.BeeShopInfo
 		userInfo               *model.BeeUser
@@ -221,6 +221,8 @@ func (s OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOrd
 		orderGoodsList[i].AfterSale = goodsInfo.AfterSale
 		orderGoodsList[i].Amount = s.callAmount(goods, goodsInfo, skuInfo)
 		orderGoodsList[i].AmountCoupon = decimal.Zero
+		orderGoodsList[i].AmountSingle = skuInfo.Price
+		orderGoodsList[i].AmountSingleBase = skuInfo.Price
 		orderGoodsList[i].CategoryID = goodsInfo.CategoryId
 		orderGoodsList[i].CyTableStatus = enum.CyTableStatusConfirm
 		orderGoodsList[i].DateAdd = now.ToDateTimeString()
@@ -233,6 +235,7 @@ func (s OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOrd
 		orderGoodsList[i].Purchase = false
 		orderGoodsList[i].UserID = userId
 		orderGoodsList[i].UID = uid
+		orderGoodsList[i].Unit = goods.Unit
 	}
 	amountTotal = amount
 
@@ -486,7 +489,7 @@ func (s OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOrd
 	return resp, nil
 }
 
-func (s OrderSrv) getQuDanHao(c context.Context, shopInfo *model.BeeShopInfo, t string) (string, error) {
+func (s *OrderSrv) getQuDanHao(c context.Context, shopInfo *model.BeeShopInfo, t string) (string, error) {
 	var item = &model.BeeOrderQuDanHao{}
 	if err := db.GetDB().Transaction(func(tx *gorm.DB) error {
 		if err := tx.Set("gorm:query_option", "FOR UPDATE").Where("shop_id = ? and `type`=?", shopInfo.Id, t).
@@ -511,12 +514,12 @@ func (s OrderSrv) getQuDanHao(c context.Context, shopInfo *model.BeeShopInfo, t 
 	return cast.ToString(item.Num), nil
 }
 
-func (s OrderSrv) callAmount(goods *proto.BeeOrderGoods, goodsInfo *model.BeeShopGoods, skuInfo *model.BeeShopGoodsSku) decimal.Decimal {
+func (s *OrderSrv) callAmount(goods *proto.BeeOrderGoods, goodsInfo *model.BeeShopGoods, skuInfo *model.BeeShopGoodsSku) decimal.Decimal {
 	//@todo 拼团之类的
 	return decimal.NewFromInt(goods.Number).Mul(skuInfo.Price)
 }
 
-func (s OrderSrv) calFreight(c context.Context, logistic *proto.GoodsLogistics, item LogisticsItem) decimal.Decimal {
+func (s *OrderSrv) calFreight(c context.Context, logistic *proto.GoodsLogistics, item LogisticsItem) decimal.Decimal {
 	amount := decimal.Zero
 	if len(logistic.Details) <= 0 {
 		return amount
@@ -550,7 +553,7 @@ func (s OrderSrv) calFreight(c context.Context, logistic *proto.GoodsLogistics, 
 	}
 	return amount
 }
-func (s OrderSrv) List(c context.Context, req *proto.ListOrderReq) (*proto.ListOrderResp, error) {
+func (s *OrderSrv) List(c context.Context, req *proto.ListOrderReq) (*proto.ListOrderResp, error) {
 	var orderList []*model.BeeOrder
 	var cnt int64
 	page := req.Page
@@ -607,7 +610,7 @@ func (s OrderSrv) List(c context.Context, req *proto.ListOrderReq) (*proto.ListO
 	}, nil
 }
 
-func (s OrderSrv) Delete(c context.Context, orderId int64) error {
+func (s *OrderSrv) Delete(c context.Context, orderId int64) error {
 	uid := kit.GetUid(c)
 	var orderInfo model.BeeOrder
 	var orderCoupons = make([]*model.BeeOrderCoupon, 0)
@@ -658,7 +661,7 @@ func (s OrderSrv) Delete(c context.Context, orderId int64) error {
 	})
 }
 
-func (s OrderSrv) Delivery(c context.Context, orderId int64) error {
+func (s *OrderSrv) Delivery(c context.Context, orderId int64) error {
 	var orderInfo model.BeeOrder
 	uid := kit.GetUid(c)
 	if err := db.GetDB().Where("id = ? and uid = ? and is_deleted = 0", orderId, uid).Take(&orderInfo).Error; err != nil {
@@ -673,7 +676,7 @@ func (s OrderSrv) Delivery(c context.Context, orderId int64) error {
 	}).Error
 }
 
-func (s OrderSrv) Reputation(c context.Context, req *proto.BeeOrderReputationReq) error {
+func (s *OrderSrv) Reputation(c context.Context, req *proto.BeeOrderReputationReq) error {
 	orderId := cast.ToInt64(req.OrderId)
 	return db.GetDB().Transaction(func(tx *gorm.DB) error {
 		for _, reputationItem := range req.Reputations {
@@ -703,7 +706,7 @@ func (s OrderSrv) Reputation(c context.Context, req *proto.BeeOrderReputationReq
 
 }
 
-func (s OrderSrv) Hx(c context.Context, number string) error {
+func (s *OrderSrv) Hx(c context.Context, number string) error {
 	var order model.BeeOrder
 	if err := db.GetDB().Where("hx_number = ? and is_deleted = 0", number).Take(&order).Error; err != nil {
 		return err
@@ -732,7 +735,7 @@ func (s OrderSrv) Hx(c context.Context, number string) error {
 	})
 }
 
-func (s OrderSrv) afterPaySuccess(c context.Context, tx *gorm.DB, userInfo *model.BeeUser, orderInfo *proto.OrderDto) error {
+func (s *OrderSrv) afterPaySuccess(c context.Context, tx *gorm.DB, userInfo *model.BeeUser, orderInfo *proto.OrderDto) error {
 	if !userInfo.IsVirtual {
 		if err := GetUserSrv().IncrUserLevelAmount(c, tx, orderInfo.Uid, orderInfo.AmountReal); err != nil {
 			return errors.Wrap(err, "增加用户等级信息失败")
@@ -754,12 +757,43 @@ func (s OrderSrv) afterPaySuccess(c context.Context, tx *gorm.DB, userInfo *mode
 	}).Error; err != nil {
 		return err
 	}
+	//@todo 积分奖励
 	return nil
 }
 
-// PaySuccess 支付成功
+func (s *OrderSrv) PayOrderOffline(c context.Context, orderId string, extraTx ...func(tx *gorm.DB) error) error {
+	orderInfo, err := s.GetOrderByOrderId(c, cast.ToInt64(orderId))
+	if err != nil {
+		return errors.Wrap(err, "获取订单信息失败！")
+	}
+	if orderInfo.IsPay { //已支付了
+		return nil
+	}
+	if orderInfo.IsDeleted || orderInfo.IsDelUser {
+		return errors.New("订单已删除")
+	}
+	if orderInfo.Status != enum.OrderStatusUnPaid {
+		return errors.New("不是未支付状态")
+	}
+	payLog := &model.BeePayLog{
+		BaseModel:  *kit.GetInsertBaseModel(c),
+		Money:      orderInfo.AmountReal,
+		NextAction: "",
+		OrderNo:    util.GetRandInt64(),
+		PayGate:    enum.PayGateBalance,
+		Remark:     "",
+		Status:     enum.PayLogStatusUnPaid,
+		Uid:        orderInfo.Uid,
+	}
+	if err = db.GetDB().Create(payLog).Error; err != nil {
+		return err
+	}
+	return s.PayOrderByBalance(c, "", payLog, orderId, util.GetRandInt64(), orderInfo.AmountReal, extraTx...)
+}
+
+// PayOrderByBalance 支付成功
 // amount 标志第三方支付金额，如果是用余额支付，请用0
-func (s OrderSrv) PaySuccess(c context.Context, ip string, payLog *model.BeePayLog, orderId string, thirdId string, amount decimal.Decimal, extraTx ...func(tx *gorm.DB) error) error {
+func (s *OrderSrv) PayOrderByBalance(c context.Context, ip string, payLog *model.BeePayLog, orderId string, thirdId string, amount decimal.Decimal, extraTx ...func(tx *gorm.DB) error) error {
 	orderInfo, err := s.GetOrderByOrderId(c, cast.ToInt64(orderId))
 	if err != nil {
 		return errors.Wrap(err, "获取订单信息失败！")
@@ -790,7 +824,7 @@ func (s OrderSrv) PaySuccess(c context.Context, ip string, payLog *model.BeePayL
 	}
 	amountBalance := orderInfo.AmountReal.Sub(amount)
 	// 更新支付状态
-	payTime := time.Now()
+
 	err = db.GetDB().Transaction(func(tx *gorm.DB) error {
 		var err error
 		// 扣除余额
@@ -801,20 +835,7 @@ func (s OrderSrv) PaySuccess(c context.Context, ip string, payLog *model.BeePayL
 			}
 		}
 
-		err = tx.Model(&model.BeeOrder{}).Where("id = ? and status = ?", orderInfo.Id, enum.OrderStatusUnPaid).
-			Updates(map[string]interface{}{
-				"status":         enum.OrderStatusPaid,
-				"amount_balance": amountBalance,
-				"is_pay":         true,
-				"ip":             ip,
-				"date_pay":       payTime,
-				"date_update":    payTime,
-			}).Error
-		if err != nil {
-			return errors.Wrap(err, "更新订单信息失败")
-		}
-
-		if err = s.afterPaySuccess(c, tx, userInfo, orderInfo); err != nil {
+		if err = s.paySuccess(c, tx, orderInfo, userInfo, amount, ip); err != nil {
 			return err
 		}
 
@@ -823,14 +844,56 @@ func (s OrderSrv) PaySuccess(c context.Context, ip string, payLog *model.BeePayL
 				return err
 			}
 		}
-		//@todo 积分奖励
+		payLogUpdateRs := db.GetDB().Model(&model.BeePayLog{}).Where("id = ?", payLog.Id).Updates(map[string]interface{}{
+			"status":      enum.PayLogStatusPaid,
+			"date_update": time.Now(),
+		})
+		if payLogUpdateRs.Error != nil {
+			return errors.Wrap(payLogUpdateRs.Error, "更新支付信息失败")
+		}
+		if payLogUpdateRs.RowsAffected != 1 {
+			return errors.New("更新冲突")
+		}
 		return nil
 	})
 
 	return err
 }
 
-func (s OrderSrv) GetOrderByOrderNo(c context.Context, orderNo string) (*proto.OrderDto, error) {
+func (s *OrderSrv) paySuccess(c context.Context, tx *gorm.DB, orderInfo *proto.OrderDto, userInfo *model.BeeUser, amountBalance decimal.Decimal, ip string) error {
+	var (
+		err     error
+		payTime = time.Now()
+	)
+	err = tx.Model(&model.BeeOrder{}).Where("id = ? and status = ?", orderInfo.Id, enum.OrderStatusUnPaid).
+		Updates(map[string]interface{}{
+			"status":         enum.OrderStatusPaid,
+			"amount_balance": amountBalance,
+			"is_pay":         true,
+			"ip":             ip,
+			"date_pay":       payTime,
+			"date_update":    payTime,
+		}).Error
+	if err != nil {
+		return errors.Wrap(err, "更新订单信息失败")
+	}
+
+	err = tx.Model(&model.BeeOrderGoods{}).Where("order_id = ?", orderInfo.Id).
+		Updates(map[string]interface{}{
+			"purchase":    true,
+			"date_update": payTime,
+		}).Error
+	if err != nil {
+		return errors.Wrap(err, "更新订单信息失败")
+	}
+
+	if err = s.afterPaySuccess(c, tx, userInfo, orderInfo); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *OrderSrv) GetOrderByOrderNo(c context.Context, orderNo string) (*proto.OrderDto, error) {
 	item := &model.BeeOrder{}
 	if err := db.GetDB().Where("order_number = ?", orderNo).Take(item).Error; err != nil {
 		return nil, err
@@ -838,7 +901,7 @@ func (s OrderSrv) GetOrderByOrderNo(c context.Context, orderNo string) (*proto.O
 	return proto.BeeOrder2Dto(item), nil
 }
 
-func (s OrderSrv) GetOrderByOrderId(c context.Context, orderId int64) (*proto.OrderDto, error) {
+func (s *OrderSrv) GetOrderByOrderId(c context.Context, orderId int64) (*proto.OrderDto, error) {
 	item := &model.BeeOrder{}
 	if err := db.GetDB().Where("id = ?", orderId).Take(item).Error; err != nil {
 		return nil, err
@@ -846,7 +909,7 @@ func (s OrderSrv) GetOrderByOrderId(c context.Context, orderId int64) (*proto.Or
 	return proto.BeeOrder2Dto(item), nil
 }
 
-func (s OrderSrv) GetOrderDetailByOrderId(c context.Context, orderId int64) (*proto.OrderDetailDto, error) {
+func (s *OrderSrv) GetOrderDetailByOrderId(c context.Context, orderId int64) (*proto.OrderDetailDto, error) {
 	orderInfo, err := s.GetOrderByOrderId(c, orderId)
 	if err != nil {
 		return nil, err
@@ -868,7 +931,7 @@ func (s OrderSrv) GetOrderDetailByOrderId(c context.Context, orderId int64) (*pr
 	}, nil
 }
 
-func (s OrderSrv) PayByBalance(c context.Context, ip, orderId string, code string, pwd string) error {
+func (s *OrderSrv) PayByBalance(c context.Context, ip, orderId string, code string, pwd string) error {
 	orderNumArr := strings.Split(orderId, ",")
 	// @todo 短信验证码检查
 	amount, err := GetBalanceSrv().GetAmount(kit.GetUid(c))
@@ -902,15 +965,10 @@ func (s OrderSrv) PayByBalance(c context.Context, ip, orderId string, code strin
 	if err = db.GetDB().Create(payLog).Error; err != nil {
 		return err
 	}
-	return s.PaySuccess(c, ip, payLog, cast.ToString(orderInfo.Id), "balance_"+util.GetRandInt64(), decimal.Zero, func(tx *gorm.DB) error {
-		return db.GetDB().Model(&model.BeePayLog{}).Where("id = ?", payLog.Id).Updates(map[string]interface{}{
-			"status":      enum.PayLogStatusPaid,
-			"date_update": time.Now(),
-		}).Error
-	})
+	return s.PayOrderByBalance(c, ip, payLog, cast.ToString(orderInfo.Id), "balance_"+util.GetRandInt64(), decimal.Zero)
 }
 
-func (s OrderSrv) Detail(c context.Context, orderId int64, hxNumber string) (*proto.GetOrderDetailResp, error) {
+func (s *OrderSrv) Detail(c context.Context, orderId int64, hxNumber string) (*proto.GetOrderDetailResp, error) {
 	if orderId <= 0 && hxNumber == "" {
 		return nil, enum.ErrParamError
 	}

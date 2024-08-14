@@ -1,7 +1,9 @@
 package bee
 
 import (
+	"context"
 	"gitee.com/stuinfer/bee-api/enum"
+	"gitee.com/stuinfer/bee-api/service"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -42,14 +44,13 @@ func (beeOrderService *BeeOrderService) DeleteBeeOrderByIds(ids []string, shopUs
 
 // MarkBeeOrderPaid 批量设置为已支付
 func (beeOrderService *BeeOrderService) MarkBeeOrderPaid(ids []string, shopUserId int) (err error) {
-	err = GetBeeDB().Model(&bee.BeeOrder{}).Where("id = ?", ids).Where("user_id = ?", shopUserId).
-		Updates(map[string]interface{}{
-			"is_paid":     true,
-			"date_pay":    utils.NowPtr(),
-			"status":      enum.OrderStatusPaid,
-			"date_update": utils.NowPtr(),
-		}).Error
-	return err
+	for _, id := range ids {
+		err = service.GetOrderSrv().PayOrderOffline(context.Background(), id)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // MarkBeeOrderDone 批量设置为已完成
@@ -69,6 +70,16 @@ func (beeOrderService *BeeOrderService) UpdateBeeOrderExtJsonStr(beeOrder bee.Be
 		Updates(map[string]interface{}{
 			"ext_json_str": beeOrder.ExtJsonStr,
 			"date_update":  utils.NowPtr(),
+		}).Error
+	return err
+}
+
+// UpdateBeeOrderStatus 更新status字段
+func (beeOrderService *BeeOrderService) UpdateBeeOrderStatus(beeOrder bee.BeeOrder, shopUserId int) (err error) {
+	err = GetBeeDB().Model(&bee.BeeOrder{}).Where("id = ? and user_id = ?", beeOrder.Id, shopUserId).
+		Updates(map[string]interface{}{
+			"status":      beeOrder.Status,
+			"date_update": utils.NowPtr(),
 		}).Error
 	return err
 }
@@ -98,6 +109,9 @@ func (beeOrderService *BeeOrderService) GetBeeOrderInfoList(info beeReq.BeeOrder
 	db = db.Where("user_id = ?", shopUserId)
 	var beeOrders []bee.BeeOrder
 	// 如果有条件搜索 下方会自动创建搜索语句
+	if info.ID != nil {
+		db = db.Where("id = ?", info.ID)
+	}
 	if info.IsDeleted != nil {
 		db = db.Where("is_deleted = ?", info.IsDeleted)
 	}

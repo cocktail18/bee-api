@@ -15,6 +15,8 @@ type DaQuPrinter struct {
 	client   *req.Client
 }
 
+var _ Printer = &DaQuPrinter{}
+
 type DaQuRes struct {
 	Code    int             `json:"code"`
 	Message string          `json:"message"`
@@ -56,6 +58,7 @@ func (d *DaQuPrinter) Print(config *model.BeePrinter, voice, content string) err
 		"sn":      config.Code, //打印机编号
 		"content": content,     //内容
 		"copies":  1,
+		"voice":   voice,
 	}
 	_, err := d.post(d.printUrl, config, data)
 	return err

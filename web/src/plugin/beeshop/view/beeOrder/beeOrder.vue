@@ -3,11 +3,14 @@
     <div class="gva-search-box">
       <el-form ref="elSearchFormRef" :inline="true" :model="searchInfo" class="demo-form-inline" :rules="searchRule"
                @keyup.enter="onSubmit">
-        <el-form-item label="订单号" prop="pid">
-          <el-input v-model="searchInfo.orderNumber" placeholder="搜索条件"/>
+        <el-form-item label="订单id" prop="id">
+          <el-input v-model="searchInfo.id" placeholder="请输入订单id"/>
         </el-form-item>
-        <el-form-item label="核销码" prop="pid">
-          <el-input v-model="searchInfo.hxNumber" placeholder="搜索条件"/>
+        <el-form-item label="订单号" prop="orderNumber">
+          <el-input v-model="searchInfo.orderNumber" placeholder="请输入订单号"/>
+        </el-form-item>
+        <el-form-item label="核销码" prop="hxNumber">
+          <el-input v-model="searchInfo.hxNumber" placeholder="请输入核销码"/>
         </el-form-item>
         <el-form-item label="已删除" prop="isDeleted">
           <el-select v-model="searchInfo.isDeleted" clearable placeholder="请选择">
@@ -514,7 +517,7 @@ import {
 } from '@/utils/format'
 import {ElMessage, ElMessageBox} from 'element-plus'
 import {ref, reactive} from 'vue'
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 
 defineOptions({
   name: 'BeeOrder'
@@ -523,14 +526,11 @@ defineOptions({
 // 控制更多查询条件显示/隐藏状态
 const showAllQuery = ref(false)
 
+const route = useRoute()
 const router = useRouter()
 const beeOrderStatus = ref([])
 const beeOrderType = ref([])
-const init = async () => {
-  beeOrderStatus.value = await getDictFunc('OrderStatus')
-  beeOrderType.value = await getDictFunc('OrderType')
-}
-init()
+
 
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
@@ -761,6 +761,18 @@ const getTableData = async () => {
     pageSize.value = table.data.pageSize
   }
 }
+
+const init = async () => {
+  if (route.query.status !== undefined) {
+    searchInfo.value.status = route.query.status
+  }
+  if (route.query.order_id !== undefined) {
+    searchInfo.value.id = route.query.order_id
+  }
+  beeOrderStatus.value = await getDictFunc('OrderStatus')
+  beeOrderType.value = await getDictFunc('OrderType')
+}
+init()
 
 getTableData()
 

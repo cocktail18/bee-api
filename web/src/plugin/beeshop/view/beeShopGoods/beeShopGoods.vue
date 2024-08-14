@@ -531,6 +531,31 @@ const formData = ref({
 
 // 验证规则
 const rule = reactive({
+  categoryId : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
+  name : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
+  pic : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
+  propertyIds : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
+  unit : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
 })
 
 const searchRule = reactive({

@@ -165,6 +165,31 @@ const formData = ref({
 
 // 验证规则
 const rule = reactive({
+  mchid : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
+  appId : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
+  appSecret : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
+  // token : [{
+  //   required: true,
+  //   message: '',
+  //   trigger: ['input','blur'],
+  // }],
+  privateCert : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
 })
 
 const searchRule = reactive({

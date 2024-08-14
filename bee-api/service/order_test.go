@@ -12,8 +12,8 @@ import (
 	"gitee.com/stuinfer/bee-api/model/sys"
 	"gitee.com/stuinfer/bee-api/proto"
 	"gitee.com/stuinfer/bee-api/util"
+	"github.com/agiledragon/gomonkey/v2"
 	"github.com/spf13/cast"
-	"github.com/xhd2015/xgo/runtime/mock"
 	"time"
 
 	"github.com/shopspring/decimal"
@@ -21,7 +21,7 @@ import (
 	"testing"
 )
 
-func TestOrderSrv_CreateOrder(t *testing.T) {
+func TestOrderSrv_CreateOrderDada(t *testing.T) {
 	config.InitConfig()
 	ctx := GetTestContext()
 	srv := GetOrderSrv()
@@ -29,13 +29,25 @@ func TestOrderSrv_CreateOrder(t *testing.T) {
 
 		couponVal := float64(4)
 		freightTotal := float64(10)
-		mock.Patch(srv.calFreight, func(context.Context, *proto.GoodsLogistics, LogisticsItem) decimal.Decimal {
+		calFreightPatches := gomonkey.ApplyPrivateMethod(srv, "calFreight", func(context.Context, *proto.GoodsLogistics, LogisticsItem) decimal.Decimal {
 			return decimal.NewFromFloat(freightTotal)
 		})
+		defer calFreightPatches.Reset()
+		//mock.Patch(srv.calFreight, func(context.Context, *proto.GoodsLogistics, LogisticsItem) decimal.Decimal {
+		//	return decimal.NewFromFloat(freightTotal)
+		//})
+		addressPatches := gomonkey.ApplyMethodFunc(GetAddressSrv(), "GetAddressDto", func(c context.Context, userId int64, id int64) (*model.BeeUserAddress, error) {
+			return &model.BeeUserAddress{
+				BaseModel: common.BaseModel{
+					Id: 1,
+				},
+			}, nil
+		})
+		defer addressPatches.Reset()
 
 		goodsJsonStr := `[{"propertyChildIds":",211245:1686933,211246:1686935,211247:1686938","goodsId":1808573,"number":2,"logisticsType":0,"inviter_id":0,"goodsTimesDay":"","goodsTimesItem":""}]`
 		createOrderReq := &proto.CreateOrderReq{
-			PeisongType:  "kd",
+			PeisongType:  "dada",
 			IsCanHx:      "true",
 			ShopIdZt:     391592,
 			ShopNameZt:   "龙楼店（文昌市龙楼镇）",
@@ -45,6 +57,7 @@ func TestOrderSrv_CreateOrder(t *testing.T) {
 			Lng:          "113.36199",
 			Calculate:    "true",
 			GoodsJsonStr: goodsJsonStr,
+			DistrictId:   "1",
 		}
 		resp, err := srv.CreateOrder(ctx, "127.0.0.1", createOrderReq)
 		fmt.Println(util.ToJsonWithoutErr(resp, ""))
@@ -59,11 +72,17 @@ func TestOrderSrv_CreateOrder(t *testing.T) {
 
 		// 运费券测试
 		userCoupon := NewFixCoupon(ctx, couponVal, true)
-		mock.Patch(GetCouponSrv().GetUserCouponByIds, func(c context.Context, userId int64, ids []int64) ([]*model.BeeUserCoupon, error) {
+		//mock.Patch(GetCouponSrv().GetUserCouponByIds, func(c context.Context, userId int64, ids []int64) ([]*model.BeeUserCoupon, error) {
+		//	return []*model.BeeUserCoupon{
+		//		userCoupon,
+		//	}, nil
+		//})
+		getUserCouponByIdsPatches := gomonkey.ApplyMethodFunc(GetCouponSrv(), "GetUserCouponByIds", func(c context.Context, userId int64, ids []int64) ([]*model.BeeUserCoupon, error) {
 			return []*model.BeeUserCoupon{
 				userCoupon,
 			}, nil
 		})
+
 		createOrderReq.CouponId = cast.ToString(userCoupon.Id)
 		resp, err = srv.CreateOrder(ctx, "127.0.0.1", createOrderReq)
 		fmt.Println(util.ToJsonWithoutErr(resp, ""))
@@ -78,11 +97,18 @@ func TestOrderSrv_CreateOrder(t *testing.T) {
 
 		// 普通优惠券测试
 		userCoupon = NewFixCoupon(ctx, 4, false)
-		mock.Patch(GetCouponSrv().GetUserCouponByIds, func(c context.Context, userId int64, ids []int64) ([]*model.BeeUserCoupon, error) {
+		//mock.Patch(GetCouponSrv().GetUserCouponByIds, func(c context.Context, userId int64, ids []int64) ([]*model.BeeUserCoupon, error) {
+		//	return []*model.BeeUserCoupon{
+		//		userCoupon,
+		//	}, nil
+		//})
+		getUserCouponByIdsPatches.Reset()
+		getUserCouponByIdsPatches = gomonkey.ApplyMethodFunc(GetCouponSrv(), "GetUserCouponByIds", func(c context.Context, userId int64, ids []int64) ([]*model.BeeUserCoupon, error) {
 			return []*model.BeeUserCoupon{
 				userCoupon,
 			}, nil
 		})
+		defer getUserCouponByIdsPatches.Reset()
 		createOrderReq.CouponId = cast.ToString(userCoupon.Id)
 		resp, err = srv.CreateOrder(ctx, "127.0.0.1", createOrderReq)
 		So(err, ShouldBeNil)
@@ -96,6 +122,68 @@ func TestOrderSrv_CreateOrder(t *testing.T) {
 	})
 }
 
+func TestOrderSrv_CreateOrderZQ(t *testing.T) {
+	// 自提订单不需要运费
+	config.InitConfig()
+	ctx := GetTestContext()
+	srv := GetOrderSrv()
+	Convey("金额计算测试", t, func() {
+
+		couponVal := float64(4)
+		freightTotal := float64(10)
+		calFreightPatches := gomonkey.ApplyPrivateMethod(srv, "calFreight", func(context.Context, *proto.GoodsLogistics, LogisticsItem) decimal.Decimal {
+			return decimal.NewFromFloat(freightTotal)
+		})
+		defer calFreightPatches.Reset()
+		//mock.Patch(srv.calFreight, func(context.Context, *proto.GoodsLogistics, LogisticsItem) decimal.Decimal {
+		//	return decimal.NewFromFloat(freightTotal)
+		//})
+
+		goodsJsonStr := `[{"propertyChildIds":",211245:1686933,211246:1686935,211247:1686938","goodsId":1808573,"number":2,"logisticsType":0,"inviter_id":0,"goodsTimesDay":"","goodsTimesItem":""}]`
+		createOrderReq := &proto.CreateOrderReq{
+			PeisongType:  "zq",
+			IsCanHx:      "true",
+			ShopIdZt:     391592,
+			ShopNameZt:   "龙楼店（文昌市龙楼镇）",
+			ExtJsonStr:   "{}",
+			DadaShopNo:   "4217-1478883",
+			Lat:          "23.12463",
+			Lng:          "113.36199",
+			Calculate:    "true",
+			GoodsJsonStr: goodsJsonStr,
+		}
+		resp, err := srv.CreateOrder(ctx, "127.0.0.1", createOrderReq)
+		fmt.Println(util.ToJsonWithoutErr(resp, ""))
+		So(err, ShouldBeNil)
+		So(resp.AmountLogistics.String(), ShouldEqual, decimal.NewFromFloat(0).String())
+		So(resp.GoodsNumber, ShouldEqual, 2)
+
+		amount := resp.Amount
+		amountReal := resp.AmountReal
+		amountTotal := resp.AmountTotle
+		amountTotalOrigin := resp.AmountTotleOriginal
+
+		// 普通优惠券测试
+		userCoupon := NewFixCoupon(ctx, 4, false)
+		getUserCouponByIdsPatches := gomonkey.ApplyMethodFunc(GetCouponSrv(), "GetUserCouponByIds", func(c context.Context, userId int64, ids []int64) ([]*model.BeeUserCoupon, error) {
+			return []*model.BeeUserCoupon{
+				userCoupon,
+			}, nil
+		})
+		defer getUserCouponByIdsPatches.Reset()
+		createOrderReq.CouponId = cast.ToString(userCoupon.Id)
+		resp, err = srv.CreateOrder(ctx, "127.0.0.1", createOrderReq)
+		So(err, ShouldBeNil)
+		So(resp.AmountCoupons.String(), ShouldEqual, decimal.NewFromFloat(couponVal).String())
+		So(resp.AmountReal.String(), ShouldEqual, amountReal.Sub(decimal.NewFromFloat(couponVal)).String())
+		So(resp.Amount.String(), ShouldEqual, amount.String())
+		So(resp.AmountTotleOriginal.String(), ShouldEqual, amountTotalOrigin.String())
+		So(resp.AmountTotle.String(), ShouldEqual, amountTotal.Sub(decimal.NewFromFloat(couponVal)).String())
+		So(resp.AmountTotle.String(), ShouldEqual, resp.Amount.Add(decimal.NewFromFloat(0)).Sub(decimal.NewFromFloat(couponVal)).String())
+
+	})
+}
+
 func TestOrderSrv_PayOrder(t *testing.T) {
 	config.InitConfig()
 	ctx := GetTestContext()
@@ -103,7 +191,7 @@ func TestOrderSrv_PayOrder(t *testing.T) {
 	Convey("支付订单测试", t, func() {
 		goodsJsonStr := `[{"propertyChildIds":",211245:1686933,211246:1686935,211247:1686938","goodsId":1808573,"number":2,"logisticsType":0,"inviter_id":0,"goodsTimesDay":"","goodsTimesItem":""}]`
 		createOrderReq := &proto.CreateOrderReq{
-			PeisongType:  "kd",
+			PeisongType:  "zq",
 			IsCanHx:      "true",
 			ShopIdZt:     391592,
 			ShopNameZt:   "龙楼店（文昌市龙楼镇）",
@@ -116,7 +204,20 @@ func TestOrderSrv_PayOrder(t *testing.T) {
 		}
 		resp, err := srv.CreateOrder(ctx, "127.0.0.1", createOrderReq)
 		So(err, ShouldBeNil)
-		err = srv.PaySuccess(ctx, "ip", &model.BeePayLog{}, cast.ToString(resp.Id), "", resp.AmountReal)
+		payLog := &model.BeePayLog{
+			BaseModel:  common.BaseModel{},
+			Money:      decimal.Decimal{},
+			NextAction: "",
+			OrderNo:    "",
+			PayGate:    "",
+			PayGateStr: "",
+			Remark:     "",
+			Status:     0,
+			StatusStr:  "",
+			Uid:        kit.GetUid(ctx),
+		}
+		db.GetDB().Create(payLog)
+		err = srv.PayOrderByBalance(ctx, "ip", payLog, cast.ToString(resp.Id), "", resp.AmountReal)
 		So(err, ShouldBeNil)
 		orderInfo, err := srv.GetOrderByOrderId(ctx, resp.Id)
 		So(err, ShouldBeNil)

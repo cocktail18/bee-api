@@ -70,6 +70,16 @@
         </tbody>
       </table>
     </div>
+    <div class="table-container" style="padding-left: 60px">
+      <el-row
+          :gutter="15"
+          class="py-1"
+      >
+        <el-col :span="4" v-if="!beeOrderData.isPay"><el-button type="warning" @click="payOrderOffline(beeOrderData)">线下支付</el-button></el-col>
+        <el-col :span="4" v-if="beeOrderData.status === 1"><el-button type="warning" @click="shipBeeOrder(beeOrderData)">已发货</el-button></el-col>
+        <el-col :span="4" v-if="beeOrderData.status === 2"><el-button type="warning" @click="confirmShippedBeeOrder(beeOrderData)">已确认收货</el-button></el-col>
+      </el-row>
+    </div>
   </div>
 
   <div>
@@ -156,7 +166,7 @@
 import {
   createBeeOrder,
   updateBeeOrder,
-  findBeeOrder, updateBeeOrderExtJsonStr
+  findBeeOrder, updateBeeOrderExtJsonStr, markBeeOrderPaid, updateBeeOrderStatus
 } from '@/plugin/beeshop/api/beeOrder'
 
 defineOptions({
@@ -166,7 +176,7 @@ defineOptions({
 // 自动获取字典
 import {formatDate, formatEnum, getDictFunc} from '@/utils/format'
 import { useRoute, useRouter } from "vue-router"
-import { ElMessage } from 'element-plus'
+import {ElMessage, ElMessageBox} from 'element-plus'
 import { ref, reactive } from 'vue'
 import {getBeeOrderLogList} from "@/plugin/beeshop/api/beeOrderLog";
 import {getBeeOrderGoodsList} from "@/plugin/beeshop/api/beeOrderGoods";
@@ -195,9 +205,9 @@ const init = async () => {
   beeOrderLogType.value = await getDictFunc('BeeOrderLogType')
   beeOrderStatus.value = await getDictFunc('OrderStatus')
  // 建议通过url传参获取目标数据ID 调用 find方法进行查询数据操作 从而决定本页面是create还是update 以下为id作为url参数示例
-    if (!route.query.id) {
-      return
-    }
+  if (!route.query.id) {
+    return
+  }
   const orderId =  route.query.id
   const res = await findBeeOrder({ id: orderId })
   if (res.code === 0) {
@@ -240,9 +250,71 @@ const saveExtData = async () => {
     acc[cur.key] = cur.value
     return acc
   }, {}))
-  await updateBeeOrderExtJsonStr({ id: beeOrderData.value.id, extJsonStr })
+  const res = await updateBeeOrderExtJsonStr({ id: beeOrderData.value.id, extJsonStr })
+  if (res.code === 0) {
+    ElMessage({
+      type: 'success',
+      message: '更新成功'
+    })
+  }
 }
 
+const payOrderOffline = async (row) => {
+  ElMessageBox.confirm('确定已收到支付款?', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(async () => {
+    const ids = []
+    ids.push(row.id)
+    const res = await markBeeOrderPaid({'ids': ids})
+    if (res.code === 0) {
+      ElMessage({
+        type: 'success',
+        message: '更新成功'
+      })
+      await init()
+    }
+  })
+}
+
+const shipBeeOrder = async (row) => {
+  ElMessageBox.confirm('确定已发货?', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(async () => {
+    const ids = []
+    ids.push(row.id)
+    const res = await updateBeeOrderStatus({'id': row.id, 'status': 2})
+    if (res.code === 0) {
+      ElMessage({
+        type: 'success',
+        message: '更新成功'
+      })
+      await init()
+    }
+  })
+}
+
+const confirmShippedBeeOrder = async (row) => {
+  ElMessageBox.confirm('确定已收货?', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(async () => {
+    const ids = []
+    ids.push(row.id)
+    const res = await updateBeeOrderStatus({'id': row.id, 'status': 3})
+    if (res.code === 0) {
+      ElMessage({
+        type: 'success',
+        message: '更新成功'
+      })
+      await init()
+    }
+  })
+}
 </script>
 
 <style>

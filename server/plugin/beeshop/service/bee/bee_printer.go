@@ -1,15 +1,19 @@
 package bee
 
 import (
+	"context"
 	"errors"
 	"gitee.com/stuinfer/bee-api/common"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/printer"
+	"gitee.com/stuinfer/bee-api/service"
+	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
 	"github.com/spf13/cast"
+	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"text/template"
 )
@@ -117,6 +121,30 @@ func (beePrinterService *BeePrinterService) UpdateBeePrinter(beePrinter bee.BeeP
 		}
 		return p.AddPrinter(cfg)
 	})
+}
+
+// TestBeePrinter 测试打印机配置是否正确
+// Author [piexlmax](https://github.com/piexlmax)
+func (beePrinterService *BeePrinterService) TestBeePrinter(beePrinter bee.BeePrinter, shopUserId int) (err error) {
+	beePrinter.DateUpdate = utils.NowPtr()
+	if err = beePrinterService.checkTemplate(beePrinter.Template); err != nil {
+		return err
+	}
+	cfg := beePrinterService.printer2apiPrinter(&beePrinter)
+	p := printer.GetPrinter(cfg)
+	if p == nil {
+		err = errors.New("该品牌暂不支持")
+		return err
+	}
+	if err := p.AddPrinter(cfg); err != nil {
+		return err
+	}
+	defer func() {
+		if err := p.DelPrinter(cfg, []string{cfg.Code}); err != nil {
+			global.GVA_LOG.Error("移除打印机失败", zap.Error(err))
+		}
+	}()
+	return service.GetPrinterSrv().TestPrinter(context.Background(), cfg)
 }
 
 // GetBeePrinter 根据id获取beePrinter表记录

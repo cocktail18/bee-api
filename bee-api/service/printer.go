@@ -4,13 +4,16 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"gitee.com/stuinfer/bee-api/common"
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/logger"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/printer"
+	"gitee.com/stuinfer/bee-api/proto"
 	"gitee.com/stuinfer/bee-api/util"
 	"github.com/samber/lo"
+	"github.com/shopspring/decimal"
 	"go.uber.org/zap"
 	"sync"
 	"text/template"
@@ -34,7 +37,7 @@ func GetPrinterSrv() *PrinterSrv {
 func (srv *PrinterSrv) printOrder(ctx context.Context, item *model.BeeOrderPrintLog) error {
 	//获取打印机信息
 	var printers []*model.BeePrinter
-	if err := db.GetDB().Where("user_id = ? and condition = ? and is_deleted=0 and `condition`=?", item.UserId, item.Condition).Find(&printers).Error; err != nil {
+	if err := db.GetDB().Where("user_id = ? and `condition` = ? and is_deleted=0 ", item.UserId, item.Condition).Find(&printers).Error; err != nil {
 		return err
 	}
 	if len(printers) == 0 {
@@ -77,9 +80,161 @@ func (srv *PrinterSrv) printOrder(ctx context.Context, item *model.BeeOrderPrint
 		if err != nil {
 			return err
 		}
-		if err := printer.GetPrinter(_printer).Print(_printer, "10", content); err != nil {
+		if err := printer.GetPrinter(_printer).Print(_printer, _printer.Voice, content); err != nil {
 			return err
 		}
+	}
+	return nil
+}
+
+func (srv *PrinterSrv) TestPrinter(ctx context.Context, _printer *model.BeePrinter) error {
+	orderDto := &proto.OrderDetailDto{
+		OrderDto: proto.OrderDto{
+			BeeOrder: model.BeeOrder{
+				BaseModel: common.BaseModel{
+					Id:         10000,
+					UserId:     1,
+					IsDeleted:  false,
+					DateAdd:    common.JsonTime(time.Now()),
+					DateUpdate: common.JsonTime(time.Now()),
+				},
+				Amount:            decimal.NewFromFloat(100.00),
+				AmountCard:        decimal.NewFromFloat(100.00),
+				AmountCoupons:     decimal.NewFromFloat(100.00),
+				AmountLogistics:   decimal.NewFromFloat(100.00),
+				AmountBalance:     decimal.NewFromFloat(100.00),
+				AmountReal:        decimal.NewFromFloat(100.00),
+				AmountRefundTotal: decimal.NewFromFloat(100.00),
+				AmountTax:         decimal.NewFromFloat(100.00),
+				AmountTaxGst:      decimal.NewFromFloat(100.00),
+				AmountTaxService:  decimal.NewFromFloat(100.00),
+				AutoDeliverStatus: 0,
+				DateClose:         common.JsonTime(time.Now()),
+				DatePay:           common.JsonTime(time.Now()),
+				GoodsNumber:       1,
+				HasRefund:         false,
+				HxNumber:          util.GetRandInt64(),
+				Ip:                "127.0.0.1",
+				IsCanHx:           true,
+				IsDelUser:         false,
+				IsEnd:             true,
+				IsHasBenefit:      false,
+				IsNeedLogistics:   false,
+				IsPay:             true,
+				IsScoreOrder:      false,
+				IsSuccessPingtuan: false,
+				OrderNumber:       util.GetRandInt64(),
+				OrderType:         enum.OrderTypeNormal,
+				Pid:               0,
+				Qudanhao:          "10",
+				RefundStatus:      enum.OrderRefundStatusNone,
+				Remark:            "备注测试",
+				Score:             0,
+				ScoreDeduction:    0,
+				ShopId:            10,
+				ShopIdZt:          10,
+				ShopNameZt:        "小蜜蜂店铺",
+				Status:            0,
+				Trips:             decimal.NewFromFloat(10.00),
+				Type:              0,
+				Uid:               0,
+				ExtJsonStr:        "",
+			},
+			DifferHours: 0,
+		},
+		OrderGoods: []*model.BeeOrderGoods{
+			&model.BeeOrderGoods{
+				BaseModel:        common.BaseModel{},
+				AfterSale:        "",
+				HadPayAmount:     decimal.Decimal{},
+				Amount:           decimal.Decimal{},
+				AmountCoupon:     decimal.Decimal{},
+				AmountSingle:     decimal.Decimal{},
+				AmountSingleBase: decimal.Decimal{},
+				BuyRewardEnd:     false,
+				CategoryId:       0,
+				CyTableStatus:    0,
+				FxType:           0,
+				GoodsId:          0,
+				GoodsName:        "",
+				GoodsSubName:     "",
+				IsScoreOrder:     false,
+				Number:           0,
+				NumberNoFahuo:    0,
+				OrderId:          0,
+				Persion:          0,
+				Pic:              "",
+				PriceId:          0,
+				Property:         "",
+				PropertyChildIds: "",
+				Purchase:         false,
+				RefundStatus:     0,
+				Score:            decimal.Decimal{},
+				ShopId:           0,
+				Status:           0,
+				Type:             0,
+				Uid:              0,
+				Unit:             "",
+			},
+		},
+		OrderLogistics: nil,
+	}
+	userBalance := &model.BeeUserAmount{
+		BaseModel: common.BaseModel{
+			Id:         10,
+			DateAdd:    common.JsonTime(time.Now()),
+			DateUpdate: common.JsonTime(time.Now()),
+		},
+		Uid:               10,
+		Balance:           decimal.NewFromFloat(10.00),
+		Freeze:            decimal.NewFromFloat(10.00),
+		FxCommisionPaying: decimal.NewFromFloat(10.00),
+		Growth:            decimal.NewFromFloat(10.00),
+		Score:             decimal.NewFromFloat(10.00),
+		ScoreLastRound:    decimal.NewFromFloat(10.00),
+		TotalPayAmount:    decimal.NewFromFloat(10.00),
+		TotalPayNumber:    decimal.NewFromFloat(10.00),
+		TotalScore:        decimal.NewFromFloat(10.00),
+		TotalWithdraw:     decimal.NewFromFloat(10.00),
+		TotalConsumed:     decimal.NewFromFloat(10.00),
+	}
+	userInfo := &model.BeeUser{
+		BaseModel: common.BaseModel{
+			Id:         10,
+			DateAdd:    common.JsonTime(time.Now()),
+			DateUpdate: common.JsonTime(time.Now()),
+		},
+		ShowUid:    10,
+		AvatarUrl:  "",
+		Birthday:   "1990-01-01",
+		CardNumber: "100",
+		City:       "广州市",
+		DateLogin:  common.JsonTime(time.Now()),
+		Gender:     0,
+		IpAdd:      "127.0.0.1",
+		IpLogin:    "127.0.0.1",
+		Nick:       "mike",
+		Province:   "广东省",
+		VipLevel:   1,
+		Source:     enum.BeeUserSourceWx,
+		Status:     enum.BeeUserStatusNormal,
+		Mobile:     "10086",
+		SessionKey: "",
+	}
+	content, err := srv.buildContent(ctx, _printer.Template, map[string]interface{}{
+		"order":     orderDto,
+		"userCash":  userBalance,
+		"user":      userInfo,
+		"logistics": orderDto.OrderLogistics,
+		"goods":     orderDto.OrderGoods,
+		"extJson":   make(map[string]interface{}),
+		"nowStr":    time.Now().Format("2006-01-02 15:04:05"),
+	})
+	if err != nil {
+		return err
+	}
+	if err := printer.GetPrinter(_printer).Print(_printer, _printer.Voice, content); err != nil {
+		return err
 	}
 	return nil
 }

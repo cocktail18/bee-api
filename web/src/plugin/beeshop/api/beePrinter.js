@@ -65,6 +65,22 @@ export const updateBeePrinter = (data) => {
 }
 
 // @Tags BeePrinter
+// @Summary 测试配置是否正确
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body model.BeePrinter true "测试配置是否正确"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"成功"}"
+// @Router /bee-shop/beePrinter/testBeePrinter [post]
+export const testBeePrinter = (data) => {
+    return service({
+        url: '/bee-shop/beePrinter/testBeePrinter',
+        method: 'post',
+        data
+    })
+}
+
+// @Tags BeePrinter
 // @Summary 用id查询beePrinter表
 // @Security ApiKeyAuth
 // @accept application/json

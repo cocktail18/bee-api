@@ -20,6 +20,7 @@ func (s *BeePrinterRouter) InitBeePrinterRouter(Router *gin.RouterGroup, PublicR
 		beePrinterRouter.DELETE("deleteBeePrinter", beePrinterApi.DeleteBeePrinter)           // 删除beePrinter表
 		beePrinterRouter.DELETE("deleteBeePrinterByIds", beePrinterApi.DeleteBeePrinterByIds) // 批量删除beePrinter表
 		beePrinterRouter.PUT("updateBeePrinter", beePrinterApi.UpdateBeePrinter)              // 更新beePrinter表
+		beePrinterRouter.POST("testBeePrinter", beePrinterApi.TestBeePrinter)                 // 测试打印机
 	}
 	{
 		beePrinterRouterWithoutRecord.GET("findBeePrinter", beePrinterApi.FindBeePrinter)       // 根据ID获取beePrinter表

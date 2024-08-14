@@ -136,19 +136,7 @@ func (fee *PaySrv) WxNotify(c context.Context, ip string, req *wechat.V3NotifyRe
 			return nil
 		})
 	case enum.PayNextActionTypePayOrder:
-		err = GetOrderSrv().PaySuccess(c, ip, payLog, nextActionJson.Get("id").MustString(), payResult.TransactionId, decimal.NewFromInt(int64(payResult.Amount.PayerTotal)), func(tx *gorm.DB) error {
-			updateLogRes := tx.Model(&model.BeePayLog{}).Where("id = ?", payLog.Id).Updates(map[string]interface{}{
-				"status":      enum.PayLogStatusPaid,
-				"date_update": time.Now(),
-			})
-			if updateLogRes.Error != nil {
-				return err
-			}
-			if updateLogRes.RowsAffected != 1 {
-				return errors.New("操作冲突")
-			}
-			return nil
-		})
+		err = GetOrderSrv().PayOrderByBalance(c, ip, payLog, nextActionJson.Get("id").MustString(), payResult.TransactionId, decimal.NewFromInt(int64(payResult.Amount.PayerTotal)))
 	case enum.PayNextActionTypePayDirect:
 		moneyTotal, err := nextActionJson.Get("money").Float64()
 		if err != nil {

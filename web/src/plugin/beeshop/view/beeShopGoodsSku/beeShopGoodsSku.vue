@@ -279,7 +279,33 @@ const formData = ref({
 
 
 // 验证规则
-const rule = reactive({})
+const rule = reactive({
+  goodsId : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
+  price : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
+  propertyChildIds : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
+  stores : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
+  weight : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
+})
 
 const searchRule = reactive({
   createdAt: [

@@ -133,8 +133,39 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 			Method:      "GET",
 		},
 	)
+	utils.RegisterApis(
+		system.SysApi{
+			Path:        "/bee-shop/beeOrder/updateBeeOrderExtJsonStr",
+			Description: "更新订单额外json信息",
+			ApiGroup:    "bee-shop",
+			Method:      "PUT",
+		},
+	)
+	utils.RegisterApis(
+		system.SysApi{
+			Path:        "/bee-shop/beeOrder/updateBeeOrderStatus",
+			Description: "更新订单status字段",
+			ApiGroup:    "bee-shop",
+			Method:      "PUT",
+		},
+	)
+	utils.RegisterApis(
+		system.SysApi{
+			Path:        "/bee-shop/beeOrder/markBeeOrderPaid",
+			Description: "标识为已支付",
+			ApiGroup:    "bee-shop",
+			Method:      "PUT",
+		},
+	)
 	utils.RegisterApis(ins.genPluginApi("beePrinter", "打印机")...)
-
+	utils.RegisterApis(
+		system.SysApi{
+			Path:        "/bee-shop/beePrinter/testBeePrinter",
+			Description: "打印机测试",
+			ApiGroup:    "bee-shop",
+			Method:      "POST",
+		},
+	)
 	ins.registerBaseMenu("shop-base-info", system.SysBaseMenu{
 		Path: "beePrinter",
 		Name: "beePrinter",
@@ -147,6 +178,16 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 		Name: "beeDashboard",
 		Meta: system.Meta{
 			Title: "商城大盘",
+			Icon:  "data-analysis",
+		},
+	})
+	ins.registerBaseMenu("bee_index", system.SysBaseMenu{
+		Path:      "beeOrderTodo",
+		Name:      "beeOrderTodo",
+		Component: "plugin/beeshop/view/beeOrder/beeOrderTodo.vue",
+		Meta: system.Meta{
+			Title: "待发货订单",
+			Icon:  "histogram",
 		},
 	})
 	// 下方会自动注册api 以下格式为示例格式，请按照实际情况修改

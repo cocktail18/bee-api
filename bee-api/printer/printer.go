@@ -13,6 +13,7 @@ type Printer interface {
 
 var brand2printer = map[enum.PrinterBrand]Printer{
 	enum.PrinterBrandDaQu: NewDaQu(),
+	enum.PrinterBrandFeiE: NewFeiE(),
 }
 
 func GetPrinter(config *model.BeePrinter) Printer {

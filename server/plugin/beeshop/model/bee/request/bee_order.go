@@ -6,6 +6,7 @@ import (
 )
 
 type BeeOrderSearch struct {
+	ID                   *int       `json:"id" form:"id" `
 	IsDeleted            *bool      `json:"isDeleted" form:"isDeleted" `
 	OrderNumber          *string    `json:"orderNumber" form:"orderNumber" `
 	HxNumber             *string    `json:"hxNumber" form:"hxNumber" `

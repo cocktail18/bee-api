@@ -106,6 +106,31 @@ func (beePrinterApi *BeePrinterApi) UpdateBeePrinter(c *gin.Context) {
 	}
 }
 
+// TestBeePrinter 检查配置是否正确
+// @Tags BeePrinter
+// @Summary 检查配置是否正确
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body bee.BeePrinter true "检查配置是否正确"
+// @Success 200 {object} response.Response{msg=string} "成功"
+// @Router /beePrinter/updateBeePrinter [post]
+func (beePrinterApi *BeePrinterApi) TestBeePrinter(c *gin.Context) {
+	var beePrinter bee.BeePrinter
+	err := c.ShouldBindJSON(&beePrinter)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	shopUserId := int(utils.GetShopUserID(c))
+	beePrinter.UserId = &shopUserId
+	if err := beePrinterService.TestBeePrinter(beePrinter, shopUserId); err != nil {
+		response.FailWithMessage("测试失败:"+err.Error(), c)
+	} else {
+		response.OkWithMessage("测试成功", c)
+	}
+}
+
 // FindBeePrinter 用id查询beePrinter表
 // @Tags BeePrinter
 // @Summary 用id查询beePrinter表

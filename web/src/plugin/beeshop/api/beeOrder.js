@@ -81,6 +81,22 @@ export const updateBeeOrderExtJsonStr = (data) => {
 }
 
 // @Tags BeeOrder
+// @Summary 更新用户订单 status 字段
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body model.BeeOrder true "更新用户订单 status 字段"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
+// @Router /beeOrder/updateBeeOrderStatus [put]
+export const updateBeeOrderStatus = (data) => {
+  return service({
+    url: '/bee-shop/beeOrder/updateBeeOrderStatus',
+    method: 'put',
+    data
+  })
+}
+
+// @Tags BeeOrder
 // @Summary 设置为已支付订单
 // @Security ApiKeyAuth
 // @accept application/json

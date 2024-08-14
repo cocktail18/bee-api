@@ -89,7 +89,7 @@
               </div>
             </template>
 
-          <el-form :model="formData" label-position="top" ref="elFormRef" :rules="rule" label-width="80px">
+          <el-form :model="formData" label-position="top" ref="elFormRef" :rules="rue" label-width="80px">
             <el-form-item label="id字段:"  prop="id" >
               <el-input v-model.number="formData.id" :clearable="true" placeholder="请输入id字段" />
             </el-form-item>
@@ -160,6 +160,16 @@ const formData = ref({
 
 // 验证规则
 const rule = reactive({
+  goodsId : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
+  pic : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  }],
 })
 
 const searchRule = reactive({

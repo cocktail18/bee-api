@@ -82,6 +82,7 @@
         <div class="flex justify-between items-center">
           <span class="text-lg">{{type==='create'?'添加':'修改'}}</span>
           <div>
+            <el-button @click="testConfig">测 试</el-button>
             <el-button type="primary" @click="enterDialog">确 定</el-button>
             <el-button @click="closeDialog">取 消</el-button>
           </div>
@@ -157,6 +158,7 @@
           </div>
         </div>
         <a href="https://gitee.com/jhbopenapi/juhebei-opendoc" target="_blank">点击前往大趋开放平台申请地址</a>
+        <a href="https://help.feieyun.com/home/doc/zh;nav=0-0" target="_blank">点击前往飞蛾开放平台申请地址</a>
       </el-form>
     </el-drawer>
   </div>
@@ -169,7 +171,7 @@ import {
   deleteBeePrinterByIds,
   updateBeePrinter,
   findBeePrinter,
-  getBeePrinterList
+  getBeePrinterList, testBeePrinter
 } from '@/plugin/beeshop/api/beePrinter'
 
 // 全量引入格式化工具 请按需保留
@@ -222,9 +224,92 @@ const formData = ref({
 })
 
 
-
 // 验证规则
 const rule = reactive({
+  appid : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  },
+    {
+      whitespace: true,
+      message: '不能只输入空格',
+      trigger: ['input', 'blur'],
+    }
+  ],
+  appSecret : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  },
+    {
+      whitespace: true,
+      message: '不能只输入空格',
+      trigger: ['input', 'blur'],
+    }
+  ],
+  name : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  },
+    {
+      whitespace: true,
+      message: '不能只输入空格',
+      trigger: ['input', 'blur'],
+    }
+  ],
+  key : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  },
+    {
+      whitespace: true,
+      message: '不能只输入空格',
+      trigger: ['input', 'blur'],
+    }
+  ],
+  brand : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  },
+  ],
+  condition : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  },
+  ],
+  code : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  },
+    {
+      whitespace: true,
+      message: '不能只输入空格',
+      trigger: ['input', 'blur'],
+    }
+  ],
+  num : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  },
+  ],
+  template : [{
+    required: true,
+    message: '',
+    trigger: ['input','blur'],
+  },
+    {
+      whitespace: true,
+      message: '不能只输入空格',
+      trigger: ['input', 'blur'],
+    }
+  ],
 })
 
 const searchRule = reactive({
@@ -417,6 +502,16 @@ const closeDialog = () => {
     dateDelete: new Date(),
   }
 }
+const testConfig = async () => {
+  const res = await testBeePrinter(formData.value)
+  if (res.code === 0) {
+    ElMessage({
+      type: 'success',
+      message: '配置检查成功'
+    })
+  }
+}
+
 // 弹窗确定
 const enterDialog = async () => {
   elFormRef.value?.validate( async (valid) => {
