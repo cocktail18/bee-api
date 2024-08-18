@@ -35,7 +35,7 @@ func (srv *GoodsSrv) GetGoodsList(c context.Context, shopId int64, categoryId in
 		"hidden":      0,
 		"category_id": categoryId,
 	})
-	dbIns = dbIns.Where("user_id = ?", kit.GetUserId(c))
+	dbIns = dbIns.Where("user_id = ? and is_deleted = 0", kit.GetUserId(c))
 	if shopId > 0 {
 		dbIns = dbIns.Where("shop_id = ?", shopId)
 	}
@@ -64,18 +64,18 @@ func (srv *GoodsSrv) GetGoodsDetail(c context.Context, id int64, regionId string
 		return nil, err
 	}
 	var content model.BeeShopGoodsContent
-	err = db.GetDB().Where("goods_id = ?", goods.Id).First(&content).Error
+	err = db.GetDB().Where("goods_id = ? and is_deleted = 0", goods.Id).First(&content).Error
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, err
 	}
 	var pics []*model.BeeShopGoodsImages
-	err = db.GetDB().Where("goods_id = ?", goods.Id).Find(&pics).Error
+	err = db.GetDB().Where("goods_id = ? and is_deleted = 0", goods.Id).Find(&pics).Error
 	if err != nil {
 		return nil, err
 	}
 
 	var skuList []*model.BeeShopGoodsSku
-	err = db.GetDB().Where("goods_id = ?", goods.Id).Find(&skuList).Error
+	err = db.GetDB().Where("goods_id = ? and is_deleted = 0", goods.Id).Find(&skuList).Error
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +102,7 @@ func (srv *GoodsSrv) GetGoodsDetail(c context.Context, id int64, regionId string
 	}
 	propIds = lo.Uniq(propIds)
 	var beeProps []*model.BeeShopGoodsProp
-	err = db.GetDB().Where("(id in ?) or (property_id in ?)", propIds, propIds).Order("property_id asc").Find(&beeProps).Error
+	err = db.GetDB().Where("(id in ?) or (property_id in ?) and is_deleted = 0", propIds, propIds).Order("property_id asc").Find(&beeProps).Error
 	if err != nil {
 		return nil, err
 	}
