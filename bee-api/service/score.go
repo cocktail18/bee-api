@@ -83,7 +83,7 @@ func (srv *ScoreSrv) GetSignLogs(c context.Context) ([]*model.BeeSignLog, error)
 
 func (srv *ScoreSrv) GetLastSignLog(c context.Context) (*model.BeeSignLog, error) {
 	var item = &model.BeeSignLog{}
-	err := db.GetDB().Where("uid=? ", kit.GetUid(c)).Order("date_add desc").Take(item).Error
+	err := db.GetDB().Where("uid=? and is_deleted =0", kit.GetUid(c)).Order("date_add desc").Take(item).Error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, nil
 	}

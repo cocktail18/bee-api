@@ -24,7 +24,7 @@ func GetNoticeSrv() *NoticeSrv {
 
 func (srv *NoticeSrv) GetLastOne() (*model.BeeNotice, error) {
 	var noticeInfo model.BeeNotice
-	err := db.GetDB().Where("is_show=?", 1).Order("date_update desc").Take(&noticeInfo).Error
+	err := db.GetDB().Where("is_show=? and is_deleted = 0", 1).Order("date_update desc").Take(&noticeInfo).Error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, nil
 	}

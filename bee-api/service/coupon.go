@@ -32,14 +32,14 @@ func GetCouponSrv() *CouponSrv {
 func (srv *CouponSrv) GetMyCouponListByStatus(userId int64, status enum.CouponStatus) ([]*model.BeeUserCoupon, error) {
 	//@todo 分页
 	var list []*model.BeeUserCoupon
-	err := db.GetDB().Where("uid =? and status=?", userId, status).Find(&list).Error
+	err := db.GetDB().Where("uid =? and status=? and is_deleted = 0", userId, status).Find(&list).Error
 	return list, err
 }
 
 func (srv *CouponSrv) GetMyCouponStatistics(userId int64) (*proto.MyCouponStatisticsResp, error) {
 	//@todo 待领取
 	var list []*model.BeeUserCoupon
-	err := db.GetDB().Where("uid =?", userId).Find(&list).Error
+	err := db.GetDB().Where("uid =? and is_deleted = 0", userId).Find(&list).Error
 	resp := &proto.MyCouponStatisticsResp{}
 	expireCouponIds := make([]int64, 0, 10)
 	for _, coupon := range list {
@@ -59,7 +59,14 @@ func (srv *CouponSrv) GetMyCouponStatistics(userId int64) (*proto.MyCouponStatis
 			resp.Invalid++
 		}
 	}
-	db.GetDB().Where("id in (?)", expireCouponIds).Update("status", 3)
+	if err2 := db.GetDB().Model(&model.BeeUserCoupon{}).Where("id in (?) and is_deleted = 0", expireCouponIds).
+		Updates(map[string]interface{}{
+			"status":      enum.CouponStatusExpired,
+			"date_update": time.Now(),
+		}).Error; err2 != nil {
+		return nil, err2
+	}
+
 	return resp, err
 }
 
@@ -68,6 +75,7 @@ func (srv *CouponSrv) GetCoupons(showInFront int) ([]*model.BeeCoupon, error) {
 	err := db.GetDB().Where(map[string]interface{}{
 		"show_in_front": showInFront,
 		"status":        0,
+		"is_deleted":    0,
 	}).Find(&couponList).Error
 	return couponList, err
 }
@@ -107,7 +115,7 @@ func (srv *CouponSrv) FetchCoupon(c context.Context, userInfo *model.BeeUser, id
 	}
 	if coupon.NumberPersonMax > 0 {
 		var cnt int64
-		if err := db.GetDB().Model(&model.BeeUserCouponLog{}).Where("type = ?", enum.CouponLogTypeReceive).Count(&cnt).Error; err != nil {
+		if err := db.GetDB().Model(&model.BeeUserCouponLog{}).Where("type = ? and is_deleted= 0", enum.CouponLogTypeReceive).Count(&cnt).Error; err != nil {
 			return err
 		}
 		if cnt >= coupon.NumberPersonMax {
@@ -122,7 +130,7 @@ func (srv *CouponSrv) FetchCoupon(c context.Context, userInfo *model.BeeUser, id
 		uniqStr = time.Now().Format("2006")
 	}
 
-	if db.GetDB().Where("uniq = ?", uniqStr).Take(couponLog); err != nil {
+	if db.GetDB().Where("uniq = ? and is_deleted = 0", uniqStr).Take(couponLog); err != nil {
 		if !errors.Is(err, gorm.ErrRecordNotFound) {
 			return err
 		}
@@ -194,24 +202,24 @@ func (srv *CouponSrv) FetchCoupon(c context.Context, userInfo *model.BeeUser, id
 
 func (srv *CouponSrv) getCoupon(id int64) (*model.BeeCoupon, error) {
 	var data model.BeeCoupon
-	err := db.GetDB().Where("id=?", id).Find(&data).Error
+	err := db.GetDB().Where("id=? and is_deleted = 0", id).Find(&data).Error
 	return &data, err
 }
 
 func (srv *CouponSrv) GetUserCoupon(userId, id int64) (*model.BeeUserCoupon, error) {
 	var data model.BeeUserCoupon
-	err := db.GetDB().Where("id=? and uid  =?", id, userId).Take(&data).Error
+	err := db.GetDB().Where("id=? and uid  =? and is_deleted = 0", id, userId).Take(&data).Error
 	return &data, err
 }
 
 func (srv *CouponSrv) GetUserCouponByIds(c context.Context, userId int64, ids []int64) ([]*model.BeeUserCoupon, error) {
 	var data []*model.BeeUserCoupon
-	err := db.GetDB().Where("id in ? and uid  =?", ids, userId).Find(&data).Error
+	err := db.GetDB().Where("id in ? and uid  =? and is_deleted = 0", ids, userId).Find(&data).Error
 	return data, err
 }
 
 func (srv *CouponSrv) UseCoupon(c context.Context, tx *gorm.DB, userId int64, id int64) error {
-	err := tx.Model(&model.BeeUserCoupon{}).Where("id = ? and uid  =?", id, userId).Updates(map[string]interface{}{
+	err := tx.Model(&model.BeeUserCoupon{}).Where("id = ? and uid  =? and is_deleted = 0", id, userId).Updates(map[string]interface{}{
 		"status":      enum.CouponStatusUsed,
 		"date_update": time.Now(),
 	}).Error
@@ -219,7 +227,7 @@ func (srv *CouponSrv) UseCoupon(c context.Context, tx *gorm.DB, userId int64, id
 }
 
 func (srv *CouponSrv) ReturnCoupon(c context.Context, tx *gorm.DB, userId int64, id int64) error {
-	err := tx.Model(&model.BeeUserCoupon{}).Where("id = ? and uid  =?", id, userId).Updates(map[string]interface{}{
+	err := tx.Model(&model.BeeUserCoupon{}).Where("id = ? and uid  =? and is_deleted = 0", id, userId).Updates(map[string]interface{}{
 		"status":      enum.CouponStatusUsing,
 		"date_update": time.Now(),
 	}).Error
@@ -229,7 +237,7 @@ func (srv *CouponSrv) ReturnCoupon(c context.Context, tx *gorm.DB, userId int64,
 func (srv *CouponSrv) CouponDetail(c context.Context, id int64) (*proto.CouponDetailResp, error) {
 	var couponDetail model.BeeCoupon
 
-	err := db.GetDB().Where("id=?", id).Find(&couponDetail).Error
+	err := db.GetDB().Where("id=? and is_deleted = 0", id).Find(&couponDetail).Error
 	if err != nil {
 		return nil, err
 	}

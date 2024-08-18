@@ -6,9 +6,10 @@ type CouponDateEndType int32
 type CouponLogType int32
 
 const (
-	CouponStatusNormal CouponStatus = 0
-	CouponStatusUsing  CouponStatus = 1
-	CouponStatusUsed   CouponStatus = 2
+	CouponStatusNormal  CouponStatus = 0
+	CouponStatusUsing   CouponStatus = 1
+	CouponStatusUsed    CouponStatus = 2
+	CouponStatusExpired CouponStatus = 3
 
 	CouponMoneyTypeFixed CouponMoneyType = 0 //固定
 	CouponMoneyTypeRatio CouponMoneyType = 1 //比例

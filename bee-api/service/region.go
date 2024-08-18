@@ -22,13 +22,13 @@ func GetRegionSrv() *RegionSrv {
 
 func (srv *RegionSrv) GetAllProvince() ([]*model.BeeRegion, error) {
 	var list []*model.BeeRegion
-	err := db.GetDB().Where("level", 1).Find(&list).Error
+	err := db.GetDB().Where("level = ? and is_deleted = 0", 1).Find(&list).Error
 	return list, err
 }
 
 func (srv *RegionSrv) GetAllChild(pid string) ([]*model.BeeRegion, error) {
 	var list []*model.BeeRegion
-	err := db.GetDB().Where("pid", pid).Find(&list).Error
+	err := db.GetDB().Where("pid = ? and is_deleted = 0", pid).Find(&list).Error
 	return list, err
 }
 
@@ -37,6 +37,6 @@ func (srv *RegionSrv) GetRegion(id string) (*model.BeeRegion, error) {
 		return nil, nil
 	}
 	var item model.BeeRegion
-	err := db.GetDB().Where("id", id).Take(&item).Error
+	err := db.GetDB().Where("id = ? and is_deleted = 0", id).Take(&item).Error
 	return &item, err
 }

@@ -36,7 +36,7 @@ func (srv *ShopSrv) GetShopInfo(c context.Context, id int64, lat, lon float64) (
 
 func (srv *ShopSrv) List(c context.Context, req *proto.ListShopReq) (proto.ListShopResp, error) {
 	var infos []*model.BeeShopInfo
-	err := db.GetDB().Where("user_id = ?", kit.GetUserId(c)).Find(&infos).Error
+	err := db.GetDB().Where("user_id = ? and is_deleted = 0", kit.GetUserId(c)).Find(&infos).Error
 	if err != nil {
 		return nil, err
 	}

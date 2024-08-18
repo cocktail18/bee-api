@@ -193,7 +193,7 @@ func (srv *UserSrv) CashLog(c context.Context, userId int64, req *proto.CashLogR
 		page     int64 = util.IF(req.Page == 0, 1, req.Page)
 		list     []*model.BeeCashLog
 	)
-	dbIns := db.GetDB().Where("uid = ?", userId)
+	dbIns := db.GetDB().Where("uid = ? and is_deleted = 0", userId)
 	if err := dbIns.Count(&cnt).Error; err != nil {
 		return nil, err
 	}
@@ -216,7 +216,7 @@ func (srv *UserSrv) PayLogs(c context.Context, userId int64, req *proto.PayLogsR
 		page     int64 = util.IF(req.Page == 0, 1, req.Page)
 		list     []*model.BeePayLog
 	)
-	dbIns := db.GetDB().Where("uid = ?", userId)
+	dbIns := db.GetDB().Where("uid = ? and is_deleted = 0", userId)
 	if err := dbIns.Offset(int((page - 1) * pageSize)).Limit(int(pageSize)).Find(&list).Error; err != nil {
 		return nil, err
 	}

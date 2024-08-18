@@ -565,7 +565,7 @@ func (s *OrderSrv) List(c context.Context, req *proto.ListOrderReq) (*proto.List
 		pageSize = 10000
 	}
 
-	dbIns := db.GetDB().Where("uid = ?", kit.GetUid(c)).Where("is_deleted = 0")
+	dbIns := db.GetDB().Where("uid = ?", kit.GetUid(c)).Where("is_deleted = 0 and is_del_user = 0")
 	if req.DateAddBegin != "" {
 		dbIns = dbIns.Where("date_add >= ?", req.DateAddBegin)
 	}
