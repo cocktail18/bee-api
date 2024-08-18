@@ -13,6 +13,8 @@ import (
 type DaQuPrinter struct {
 	printUrl string
 	client   *req.Client
+	addUrl   string
+	delUrl   string
 }
 
 var _ Printer = &DaQuPrinter{}
@@ -26,12 +28,14 @@ type DaQuRes struct {
 func NewDaQu() *DaQuPrinter {
 	return &DaQuPrinter{
 		printUrl: "https://printer.juhesaas.com/openapi/print",
-		client:   req.C(),
+		addUrl:   "https://printer.juhesaas.com/openapi/addPrinter",
+		delUrl:   "https://printer.juhesaas.com/openapi/delPrinter",
+		client:   req.C().DevMode(),
 	}
 }
 
 func (d *DaQuPrinter) DelPrinter(config *model.BeePrinter, codes []string) error {
-	_, err := d.post(d.printUrl, config, codes)
+	_, err := d.post(d.delUrl, config, codes)
 	if err != nil {
 		return err
 	}
@@ -46,7 +50,7 @@ func (d *DaQuPrinter) AddPrinter(config *model.BeePrinter) error {
 			"name": config.Name,
 		},
 	}
-	_, err := d.post(d.printUrl, config, data)
+	_, err := d.post(d.addUrl, config, data)
 	if err != nil {
 		return err
 	}
@@ -78,7 +82,7 @@ func (d *DaQuPrinter) post(url string, config *model.BeePrinter, data any) (*DaQ
 		"stime":        strconv.FormatInt(unix, 10),
 		"uid":          uid,
 		"sign":         sign,
-	}).SetSuccessResult(res).Post(url)
+	}).SetBodyJsonString(body).SetSuccessResult(res).Post(url)
 	if err != nil {
 		return nil, err
 	}

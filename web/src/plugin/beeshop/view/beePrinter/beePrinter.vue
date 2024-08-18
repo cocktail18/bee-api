@@ -157,8 +157,12 @@
             </pre>
           </div>
         </div>
-        <a href="https://gitee.com/jhbopenapi/juhebei-opendoc" target="_blank">点击前往大趋开放平台申请地址</a>
-        <a href="https://help.feieyun.com/home/doc/zh;nav=0-0" target="_blank">点击前往飞蛾开放平台申请地址</a>
+        <div>
+          <a href="https://gitee.com/jhbopenapi/juhebei-opendoc" target="_blank">点击前往大趋开放平台申请地址</a>
+        </div>
+        <div>
+          <a href="https://help.feieyun.com/home/doc/zh;nav=0-0" target="_blank">点击前往飞蛾开放平台申请地址</a>
+        </div>
       </el-form>
     </el-drawer>
   </div>
