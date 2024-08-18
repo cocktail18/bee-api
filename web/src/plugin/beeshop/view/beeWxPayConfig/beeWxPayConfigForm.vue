@@ -76,7 +76,7 @@ const formData = ref({
             isDeleted: false,
             dateAdd: new Date(),
             dateUpdate: new Date(),
-            dateDelete: new Date(),
+            dateDelete: undefined,
         })
 // 验证规则
 const rule = reactive({

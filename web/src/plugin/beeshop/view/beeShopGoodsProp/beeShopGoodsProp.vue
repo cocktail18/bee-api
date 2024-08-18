@@ -53,7 +53,7 @@
         >
         <el-table-column type="selection" width="55" />
         
-        <el-table-column align="left" label="id字段" prop="id" width="120" />
+        <el-table-column sortable align="left" label="id字段" prop="id" width="120" />
         <el-table-column align="left" label="所属属性" prop="propertyId" width="120" >
           <template #default="scope">{{ formatByList(scope.row.propertyId,propCategoryList, 'id', 'name') }}</template>
         </el-table-column>
@@ -178,7 +178,7 @@ const formData = ref({
         isDeleted: false,
         dateAdd: new Date(),
         dateUpdate: new Date(),
-        dateDelete: new Date(),
+        dateDelete: undefined,
         propertyId: undefined,
         name: '',
         paixu: undefined,
@@ -219,7 +219,7 @@ const page = ref(1)
 const total = ref(0)
 const pageSize = ref(10)
 const tableData = ref([])
-const searchInfo = ref({})
+const searchInfo = ref({sort: 'id', order: 'descending'})
 const propCategoryList = ref([]) // 属性分类
 
 const init = async() => {
@@ -381,7 +381,7 @@ const closeDialog = () => {
         isDeleted: false,
         dateAdd: new Date(),
         dateUpdate: new Date(),
-        dateDelete: new Date(),
+        dateDelete: undefined,
         propertyId: undefined,
         name: '',
         paixu: undefined,

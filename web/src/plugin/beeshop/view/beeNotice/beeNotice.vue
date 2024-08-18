@@ -144,7 +144,7 @@ const formData = ref({
         remindUid: undefined,
         dateAdd: new Date(),
         dateUpdate: new Date(),
-        dateDelete: new Date(),
+        dateDelete: undefined,
         isDeleted: false,
         })
 
@@ -341,7 +341,7 @@ const closeDialog = () => {
         remindUid: undefined,
         dateAdd: new Date(),
         dateUpdate: new Date(),
-        dateDelete: new Date(),
+        dateDelete: undefined,
         isDeleted: false,
         }
 }

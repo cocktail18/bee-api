@@ -173,7 +173,7 @@ const formData = ref({
             isDeleted: false,
             dateAdd: new Date(),
             dateUpdate: new Date(),
-            dateDelete: new Date(),
+            dateDelete: undefined,
             amount: 0,
             amountCard: 0,
             amountCoupons: 0,

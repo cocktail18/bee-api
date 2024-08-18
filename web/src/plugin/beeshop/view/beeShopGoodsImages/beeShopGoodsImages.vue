@@ -151,7 +151,7 @@ const formData = ref({
         isDeleted: false,
         dateAdd: new Date(),
         dateUpdate: new Date(),
-        dateDelete: new Date(),
+        dateDelete: undefined,
         goodsId: undefined,
         pic: '',
         })
@@ -196,7 +196,7 @@ const page = ref(1)
 const total = ref(0)
 const pageSize = ref(10)
 const tableData = ref([])
-const searchInfo = ref({})
+const searchInfo = ref({sort: 'id', order: 'descending'})
 
 
 const init = () => {
@@ -373,7 +373,7 @@ const closeDialog = () => {
         isDeleted: false,
         dateAdd: new Date(),
         dateUpdate: new Date(),
-        dateDelete: new Date(),
+        dateDelete: undefined,
         goodsId: undefined,
         pic: '',
         }

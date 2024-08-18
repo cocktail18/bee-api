@@ -77,7 +77,7 @@ const formData = ref({
             remindUid: undefined,
             dateAdd: new Date(),
             dateUpdate: new Date(),
-            dateDelete: new Date(),
+            dateDelete: undefined,
             isDeleted: false,
         })
 // 验证规则

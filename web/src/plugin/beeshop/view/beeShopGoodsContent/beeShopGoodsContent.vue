@@ -142,7 +142,7 @@ const formData = ref({
         isDeleted: false,
         dateAdd: new Date(),
         dateUpdate: new Date(),
-        dateDelete: new Date(),
+        dateDelete: undefined,
         goodsId: undefined,
         content: '',
         })
@@ -187,7 +187,7 @@ const page = ref(1)
 const total = ref(0)
 const pageSize = ref(10)
 const tableData = ref([])
-const searchInfo = ref({})
+const searchInfo = ref({sort: 'id', order: 'descending'})
 
 const init = () => {
   if (route.query.goodsId) {
@@ -347,7 +347,7 @@ const closeDialog = () => {
         isDeleted: false,
         dateAdd: new Date(),
         dateUpdate: new Date(),
-        dateDelete: new Date(),
+        dateDelete: undefined,
         goodsId: undefined,
         content: '',
         }

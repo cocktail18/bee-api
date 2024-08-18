@@ -78,6 +78,16 @@ func (beeShopGoodsPropService *BeeShopGoodsPropService) GetBeeShopGoodsPropInfoL
 		return
 	}
 
+	var OrderStr string
+	orderMap := make(map[string]bool)
+	orderMap["id"] = true
+	if orderMap[info.Sort] {
+		OrderStr = info.Sort
+		if info.Order == "descending" {
+			OrderStr = OrderStr + " desc"
+		}
+		db = db.Order(OrderStr)
+	}
 	if limit != 0 {
 		db = db.Limit(limit).Offset(offset)
 	}

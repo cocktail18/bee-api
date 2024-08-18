@@ -80,7 +80,7 @@ const formData = ref({
             isDeleted: false,
             dateAdd: new Date(),
             dateUpdate: new Date(),
-            dateDelete: new Date(),
+            dateDelete: undefined,
             money: 0,
             nextAction: '',
             orderNo: '',

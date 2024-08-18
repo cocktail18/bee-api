@@ -98,7 +98,7 @@ const formData = ref({
             isDeleted: false,
             dateAdd: new Date(),
             dateUpdate: new Date(),
-            dateDelete: new Date(),
+            dateDelete: undefined,
             uid: undefined,
             dateStart: new Date(),
             expiryMillis: undefined,

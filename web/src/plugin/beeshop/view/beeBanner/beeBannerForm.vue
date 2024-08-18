@@ -80,7 +80,7 @@ const formData = ref({
             isDeleted: false,
             dateAdd: new Date(),
             dateUpdate: new Date(),
-            dateDelete: new Date(),
+            dateDelete: undefined,
             businessId: undefined,
             linkType: undefined,
             paixu: undefined,
