@@ -290,11 +290,11 @@ const rule = reactive({
     message: '',
     trigger: ['input','blur'],
   }],
-  propertyChildIds : [{
-    required: true,
-    message: '',
-    trigger: ['input','blur'],
-  }],
+  // propertyChildIds : [{
+  //   required: true,
+  //   message: '',
+  //   trigger: ['input','blur'],
+  // }],
   stores : [{
     required: true,
     message: '',

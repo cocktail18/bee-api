@@ -64,6 +64,7 @@ func (beeShopGoodsSkuService *BeeShopGoodsSkuService) GetBeeShopGoodsSkuInfoList
 	db = db.Where("user_id = ?", shopUserId)
 	var beeShopGoodsSkus []bee.BeeShopGoodsSku
 	// 如果有条件搜索 下方会自动创建搜索语句
+	db = db.Where("is_deleted = 0")
 	if info.Id != nil {
 		db = db.Where("id = ?", info.Id)
 	}
