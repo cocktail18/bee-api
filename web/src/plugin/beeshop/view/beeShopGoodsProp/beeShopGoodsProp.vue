@@ -179,9 +179,9 @@ const formData = ref({
         dateAdd: new Date(),
         dateUpdate: new Date(),
         dateDelete: undefined,
-        propertyId: undefined,
+        propertyId: 0,
         name: '',
-        paixu: undefined,
+        paixu: 0,
         })
 
 
@@ -382,9 +382,9 @@ const closeDialog = () => {
         dateAdd: new Date(),
         dateUpdate: new Date(),
         dateDelete: undefined,
-        propertyId: undefined,
+        propertyId: 0,
         name: '',
-        paixu: undefined,
+        paixu: 0,
         }
 }
 // 弹窗确定
