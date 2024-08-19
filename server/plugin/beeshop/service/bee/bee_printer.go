@@ -161,7 +161,7 @@ func (beePrinterService *BeePrinterService) GetBeePrinterInfoList(info beeReq.Be
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
 	db := GetBeeDB().Model(&bee.BeePrinter{})
-	db = db.Where("user_id = ?", shopUserId)
+	db = db.Where("user_id = ? and is_deleted = 0", shopUserId)
 	var beePrinters []bee.BeePrinter
 	// 如果有条件搜索 下方会自动创建搜索语句
 	err = db.Count(&total).Error

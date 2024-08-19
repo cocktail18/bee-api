@@ -45,7 +45,7 @@ func (srv *GoodsSrv) GetGoodsList(c context.Context, shopId int64, categoryId in
 
 func (srv *GoodsSrv) GetCategoryAll(c context.Context) ([]*model.BeeShopGoodsCategory, error) {
 	var list []*model.BeeShopGoodsCategory
-	err := db.GetDB().Where("user_id = ?", kit.GetUserId(c)).
+	err := db.GetDB().Where("user_id = ? and is_deleted = 0", kit.GetUserId(c)).
 		Where("is_use=?", 1).Order("paixu desc").Find(&list).Error
 	return list, err
 }
@@ -54,12 +54,12 @@ func (srv *GoodsSrv) GetGoodsDetail(c context.Context, id int64, regionId string
 	resp := &proto.GoodsDetailResp{}
 	var goods model.BeeShopGoods
 	var err error
-	err = db.GetDB().Where("id = ?", id).Take(&goods).Error
+	err = db.GetDB().Where("id = ? and is_deleted = 0", id).Take(&goods).Error
 	if err != nil {
 		return nil, err
 	}
 	var category model.BeeShopGoodsCategory
-	err = db.GetDB().Where("id = ?", goods.CategoryId).First(&category).Error
+	err = db.GetDB().Where("id = ? and is_deleted = 0", goods.CategoryId).First(&category).Error
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, err
 	}
@@ -166,7 +166,7 @@ func (srv *GoodsSrv) GetGoodsWithSku(c context.Context, goodsId int64, propertyC
 func (srv *GoodsSrv) getPropertyChildNames(c context.Context, propertyChildIds string) (string, error) {
 	propIds := kit.GetPropIdsByStr(propertyChildIds)
 	var props []*model.BeeShopGoodsProp
-	err := db.GetDB().Where("id in (?) ", propIds).Find(&props).Error
+	err := db.GetDB().Where("id in (?) and is_deleted = 0", propIds).Find(&props).Error
 	if err != nil {
 		return "", err
 	}
@@ -212,7 +212,7 @@ func (srv *GoodsSrv) GetPropsByIds(c context.Context, propIds []int64) ([]*model
 func (srv *GoodsSrv) GetPrice(c context.Context, goodsId int64, propertyChildIds string) (*proto.GoodsPriceResp, error) {
 	var goods model.BeeShopGoods
 	var err error
-	err = db.GetDB().Where("id = ?", goodsId).Take(&goods).Error
+	err = db.GetDB().Where("id = ? and is_deleted = 0", goodsId).Take(&goods).Error
 	if err != nil {
 		return nil, err
 	}
@@ -223,7 +223,7 @@ func (srv *GoodsSrv) GetPrice(c context.Context, goodsId int64, propertyChildIds
 		return nil, err
 	}
 	var curSku *model.BeeShopGoodsSku
-	err = db.GetDB().Where("goods_id = ? and property_child_ids = ?", goods.Id, propertyChildIds).
+	err = db.GetDB().Where("goods_id = ? and property_child_ids = ? and is_deleted = 0", goods.Id, propertyChildIds).
 		Take(&curSku).Error
 	if err != nil {
 		return nil, errors.Wrap(err, "找不到该sku")
@@ -265,7 +265,7 @@ func (srv *GoodsSrv) GetGoodsAddition(c context.Context, goodsId int64) ([]*mode
 	userId := kit.GetUserId(c)
 	var list []*model.BeeShopGoodsAddition
 	if err := db.GetDB().Model(&model.BeeShopGoodsAddition{}).
-		Where("goods_id = ? and user_id = ?", goodsId, userId).Order("pid asc").Find(&list).Error; err != nil {
+		Where("goods_id = ? and user_id = ? and is_deleted = 0", goodsId, userId).Order("pid asc").Find(&list).Error; err != nil {
 		return nil, err
 	}
 	if len(list) == 0 {

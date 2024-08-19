@@ -381,7 +381,7 @@
 <!--              <el-input-number v-model="formData.pingtuanPrice"  style="width:100%" :precision="2" :clearable="true"  />-->
 <!--            </el-form-item>-->
             <el-form-item label="商品属性:"  prop="propertyIds" >
-              <bee-mul-select v-model="formData.propertyIds" :options="goodsPropList.filter(item=>item.propertyId===0)" :field="'id'" :label="'name'"  ></bee-mul-select>
+              <bee-mul-select v-model="formData.propertyIds" :options="goodsPropList.filter(item=>!item.propertyId)" :field="'id'" :label="'name'"  ></bee-mul-select>
             </el-form-item>
 <!--            <el-form-item label="推荐状态:"  prop="recommendStatus" >-->
 <!--              <el-input v-model.number="formData.recommendStatus" :clearable="true" placeholder="请输入推荐状态" />-->

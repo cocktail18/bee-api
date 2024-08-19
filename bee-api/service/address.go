@@ -85,7 +85,7 @@ func (srv *AddressSrv) AddAddress(c context.Context, address *model.BeeUserAddre
 
 func (srv *AddressSrv) SaveAddress(c context.Context, address *model.BeeUserAddress) (*proto.UserAddressResp, error) {
 	var oldAddress model.BeeUserAddress
-	err := db.GetDB().Where("id = ? and uid = ?", address.Id, address.Uid).Take(&oldAddress).Error
+	err := db.GetDB().Where("id = ? and uid = ? and is_deleted = 0", address.Id, address.Uid).Take(&oldAddress).Error
 	if err != nil {
 		return nil, err
 	}
@@ -168,13 +168,13 @@ func (srv *AddressSrv) ListAddress(c context.Context) ([]*proto.UserAddressResp,
 
 func (srv *AddressSrv) GetAddressDto(c context.Context, userId int64, id int64) (*model.BeeUserAddress, error) {
 	var address model.BeeUserAddress
-	err := db.GetDB().Where("id = ? and uid = ?", id, userId).Take(&address).Error
+	err := db.GetDB().Where("id = ? and uid = ? and is_deleted = 0", id, userId).Take(&address).Error
 	return &address, err
 }
 
 func (srv *AddressSrv) GetAddress(c context.Context, id int64) (*proto.UserAddressDetailResp, error) {
 	var address model.BeeUserAddress
-	err := db.GetDB().Where("id = ? and uid = ?", id, kit.GetUid(c)).Take(&address).Error
+	err := db.GetDB().Where("id = ? and uid = ? and is_deleted = 0", id, kit.GetUid(c)).Take(&address).Error
 	if err != nil {
 		return nil, err
 	}
@@ -223,7 +223,7 @@ func (srv *AddressSrv) DeleteAddress(userId int64, id int64) error {
 func (srv *AddressSrv) Default(c context.Context) (*proto.UserAddressDetailResp, error) {
 	var address model.BeeUserAddress
 	uid := kit.GetUid(c)
-	err := db.GetDB().Where("is_default = 1 and uid = ?", uid).Take(&address).Error
+	err := db.GetDB().Where("is_default = 1 and uid = ? and is_deleted = 0", uid).Take(&address).Error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, enum.ErrEmpty
 	}

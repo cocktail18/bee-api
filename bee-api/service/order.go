@@ -48,7 +48,7 @@ type LogisticsItem struct {
 
 func (s *OrderSrv) Close(c context.Context, orderId int64, remark string) error {
 	var orderInfo model.BeeOrder
-	if err := db.GetDB().Where("id = ? and uid = ?", orderId, kit.GetUid(c)).Take(&orderInfo).Error; err != nil {
+	if err := db.GetDB().Where("id = ? and uid = ? and is_deleted = 0", orderId, kit.GetUid(c)).Take(&orderInfo).Error; err != nil {
 		return err
 	}
 	if orderInfo.Status != enum.OrderStatusUnPaid {
@@ -80,13 +80,13 @@ func (s *OrderSrv) Close(c context.Context, orderId int64, remark string) error 
 				return item.CouponId
 			})
 			if len(couponIds) > 0 {
-				if err := tx.Model(&model.BeeOrderCoupon{}).Where("coupon_id in ? and uid = ?", couponIds, kit.GetUid(c)).Updates(map[string]interface{}{
+				if err := tx.Model(&model.BeeOrderCoupon{}).Where("coupon_id in ? and uid = ? and is_deleted = 0", couponIds, kit.GetUid(c)).Updates(map[string]interface{}{
 					"status":      enum.OrderStatusClose,
 					"date_update": time.Now(),
 				}).Error; err != nil {
 					return err
 				}
-				if err := tx.Model(&model.BeeUserCoupon{}).Where("id in ?", couponIds).Updates(map[string]interface{}{
+				if err := tx.Model(&model.BeeUserCoupon{}).Where("id in ? and is_deleted = 0", couponIds).Updates(map[string]interface{}{
 					"status":      enum.CouponStatusNormal,
 					"date_update": time.Now(),
 				}).Error; err != nil {
@@ -492,7 +492,7 @@ func (s *OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOr
 func (s *OrderSrv) getQuDanHao(c context.Context, shopInfo *model.BeeShopInfo, t string) (string, error) {
 	var item = &model.BeeOrderQuDanHao{}
 	if err := db.GetDB().Transaction(func(tx *gorm.DB) error {
-		if err := tx.Set("gorm:query_option", "FOR UPDATE").Where("shop_id = ? and `type`=?", shopInfo.Id, t).
+		if err := tx.Set("gorm:query_option", "FOR UPDATE").Where("shop_id = ? and `type`=?  and is_deleted = 0", shopInfo.Id, t).
 			Assign(model.BeeOrderQuDanHao{
 				BaseModel: *kit.GetInsertBaseModel(c),
 				ShopId:    shopInfo.Id,
