@@ -9,6 +9,9 @@ import (
 
 // GetDBPropertyChildIds 倒序排列
 func GetDBPropertyChildIds(str string) string {
+	if str == "" {
+		return ""
+	}
 	propPair := make([]string, 0)
 	strArr := strings.Split(str, ",")
 	for _, s := range strArr {
