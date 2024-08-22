@@ -1,6 +1,7 @@
 package bee
 
 import (
+	"gitee.com/stuinfer/bee-api/kit"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -13,6 +14,7 @@ type BeeShopGoodsSkuService struct{}
 func (beeShopGoodsSkuService *BeeShopGoodsSkuService) CreateBeeShopGoodsSku(beeShopGoodsSku *bee.BeeShopGoodsSku) (err error) {
 	beeShopGoodsSku.DateAdd = utils.NowPtr()
 	beeShopGoodsSku.DateUpdate = utils.NowPtr()
+	beeShopGoodsSku.PropertyChildIds = kit.GetDBPropertyChildIds(beeShopGoodsSku.PropertyChildIds)
 	err = GetBeeDB().Create(beeShopGoodsSku).Error
 	return err
 }
@@ -43,6 +45,7 @@ func (beeShopGoodsSkuService *BeeShopGoodsSkuService) DeleteBeeShopGoodsSkuByIds
 // Author [piexlmax](https://github.com/piexlmax)
 func (beeShopGoodsSkuService *BeeShopGoodsSkuService) UpdateBeeShopGoodsSku(beeShopGoodsSku bee.BeeShopGoodsSku, shopUserId int) (err error) {
 	beeShopGoodsSku.DateUpdate = utils.NowPtr()
+	beeShopGoodsSku.PropertyChildIds = kit.GetDBPropertyChildIds(beeShopGoodsSku.PropertyChildIds)
 	err = GetBeeDB().Model(&bee.BeeShopGoodsSku{}).Where("id = ? and user_id = ?", beeShopGoodsSku.Id, shopUserId).Updates(&beeShopGoodsSku).Error
 	return err
 }
