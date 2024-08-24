@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"errors"
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/kit"
@@ -26,9 +27,33 @@ func GetBalanceSrv() *BalanceSrv {
 	return balanceSrvInstance
 }
 
-func (srv *BalanceSrv) GetAmount(userId int64) (*model.BeeUserAmount, error) {
+func (srv *BalanceSrv) InitAmount(ctx context.Context, uid int64) (*model.BeeUserAmount, error) {
+	amount := model.BeeUserAmount{
+		BaseModel:         *kit.GetInsertBaseModel(ctx),
+		Uid:               uid,
+		Balance:           decimal.Zero,
+		Freeze:            decimal.Zero,
+		FxCommisionPaying: decimal.Zero,
+		Growth:            decimal.Zero,
+		Score:             decimal.Zero,
+		ScoreLastRound:    decimal.Zero,
+		TotalPayAmount:    decimal.Zero,
+		TotalPayNumber:    decimal.Zero,
+		TotalScore:        decimal.Zero,
+		TotalWithdraw:     decimal.Zero,
+		TotalConsumed:     decimal.Zero,
+		Pwd:               "",
+		Salt:              "",
+	}
+	return &amount, db.GetDB().Create(&amount).Error
+}
+
+func (srv *BalanceSrv) GetAmount(ctx context.Context, uid int64) (*model.BeeUserAmount, error) {
 	var amount model.BeeUserAmount
-	err := db.GetDB().Where("uid = ?", userId).Take(&amount).Error
+	err := db.GetDB().Where("uid = ?", uid).Take(&amount).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return srv.InitAmount(ctx, uid)
+	}
 	return &amount, err
 }
 
@@ -96,7 +121,7 @@ func (srv *BalanceSrv) OperAmountByTx(c context.Context, tx *gorm.DB, userId int
 			return nil, err
 		}
 	}
-	return srv.GetAmount(userId)
+	return srv.GetAmount(c, userId)
 }
 
 func (srv *BalanceSrv) OperAmount(c context.Context, userId int64, amountType enum.BalanceType, num decimal.Decimal, orderId string, mark string, extraTx ...func(tx *gorm.DB) error) (*model.BeeUserAmount, error) {

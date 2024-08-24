@@ -814,7 +814,7 @@ func (s *OrderSrv) PayOrderByBalance(c context.Context, ip string, payLog *model
 	}
 
 	// 获取用户余额
-	userAmount, err := GetBalanceSrv().GetAmount(orderInfo.Uid)
+	userAmount, err := GetBalanceSrv().GetAmount(c, orderInfo.Uid)
 	if err != nil {
 		return errors.Wrap(err, "获取用户余额失败")
 	}
@@ -934,7 +934,7 @@ func (s *OrderSrv) GetOrderDetailByOrderId(c context.Context, orderId int64) (*p
 func (s *OrderSrv) PayByBalance(c context.Context, ip, orderId string, code string, pwd string) error {
 	orderNumArr := strings.Split(orderId, ",")
 	// @todo 短信验证码检查
-	amount, err := GetBalanceSrv().GetAmount(kit.GetUid(c))
+	amount, err := GetBalanceSrv().GetAmount(c, kit.GetUid(c))
 	if err != nil {
 		return err
 	}

@@ -48,12 +48,12 @@ func (srv *PrinterSrv) printOrder(ctx context.Context, item *model.BeeOrderPrint
 	if err != nil {
 		return err
 	}
-	userBalance, err := GetBalanceSrv().GetAmount(item.UserId)
+	userBalance, err := GetBalanceSrv().GetAmount(ctx, orderDto.Uid)
 	if err != nil {
 		return err
 	}
 
-	userInfo, err := GetUserSrv().GetUserInfoByUid(ctx, item.UserId)
+	userInfo, err := GetUserSrv().GetUserInfoByUid(ctx, orderDto.Uid)
 	if err != nil {
 		return err
 	}

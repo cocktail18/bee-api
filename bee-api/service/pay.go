@@ -328,7 +328,7 @@ func (fee *PaySrv) PayBill(c context.Context, shopId int64, money decimal.Decima
 			RealMoney: money,
 		}, nil
 	}
-	balance, err := GetBalanceSrv().GetAmount(kit.GetUid(c))
+	balance, err := GetBalanceSrv().GetAmount(c, kit.GetUid(c))
 	if err != nil {
 		return nil, err
 	}
