@@ -268,7 +268,7 @@ func (*BeeShopPlugin) startBeeApi() {
 	appCfg := &config.AppConfig{
 		App: &config.App{
 			Listen:  listen,
-			DfsHost: "",
+			DfsHost: util.IF(global.GVA_CONFIG.BeeShop.Host == "", "http://127.0.0.1:18083", global.GVA_CONFIG.BeeShop.Host),
 		},
 		DB: &config.AppDBConfig{
 			Drop:     false,

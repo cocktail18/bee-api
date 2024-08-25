@@ -5,8 +5,10 @@ go 1.22
 toolchain go1.22.5
 
 require (
+	github.com/PuerkitoBio/goquery v1.9.2
 	github.com/agiledragon/gomonkey/v2 v2.12.0
 	github.com/aliyun/aliyun-oss-go-sdk v3.0.2+incompatible
+	github.com/asaskevich/EventBus v0.0.0-20200907212545-49d423059eef
 	github.com/aws/aws-sdk-go v1.54.19
 	github.com/bitly/go-simplejson v0.5.1
 	github.com/gin-gonic/gin v1.10.0
@@ -27,7 +29,6 @@ require (
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.9.0
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.42
-	github.com/xhd2015/xgo/runtime v1.0.45
 	go.uber.org/zap v1.27.0
 	golang.org/x/crypto v0.25.0
 	golang.org/x/net v0.27.0
@@ -38,7 +39,7 @@ require (
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
-	github.com/asaskevich/EventBus v0.0.0-20200907212545-49d423059eef // indirect
+	github.com/andybalholm/cascadia v1.3.2 // indirect
 	github.com/bytedance/sonic v1.11.6 // indirect
 	github.com/bytedance/sonic/loader v0.1.1 // indirect
 	github.com/clbanning/mxj v1.8.4 // indirect

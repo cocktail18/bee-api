@@ -164,13 +164,13 @@ pgsql:
     singular: false
     log-zap: false
 qiniu:
-    zone: ZoneHuaDong
-    bucket: first
-    img-path: http://cdn2.fbsst.top
-    access-key: UcFvPQaPPsNsyA0tl05QPQyO00s9NLoE47m-QWAV
-    secret-key: T6pSlkV_U4YYrB7zFLTL_P6YnPp6-8kLYbNyUMHc
-    use-https: false
-    use-cdn-domains: false
+  zone: ZoneHuaDong
+  bucket: YOUR_BUCKET_NAME
+  img-path: http://xxxx.com
+  access-key: YOUR_ACCESS_KEY
+  secret-key: YOUR_SECRET_KEY
+  use-https: false
+  use-cdn-domains: false
 redis:
     addr: 127.0.0.1:6379
     password: ""

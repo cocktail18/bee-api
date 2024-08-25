@@ -591,6 +591,9 @@ func (s *OrderSrv) List(c context.Context, req *proto.ListOrderReq) (*proto.List
 	if err := db.GetDB().Where("order_id in ?", orderIds).Find(&orderGoodsList).Error; err != nil {
 		return nil, err
 	}
+	lo.ForEach(orderGoodsList, func(item *model.BeeOrderGoods, _ int) {
+		item.Pic = GetDfsSrv().FillFileUrl(item.Pic)
+	})
 	var orderLogisticsList []*model.BeeOrderLogistics
 	if err := db.GetDB().Where("order_id in ?", orderIds).Find(&orderLogisticsList).Error; err != nil {
 		return nil, err

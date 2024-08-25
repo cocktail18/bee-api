@@ -2,14 +2,12 @@ package service
 
 import (
 	"context"
-	"gitee.com/stuinfer/bee-api/common"
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
 	"sync"
-	"time"
 )
 
 type CommentSrv struct {
@@ -27,16 +25,9 @@ func GetCommentSrv() *CommentSrv {
 }
 
 func (s *CommentSrv) Add(c context.Context, req *proto.CommentAddReq) error {
-	userId := kit.GetUserId(c)
 	uid := kit.GetUid(c)
-	now := time.Now()
 	return db.GetDB().Create(&model.BeeComment{
-		BaseModel: common.BaseModel{
-			UserId:     userId,
-			IsDeleted:  false,
-			DateAdd:    common.JsonTime(now),
-			DateUpdate: common.JsonTime(now),
-		},
+		BaseModel:  *kit.GetInsertBaseModel(c),
 		Uid:        uid,
 		RefId:      req.RefId,
 		Pid:        req.Pid,

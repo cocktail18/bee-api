@@ -40,7 +40,13 @@ func (srv *GoodsSrv) GetGoodsList(c context.Context, shopId int64, categoryId in
 		dbIns = dbIns.Where("shop_id = ?", shopId)
 	}
 	err := dbIns.Order("paixu desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&list).Error
-	return list, err
+	if err != nil {
+		return nil, err
+	}
+	for _, goods := range list {
+		goods.Pic = GetDfsSrv().FillFileUrl(goods.Pic)
+	}
+	return list, nil
 }
 
 func (srv *GoodsSrv) GetCategoryAll(c context.Context) ([]*model.BeeShopGoodsCategory, error) {
@@ -58,6 +64,7 @@ func (srv *GoodsSrv) GetGoodsDetail(c context.Context, id int64, regionId string
 	if err != nil {
 		return nil, err
 	}
+	goods.Pic = GetDfsSrv().FillFileUrl(goods.Pic)
 	var category model.BeeShopGoodsCategory
 	err = db.GetDB().Where("id = ? and is_deleted = 0", goods.CategoryId).First(&category).Error
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
@@ -68,11 +75,15 @@ func (srv *GoodsSrv) GetGoodsDetail(c context.Context, id int64, regionId string
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, err
 	}
+	content.Content = GetDfsSrv().ReplaceHtmlFilepath(content.Content)
 	var pics []*model.BeeShopGoodsImages
 	err = db.GetDB().Where("goods_id = ? and is_deleted = 0", goods.Id).Find(&pics).Error
 	if err != nil {
 		return nil, err
 	}
+	lo.ForEach(pics, func(item *model.BeeShopGoodsImages, _ int) {
+		item.Pic = GetDfsSrv().FillFileUrl(item.Pic)
+	})
 
 	var skuList []*model.BeeShopGoodsSku
 	err = db.GetDB().Where("goods_id = ? and is_deleted = 0", goods.Id).Find(&skuList).Error

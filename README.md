@@ -58,11 +58,34 @@ subDomain: `cocktailBeeOrder`
    a. 检查用户授权，进入后台-》超级管理员-》设置权限，勾选需要的权限，注意角色api 的也要勾选，如果不确定需要什么权限，直接全选即可
 2. 小程序文件上传报错
 
-   a.  搜索小程序的 miniprogram_npm/apifm-wxapi/index.js，将 `url: 'https://oss.apifm.com/upload2',` 替换成 `url: http://127.0.0.1:18083/upload2,`   
+   a.  搜索小程序的 miniprogram_npm/apifm-wxapi/index.js，将 `url: 'https://oss.apifm.com/upload2',` 替换成 `url: http://127.0.0.1:18083/upload2,`
+3. 怎样使用云存储
 
+    a.  修改配置文件 config.yaml   
+```yaml
+system:
+    oss-type: local # 将这个改成你想要的云存储类型，目前支持：tencent-cos、
 
+# 修改对应的云存储配置，比如说qiniu 
+qiniu:
+  zone: ZoneHuaDong
+  bucket: YOUR_BUCKET_NAME
+  img-path: http://xxxx.com
+  access-key: YOUR_ACCESS_KEY
+  secret-key: YOUR_SECRET_KEY
+  use-https: false
+  use-cdn-domains: false
+```
+目前支持的类型：
+qiniu
+tencent-cos
+aliyun-oss
+huawei-obs
+aws-s3
 
-#### 后台截图demo
+4. 
+
+### 后台截图de
 ![](imgs/demo01.jpg)
 ![](imgs/demo02.jpg)
 ![](imgs/demo03.jpg)

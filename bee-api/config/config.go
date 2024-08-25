@@ -77,11 +77,11 @@ func InitConfig() {
 }
 
 func GetStorePath() string {
-	return util.IF(AppConfigIns.App.StorePath == "", "uploads/file", AppConfigIns.App.StorePath)
+	return AppConfigIns.Upload.Local.StorePath
 }
 
-func GetDfsHost(host string) string {
-	return util.IF(AppConfigIns.App.DfsHost == "", "http://"+host, AppConfigIns.App.DfsHost)
+func GetDfsHost() string {
+	return AppConfigIns.App.DfsHost
 }
 
 func GetOssType() string {
