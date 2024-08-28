@@ -339,7 +339,10 @@ const page = ref(1)
 const total = ref(0)
 const pageSize = ref(10)
 const tableData = ref([])
-const searchInfo = ref({})
+const searchInfo = ref({
+  sort: 'id',
+  order: 'descending',
+})
 // 排序
 const sortChange = ({ prop, order }) => {
   const sortMap = {
@@ -358,7 +361,10 @@ const sortChange = ({ prop, order }) => {
 
 // 重置
 const onReset = () => {
-  searchInfo.value = {}
+  searchInfo.value = {
+    sort: 'id',
+    order: 'descending',
+  }
   getTableData()
 }
 

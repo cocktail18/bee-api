@@ -157,7 +157,50 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 			Method:      "PUT",
 		},
 	)
+	utils.RegisterApis(
+		system.SysApi{
+			Path:        "/bee-shop/beeCyTable/getBeeCyTableQrCode",
+			Description: "获取桌子二维码",
+			ApiGroup:    "bee-shop",
+			Method:      "GET",
+		},
+	)
 	utils.RegisterApis(ins.genPluginApi("beePrinter", "打印机")...)
+	utils.RegisterApis(ins.genPluginApi("beeOrderPeisong", "订单配送")...)
+	utils.RegisterApis(ins.genPluginApi("beeOrderPeisongLog", "订单配送日志")...)
+	utils.RegisterApis(ins.genPluginApi("beeDelivery", "配送供应商")...)
+	utils.RegisterApis(
+		system.SysApi{
+			Path:        "/bee-shop/beeOrderPeisong/cancelBeeOrderPeisong",
+			Description: "取消配送",
+			ApiGroup:    "bee-shop",
+			Method:      "POST",
+		},
+	)
+	utils.RegisterApis(
+		system.SysApi{
+			Path:        "/bee-shop/beeOrderPeisong/notifyBeeOrderPeisong",
+			Description: "通知配送",
+			ApiGroup:    "bee-shop",
+			Method:      "POST",
+		},
+	)
+	utils.RegisterApis(
+		system.SysApi{
+			Path:        "/bee-shop/beeOrderPeisong/getBeeOrderPeisongDetail",
+			Description: "获取配送信息详情",
+			ApiGroup:    "bee-shop",
+			Method:      "GET",
+		},
+	)
+	utils.RegisterApis(
+		system.SysApi{
+			Path:        "/bee-shop/beeOrder/shippedBeeOrder",
+			Description: "确认已发货",
+			ApiGroup:    "bee-shop",
+			Method:      "PUT",
+		},
+	)
 	utils.RegisterApis(
 		system.SysApi{
 			Path:        "/bee-shop/beePrinter/testBeePrinter",
@@ -166,11 +209,33 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 			Method:      "POST",
 		},
 	)
+	ins.registerBaseMenu("shop-order-admin", system.SysBaseMenu{
+		Path: "beeOrderPeisong",
+		Name: "beeOrderPeisong",
+		Meta: system.Meta{
+			Title: "订单配送信息",
+		},
+	})
+
+	ins.registerBaseMenu("shop-order-admin", system.SysBaseMenu{
+		Path: "beeOrderPeisongLog",
+		Name: "beeOrderPeisongLog",
+		Meta: system.Meta{
+			Title: "订单配送信息日志",
+		},
+	})
 	ins.registerBaseMenu("shop-base-info", system.SysBaseMenu{
 		Path: "beePrinter",
 		Name: "beePrinter",
 		Meta: system.Meta{
 			Title: "打印机配置",
+		},
+	})
+	ins.registerBaseMenu("bee_logistics_admin", system.SysBaseMenu{
+		Path: "beeDelivery",
+		Name: "beeDelivery",
+		Meta: system.Meta{
+			Title: "配送供应商配置",
 		},
 	})
 	ins.registerBaseMenu("bee_index", system.SysBaseMenu{
@@ -261,6 +326,12 @@ func (*BeeShopPlugin) startBeeApi() {
 	if err != nil {
 		panic(err)
 	}
+	if !b {
+		if err = ioutil.WriteFile(lockFile, []byte("初始化完成后请不要删除该文件"), 0644); err != nil {
+			logger.GetLogger().Error("写入初始化文件失败", zap.Error(err))
+			panic(err.Error())
+		}
+	}
 	listen := global.GVA_CONFIG.BeeShop.Listen
 	if listen == "" {
 		listen = "127.0.0.1:18083"
@@ -269,6 +340,7 @@ func (*BeeShopPlugin) startBeeApi() {
 		App: &config.App{
 			Listen:  listen,
 			DfsHost: util.IF(global.GVA_CONFIG.BeeShop.Host == "", "http://127.0.0.1:18083", global.GVA_CONFIG.BeeShop.Host),
+			Host:    util.IF(global.GVA_CONFIG.BeeShop.Host == "", "http://127.0.0.1:18083", global.GVA_CONFIG.BeeShop.Host),
 		},
 		DB: &config.AppDBConfig{
 			Drop:     false,
@@ -338,7 +410,7 @@ func (*BeeShopPlugin) startBeeApi() {
 	}
 	logger.SetLogger(global.GVA_LOG)
 	cmd.Run(appCfg)
-	_ = ioutil.WriteFile(lockFile, []byte("初始化完成后请不要删除该文件"), 0644)
+
 }
 
 func (*BeeShopPlugin) Register(group *gin.RouterGroup) {
@@ -387,9 +459,12 @@ func (*BeeShopPlugin) Register(group *gin.RouterGroup) {
 	beeRouter.InitBeeWxPayConfigRouter(privateGroup, publicGroup)
 	beeRouter.InitBeeNoticeRouter(privateGroup, publicGroup)
 	beeRouter.InitBeeLogisticsRouter(privateGroup, publicGroup)
+	beeRouter.InitBeeOrderPeisongRouter(privateGroup, publicGroup)
 
 	beeRouter.InitBeeOrderLogRouter(privateGroup, publicGroup)
 	beeRouter.InitBeePrinterRouter(privateGroup, publicGroup)
+	beeRouter.InitBeeDeliveryRouter(privateGroup, publicGroup)
+	beeRouter.InitBeeOrderPeisongLogRouter(privateGroup, publicGroup)
 }
 
 func (*BeeShopPlugin) RouterPath() string {

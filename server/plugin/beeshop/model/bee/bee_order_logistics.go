@@ -28,6 +28,8 @@ type BeeOrderLogistics struct {
 	Status      *int       `json:"status" form:"status" gorm:"column:status;comment:状态;size:19;"`                  //状态
 	Uid         *int       `json:"uid" form:"uid" gorm:"column:uid;comment:用户id;size:19;"`                         //用户id
 	OrderId     *int       `json:"orderId" form:"orderId" gorm:"column:order_id;comment:订单id;size:19;"`            //订单id
+	DadaShopNo  string     `json:"dadaShopNo" form:"dadaShopNo" gorm:"column:dada_shop_no;comment:达达店铺号;size:100;"`
+	ShopId      *int       `json:"shopId" form:"shopId" gorm:"column:shop_id;comment:商店id;size:19;"`
 }
 
 // TableName 用户订单地址 BeeOrderLogistics自定义表名 bee_order_logistics

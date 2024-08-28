@@ -1,6 +1,8 @@
 package model
 
 import (
+	"encoding/json"
+	"fmt"
 	"gitee.com/stuinfer/bee-api/common"
 	"gitee.com/stuinfer/bee-api/enum"
 	"github.com/samber/lo"
@@ -32,7 +34,7 @@ type BeeOrder struct {
 	IsDelUser         bool                   `gorm:"column:is_del_user;type:tinyint(1);comment:用户删除" json:"isDelUser"`
 	IsEnd             bool                   `gorm:"column:is_end;type:tinyint(1);comment:订单已经结束" json:"isEnd"`
 	IsHasBenefit      bool                   `gorm:"column:is_has_benefit;type:tinyint(1);comment:是否有收益" json:"isHasBenefit"`
-	IsNeedLogistics   bool                   `gorm:"column:is_need_logistics;type:tinyint(1);comment:需要配送" json:"isNeedLogistics"`
+	IsNeedLogistics   bool                   `gorm:"column:is_need_logistics;type:tinyint(1);comment:需要快递" json:"isNeedLogistics"`
 	IsPay             bool                   `gorm:"column:is_pay;type:tinyint(1);comment:是否已经支付" json:"isPay"`
 	IsScoreOrder      bool                   `gorm:"column:is_score_order;type:tinyint(1);comment:是否有积分" json:"isScoreOrder"`
 	IsSuccessPingtuan bool                   `gorm:"column:is_success_pingtuan;type:tinyint(1);comment:是否拼团成功" json:"isSuccessPingtuan"`
@@ -52,10 +54,24 @@ type BeeOrder struct {
 	Type              enum.OrderType         `gorm:"column:type;type:bigint(11);comment:订单类型" json:"type"`
 	Uid               int64                  `gorm:"column:uid;type:bigint(11);comment:用户id" json:"uid"`
 	ExtJsonStr        string                 `gorm:"column:ext_json_str;type:varchar(1000);comment:扩展信息" json:"extJsonStr"`
+	PeisongType       string                 `gorm:"column:peisong_type;type:varchar(30);comment:配送类型" json:"peisongType"`
 }
 
 func (m *BeeOrder) TableName() string {
 	return "bee_order"
+}
+
+func (m *BeeOrder) ExtJsonToString() string {
+	if m.ExtJsonStr == "" {
+		return ""
+	}
+	var ma = make(map[string]interface{})
+	_ = json.Unmarshal([]byte(m.ExtJsonStr), &ma)
+	str := ""
+	for k, v := range ma {
+		str = str + k + ":" + fmt.Sprintf("%v", v) + ","
+	}
+	return str
 }
 
 // BeeOrderGoods 订单商品
@@ -91,6 +107,7 @@ type BeeOrderGoods struct {
 	Type             int64                  `gorm:"column:type;type:bigint(11);comment:类型" json:"type"`
 	Uid              int64                  `gorm:"column:uid;type:bigint(11);comment:用户id" json:"uid"`
 	Unit             string                 `gorm:"column:unit;type:varchar(100);comment:单位" json:"unit"`
+	Weight           decimal.Decimal        `gorm:"column:weight;type:decimal(10,2);comment:重量" json:"weight"`
 }
 
 func (m *BeeOrderGoods) TableName() string {
@@ -100,7 +117,9 @@ func (m *BeeOrderGoods) TableName() string {
 // BeeOrderLogistics 订单收货地址
 type BeeOrderLogistics struct {
 	BeeUserAddress
-	OrderId int64 `gorm:"column:order_id;type:bigint(11);comment:订单id" json:"orderId"`
+	OrderId    int64  `gorm:"column:order_id;type:bigint(11);comment:订单id" json:"orderId"`
+	DadaShopNo string `gorm:"column:dada_shop_no;type:varchar(100);comment:达达门店编号" json:"dadaShopNo"`
+	ShopId     int64  `gorm:"column:shop_id;type:bigint(11);comment:商店id" json:"shopId"`
 }
 
 func (m *BeeOrderLogistics) TableName() string {
@@ -159,12 +178,35 @@ func (m *BeeOrderPayLog) TableName() string {
 type BeeOrderPeisong struct {
 	common.BaseModel
 	OrderId        int64                   `gorm:"column:order_id;type:bigint(100);comment:订单id" json:"orderId"`
-	PeisongOrderId string                  `gorm:"column:peisong_order_id;type:varchar(100);comment:配送订单id" json:"peisongOrderId"`
+	PeisongOrderNo string                  `gorm:"uniqueIndex;column:peisong_order_no;type:varchar(100);comment:配送订单号" json:"prisongOrderNo"` //bee-api配送订单号
+	Type           enum.DeliveryType       `gorm:"column:type;type:bigint(11);comment:配送类型" json:"type"`
+	PeisongOrderId string                  `gorm:"uniqueIndex;column:peisong_order_id;type:varchar(100);comment:配送订单id" json:"peisongOrderId"` //第三方
+	Money          decimal.Decimal         `gorm:"column:money;type:decimal(10,2);comment:配送费" json:"money"`
+	RealMoney      decimal.Decimal         `gorm:"column:real_money;type:decimal(10,2);comment:实际支付金额" json:"realMoney"`
+	DeductFee      decimal.Decimal         `gorm:"column:deduct_fee;type:decimal(10,2);comment:取消配送扣费" json:"deductFee"`
 	Status         enum.OrderPaisongStatus `gorm:"column:status;type:bigint(11);comment:状态" json:"status"`
+	IsCancel       bool                    `gorm:"column:is_cancel;type:tinyint(1);comment:是否取消" json:"isCancel"`
+	ErrMsg         string                  `gorm:"column:err_msg;type:varchar(1000);comment:配送错误信息" json:"errMsg"`
+	ThirdStatus    string                  `gorm:"column:third_status;type:varchar(3000);comment:第三方状态" json:"thirdStatus"`
+	RetryTimes     int                     `gorm:"column:retry_times;type:bigint(11);comment:重试次数" json:"retryTimes"`
+	LastRetryUnix  int64                   `gorm:"column:last_retry_unix;type:bigint(11);comment:上次重试时间" json:"lastRetryUnix"`
+	ReqData        string                  `gorm:"column:req_data;type:text;comment:请求数据" json:"reqData"`
 }
 
 func (m *BeeOrderPeisong) TableName() string {
 	return "bee_order_peisong"
+}
+
+type BeeOrderPeisongLog struct {
+	common.BaseModel
+	OrderId        int64  `gorm:"column:order_id;type:bigint(100);comment:订单id" json:"orderId"`
+	PeisongOrderNo string `gorm:"column:peisong_order_no;type:varchar(100);comment:配送订单号" json:"prisongOrderNo"`
+	Remark         string `gorm:"column:remark;type:varchar(500);comment:备注" json:"remark"`
+	Log            string `gorm:"column:log;type:text;comment:日志" json:"log"`
+}
+
+func (m *BeeOrderPeisongLog) TableName() string {
+	return "bee_order_peisong_log"
 }
 
 type BeeOrderLog struct {

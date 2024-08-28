@@ -286,6 +286,7 @@
         <el-table-column align="left" label="商店id" prop="shopId" width="120"/>
         <el-table-column align="left" label="自提商店id" prop="shopIdZt" width="120"/>
         <el-table-column align="left" label="自提商店名称" prop="shopNameZt" width="120"/>
+        <el-table-column align="left" label="配送类型" prop="peisongType" width="120"/>
         <el-table-column align="left" label="订单状态" prop="status" width="120">
           <template #default="scope">{{ formatEnum(scope.row.status, beeOrderStatus) }}</template>
         </el-table-column>
@@ -437,6 +438,9 @@
           <el-switch v-model="formData.isNeedLogistics" active-color="#13ce66" inactive-color="#ff4949" active-text="是"
                      inactive-text="否" clearable></el-switch>
         </el-form-item>
+        <el-form-item label="配送类型:" prop="peisongType">
+          <el-input v-model="formData.peisongType" :clearable="true" placeholder="请输入配送类型"/>
+        </el-form-item>
         <el-form-item label="是否已经支付:" prop="isPay">
           <el-switch v-model="formData.isPay" active-color="#13ce66" inactive-color="#ff4949" active-text="是"
                      inactive-text="否" clearable></el-switch>
@@ -560,6 +564,7 @@ const formData = ref({
   isEnd: false,
   isHasBenefit: false,
   isNeedLogistics: false,
+  peisongType: '',
   isPay: false,
   isScoreOrder: false,
   isSuccessPingtuan: false,
@@ -675,7 +680,10 @@ const page = ref(1)
 const total = ref(0)
 const pageSize = ref(10)
 const tableData = ref([])
-const searchInfo = ref({})
+const searchInfo = ref({
+  sort: 'id',
+  order: 'descending',
+})
 // 排序
 const sortChange = ({prop, order}) => {
   const sortMap = {
@@ -695,7 +703,10 @@ const sortChange = ({prop, order}) => {
 
 // 重置
 const onReset = () => {
-  searchInfo.value = {}
+  searchInfo.value = {
+    sort: 'id',
+    order: 'descending',
+  }
   getTableData()
 }
 
@@ -919,6 +930,7 @@ const closeDialog = () => {
     shopId: undefined,
     shopIdZt: undefined,
     shopNameZt: '',
+    peisongType: '',
     status: undefined,
     trips: undefined,
     type: undefined,

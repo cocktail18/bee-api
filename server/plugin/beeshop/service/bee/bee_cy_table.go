@@ -1,10 +1,15 @@
 package bee
 
 import (
+	"context"
+	"fmt"
+	"gitee.com/stuinfer/bee-api/service"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
+	"github.com/medivhzhan/weapp/v3"
 	"github.com/samber/lo"
+	"github.com/spf13/cast"
 )
 
 type BeeCyTableService struct{}
@@ -104,4 +109,26 @@ func (beeCyTableService *BeeCyTableService) GetBeeCyTableInfoList(info beeReq.Be
 
 	err = db.Find(&beeCyTables).Error
 	return beeCyTables, total, err
+}
+
+func (beeCyTableService *BeeCyTableService) GetBeeCyTableQrCode(id string, shopUserId int) ([]byte, error) {
+	info, err := beeCyTableService.GetBeeCyTable(id, shopUserId)
+	if err != nil {
+		return nil, err
+	}
+	ctx := context.Background()
+	wxAppSrv, err := service.GetWxAppSrvByUserId(ctx, int64(shopUserId))
+	if err != nil {
+		return nil, err
+	}
+	return wxAppSrv.GetWxAppQrCode(ctx, &weapp.UnlimitedQRCode{
+		Scene:      fmt.Sprintf("shopId=%d,id=%d,key=%s", cast.ToInt64(info.ShopId), cast.ToInt64(info.Id), info.Key),
+		Page:       "pages/index/index",
+		CheckPath:  true,
+		EnvVersion: "",
+		Width:      1280,
+		AutoColor:  true,
+		LineColor:  weapp.Color{},
+		IsHyaline:  false,
+	})
 }

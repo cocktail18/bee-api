@@ -252,11 +252,15 @@ func (srv *PrinterSrv) buildContent(ctx context.Context, tpl string, data any) (
 	return buf.String(), nil
 }
 
-func (srv *PrinterSrv) StartDaemon() {
+func (srv *PrinterSrv) StartDaemon(ctx context.Context, wg *sync.WaitGroup) {
+	wg.Add(1)
 	go func() {
+		defer wg.Done()
 		ticker := time.NewTicker(time.Second * 1)
 		for {
 			select {
+			case <-ctx.Done():
+				return
 			case <-ticker.C:
 				var items []*model.BeeOrderPrintLog
 				if err := db.GetDB().Where("status = ? and is_deleted=0 and last_try_unix < ?",

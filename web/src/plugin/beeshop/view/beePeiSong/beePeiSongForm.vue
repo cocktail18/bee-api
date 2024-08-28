@@ -35,9 +35,9 @@
         <el-form-item label="类型:" prop="fwf1Type">
           <el-input v-model.number="formData.fwf1Type" :clearable="true" placeholder="请输入" />
        </el-form-item>
-        <el-form-item label="自提补贴:" prop="ztDiscounts">
-          <el-input-number v-model="formData.ztDiscounts" :precision="2" :clearable="true"></el-input-number>
-       </el-form-item>
+<!--        <el-form-item label="自提补贴:" prop="ztDiscounts">-->
+<!--          <el-input-number v-model="formData.ztDiscounts" :precision="2" :clearable="true"></el-input-number>-->
+<!--       </el-form-item>-->
         <el-form-item>
           <el-button type="primary" @click="save">保存</el-button>
           <el-button type="primary" @click="back">返回</el-button>

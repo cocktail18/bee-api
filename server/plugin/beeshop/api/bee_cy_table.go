@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/base64"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
@@ -123,6 +124,26 @@ func (beeCyTableApi *BeeCyTableApi) FindBeeCyTable(c *gin.Context) {
 		response.FailWithMessage("查询失败", c)
 	} else {
 		response.OkWithData(rebeeCyTable, c)
+	}
+}
+
+// GetBeeCyTableQrCode 用id获取二维码
+// @Tags BeeCyTable
+// @Summary 用id查询桌号信息
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query bee.BeeCyTable true "用id查询桌号信息"
+// @Success 200 {object} response.Response{data=object{},msg=string} "查询成功"
+// @Router /beeCyTable/getBeeCyTableQrCode [get]
+func (beeCyTableApi *BeeCyTableApi) GetBeeCyTableQrCode(c *gin.Context) {
+	id := c.Query("id")
+	shopUserId := int(utils.GetShopUserID(c))
+	if imgBytes, err := beeCyTableService.GetBeeCyTableQrCode(id, shopUserId); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		response.FailWithMessage("获取小程序码失败：请先上线小程序", c)
+	} else {
+		response.OkWithData(base64.StdEncoding.EncodeToString(imgBytes), c)
 	}
 }
 

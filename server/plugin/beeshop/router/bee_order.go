@@ -24,6 +24,7 @@ func (s *BeeOrderRouter) InitBeeOrderRouter(Router *gin.RouterGroup, PublicRoute
 		beeOrderRouter.PUT("updateBeeOrderStatus", beeOrderApi.UpdateBeeOrderStatus)         // 更新用户订单status字段
 		beeOrderRouter.PUT("markBeeOrderDone", beeOrderApi.MarkBeeOrderDone)                 // 设置为已完成订单
 		beeOrderRouter.PUT("markBeeOrderPaid", beeOrderApi.MarkBeeOrderPaid)                 // 设置为已支付订单
+		beeOrderRouter.PUT("shippedBeeOrder", beeOrderApi.ShippedBeeOrder)                   // 设置为已发货订单
 	}
 	{
 		beeOrderRouterWithoutRecord.GET("findBeeOrder", beeOrderApi.FindBeeOrder)       // 根据ID获取用户订单

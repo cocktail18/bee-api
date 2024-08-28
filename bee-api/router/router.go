@@ -261,7 +261,11 @@ func NewRouter() *gin.Engine {
 
 	notifyGroup := domainGroup.Group("/notify")
 	{
+		//微信支持
 		notifyGroup.POST("/wx/pay", (api.PayApi{}).WxPayCallBack)
+
+		//达达回调
+		notifyGroup.Any("/dada", (api.DadaAPi{}).Notify)
 	}
 
 	//扫码点餐

@@ -1,5 +1,11 @@
 package bee
 
+import (
+	"gitee.com/stuinfer/bee-api/kit"
+	"gitee.com/stuinfer/bee-api/sys"
+	"golang.org/x/net/context"
+)
+
 type ServiceGroup struct {
 	BeeUserMapperService
 	BeeShopGoodsCategoryService
@@ -22,13 +28,16 @@ type ServiceGroup struct {
 	BeeBannerService
 	BeeUserAmountService
 	BeeCyTableService
+	BeeDeliveryService
 	BeeRegionService
 	BeeCmsInfoService
 	BeeUserAddressService
 	BeePeiSongService
+	BeeOrderPeisongLogService
 	BeeUserService
 	BeeOrderGoodsService
 	BeeOrderLogisticsService
+	BeeOrderPeisongService
 	BeeUploadFileService
 	BeePayLogService
 	BeeWxPayConfigService
@@ -36,4 +45,14 @@ type ServiceGroup struct {
 	BeeLogisticsService
 	BeeOrderLogService
 	BeePrinterService
+}
+
+func getContext(shopUserId int) (context.Context, error) {
+	ctx := context.Background()
+	sysUser, err := sys.GetUserSrv().GetById(int64(shopUserId))
+	if err != nil {
+		return nil, err
+	}
+	ctx = kit.WithSysUser(ctx, sysUser)
+	return ctx, nil
 }

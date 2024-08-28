@@ -28,6 +28,7 @@ type UploadConfig struct {
 type App struct {
 	Listen    string
 	DfsHost   string
+	Host      string
 	StorePath string `yaml:"storePath"` //文件上传路径
 }
 
@@ -82,6 +83,10 @@ func GetStorePath() string {
 
 func GetDfsHost() string {
 	return AppConfigIns.App.DfsHost
+}
+
+func GetHost() string {
+	return AppConfigIns.App.Host
 }
 
 func GetOssType() string {

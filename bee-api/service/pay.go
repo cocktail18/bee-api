@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
+	"gitee.com/stuinfer/bee-api/config"
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/kit"
@@ -41,7 +42,8 @@ func GetPaySrv() *PaySrv {
 	return paySrvInstance
 }
 func (fee *PaySrv) getWxPayNotifyUrl(c context.Context, wxPayConfig *model.BeeWxPayConfig) string {
-	return strings.TrimRight(wxPayConfig.NotifyUrl, "/") + "/" + kit.GetDomain(c) + "/notify/wx/pay"
+	host := util.IF(wxPayConfig.NotifyUrl == "", config.GetHost(), wxPayConfig.NotifyUrl)
+	return strings.TrimRight(host, "/") + "/" + kit.GetDomain(c) + "/notify/wx/pay"
 }
 
 // WxNotify 微信支付回调网关

@@ -196,7 +196,10 @@ const searchInfo = ref({sort: 'id', order: 'descending'})
 
 // 重置
 const onReset = () => {
-  searchInfo.value = {}
+  searchInfo.value = {
+    sort: 'id',
+    order: 'descending',
+  }
   getTableData()
 }
 

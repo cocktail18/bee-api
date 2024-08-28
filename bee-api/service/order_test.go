@@ -25,14 +25,22 @@ func TestOrderSrv_CreateOrderDada(t *testing.T) {
 	config.InitConfig()
 	ctx := GetTestContext()
 	srv := GetOrderSrv()
+	gomonkey.ApplyMethodFunc(GetDeliverySrv(), "GetNotifyUrl", func(ctx context.Context, t enum.DeliveryType) (string, error) {
+		return "", nil
+	})
 	Convey("金额计算测试", t, func() {
 
-		couponVal := float64(4)
+		couponVal := float64(2)
 		freightTotal := float64(10)
+		deliverFee := decimal.NewFromFloat(3.53)
 		calFreightPatches := gomonkey.ApplyPrivateMethod(srv, "calFreight", func(context.Context, *proto.GoodsLogistics, LogisticsItem) decimal.Decimal {
 			return decimal.NewFromFloat(freightTotal)
 		})
 		defer calFreightPatches.Reset()
+		calDeliverFeePatches := gomonkey.ApplyPrivateMethod(srv, "calDeliveryFee", func(ctx context.Context, distance float64, total decimal.Decimal) (decimal.Decimal, error) {
+			return deliverFee, nil
+		})
+		defer calDeliverFeePatches.Reset()
 		//mock.Patch(srv.calFreight, func(context.Context, *proto.GoodsLogistics, LogisticsItem) decimal.Decimal {
 		//	return decimal.NewFromFloat(freightTotal)
 		//})
@@ -45,9 +53,16 @@ func TestOrderSrv_CreateOrderDada(t *testing.T) {
 		})
 		defer addressPatches.Reset()
 
+		deliveryPatches := gomonkey.ApplyMethodFunc(GetDeliverySrv(), "QueryDeliveryFee", func(ctx context.Context, t enum.DeliveryType, req *proto.QueryDeliverFeeReq) (*proto.QueryDeliverFeeResult, error) {
+			return &proto.QueryDeliverFeeResult{
+				DeliverFee: deliverFee,
+			}, nil
+		})
+		defer deliveryPatches.Reset()
+
 		goodsJsonStr := `[{"propertyChildIds":",211245:1686933,211246:1686935,211247:1686938","goodsId":1808573,"number":2,"logisticsType":0,"inviter_id":0,"goodsTimesDay":"","goodsTimesItem":""}]`
 		createOrderReq := &proto.CreateOrderReq{
-			PeisongType:  "dada",
+			PeisongType:  "kd",
 			IsCanHx:      "true",
 			ShopIdZt:     391592,
 			ShopNameZt:   "龙楼店（文昌市龙楼镇）",
@@ -62,12 +77,11 @@ func TestOrderSrv_CreateOrderDada(t *testing.T) {
 		resp, err := srv.CreateOrder(ctx, "127.0.0.1", createOrderReq)
 		fmt.Println(util.ToJsonWithoutErr(resp, ""))
 		So(err, ShouldBeNil)
-		So(resp.AmountLogistics.String(), ShouldEqual, decimal.NewFromFloat(freightTotal).String())
+		So(resp.AmountLogistics.String(), ShouldEqual, deliverFee.String())
 		So(resp.GoodsNumber, ShouldEqual, 2)
 
 		amount := resp.Amount
 		amountReal := resp.AmountReal
-		amountTotal := resp.AmountTotle
 		amountTotalOrigin := resp.AmountTotleOriginal
 
 		// 运费券测试
@@ -88,15 +102,13 @@ func TestOrderSrv_CreateOrderDada(t *testing.T) {
 		fmt.Println(util.ToJsonWithoutErr(resp, ""))
 		So(err, ShouldBeNil)
 		So(resp.AmountLogisticsCoupons.String(), ShouldEqual, decimal.NewFromFloat(couponVal).String())
-		So(resp.AmountLogisticsReal.String(), ShouldEqual, decimal.NewFromFloat(freightTotal-couponVal).String())
+		So(resp.AmountLogisticsReal.String(), ShouldEqual, deliverFee.Sub(decimal.NewFromFloat(couponVal)).String())
 		So(resp.AmountReal.String(), ShouldEqual, amountReal.Sub(decimal.NewFromFloat(couponVal)).String())
 		So(resp.Amount.String(), ShouldEqual, amount.String())
 		So(resp.AmountTotleOriginal.String(), ShouldEqual, amountTotalOrigin.String())
-		So(resp.AmountTotle.String(), ShouldEqual, amountTotal.Sub(decimal.NewFromFloat(couponVal)).String())
-		So(resp.AmountTotle.String(), ShouldEqual, resp.Amount.Add(decimal.NewFromFloat(freightTotal)).Sub(decimal.NewFromFloat(couponVal)).String())
 
 		// 普通优惠券测试
-		userCoupon = NewFixCoupon(ctx, 4, false)
+		userCoupon = NewFixCoupon(ctx, couponVal, false)
 		//mock.Patch(GetCouponSrv().GetUserCouponByIds, func(c context.Context, userId int64, ids []int64) ([]*model.BeeUserCoupon, error) {
 		//	return []*model.BeeUserCoupon{
 		//		userCoupon,
@@ -116,8 +128,6 @@ func TestOrderSrv_CreateOrderDada(t *testing.T) {
 		So(resp.AmountReal.String(), ShouldEqual, amountReal.Sub(decimal.NewFromFloat(couponVal)).String())
 		So(resp.Amount.String(), ShouldEqual, amount.String())
 		So(resp.AmountTotleOriginal.String(), ShouldEqual, amountTotalOrigin.String())
-		So(resp.AmountTotle.String(), ShouldEqual, amountTotal.Sub(decimal.NewFromFloat(couponVal)).String())
-		So(resp.AmountTotle.String(), ShouldEqual, resp.Amount.Add(decimal.NewFromFloat(freightTotal)).Sub(decimal.NewFromFloat(couponVal)).String())
 
 	})
 }
@@ -160,7 +170,6 @@ func TestOrderSrv_CreateOrderZQ(t *testing.T) {
 
 		amount := resp.Amount
 		amountReal := resp.AmountReal
-		amountTotal := resp.AmountTotle
 		amountTotalOrigin := resp.AmountTotleOriginal
 
 		// 普通优惠券测试
@@ -178,9 +187,6 @@ func TestOrderSrv_CreateOrderZQ(t *testing.T) {
 		So(resp.AmountReal.String(), ShouldEqual, amountReal.Sub(decimal.NewFromFloat(couponVal)).String())
 		So(resp.Amount.String(), ShouldEqual, amount.String())
 		So(resp.AmountTotleOriginal.String(), ShouldEqual, amountTotalOrigin.String())
-		So(resp.AmountTotle.String(), ShouldEqual, amountTotal.Sub(decimal.NewFromFloat(couponVal)).String())
-		So(resp.AmountTotle.String(), ShouldEqual, resp.Amount.Add(decimal.NewFromFloat(0)).Sub(decimal.NewFromFloat(couponVal)).String())
-
 	})
 }
 

@@ -41,7 +41,8 @@ type BeeShopInfo struct {
 	TaxGst               *int       `json:"taxGst" form:"taxGst" gorm:"column:tax_gst;comment:发票;size:19;"`                                              //发票
 	TaxService           *int       `json:"taxService" form:"taxService" gorm:"column:tax_service;comment:发票服务;size:19;"`                                //发票服务
 	Type                 string     `json:"type" form:"type" gorm:"column:type;comment:店铺类型;size:100;"`                                                  //店铺类型
-	WorkStatus           *int       `json:"workStatus" form:"workStatus" gorm:"column:work_status;comment:营业状态;size:19;"`                                //营业状态
+	WorkStatus           *bool      `json:"workStatus" form:"workStatus" gorm:"column:work_status;comment:营业状态;"`                                        //营业状态
+	DadaShopNo           string     `json:"dadaShopNo" form:"dadaShopNo" gorm:"column:dada_shop_no;comment:达达门店编号;size:100;"`
 }
 
 // TableName 商店信息 BeeShopInfo自定义表名 bee_shop_info

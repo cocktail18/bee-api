@@ -2,9 +2,30 @@
   <div>
     <div class="gva-search-box">
       <el-form ref="elSearchFormRef" :inline="true" :model="searchInfo" class="demo-form-inline" :rules="searchRule" @keyup.enter="onSubmit">
+        <el-form-item label="用户id" prop="uid">
 
+          <el-input v-model.number="searchInfo.uid" placeholder="搜索条件" />
+
+        </el-form-item>
         <template v-if="showAllQuery">
           <!-- 将需要控制显示状态的查询条件添加到此范围内 -->
+          <el-form-item label="添加时间" prop="createTime">
+
+            <template #label>
+            <span>
+              添加时间
+              <el-tooltip content="搜索范围是开始日期（包含）至结束日期（不包含）">
+                <el-icon><QuestionFilled/></el-icon>
+              </el-tooltip>
+            </span>
+            </template>
+            <el-date-picker v-model="searchInfo.startDateAdd" type="datetime" placeholder="开始日期"
+                            :disabled-date="time=> searchInfo.endDateAdd ? time.getTime() > searchInfo.endDateAdd.getTime() : false"></el-date-picker>
+            —
+            <el-date-picker v-model="searchInfo.endDateAdd" type="datetime" placeholder="结束日期"
+                            :disabled-date="time=> searchInfo.startDateAdd ? time.getTime() < searchInfo.startDateAdd.getTime() : false"></el-date-picker>
+
+          </el-form-item>
         </template>
 
         <el-form-item>
@@ -229,11 +250,17 @@ const page = ref(1)
 const total = ref(0)
 const pageSize = ref(10)
 const tableData = ref([])
-const searchInfo = ref({})
+const searchInfo = ref({
+  sort: 'id',
+  order: 'descending',
+})
 
 // 重置
 const onReset = () => {
-  searchInfo.value = {}
+  searchInfo.value = {
+    sort: 'id',
+    order: 'descending',
+  }
   getTableData()
 }
 

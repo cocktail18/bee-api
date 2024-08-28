@@ -50,3 +50,10 @@ func GetUserInfo(c context.Context) *sys.SysUserModel {
 	userInfo := sysUserInfo.(*sys.SysUserModel)
 	return userInfo
 }
+
+func WithSysUser(c context.Context, userInfo *sys.SysUserModel) context.Context {
+	if c == nil {
+		c = context.Background()
+	}
+	return context.WithValue(c, string(enum.CtxKeySysUser), userInfo)
+}

@@ -95,3 +95,18 @@ export const getBeeCyTableList = (params) => {
     params
   })
 }
+
+// @Tags BeeCyTable
+// @Summary 获取二维码
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router /beeCyTable/getBeeCyTableQrCode [get]
+export const getBeeCyTableQrCode = (params) => {
+  return service({
+    url: '/bee-shop/beeCyTable/getBeeCyTableQrCode',
+    method: 'get',
+    params
+  })
+}

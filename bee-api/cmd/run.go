@@ -14,6 +14,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"sync"
 	"syscall"
 	"time"
 )
@@ -28,7 +29,14 @@ func Run(cfg *config2.AppConfig) {
 		model.InitDB()
 		sys.InitDB()
 	}
-	service.GetPrinterSrv().StartDaemon()
+
+	wg := &sync.WaitGroup{}
+	defer wg.Wait()
+
+	daemonCtx, canel := context.WithCancel(context.Background())
+	service.GetPrinterSrv().StartDaemon(daemonCtx, wg)
+	service.GetOrderSrv().StartDaemon(daemonCtx, wg)
+	defer canel()
 	go func() {
 		logger.GetLogger().Info("服务启动", zap.Any("addr", svr.Addr))
 		err := svr.ListenAndServe()

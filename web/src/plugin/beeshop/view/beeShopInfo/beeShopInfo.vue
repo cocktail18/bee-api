@@ -45,6 +45,7 @@
 <!--        <el-table-column align="left" label="支付方式" prop="cyTablePayMod" width="120" />-->
 
         <el-table-column align="left" label="生鲜配送" prop="expressType" width="120" />
+        <el-table-column align="left" label="达达门店编号" prop="dadaShopNo" width="120" />
         <el-table-column align="left" label="接单需商家确认" prop="goodsNeedCheck" width="120">
             <template #default="scope">{{ formatBoolean(scope.row.goodsNeedCheck) }}</template>
         </el-table-column>
@@ -74,7 +75,9 @@
         <el-table-column align="left" label="发票" prop="taxGst" width="120" />
         <el-table-column align="left" label="发票服务" prop="taxService" width="120" />
 <!--        <el-table-column align="left" label="店铺类型" prop="type" width="120" />-->
-        <el-table-column align="left" label="营业状态(0:启用1:关闭)" prop="workStatus" width="120" />
+        <el-table-column align="left" label="暂停营业" prop="workStatus" width="120" >
+          <template #default="scope">{{ formatBoolean(scope.row.workStatus) }}</template>
+        </el-table-column>
         <el-table-column align="left" label="已删除" prop="isDeleted" width="120">
           <template #default="scope">{{ formatBoolean(scope.row.isDeleted) }}</template>
         </el-table-column>
@@ -187,17 +190,20 @@
             <el-form-item label="生鲜配送:"  prop="expressType" >
               <el-input v-model="formData.expressType" :clearable="true"  placeholder="达达配送填 dada ,其他留空不要填写" />
             </el-form-item>
-            <el-form-item label="接单需商家确认:"  prop="goodsNeedCheck" >
+            <el-form-item label="达达门店编号:"  prop="dadaShopNo" >
+              <el-input v-model="formData.dadaShopNo" :clearable="true"  placeholder="请输入达达门店编号" />
+            </el-form-item>
+            <el-form-item label="配送接单需商家确认:"  prop="goodsNeedCheck" >
               <el-switch v-model="formData.goodsNeedCheck" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否" clearable ></el-switch>
             </el-form-item>
             <el-form-item label="纬度:"  prop="latitude" >
-              <el-input-number v-model="formData.latitude"  style="width:100%" :precision="10" :clearable="true"  />
+              <el-input-number v-model="formData.latitude"  style="width:100%" :precision="6" :clearable="true"  />
             </el-form-item>
             <el-form-item label="绑定手机:"  prop="linkPhone" >
               <el-input v-model="formData.linkPhone" :clearable="true"  placeholder="请输入绑定手机" />
             </el-form-item>
             <el-form-item label="经度:"  prop="longitude" >
-              <el-input-number v-model="formData.longitude"  style="width:100%" :precision="10" :clearable="true"  />
+              <el-input-number v-model="formData.longitude"  style="width:100%" :precision="6" :clearable="true"  />
             </el-form-item>
             <el-form-item label="店名:"  prop="name" >
               <el-input v-model="formData.name" :clearable="true"  placeholder="请输入店名" />
@@ -250,8 +256,8 @@
 <!--            <el-form-item label="店铺类型:"  prop="type" >-->
 <!--              <el-input v-model="formData.type" :clearable="true"  placeholder="请输入店铺类型" />-->
 <!--            </el-form-item>-->
-            <el-form-item label="营业状态:"  prop="workStatus" >
-              <el-input v-model.number="formData.workStatus" :clearable="true" placeholder="0:启用1:关闭" />
+            <el-form-item label="暂停营业:"  prop="workStatus" >
+              <el-switch v-model="formData.workStatus" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否" clearable ></el-switch>
             </el-form-item>
           </el-form>
     </el-drawer>
@@ -307,6 +313,7 @@ const formData = ref({
         cyTablePayMod: undefined,
         districtId: '',
         expressType: '',
+        dadaShopNo: '',
         goodsNeedCheck: false,
         latitude: 0,
         linkPhone: '',
@@ -329,7 +336,7 @@ const formData = ref({
         taxGst: undefined,
         taxService: undefined,
         type: '',
-        workStatus: undefined,
+        workStatus: false,
         })
 
 
@@ -382,11 +389,17 @@ const page = ref(1)
 const total = ref(0)
 const pageSize = ref(10)
 const tableData = ref([])
-const searchInfo = ref({})
+const searchInfo = ref({
+  sort: 'id',
+  order: 'descending',
+})
 
 // 重置
 const onReset = () => {
-  searchInfo.value = {}
+  searchInfo.value = {
+    sort: 'id',
+    order: 'descending',
+  }
   getTableData()
 }
 
@@ -554,6 +567,7 @@ const closeDialog = () => {
         cyTablePayMod: undefined,
         districtId: '',
         expressType: '',
+        dadaShopNo: '',
         goodsNeedCheck: false,
         latitude: 0,
         linkPhone: '',
@@ -576,7 +590,7 @@ const closeDialog = () => {
         taxGst: undefined,
         taxService: undefined,
         type: '',
-        workStatus: undefined,
+        workStatus: false,
         }
 }
 // 弹窗确定

@@ -7,6 +7,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
+	"github.com/spf13/cast"
 )
 
 type BeeOrderService struct{}
@@ -188,4 +189,16 @@ func (beeOrderService *BeeOrderService) GetBeeOrderInfoList(info beeReq.BeeOrder
 
 	err = db.Find(&beeOrders).Error
 	return beeOrders, total, err
+}
+
+func (beeOrderService *BeeOrderService) ShippedBeeOrder(id int64, shopUserId int) error {
+	ctx, err := getContext(shopUserId)
+	if err != nil {
+		return err
+	}
+	err = service.GetOrderSrv().ShippedBeeOrder(ctx, cast.ToInt64(id))
+	if err != nil {
+		return err
+	}
+	return nil
 }

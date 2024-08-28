@@ -1,8 +1,13 @@
 package enum
 
-type BeePeiSongType int32
+type BeePeiSongFeeType int32
 
 const (
-	BeePeiSongTypeFixed = 0
-	BeePeiSongTypeRate  = 1
+	BeePeiSongFeeTypeFixed BeePeiSongFeeType = 0
+	BeePeiSongFeeTypeRate  BeePeiSongFeeType = 1
 )
+
+var BeePeiSongFeeTypeMap = map[BeePeiSongFeeType]string{
+	BeePeiSongFeeTypeFixed: "固定运费",
+	BeePeiSongFeeTypeRate:  "比例运费",
+}

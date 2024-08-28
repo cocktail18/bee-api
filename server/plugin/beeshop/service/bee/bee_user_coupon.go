@@ -64,6 +64,12 @@ func (beeUserCouponService *BeeUserCouponService) GetBeeUserCouponInfoList(info 
 	db = db.Where("user_id = ?", shopUserId)
 	var beeUserCoupons []bee.BeeUserCoupon
 	// 如果有条件搜索 下方会自动创建搜索语句
+	if info.Uid != nil {
+		db = db.Where("uid = ?", info.Uid)
+	}
+	if info.StartDateAdd != nil && info.EndDateAdd != nil {
+		db = db.Where("date_add BETWEEN ? AND ? ", info.StartDateAdd, info.EndDateAdd)
+	}
 	err = db.Count(&total).Error
 	if err != nil {
 		return
@@ -72,7 +78,17 @@ func (beeUserCouponService *BeeUserCouponService) GetBeeUserCouponInfoList(info 
 	if limit != 0 {
 		db = db.Limit(limit).Offset(offset)
 	}
-
+	var OrderStr string
+	orderMap := make(map[string]bool)
+	orderMap["id"] = true
+	orderMap["date_add"] = true
+	if orderMap[info.Sort] {
+		OrderStr = info.Sort
+		if info.Order == "descending" {
+			OrderStr = OrderStr + " desc"
+		}
+		db = db.Order(OrderStr)
+	}
 	err = db.Find(&beeUserCoupons).Error
 	return beeUserCoupons, total, err
 }

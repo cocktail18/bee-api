@@ -1,13 +1,15 @@
 package sys
 
 import (
+	"gitee.com/stuinfer/bee-api/common"
 	config2 "gitee.com/stuinfer/bee-api/config"
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/logger"
+	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/model/sys"
-	"gitee.com/stuinfer/bee-api/service"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
+	"time"
 )
 
 func InitDB() {
@@ -19,8 +21,8 @@ func InitDB() {
 	}
 	if config2.AppConfigIns.DB != nil && config2.AppConfigIns.DB.Drop {
 		logger.GetLogger().Info("清空数据库")
-		for _, model := range allModel {
-			if err := db.GetDB().Session(&gorm.Session{AllowGlobalUpdate: true}).Delete(model).Error; err != nil {
+		for _, mod := range allModel {
+			if err := db.GetDB().Session(&gorm.Session{AllowGlobalUpdate: true}).Delete(mod).Error; err != nil {
 				panic(err)
 			}
 		}
@@ -48,9 +50,30 @@ func InitDemoData() error {
 				return err
 			}
 		}
-		if err := service.CreateOrSaveWxAppConfig(userDefault.Id, config2.AppConfigIns.Default.Wx); err != nil {
+		if err := initWxAppConfig(userDefault.Id, config2.AppConfigIns.Default.Wx); err != nil {
 			return err
 		}
 	}
 	return nil
+}
+
+func initWxAppConfig(userId int64, wxConfig *config2.WxConfig) error {
+	var curAppConfig = &model.BeeWxConfig{}
+	err := db.GetDB().Where("user_id = ?", userId).First(curAppConfig).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		curAppConfig = &model.BeeWxConfig{
+			BaseModel: common.BaseModel{
+				UserId:     userId,
+				DateAdd:    common.JsonTime(time.Now()),
+				DateUpdate: common.JsonTime(time.Now()),
+			},
+			AppId:     wxConfig.AppId,
+			AppSecret: wxConfig.Secret,
+		}
+		return db.GetDB().Create(curAppConfig).Error
+	} else if err != nil {
+		return err
+	} else {
+		return nil
+	}
 }

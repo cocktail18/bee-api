@@ -58,6 +58,8 @@
         <el-table-column align="left" label="状态" prop="status" width="120" />
         <el-table-column align="left" label="用户id" prop="uid" width="120" />
         <el-table-column align="left" label="订单id" prop="orderId" width="120" />
+        <el-table-column align="left" label="商店id" prop="shopId" width="120" />
+        <el-table-column align="left" label="达达商铺id" prop="dadaShopNo" width="120" />
         <el-table-column align="left" label="已删除" prop="isDeleted" width="120">
           <template #default="scope">{{ formatBoolean(scope.row.isDeleted) }}</template>
         </el-table-column>
@@ -135,13 +137,13 @@
               <el-switch v-model="formData.isDefault" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否" clearable ></el-switch>
             </el-form-item>
             <el-form-item label="纬度:"  prop="latitude" >
-              <el-input-number v-model="formData.latitude"  style="width:100%" :precision="10" :clearable="true"  />
+              <el-input-number v-model="formData.latitude"  style="width:100%" :precision="6" :clearable="true"  />
             </el-form-item>
             <el-form-item label="联系人:"  prop="linkMan" >
               <el-input v-model="formData.linkMan" :clearable="true"  placeholder="请输入联系人" />
             </el-form-item>
             <el-form-item label="经度:"  prop="longitude" >
-              <el-input-number v-model="formData.longitude"  style="width:100%" :precision="10" :clearable="true"  />
+              <el-input-number v-model="formData.longitude"  style="width:100%" :precision="6" :clearable="true"  />
             </el-form-item>
             <el-form-item label="联系电话:"  prop="mobile" >
               <el-input v-model="formData.mobile" :clearable="true"  placeholder="请输入联系电话" />
@@ -160,6 +162,12 @@
             </el-form-item>
             <el-form-item label="订单id:"  prop="orderId" >
               <el-input v-model.number="formData.orderId" :clearable="true" placeholder="请输入订单id" />
+            </el-form-item>
+            <el-form-item label="商店id:"  prop="shopId" >
+              <el-input v-model.number="formData.shopId" :clearable="true" placeholder="请输入商店id" />
+            </el-form-item>
+            <el-form-item label="达达商铺id:"  prop="dadaShopNo" >
+              <el-input v-model.number="formData.dadaShopNo" :clearable="true" placeholder="请输入达达商铺id" />
             </el-form-item>
           </el-form>
     </el-drawer>
@@ -210,6 +218,8 @@ const formData = ref({
         status: undefined,
         uid: undefined,
         orderId: undefined,
+        shopId: '',
+        dadaShopNo: '',
         })
 
 
@@ -242,11 +252,17 @@ const page = ref(1)
 const total = ref(0)
 const pageSize = ref(10)
 const tableData = ref([])
-const searchInfo = ref({})
+const searchInfo = ref({
+  sort: 'id',
+  order: 'descending',
+})
 
 // 重置
 const onReset = () => {
-  searchInfo.value = {}
+  searchInfo.value = {
+    sort: 'id',
+    order: 'descending',
+  }
   getTableData()
 }
 
@@ -414,6 +430,8 @@ const closeDialog = () => {
         status: undefined,
         uid: undefined,
         orderId: undefined,
+        shopId: '',
+        dadaShopNo: '',
         }
 }
 // 弹窗确定

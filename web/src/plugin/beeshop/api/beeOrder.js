@@ -113,6 +113,22 @@ export const markBeeOrderDone = (data) => {
 }
 
 // @Tags BeeOrder
+// @Summary 设置为已发货订单
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body model.BeeOrder true "更新用户订单为已发货"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
+// @Router /beeOrder/shippedBeeOrder [put]
+export const shippedBeeOrder = (data) => {
+  return service({
+    url: '/bee-shop/beeOrder/shippedBeeOrder',
+    method: 'put',
+    data
+  })
+}
+
+// @Tags BeeOrder
 // @Summary 设置为已完成订单
 // @Security ApiKeyAuth
 // @accept application/json

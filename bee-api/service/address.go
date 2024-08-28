@@ -166,9 +166,9 @@ func (srv *AddressSrv) ListAddress(c context.Context) ([]*proto.UserAddressResp,
 	return resp, nil
 }
 
-func (srv *AddressSrv) GetAddressDto(c context.Context, userId int64, id int64) (*model.BeeUserAddress, error) {
+func (srv *AddressSrv) GetAddressDto(c context.Context, uid int64, id int64) (*model.BeeUserAddress, error) {
 	var address model.BeeUserAddress
-	err := db.GetDB().Where("id = ? and uid = ? and is_deleted = 0", id, userId).Take(&address).Error
+	err := db.GetDB().Where("id = ? and uid = ? and is_deleted = 0", id, uid).Take(&address).Error
 	return &address, err
 }
 

@@ -3,8 +3,30 @@
     <div class="gva-search-box">
       <el-form ref="elSearchFormRef" :inline="true" :model="searchInfo" class="demo-form-inline" :rules="searchRule" @keyup.enter="onSubmit">
 
+        <el-form-item label="用户id" prop="uid">
+
+          <el-input v-model.number="searchInfo.uid" placeholder="搜索条件" />
+
+        </el-form-item>
         <template v-if="showAllQuery">
           <!-- 将需要控制显示状态的查询条件添加到此范围内 -->
+          <el-form-item label="添加时间" prop="createTime">
+
+            <template #label>
+            <span>
+              添加时间
+              <el-tooltip content="搜索范围是开始日期（包含）至结束日期（不包含）">
+                <el-icon><QuestionFilled/></el-icon>
+              </el-tooltip>
+            </span>
+            </template>
+            <el-date-picker v-model="searchInfo.startDateAdd" type="datetime" placeholder="开始日期"
+                            :disabled-date="time=> searchInfo.endDateAdd ? time.getTime() > searchInfo.endDateAdd.getTime() : false"></el-date-picker>
+            —
+            <el-date-picker v-model="searchInfo.endDateAdd" type="datetime" placeholder="结束日期"
+                            :disabled-date="time=> searchInfo.startDateAdd ? time.getTime() < searchInfo.startDateAdd.getTime() : false"></el-date-picker>
+
+          </el-form-item>
         </template>
 
         <el-form-item>
@@ -30,7 +52,7 @@
         >
         <el-table-column type="selection" width="55" />
         
-        <el-table-column align="left" label="id字段" prop="id" width="120" />
+        <el-table-column align="left" sortable label="id字段" prop="id" width="120" />
         <el-table-column align="left" label="订单id" prop="orderId" width="120" />
         <el-table-column align="left" label="货币类型" prop="balanceType" width="120" >
           <template #default="scope">{{ formatEnum(scope.row.balanceType, balanceTypeMap) }}</template>
@@ -180,11 +202,11 @@ const rule = reactive({
 const searchRule = reactive({
   createdAt: [
     { validator: (rule, value, callback) => {
-      if (searchInfo.value.startCreatedAt && !searchInfo.value.endCreatedAt) {
+      if (searchInfo.value.startDateAdd && !searchInfo.value.endDateAdd) {
         callback(new Error('请填写结束日期'))
-      } else if (!searchInfo.value.startCreatedAt && searchInfo.value.endCreatedAt) {
+      } else if (!searchInfo.value.startDateAdd && searchInfo.value.endDateAdd) {
         callback(new Error('请填写开始日期'))
-      } else if (searchInfo.value.startCreatedAt && searchInfo.value.endCreatedAt && (searchInfo.value.startCreatedAt.getTime() === searchInfo.value.endCreatedAt.getTime() || searchInfo.value.startCreatedAt.getTime() > searchInfo.value.endCreatedAt.getTime())) {
+      } else if (searchInfo.value.startDateAdd && searchInfo.value.endDateAdd && (searchInfo.value.startDateAdd.getTime() === searchInfo.value.endDateAdd.getTime() || searchInfo.value.startDateAdd.getTime() > searchInfo.value.endDateAdd.getTime())) {
         callback(new Error('开始日期应当早于结束日期'))
       } else {
         callback()
@@ -201,11 +223,17 @@ const page = ref(1)
 const total = ref(0)
 const pageSize = ref(10)
 const tableData = ref([])
-const searchInfo = ref({})
+const searchInfo = ref({
+  sort: 'id',
+  order: 'descending',
+})
 
 // 重置
 const onReset = () => {
-  searchInfo.value = {}
+  searchInfo.value = {
+    sort: 'id',
+    order: 'descending',
+  }
   getTableData()
 }
 

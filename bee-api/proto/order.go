@@ -45,6 +45,7 @@ type BeeOrderGoods struct {
 	UID              int64                  `json:"uid"`
 	Unit             string                 `json:"unit"`
 	UserID           int64                  `json:"userId"`
+	Weight           decimal.Decimal        `json:"weight"`
 }
 
 func BeeOrderGoodsToDto(goods *model.BeeOrderGoods) *BeeOrderGoods {
@@ -153,7 +154,7 @@ type CreateOrderResp struct {
 	AmountTax              int               `json:"amountTax"`
 	AmountTaxGst           int               `json:"amountTaxGst"`
 	AmountTaxService       int               `json:"amountTaxService"`
-	AmountTotle            decimal.Decimal   `json:"amountTotle"`            //扣除积分、余额前的金额
+	AmountTotle            decimal.Decimal   `json:"amountTotle"`            //商品总额，不包含运费
 	AmountTotleOriginal    decimal.Decimal   `json:"amountTotleOriginal"`    //优惠前商品金额
 	AmountCoupons          decimal.Decimal   `json:"amountCoupons"`          //优惠券抵扣金额
 	AmountLogistics        decimal.Decimal   `json:"amountLogistics"`        //运费原价

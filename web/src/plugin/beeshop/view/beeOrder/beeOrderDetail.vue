@@ -16,16 +16,20 @@
         <tbody>
 
         <tr>
+          <td class="table-cell">订单id {{ beeOrderData.id }}</td>
+          <td class="table-cell">订单号 {{ beeOrderData.orderNumber }}</td>
           <td class="table-cell">用户编号 {{ beeOrderData.uid }}</td>
           <td class="table-cell">昵称 {{ beeUserInfo.nick }}</td>
-          <td class="table-cell">手机号 </td>
-          <td class="table-cell">用户名 </td>
         </tr>
         <tr>
           <td class="table-cell">交易时间 {{ formatDate(beeOrderData.dateAdd) }}</td>
-          <td class="table-cell">订单类型 普通订单</td>
-          <td class="table-cell">订单id {{ beeOrderData.id }}</td>
-          <td class="table-cell">订单号 {{ beeOrderData.orderNumber }}</td>
+          <td class="table-cell">打包费 {{ beeOrderData.trips }}</td>
+          <td class="table-cell">商品金额 {{ beeOrderData.amount }}</td>
+          <td class="table-cell">实收金额 {{ beeOrderData.amountReal }}</td>
+        </tr>
+        <tr>
+          <td class="table-cell">优惠金额 {{ beeOrderData.amountCoupons }}</td>
+          <td class="table-cell">运费金额 {{ beeOrderData.amountLogistics }}</td>
         </tr>
         <tr>
           <td class="table-cell">商品数量 {{ beeOrderData.goodsNumber }}</td>
@@ -38,12 +42,6 @@
           <td class="table-cell">有无退款 {{ beeOrderData.hasRefund ? '有' : '无' }}</td>
           <td class="table-cell">备注 {{ beeOrderData.remark }}</td>
           <td class="table-cell">更新时间 {{ formatDate(beeOrderData.dateUpdate) }}</td>
-        </tr>
-        <tr>
-          <td class="table-cell">商品金额 {{ beeOrderData.amount }}</td>
-          <td class="table-cell">实收金额 {{ beeOrderData.amountReal }}</td>
-          <td class="table-cell">优惠金额 {{ beeOrderData.amountCoupons }}</td>
-          <td class="table-cell">运费金额 {{ beeOrderData.amountLogistics }}</td>
         </tr>
         <tr>
           <td class="table-cell">自提门店ID {{ beeOrderData.shopIdZt }}</td>
@@ -137,6 +135,110 @@
     </div>
   </div>
 
+  <div v-if="beeOrderData.isNeedLogistics">
+    <div class="static-content-item">
+      <el-divider direction="horizontal" content-position="left">配送信息</el-divider>
+    </div>
+    <div class="table-container">
+      <table class="table-layout" style="text-align: center">
+        <thead>
+        <tr>
+          <th class="table-cell">id</th>
+          <th class="table-cell" width="200">第三方配送订单号</th>
+          <th class="table-cell" width="200">配送订单号</th>
+          <th class="table-cell" width="100">状态</th>
+          <th class="table-cell" width="100">配送费</th>
+          <th class="table-cell" width="100">实际支付金额</th>
+          <th class="table-cell" width="100">取消配送扣费</th>
+          <th class="table-cell" width="100">是否已取消</th>
+          <th class="table-cell" width="100">更新时间</th>
+          <th class="table-cell" width="100">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(item, index) in beeOrderPeisongList" :key="index">
+          <td class="table-cell">{{ item.id }}</td>
+          <td class="table-cell">{{ item.peisongOrderId }} </td>
+          <td class="table-cell">{{ item.peisongOrderNo }} </td>
+          <td class="table-cell">{{ formatEnum(item.status, beeOrderPeisongStatus) }} </td>
+          <td class="table-cell">{{ item.money }} </td>
+          <td class="table-cell">{{ item.realMoney }} </td>
+          <td class="table-cell">{{ item.deductFee }} </td>
+          <td class="table-cell">{{ item.isCancel ? '是' : '否' }} </td>
+          <td class="table-cell">{{ formatDate(item.dateUpdate) }} </td>
+          <td class="table-cell">
+            <div><el-button type="text" @click="showDetailModal(item.id)">查看详情</el-button></div>
+            <div><el-button v-if="!item.isCancel" type="text" @click="showCancelModal(item.id)">取消配送</el-button></div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-left: 30px">
+      <el-button type="primary" @click="notifyDelivery(beeOrderData.id)">通知配送商取货</el-button>
+    </div>
+  </div>
+    <el-dialog
+        v-model="cancelModalVisible"
+        title="取消配送"
+        width="500"
+        :before-close="handleCloseCancelModal"
+    >
+      <div>
+        <el-form-item label="取消原因" prop="orderNumber">
+          <el-select v-model="cancelFormData.reasonId" clearable placeholder="请选择取消原因" :clearable="false">
+            <el-option v-for="(item,key) in beeDeliveryCancelReason" :key="key" :label="item.label"
+                       :value="parseInt(item.value)"/>
+          </el-select>
+        </el-form-item>
+      </div>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="cancelModalVisible = false">取消</el-button>
+          <el-button type="primary" @click="cancelDelivery">
+            确定
+          </el-button>
+        </div>
+      </template>
+    </el-dialog>
+
+    <el-dialog
+        v-model="detailModalVisible"
+        title="配送详情"
+        width="500"
+        :before-close="handleClosePeisongDetailModal"
+    >
+      <el-row
+          :gutter="15"
+          class="py-1"
+      >
+        <el-col :span="12" class="detail-col">配送ID：{{peisongOrderDetail.orderId}}</el-col>
+        <el-col :span="12" class="detail-col">订单状态：{{peisongOrderDetail.statusMsg}}</el-col>
+        <el-col :span="12" class="detail-col">骑手姓名：{{peisongOrderDetail.transporterName}}</el-col>
+        <el-col :span="12" class="detail-col">骑手电话：{{peisongOrderDetail.transporterPhone}}</el-col>
+        <el-col :span="12" class="detail-col">骑手经度：{{peisongOrderDetail.transporterLng}}</el-col>
+        <el-col :span="12" class="detail-col">骑手纬度：{{peisongOrderDetail.transporterLat}}</el-col>
+        <el-col :span="12" class="detail-col">订单总费用：{{peisongOrderDetail.deliveryFee}}</el-col>
+        <el-col :span="12" class="detail-col">小费：{{peisongOrderDetail.tips}}元</el-col>
+        <el-col :span="12" class="detail-col">优惠券费用：{{peisongOrderDetail.couponFee}}元</el-col>
+        <el-col :span="12" class="detail-col">保价费：{{peisongOrderDetail.insuranceFee}}元</el-col>
+        <el-col :span="12" class="detail-col">订单实际费用消耗：{{peisongOrderDetail.actualFee}}</el-col>
+        <el-col :span="12" class="detail-col">配送距离,单位为米：{{peisongOrderDetail.distance}}</el-col>
+        <el-col :span="12" class="detail-col">发单时间：{{peisongOrderDetail.createTime}}</el-col>
+        <el-col :span="12" class="detail-col">接单时间：{{peisongOrderDetail.acceptTime}}</el-col>
+        <el-col :span="12" class="detail-col">取货时间：{{peisongOrderDetail.fetchTime}}</el-col>
+        <el-col :span="12" class="detail-col">送达时间：{{peisongOrderDetail.finishTime}}</el-col>
+        <el-col :span="12" class="detail-col">取消时间：{{peisongOrderDetail.cancelTime}}</el-col>
+        <el-col :span="12" class="detail-col">收货码：{{peisongOrderDetail.orderFinishCode}}</el-col>
+        <el-col :span="12" class="detail-col">违约金：{{peisongOrderDetail.deductFee}}</el-col>
+      </el-row>
+      <div class="dialog-footer">
+        <el-button type="primary" @click="detailModalVisible = false">
+          确定
+        </el-button>
+      </div>
+    </el-dialog>
+
   <div>
     <div class="static-content-item">
       <el-divider direction="horizontal" content-position="left">订单记录</el-divider>
@@ -147,7 +249,7 @@
         <tr>
           <th class="table-cell" width="200">操作时间</th>
           <th class="table-cell" width="200">操作名称</th>
-          <th class="table-cell" width="400">备注</th>
+          <th class="table-cell" width="800">备注</th>
         </tr>
         </thead>
         <tbody>
@@ -166,7 +268,7 @@
 import {
   createBeeOrder,
   updateBeeOrder,
-  findBeeOrder, updateBeeOrderExtJsonStr, markBeeOrderPaid, updateBeeOrderStatus
+  findBeeOrder, updateBeeOrderExtJsonStr, markBeeOrderPaid, updateBeeOrderStatus, shippedBeeOrder
 } from '@/plugin/beeshop/api/beeOrder'
 
 defineOptions({
@@ -183,6 +285,11 @@ import {getBeeOrderGoodsList} from "@/plugin/beeshop/api/beeOrderGoods";
 import {getBeeOrderLogisticsList} from "@/plugin/beeshop/api/beeOrderLogistics";
 import {findBeeUser} from "@/plugin/beeshop/api/beeUser";
 import CustomPic from "@/components/customPic/index.vue";
+import {
+  cancelBeeOrderPeisong, getBeeOrderPeisongDetail,
+  getBeeOrderPeisongList,
+  notifyBeeOrderPeisong
+} from "@/plugin/beeshop/api/beeOrderPeisong";
 
 const route = useRoute()
 const router = useRouter()
@@ -200,10 +307,18 @@ const beeOrderLogisticsList = ref([])
 const beeOrderReputationList = ref([])
 const beeOrderCouponList = ref([])
 const beeOrderExtList = ref([])
+const beeOrderPeisongList = ref([])
+const beeDeliveryCancelReason = ref([])
+const beeOrderPeisongStatus = ref([])
+const cancelModalVisible = ref(false)
+const detailModalVisible = ref(false)
+const peisongOrderDetail = ref({})
 // 初始化方法
 const init = async () => {
   beeOrderLogType.value = await getDictFunc('BeeOrderLogType')
   beeOrderStatus.value = await getDictFunc('OrderStatus')
+  beeOrderPeisongStatus.value = await getDictFunc('BeeOrderPeisongStatus')
+  beeDeliveryCancelReason.value = await getDictFunc('BeeDeliveryCancelReason')
  // 建议通过url传参获取目标数据ID 调用 find方法进行查询数据操作 从而决定本页面是create还是update 以下为id作为url参数示例
   if (!route.query.id) {
     return
@@ -240,6 +355,11 @@ const init = async () => {
   const orderLogisticsRes = await getBeeOrderLogisticsList({ page: 1, pageSize: 10000, orderId: orderId })
   if (orderLogisticsRes.code === 0) {
     beeOrderLogisticsList.value = orderLogisticsRes.data.list
+  }
+
+  const beeOrderPeisongListRes = await getBeeOrderPeisongList({ page: 1, pageSize: 10000, orderId: orderId })
+  if (beeOrderPeisongListRes.code === 0) {
+    beeOrderPeisongList.value = beeOrderPeisongListRes.data.list
   }
 }
 
@@ -278,15 +398,52 @@ const payOrderOffline = async (row) => {
   })
 }
 
-const shipBeeOrder = async (row) => {
-  ElMessageBox.confirm('确定已发货?', '提示', {
+const notifyDelivery = async (orderId) => {
+  ElMessageBox.confirm('确定通知取货?', '提示', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning'
   }).then(async () => {
-    const ids = []
-    ids.push(row.id)
-    const res = await updateBeeOrderStatus({'id': row.id, 'status': 2})
+    const res = await notifyBeeOrderPeisong({'orderId': orderId})
+    if (res.code === 0) {
+      ElMessage({
+        type: 'success',
+        message: '通知成功'
+      })
+      await init()
+    }
+  })
+}
+
+const cancelDelivery = async () => {
+  ElMessageBox.confirm('确定取消配送?', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(async () => {
+    const res = await cancelBeeOrderPeisong(cancelFormData.value)
+    if (res.code === 0) {
+      ElMessage({
+        type: 'success',
+        message: '取消成功'
+      })
+      cancelModalVisible.value = false
+      await init()
+    }
+  })
+}
+
+const shipBeeOrder = async (row) => {
+  let tipMsg = '确定已发货?'
+  if (beeOrderPeisongList.value.length === 0 && row.peisongType === "kd") {
+    tipMsg = '没找到配送单，确定已发货?'
+  }
+  ElMessageBox.confirm(tipMsg, '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(async () => {
+    const res = await shippedBeeOrder({'id': row.id})
     if (res.code === 0) {
       ElMessage({
         type: 'success',
@@ -315,11 +472,51 @@ const confirmShippedBeeOrder = async (row) => {
     }
   })
 }
+
+const cancelFormData = ref({
+  id: 0,
+  reasonId: 1,
+  reason: '',
+})
+
+const showCancelModal = (peisongId) => {
+  cancelFormData.value = {
+    id: peisongId,
+    reasonId: 1,
+    reason: '',
+  }
+  cancelModalVisible.value = true
+}
+
+const handleCloseCancelModal = () => {
+  cancelFormData.value = {
+    id: 0,
+    reasonId: 1,
+    reason: '',
+  }
+  cancelModalVisible.value = false
+}
+
+const showDetailModal = async (peisongId) => {
+  const res = await getBeeOrderPeisongDetail({id: peisongId})
+  if (res.code === 0) {
+    peisongOrderDetail.value = res.data
+    detailModalVisible.value = true
+  }
+}
+
+const handleClosePeisongDetailModal = () => {
+  peisongOrderDetail.value = {}
+  detailModalVisible.value = false
+}
 </script>
 
 <style>
 .py-1{
   width: 100%;
+}
+.detail-col{
+  padding-bottom: 7px;
 }
 .table-layout{
   margin-left: 30px;

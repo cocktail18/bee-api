@@ -32,6 +32,10 @@ func initBeeDict() {
 	initByMap("支付流水状态", "BeePayLogStatus", enum.PayLogStatusMap)
 	initByMap("打印机品牌", "BeePrinterBrand", enum.PrinterBrandMap)
 	initByMap("打印条件", "BeePrinterCondition", enum.PrinterConditionMap)
+	initByMap("配送类型", "BeeDelivery", enum.DeliveryTypeMap)
+	initByMap("配送状态", "BeeOrderPeisongStatus", enum.OrderPeisongStatusMap)
+	initByMap("配送取消订单理由", "BeeDeliveryCancelReason", enum.DeliveryCancelReasonMap)
+	initByMap("配送收费类型", "BeePeiSongFeeTypeMap", enum.BeePeiSongFeeTypeMap)
 }
 
 func initByMap[T1 comparable, T2 any](name string, t string, m map[T1]T2) {

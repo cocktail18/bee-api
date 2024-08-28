@@ -55,6 +55,7 @@ type BeeOrder struct {
 	Type              *int            `json:"type" form:"type" gorm:"column:type;comment:订单类型;size:19;"`                                            //订单类型
 	Uid               *int            `json:"uid" form:"uid" gorm:"column:uid;comment:用户id;size:19;"`                                               //用户id
 	ExtJsonStr        string          `gorm:"column:ext_json_str;type:varchar(1000);comment:扩展信息" json:"extJsonStr"`
+	PeisongType       string          `gorm:"column:peisong_type;type:varchar(30);comment:配送类型" json:"peisongType"`
 }
 
 // TableName 用户订单 BeeOrder自定义表名 bee_order

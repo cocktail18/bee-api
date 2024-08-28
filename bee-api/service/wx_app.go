@@ -11,6 +11,7 @@ import (
 	"github.com/medivhzhan/weapp/v3/auth"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
+	"io"
 	"sync"
 	"time"
 )
@@ -27,6 +28,10 @@ type WxAppSrv struct {
 func GetWxAppSrv(c context.Context) (*WxAppSrv, error) {
 	//@todo cache
 	userId := kit.GetUserId(c)
+	return GetWxAppSrvByUserId(c, userId)
+}
+
+func GetWxAppSrvByUserId(c context.Context, userId int64) (*WxAppSrv, error) {
 	var wxConfig model.BeeWxConfig
 	if err := db.GetDB().Where("user_id = ? and is_deleted = 0", userId).Order("id desc").First(&wxConfig).Error; err != nil {
 		return nil, errors.New("未配置微信小程序")
@@ -75,4 +80,21 @@ func (srv *WxAppSrv) init(appId, secret string) error {
 func (srv *WxAppSrv) Authorize(c context.Context, code string) (*weapp.LoginResponse, error) {
 	resp, err := srv.WeAppClient.Login(code)
 	return resp, err
+}
+
+// GetWxAppQrCode 获取小程序码
+func (srv *WxAppSrv) GetWxAppQrCode(c context.Context, req *weapp.UnlimitedQRCode) ([]byte, error) {
+	res, commonErr, err := srv.WeAppClient.GetUnlimitedQRCode(req)
+	if err != nil {
+		return nil, err
+	}
+	if commonErr != nil && commonErr.ErrCode != 0 {
+		return nil, commonErr.GetResponseError()
+	}
+	bs, err := io.ReadAll(res.Body)
+	defer res.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+	return bs, nil
 }

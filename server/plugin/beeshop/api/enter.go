@@ -34,6 +34,7 @@ type ApiGroup struct {
 	BeeWxPayConfigApi
 	BeeNoticeApi
 	BeeLogisticsApi
+	BeeDeliveryApi
 	BeeOrderLogApi
 	BeePrinterApi
 }

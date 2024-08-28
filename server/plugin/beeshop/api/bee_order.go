@@ -8,6 +8,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/service"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/cast"
 	"go.uber.org/zap"
 )
 
@@ -255,6 +256,30 @@ func (beeOrderApi *BeeOrderApi) MarkBeeOrderDone(c *gin.Context) {
 	ids := c.QueryArray("ids[]")
 	shopUserId := int(utils.GetShopUserID(c))
 	if err := beeOrderService.MarkBeeOrderDone(ids, shopUserId); err != nil {
+		global.GVA_LOG.Error("设置失败!", zap.Error(err))
+		response.FailWithMessage("设置失败", c)
+	} else {
+		response.OkWithMessage("设置成功", c)
+	}
+}
+
+// ShippedBeeOrder 发货订单
+// @Tags BeeOrder
+// @Summary 设置为已发货订单
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Success 200 {object} response.Response{msg=string} "设置成功"
+// @Router /beeOrder/markBeeOrderPaid [post]
+func (beeOrderApi *BeeOrderApi) ShippedBeeOrder(c *gin.Context) {
+	var beeOrder bee.BeeOrder
+	err := c.ShouldBindJSON(&beeOrder)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	shopUserId := int(utils.GetShopUserID(c))
+	if err := beeOrderService.ShippedBeeOrder(cast.ToInt64(beeOrder.Id), shopUserId); err != nil {
 		global.GVA_LOG.Error("设置失败!", zap.Error(err))
 		response.FailWithMessage("设置失败", c)
 	} else {

@@ -22,6 +22,7 @@ type RouterGroup struct {
 	BeeBannerRouter
 	BeeUserAmountRouter
 	BeeCyTableRouter
+	BeeDeliveryRouter
 	BeeRegionRouter
 	BeeCmsInfoRouter
 	BeeUserAddressRouter
@@ -29,12 +30,14 @@ type RouterGroup struct {
 	BeeUserRouter
 	BeeOrderGoodsRouter
 	BeeOrderLogisticsRouter
+	BeeOrderLogRouter
+	BeeOrderPeisongRouter
+	BeeOrderPeisongLogRouter
 	BeeUploadFileRouter
 	BeePayLogRouter
 	BeeWxPayConfigRouter
 	BeeNoticeRouter
 	BeeLogisticsRouter
-	BeeOrderLogRouter
 	BeePrinterRouter
 }
 

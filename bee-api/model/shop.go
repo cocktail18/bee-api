@@ -17,10 +17,10 @@ type BeeShopInfo struct {
 	DistrictId           string             `gorm:"column:district_id;type:varchar(100);comment:地区id" json:"districtId"`
 	ExpressType          string             `gorm:"column:express_type;type:varchar(100);comment:快递类型" json:"expressType"`
 	GoodsNeedCheck       bool               `gorm:"column:goods_need_check;type:tinyint(1);comment:接单需商家确认" json:"goodsNeedCheck"`
-	Latitude             float64            `gorm:"column:latitude;type:double(10,10);comment:纬度" json:"latitude"`
+	Latitude             float64            `gorm:"column:latitude;type:double(9,6);comment:纬度" json:"latitude"`
 	LinkPhone            string             `gorm:"column:link_phone;type:varchar(100);comment:联系人手机号" json:"linkPhone"`
 	LinkMan              string             `gorm:"column:link_man;type:varchar(100);comment:联系人" json:"linkMan"`
-	Longitude            float64            `gorm:"column:longitude;type:double(10,10);comment:经度" json:"longitude"`
+	Longitude            float64            `gorm:"column:longitude;type:double(9,6);comment:经度" json:"longitude"`
 	Name                 string             `gorm:"column:name;type:varchar(100);comment:店名" json:"name"`
 	Number               string             `gorm:"column:number;type:varchar(100);comment:座机号码" json:"number"`
 	NumberFav            int64              `gorm:"column:number_fav;type:bigint(11);comment:喜欢人数" json:"numberFav"`
@@ -44,6 +44,7 @@ type BeeShopInfo struct {
 	BusinessScope        string             `gorm:"column:type;type:varchar(1000);comment:经营范围" json:"businessScope"`
 	Introduce            string             `gorm:"column:type;type:varchar(1000);comment:介绍" json:"introduce"`
 	WorkStatus           int64              `gorm:"column:work_status;type:bigint(11);comment:营业状态，0正常" json:"workStatus"`
+	DadaShopNo           string             `gorm:"column:dada_shop_no;type:varchar(100);comment:达达门店编号" json:"dadaShopNo"`
 
 	Distance float64 `gorm:"-" json:"distance"`
 }

@@ -1,9 +1,11 @@
 package sys
 
 import (
+	"context"
 	"gitee.com/stuinfer/bee-api/common"
 	config2 "gitee.com/stuinfer/bee-api/config"
 	"gitee.com/stuinfer/bee-api/db"
+	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model/sys"
 	"gitee.com/stuinfer/bee-api/util"
 	"github.com/pkg/errors"
@@ -77,4 +79,19 @@ func (srv *UserSrv) GetByDomain(domain string) (*sys.SysUserModel, error) {
 	var user sys.SysUserModel
 	err := db.GetDB().Where("domain = ?", domain).First(&user).Error
 	return &user, err
+}
+
+func (srv *UserSrv) GetById(id int64) (*sys.SysUserModel, error) {
+	var user sys.SysUserModel
+	err := db.GetDB().Where("id = ?", id).First(&user).Error
+	return &user, err
+}
+
+func (srv *UserSrv) GetContext(ctx context.Context, id int64) (context.Context, error) {
+	sysUserInfo, err := srv.GetById(id)
+	if err != nil {
+		return ctx, err
+	}
+	ctx = kit.WithSysUser(ctx, sysUserInfo)
+	return ctx, nil
 }

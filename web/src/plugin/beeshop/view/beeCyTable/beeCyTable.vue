@@ -69,6 +69,7 @@
         </el-table-column>
         <el-table-column align="left" label="操作" fixed="right" min-width="240">
             <template #default="scope">
+            <el-button type="primary" link icon="search" class="table-button" @click="showQrCode(scope.row)">查看小程序码</el-button>
             <el-button type="primary" link icon="edit" class="table-button" @click="updateBeeCyTableFunc(scope.row)">变更</el-button>
             <el-button type="primary" link icon="delete" @click="deleteRow(scope.row)">删除</el-button>
             </template>
@@ -131,6 +132,12 @@
           </el-form>
     </el-drawer>
   </div>
+  <el-dialog v-model="dialogQrCodeVisible" title="二维码" width="500">
+    <el-image
+        :src="qrCode"
+        fit="contain"
+    />
+  </el-dialog>
 </template>
 
 <script setup>
@@ -140,7 +147,7 @@ import {
   deleteBeeCyTableByIds,
   updateBeeCyTable,
   findBeeCyTable,
-  getBeeCyTableList
+  getBeeCyTableList, getBeeCyTableQrCode
 } from '@/plugin/beeshop/api/beeCyTable'
 
 // 全量引入格式化工具 请按需保留
@@ -199,7 +206,10 @@ const page = ref(1)
 const total = ref(0)
 const pageSize = ref(10)
 const tableData = ref([])
-const searchInfo = ref({})
+const searchInfo = ref({
+  sort: 'id',
+  order: 'descending',
+})
 // 排序
 const sortChange = ({ prop, order }) => {
   const sortMap = {
@@ -222,7 +232,10 @@ const sortChange = ({ prop, order }) => {
 
 // 重置
 const onReset = () => {
-  searchInfo.value = {}
+  searchInfo.value = {
+    sort: 'id',
+    order: 'descending',
+  }
   getTableData()
 }
 
@@ -338,6 +351,16 @@ const updateBeeCyTableFunc = async(row) => {
     }
 }
 
+const qrCode = ref('')
+const dialogQrCodeVisible = ref(false)
+
+const showQrCode = async (row) => {
+  const res = await getBeeCyTableQrCode({ id: row.id })
+  if (res.code === 0) {
+    qrCode.value = 'data:image/png;base64,' + res.data
+    dialogQrCodeVisible.value = true
+  }
+}
 
 // 删除行
 const deleteBeeCyTableFunc = async (row) => {

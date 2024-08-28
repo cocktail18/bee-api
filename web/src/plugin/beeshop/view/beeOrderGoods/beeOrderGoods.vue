@@ -116,6 +116,7 @@
           </template>
         </el-table-column>
         <el-table-column align="left" label="价格id" prop="priceId" width="120" />
+        <el-table-column align="left" label="重量" prop="weight" width="120" />
         <el-table-column align="left" label="属性" prop="property" width="120" />
         <el-table-column align="left" label="属性id" prop="propertyChildIds" width="120" />
         <el-table-column align="left" label="是否已支付" prop="purchase" width="120" />
@@ -196,6 +197,9 @@
             </el-form-item>
             <el-form-item label="总金额:"  prop="amount" >
               <el-input-number v-model="formData.amount"  style="width:100%" :precision="2" :clearable="true"  />
+            </el-form-item>
+            <el-form-item label="重量:"  prop="weight" >
+              <el-input-number v-model="formData.weight"  style="width:100%" :precision="2" :clearable="true"  />
             </el-form-item>
             <el-form-item label="优惠券金额:"  prop="amountCoupon" >
               <el-input-number v-model="formData.amountCoupon"  style="width:100%" :precision="2" :clearable="true"  />
@@ -330,6 +334,7 @@ const formData = ref({
         dateDelete: undefined,
         afterSale: '',
         amount: 0,
+        weight: 0.00,
         amountCoupon: 0,
         amountSingle: 0,
         amountSingleBase: 0,
@@ -410,7 +415,10 @@ const page = ref(1)
 const total = ref(0)
 const pageSize = ref(10)
 const tableData = ref([])
-const searchInfo = ref({})
+const searchInfo = ref({
+  sort: 'id',
+  order: 'descending',
+})
 // 排序
 const sortChange = ({ prop, order }) => {
   const sortMap = {
@@ -430,7 +438,10 @@ const sortChange = ({ prop, order }) => {
 
 // 重置
 const onReset = () => {
-  searchInfo.value = {}
+  searchInfo.value = {
+    sort: 'id',
+    order: 'descending',
+  }
   getTableData()
 }
 
@@ -588,6 +599,7 @@ const closeDialog = () => {
         dateDelete: undefined,
         afterSale: '',
         amount: 0,
+        weight: 0,
         amountCoupon: 0,
         amountSingle: 0,
         amountSingleBase: 0,

@@ -4,7 +4,9 @@
       <el-form ref="elSearchFormRef" :inline="true" :model="searchInfo" class="demo-form-inline" :rules="searchRule" @keyup.enter="onSubmit">
         <el-form-item label="类型" prop="fwf1Type">
             
-             <el-input v-model.number="searchInfo.fwf1Type" placeholder="搜索条件" />
+          <el-select v-model="searchInfo.fwf1Type" clearable placeholder="请选择" :clearable="false">
+            <el-option v-for="(item,key) in beePeiSongFeeTypeMap" :key="key" :label="item.label" :value="parseInt(item.value)" />
+          </el-select>
 
         </el-form-item>
 
@@ -41,8 +43,10 @@
         <el-table-column align="left" label="最低收费金额" prop="fwf1Min" width="120" />
         <el-table-column align="left" label="收费项目名称" prop="fwf1Name" width="120" />
         <el-table-column align="left" label="比例或者金额" prop="fwf1Number" width="120" />
-        <el-table-column align="left" label="类型" prop="fwf1Type" width="120" />
-        <el-table-column align="left" label="自提补贴" prop="ztDiscounts" width="120" />
+        <el-table-column align="left" label="类型" prop="fwf1Type" width="120">
+          <template #default="scope">{{ formatEnum(scope.row.fwf1Type, beePeiSongFeeTypeMap) }}</template>
+        </el-table-column>
+<!--        <el-table-column align="left" label="自提补贴" prop="ztDiscounts" width="120" />-->
         <el-table-column align="left" label="已删除" prop="isDeleted" width="120">
           <template #default="scope">{{ formatBoolean(scope.row.isDeleted) }}</template>
         </el-table-column>
@@ -108,17 +112,19 @@
               <el-input-number v-model="formData.fwf1Min"  style="width:100%" :precision="2" :clearable="true"  />
             </el-form-item>
             <el-form-item label="收费项目名称:"  prop="fwf1Name" >
-              <el-input-number v-model="formData.fwf1Name"  style="width:100%" :precision="2" :clearable="true"  />
+              <el-input v-model="formData.fwf1Name"  style="width:100%" :clearable="true"  />
             </el-form-item>
             <el-form-item label="比例或者金额:"  prop="fwf1Number" >
               <el-input-number v-model="formData.fwf1Number"  style="width:100%" :precision="2" :clearable="true"  />
             </el-form-item>
             <el-form-item label="类型:"  prop="fwf1Type" >
-              <el-input v-model.number="formData.fwf1Type" :clearable="true" placeholder="请输入类型" />
+              <el-select v-model="formData.fwf1Type" clearable placeholder="请选择" :clearable="false">
+                <el-option v-for="(item,key) in beePeiSongFeeTypeMap" :key="key" :label="item.label" :value="parseInt(item.value)" />
+              </el-select>
             </el-form-item>
-            <el-form-item label="自提补贴:"  prop="ztDiscounts" >
-              <el-input-number v-model="formData.ztDiscounts"  style="width:100%" :precision="2" :clearable="true"  />
-            </el-form-item>
+<!--            <el-form-item label="自提补贴:"  prop="ztDiscounts" >-->
+<!--              <el-input-number v-model="formData.ztDiscounts"  style="width:100%" :precision="2" :clearable="true"  />-->
+<!--            </el-form-item>-->
           </el-form>
     </el-drawer>
   </div>
@@ -135,7 +141,16 @@ import {
 } from '@/plugin/beeshop/api/beePeiSong'
 
 // 全量引入格式化工具 请按需保留
-import { getDictFunc, formatDate, formatBoolean, filterDict ,filterDataSource, ReturnArrImg, onDownloadFile } from '@/utils/format'
+import {
+  getDictFunc,
+  formatDate,
+  formatBoolean,
+  filterDict,
+  filterDataSource,
+  ReturnArrImg,
+  onDownloadFile,
+  formatEnum
+} from '@/utils/format'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { ref, reactive } from 'vue'
 
@@ -146,6 +161,13 @@ defineOptions({
 // 控制更多查询条件显示/隐藏状态
 const showAllQuery = ref(false)
 
+const beePeiSongFeeTypeMap = ref([])
+const init = async () => {
+  beePeiSongFeeTypeMap.value = await getDictFunc('BeePeiSongFeeTypeMap')
+}
+
+init()
+
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
         id: undefined,
@@ -155,7 +177,7 @@ const formData = ref({
         dateDelete: undefined,
         distance: 0,
         fwf1Min: 0,
-        fwf1Name: 0,
+        fwf1Name: '',
         fwf1Number: 0,
         fwf1Type: undefined,
         ztDiscounts: 0,
@@ -191,7 +213,10 @@ const page = ref(1)
 const total = ref(0)
 const pageSize = ref(10)
 const tableData = ref([])
-const searchInfo = ref({})
+const searchInfo = ref({
+  sort: 'id',
+  order: 'descending',
+})
 // 排序
 const sortChange = ({ prop, order }) => {
   const sortMap = {
@@ -210,7 +235,10 @@ const sortChange = ({ prop, order }) => {
 
 // 重置
 const onReset = () => {
-  searchInfo.value = {}
+  searchInfo.value = {
+    sort: 'id',
+    order: 'descending',
+  }
   getTableData()
 }
 
@@ -362,7 +390,7 @@ const closeDialog = () => {
         dateDelete: undefined,
         distance: 0,
         fwf1Min: 0,
-        fwf1Name: 0,
+        fwf1Name: '',
         fwf1Number: 0,
         fwf1Type: undefined,
         ztDiscounts: 0,

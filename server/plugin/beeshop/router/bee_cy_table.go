@@ -22,8 +22,9 @@ func (s *BeeCyTableRouter) InitBeeCyTableRouter(Router *gin.RouterGroup, PublicR
 		beeCyTableRouter.PUT("updateBeeCyTable", beeCyTableApi.UpdateBeeCyTable)              // 更新桌号信息
 	}
 	{
-		beeCyTableRouterWithoutRecord.GET("findBeeCyTable", beeCyTableApi.FindBeeCyTable)       // 根据ID获取桌号信息
-		beeCyTableRouterWithoutRecord.GET("getBeeCyTableList", beeCyTableApi.GetBeeCyTableList) // 获取桌号信息列表
+		beeCyTableRouterWithoutRecord.GET("getBeeCyTableQrCode", beeCyTableApi.GetBeeCyTableQrCode) // 根据ID获取桌号信息
+		beeCyTableRouterWithoutRecord.GET("findBeeCyTable", beeCyTableApi.FindBeeCyTable)           // 根据ID获取桌号信息
+		beeCyTableRouterWithoutRecord.GET("getBeeCyTableList", beeCyTableApi.GetBeeCyTableList)     // 获取桌号信息列表
 	}
 	{
 		beeCyTableRouterWithoutAuth.GET("getBeeCyTablePublic", beeCyTableApi.GetBeeCyTablePublic) // 获取桌号信息列表

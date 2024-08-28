@@ -11,6 +11,8 @@ type OrderType int32
 type OrderRefundStatus int32
 type OrderGoodsStatus int32
 type OrderLogType int32
+
+// OrderPaisongStatus 待接单＝1,待取货＝2,配送中＝3,已完成＝4,已取消＝5, 指派单=8,妥投异常之物品返回中=9, 妥投异常之物品返回完成=10, 骑士到店=100,创建达达运单失败=1000
 type OrderPaisongStatus int32
 
 type OrderPrinterStatus int32
@@ -55,6 +57,20 @@ var OrderLogTypeMap = map[OrderLogType]string{
 	OrderLogTypeCreateSub:      "创建子订单",
 }
 
+var OrderPeisongStatusMap = map[OrderPaisongStatus]string{
+	OrderPaisongStatusNone:       "无",
+	OrderPaisongStatusWaiting:    "待接单",
+	OrderPaisongStatusPickup:     "待取货",
+	OrderPaisongStatusDelivering: "配送中",
+	OrderPaisongStatusFinish:     "已完成",
+	OrderPaisongStatusCancel:     "已取消",
+	OrderPaisongStatusAssign:     "指派单",
+	OrderPaisongStatusReturning:  "妥投异常之物品返回中",
+	OrderPaisongStatusReturned:   "妥投异常之物品返回完成",
+	OrderPaisongStatusDadaFail:   "创建达达运单失败",
+	OrderPaisongStatusArrive:     "达达已送达",
+}
+
 const (
 	OrderStatusClose          OrderStatus = -1
 	OrderStatusUnPaid         OrderStatus = 0
@@ -96,9 +112,23 @@ const (
 	OrderLogTypePayByOthers    OrderLogType = 11  // 11 代支付
 	OrderLogTypeHx             OrderLogType = 21  // 11 核销
 
-	OrderPaisongStatusNone OrderPaisongStatus = 0
+	OrderPaisongStatusNone       OrderPaisongStatus = 0
+	OrderPaisongStatusWaiting    OrderPaisongStatus = 1
+	OrderPaisongStatusPickup     OrderPaisongStatus = 2
+	OrderPaisongStatusDelivering OrderPaisongStatus = 3
+	OrderPaisongStatusFinish     OrderPaisongStatus = 4
+	OrderPaisongStatusCancel     OrderPaisongStatus = 5
+	OrderPaisongStatusAssign     OrderPaisongStatus = 8
+	OrderPaisongStatusReturning  OrderPaisongStatus = 9
+	OrderPaisongStatusReturned   OrderPaisongStatus = 10
+	OrderPaisongStatusDadaFail   OrderPaisongStatus = 1000
+	OrderPaisongStatusArrive     OrderPaisongStatus = 100
 
 	OrderPrinterStatusWaiting OrderPrinterStatus = 0
 	OrderPrinterStatusDone    OrderPrinterStatus = 1
 	OrderPrinterStatusErr     OrderPrinterStatus = 2
+
+	AutoDeliverStatusNone AutoDeliverStatus = 0
+	AutoDeliverStatusOn   AutoDeliverStatus = 1
+	AutoDeliverStatusOff  AutoDeliverStatus = 2
 )
