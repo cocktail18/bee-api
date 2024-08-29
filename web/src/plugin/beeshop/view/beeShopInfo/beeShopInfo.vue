@@ -45,7 +45,6 @@
 <!--        <el-table-column align="left" label="支付方式" prop="cyTablePayMod" width="120" />-->
 
         <el-table-column align="left" label="生鲜配送" prop="expressType" width="120" />
-        <el-table-column align="left" label="达达门店编号" prop="dadaShopNo" width="120" />
         <el-table-column align="left" label="接单需商家确认" prop="goodsNeedCheck" width="120">
             <template #default="scope">{{ formatBoolean(scope.row.goodsNeedCheck) }}</template>
         </el-table-column>
@@ -190,9 +189,6 @@
             <el-form-item label="生鲜配送:"  prop="expressType" >
               <el-input v-model="formData.expressType" :clearable="true"  placeholder="达达配送填 dada ,其他留空不要填写" />
             </el-form-item>
-            <el-form-item label="达达门店编号:"  prop="dadaShopNo" >
-              <el-input v-model="formData.dadaShopNo" :clearable="true"  placeholder="请输入达达门店编号" />
-            </el-form-item>
             <el-form-item label="配送接单需商家确认:"  prop="goodsNeedCheck" >
               <el-switch v-model="formData.goodsNeedCheck" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否" clearable ></el-switch>
             </el-form-item>
@@ -313,7 +309,6 @@ const formData = ref({
         cyTablePayMod: undefined,
         districtId: '',
         expressType: '',
-        dadaShopNo: '',
         goodsNeedCheck: false,
         latitude: 0,
         linkPhone: '',
@@ -567,7 +562,6 @@ const closeDialog = () => {
         cyTablePayMod: undefined,
         districtId: '',
         expressType: '',
-        dadaShopNo: '',
         goodsNeedCheck: false,
         latitude: 0,
         linkPhone: '',

@@ -308,7 +308,7 @@ func (s *OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOr
 			}
 
 			queryFeeRes, err = GetDeliverySrv().QueryDeliveryFee(c, enum.DeliveryStrMap[shopInfo.ExpressType], &proto.QueryDeliverFeeReq{
-				ShopNo:          shopInfo.DadaShopNo,
+				ShopNo:          shopInfo.Number,
 				OriginId:        util.GetRandInt64(),
 				CargoPrice:      amount,
 				IsPrepay:        0,
@@ -1328,7 +1328,7 @@ func (s *OrderSrv) createDeliveryByOrderInfo(ctx context.Context, orderId int64)
 	peisongOrderNo := util.GetRandInt64()
 	amountTotal := orderDto.Amount
 	deliveryReq := &proto.QueryDeliverFeeReq{
-		ShopNo:          shopInfo.DadaShopNo,
+		ShopNo:          shopInfo.Number,
 		OriginId:        peisongOrderNo,
 		CargoPrice:      amountTotal,
 		IsPrepay:        0,
