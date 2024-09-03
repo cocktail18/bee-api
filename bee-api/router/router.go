@@ -1,6 +1,7 @@
 package router
 
 import (
+	_ "embed"
 	"gitee.com/stuinfer/bee-api/api"
 	config2 "gitee.com/stuinfer/bee-api/config"
 	"gitee.com/stuinfer/bee-api/enum"
@@ -17,11 +18,15 @@ import (
 
 var router = gin.New()
 
-var whiteUrlList = []string{
+var tokenWhiteUrlList = []string{
 	"/user/wxapp/authorize",
 	"/user/wxapp/login",
 	"/user/level/list",
+	"/user/recharge/send/rule",
 }
+
+//go:embed bind.html
+var bindHtmlStr string
 
 // 注册主账号id到context
 func regSysUser() gin.HandlerFunc {
@@ -60,7 +65,7 @@ func regSysUserByPostForm() gin.HandlerFunc {
 
 func CheckToken() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		if lo.Contains(whiteUrlList, c.Request.RequestURI) {
+		if lo.Contains(tokenWhiteUrlList, c.Request.RequestURI) {
 			c.Next()
 			return
 		}
@@ -113,6 +118,15 @@ func NewRouter() *gin.Engine {
 	router.Use(gin.Logger(), gin.Recovery())
 	router.StaticFS(config2.GetStorePath(), justFilesFilesystem{http.Dir(config2.GetStorePath())})
 	router.POST("/upload2", regSysUserByPostForm(), CheckToken(), (api.DfsApi{}).UploadFile)
+	router.GET("/yunlaba/bind.html", func(context *gin.Context) {
+		source := context.Query("source")
+		timestamp := context.Query("timestamp")
+		state := context.Query("state")
+		bindHtmlStr = strings.ReplaceAll(bindHtmlStr, "{{source}}", source)
+		bindHtmlStr = strings.ReplaceAll(bindHtmlStr, "{{timestamp}}", timestamp)
+		bindHtmlStr = strings.ReplaceAll(bindHtmlStr, "{{state}}", state)
+		context.Data(http.StatusOK, "text/html; charset=utf-8", []byte(bindHtmlStr))
+	})
 
 	domainGroup := router.Group("/:domain", regSysUser())
 	//文件上传
@@ -266,6 +280,8 @@ func NewRouter() *gin.Engine {
 
 		//达达回调
 		notifyGroup.Any("/dada", (api.DadaAPi{}).Notify)
+		// 云喇叭
+		notifyGroup.Any("/yunlaba", (api.YunlabaAPi{}).Notify)
 	}
 
 	//扫码点餐

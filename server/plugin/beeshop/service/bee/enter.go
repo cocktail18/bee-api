@@ -45,6 +45,8 @@ type ServiceGroup struct {
 	BeeLogisticsService
 	BeeOrderLogService
 	BeePrinterService
+	BeeQueueService
+	BeeUserQueueService
 }
 
 func getContext(shopUserId int) (context.Context, error) {

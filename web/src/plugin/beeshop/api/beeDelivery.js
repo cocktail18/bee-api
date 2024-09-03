@@ -66,6 +66,22 @@ export const updateBeeDelivery = (data) => {
 }
 
 // @Tags BeeDelivery
+// @Summary 绑定云喇叭
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body model.BeeDelivery true "更新beeDelivery表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
+// @Router /beeDelivery/updateBeeDelivery [put]
+export const bindYunlabaShop = (data) => {
+    return service({
+        url: '/bee-shop/beeDelivery/bindYunlabaShop',
+        method: 'put',
+        data
+    })
+}
+
+// @Tags BeeDelivery
 // @Summary 用id查询beeDelivery表
 // @Security ApiKeyAuth
 // @accept application/json

@@ -67,7 +67,7 @@ var OrderPeisongStatusMap = map[OrderPaisongStatus]string{
 	OrderPaisongStatusAssign:     "指派单",
 	OrderPaisongStatusReturning:  "妥投异常之物品返回中",
 	OrderPaisongStatusReturned:   "妥投异常之物品返回完成",
-	OrderPaisongStatusDadaFail:   "创建达达运单失败",
+	OrderPaisongStatusDadaFail:   "创建配送运单失败",
 	OrderPaisongStatusArrive:     "达达已送达",
 }
 

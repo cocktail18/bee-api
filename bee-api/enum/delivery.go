@@ -4,16 +4,19 @@ type DeliveryType int
 type DeliveryCancelReason int
 
 const (
-	DeliveryTypeNone DeliveryType = 0
-	DeliveryTypeDada DeliveryType = 1
+	DeliveryTypeNone    DeliveryType = 0
+	DeliveryTypeDada    DeliveryType = 1
+	DeliveryTypeYunlaba DeliveryType = 2
 )
 
 var DeliveryTypeMap = map[DeliveryType]string{
-	DeliveryTypeDada: "达达",
+	DeliveryTypeDada:    "达达",
+	DeliveryTypeYunlaba: "云喇叭",
 }
 
 var DeliveryStrMap = map[string]DeliveryType{
-	"dada": DeliveryTypeDada,
+	"dada":    DeliveryTypeDada,
+	"yunlaba": DeliveryTypeYunlaba,
 }
 
 var DeliveryCancelReasonMap = map[DeliveryCancelReason]string{

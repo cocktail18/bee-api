@@ -1,6 +1,7 @@
 package api
 
 import (
+	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/logger"
 	"gitee.com/stuinfer/bee-api/service"
@@ -32,6 +33,10 @@ func (api ShoppingCartAPi) Add(c *gin.Context) {
 		zap.Any("number", number),
 		zap.Any("sku", sku),
 		zap.Any("addition", addition))
+	if sku == "" {
+		api.Fail(c, enum.ResCodeFail, "sku不能为空，请检查商品配置！")
+		return
+	}
 
 	resp, err := service.GetShoppingCartSrv().Add(c, goodsId, number, sku, addition)
 	api.Res(c, resp, err)

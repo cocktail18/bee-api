@@ -1,19 +1,33 @@
+
 <template>
   <div>
     <div class="gva-search-box">
       <el-form ref="elSearchFormRef" :inline="true" :model="searchInfo" class="demo-form-inline" :rules="searchRule" @keyup.enter="onSubmit">
-        <el-form-item label="订单id" prop="orderId">
 
-          <el-input v-model.number="searchInfo.orderId" placeholder="搜索条件" />
+        <el-form-item label="排队id" prop="queueId">
 
-        </el-form-item>
-        <el-form-item label="配送订单号" prop="peisongOrderNo">
-          <el-input v-model="searchInfo.peisongOrderNo" placeholder="搜索条件" />
+          <el-input v-model.number="searchInfo.queueId" placeholder="搜索条件" />
 
         </el-form-item>
 
         <template v-if="showAllQuery">
           <!-- 将需要控制显示状态的查询条件添加到此范围内 -->
+          <el-form-item label="uid" prop="uid">
+
+            <el-input v-model.number="searchInfo.uid" placeholder="搜索条件" />
+
+          </el-form-item>
+          <el-form-item label="号码" prop="number">
+
+            <el-input v-model.number="searchInfo.number" placeholder="搜索条件" />
+
+          </el-form-item>
+          <el-form-item label="状态" prop="status">
+            <el-select v-model="searchInfo.status" clearable placeholder="请选择" :clearable="false">
+              <el-option v-for="(item,key) in beeUserQueueStatus" :key="key" :label="item.label"
+                         :value="parseInt(item.value)"/>
+            </el-select>
+          </el-form-item>
         </template>
 
         <el-form-item>
@@ -36,15 +50,18 @@
           :data="tableData"
           row-key="id"
           @selection-change="handleSelectionChange"
+          @sort-change="sortChange"
       >
         <el-table-column type="selection" width="55" />
 
-        <el-table-column align="left" label="id字段" prop="id" width="120" />
+        <el-table-column sortable align="left" label="id" prop="id" width="120" />
+        <el-table-column align="left" label="uid" prop="uid" width="120" />
+        <el-table-column align="left" label="排队id" prop="queueId" width="120" />
+        <el-table-column sortable align="left" label="号码" prop="number" width="120" />
+        <el-table-column align="left" label="状态" prop="status" width="120" >
+          <template #default="scope">{{ formatEnum(scope.row.status, beeUserQueueStatus) }}</template>
+        </el-table-column>
 
-        <el-table-column align="left" label="订单id" prop="orderId" width="120" />
-        <el-table-column align="left" label="配送订单号" prop="peisongOrderNo" width="120" />
-        <el-table-column align="left" label="备注" prop="remark" width="120" />
-        <el-table-column align="left" label="日志" prop="log" width="120" />
         <el-table-column align="left" label="已删除" prop="isDeleted" width="120">
           <template #default="scope">{{ formatBoolean(scope.row.isDeleted) }}</template>
         </el-table-column>
@@ -59,7 +76,7 @@
         </el-table-column>
         <el-table-column align="left" label="操作" fixed="right" min-width="240">
           <template #default="scope">
-            <el-button type="primary" link icon="edit" class="table-button" @click="updateBeeOrderPeisongLogFunc(scope.row)">变更</el-button>
+            <el-button type="primary" link icon="edit" class="table-button" @click="updateBeeUserQueueFunc(scope.row)">变更</el-button>
             <el-button type="primary" link icon="delete" @click="deleteRow(scope.row)">删除</el-button>
           </template>
         </el-table-column>
@@ -88,8 +105,22 @@
       </template>
 
       <el-form :model="formData" label-position="top" ref="elFormRef" :rules="rule" label-width="80px">
-        <el-form-item label="id字段:"  prop="id" >
-          <el-input v-model.number="formData.id" :clearable="true" placeholder="请输入id字段" />
+        <el-form-item label="id:"  prop="id" >
+          <el-input v-model.number="formData.id" :clearable="true" placeholder="请输入id" />
+        </el-form-item>
+        <el-form-item label="uid:"  prop="uid" >
+          <el-input v-model.number="formData.uid" :clearable="true" placeholder="请输入uid" />
+        </el-form-item>
+        <el-form-item label="排队id:"  prop="queueId" >
+          <el-input v-model.number="formData.queueId" :clearable="true" placeholder="请输入排队id" />
+        </el-form-item>
+        <el-form-item label="号码:"  prop="number" >
+          <el-input v-model.number="formData.number" :clearable="true" placeholder="请输入号码" />
+        </el-form-item>
+        <el-form-item label="状态:"  prop="status" >
+          <el-select v-model="formData.status" clearable placeholder="请选择" :clearable="false">
+            <el-option v-for="(item,key) in beeUserQueueStatus" :key="key" :label="item.label" :value="parseInt(item.value)" />
+          </el-select>
         </el-form-item>
 <!--        <el-form-item label="已删除:"  prop="isDeleted" >-->
 <!--          <el-switch v-model="formData.isDeleted" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否" clearable ></el-switch>-->
@@ -103,18 +134,6 @@
 <!--        <el-form-item label="删除时间:"  prop="dateDelete" >-->
 <!--          <el-date-picker v-model="formData.dateDelete" type="date" style="width:100%" placeholder="选择日期" :clearable="true"  />-->
 <!--        </el-form-item>-->
-        <el-form-item label="订单id:"  prop="orderId" >
-          <el-input v-model.number="formData.orderId" :clearable="true" placeholder="请输入订单id" />
-        </el-form-item>
-        <el-form-item label="配送订单号:"  prop="peisongOrderNo" >
-          <el-input v-model="formData.peisongOrderNo" :clearable="true"  placeholder="请输入配送订单号" />
-        </el-form-item>
-        <el-form-item label="备注:"  prop="remark" >
-          <el-input v-model="formData.remark" :clearable="true"  placeholder="请输入备注" />
-        </el-form-item>
-        <el-form-item label="日志:"  prop="log" >
-          <el-input v-model="formData.log" :clearable="true"  placeholder="请输入日志" />
-        </el-form-item>
       </el-form>
     </el-drawer>
   </div>
@@ -122,22 +141,38 @@
 
 <script setup>
 import {
-  createBeeOrderPeisongLog,
-  deleteBeeOrderPeisongLog,
-  deleteBeeOrderPeisongLogByIds,
-  updateBeeOrderPeisongLog,
-  findBeeOrderPeisongLog,
-  getBeeOrderPeisongLogList
-} from '@/plugin/beeshop/api/beeOrderPeisongLog'
+  createBeeUserQueue,
+  deleteBeeUserQueue,
+  deleteBeeUserQueueByIds,
+  updateBeeUserQueue,
+  findBeeUserQueue,
+  getBeeUserQueueList
+} from '@/plugin/beeshop/api/beeUserQueue'
 
 // 全量引入格式化工具 请按需保留
-import { getDictFunc, formatDate, formatBoolean, filterDict ,filterDataSource, ReturnArrImg, onDownloadFile } from '@/utils/format'
+import {
+  getDictFunc,
+  formatDate,
+  formatBoolean,
+  filterDict,
+  filterDataSource,
+  ReturnArrImg,
+  onDownloadFile,
+  formatEnum
+} from '@/utils/format'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { ref, reactive } from 'vue'
 
 defineOptions({
-  name: 'BeeOrderPeisongLog'
+  name: 'BeeUserQueue'
 })
+
+const beeUserQueueStatus = ref([])
+const init = async () => {
+  // 获取字典（可能为空）
+  beeUserQueueStatus.value = await getDictFunc('BeeUserQueueStatus')
+}
+init()
 
 // 控制更多查询条件显示/隐藏状态
 const showAllQuery = ref(false)
@@ -149,10 +184,10 @@ const formData = ref({
   dateAdd: new Date(),
   dateUpdate: new Date(),
   dateDelete: undefined,
-  orderId: undefined,
-  peisongOrderNo: '',
-  remark: '',
-  log: '',
+  uid: undefined,
+  queueId: undefined,
+  number: undefined,
+  status: undefined,
 })
 
 
@@ -189,6 +224,22 @@ const searchInfo = ref({
   sort: 'id',
   order: 'descending',
 })
+// 排序
+const sortChange = ({ prop, order }) => {
+  const sortMap = {
+    id: 'id',
+    number: 'number',
+  }
+
+  let sort = sortMap[prop]
+  if(!sort){
+    sort = prop.replace(/[A-Z]/g, match => `_${match.toLowerCase()}`)
+  }
+
+  searchInfo.value.sort = sort
+  searchInfo.value.order = order
+  getTableData()
+}
 
 // 重置
 const onReset = () => {
@@ -226,7 +277,7 @@ const handleCurrentChange = (val) => {
 
 // 查询
 const getTableData = async() => {
-  const table = await getBeeOrderPeisongLogList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
+  const table = await getBeeUserQueueList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
   if (table.code === 0) {
     tableData.value = table.data.list
     total.value = table.data.total
@@ -261,7 +312,7 @@ const deleteRow = (row) => {
     cancelButtonText: '取消',
     type: 'warning'
   }).then(() => {
-    deleteBeeOrderPeisongLogFunc(row)
+    deleteBeeUserQueueFunc(row)
   })
 }
 
@@ -284,7 +335,7 @@ const onDelete = async() => {
     multipleSelection.value.map(item => {
       ids.push(item.id)
     })
-    const res = await deleteBeeOrderPeisongLogByIds({ ids })
+    const res = await deleteBeeUserQueueByIds({ ids })
     if (res.code === 0) {
       ElMessage({
         type: 'success',
@@ -302,8 +353,8 @@ const onDelete = async() => {
 const type = ref('')
 
 // 更新行
-const updateBeeOrderPeisongLogFunc = async(row) => {
-  const res = await findBeeOrderPeisongLog({ id: row.id })
+const updateBeeUserQueueFunc = async(row) => {
+  const res = await findBeeUserQueue({ id: row.id })
   type.value = 'update'
   if (res.code === 0) {
     formData.value = res.data
@@ -313,8 +364,8 @@ const updateBeeOrderPeisongLogFunc = async(row) => {
 
 
 // 删除行
-const deleteBeeOrderPeisongLogFunc = async (row) => {
-  const res = await deleteBeeOrderPeisongLog({ id: row.id })
+const deleteBeeUserQueueFunc = async (row) => {
+  const res = await deleteBeeUserQueue({ id: row.id })
   if (res.code === 0) {
     ElMessage({
       type: 'success',
@@ -345,10 +396,10 @@ const closeDialog = () => {
     dateAdd: new Date(),
     dateUpdate: new Date(),
     dateDelete: undefined,
-    orderId: undefined,
-    peisongOrderNo: '',
-    remark: '',
-    log: '',
+    uid: undefined,
+    queueId: undefined,
+    number: undefined,
+    status: undefined,
   }
 }
 // 弹窗确定
@@ -358,13 +409,13 @@ const enterDialog = async () => {
     let res
     switch (type.value) {
       case 'create':
-        res = await createBeeOrderPeisongLog(formData.value)
+        res = await createBeeUserQueue(formData.value)
         break
       case 'update':
-        res = await updateBeeOrderPeisongLog(formData.value)
+        res = await updateBeeUserQueue(formData.value)
         break
       default:
-        res = await createBeeOrderPeisongLog(formData.value)
+        res = await createBeeUserQueue(formData.value)
         break
     }
     if (res.code === 0) {

@@ -1,9 +1,11 @@
 package bee
 
 import (
+	"gitee.com/stuinfer/bee-api/service"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
+	"github.com/spf13/cast"
 )
 
 type BeeDeliveryService struct{}
@@ -85,4 +87,12 @@ func (beeDeliveryService *BeeDeliveryService) GetBeeDeliveryInfoList(info beeReq
 
 	err = db.Find(&beeDeliverys).Error
 	return beeDeliverys, total, err
+}
+
+func (beeDeliveryService *BeeDeliveryService) BindYunlabaShop(bindReq beeReq.BeeDeliveryBindYunlabaShopReq, shopUserId int) error {
+	ctx, err := getContext(shopUserId)
+	if err != nil {
+		return err
+	}
+	return service.GetDeliverySrv().BindYunlaba(ctx, cast.ToInt64(bindReq.ShopId), bindReq.Source, bindReq.State)
 }

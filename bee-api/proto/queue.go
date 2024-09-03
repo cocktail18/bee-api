@@ -8,10 +8,10 @@ type MyQueue struct {
 }
 
 type MyQueueLog struct {
-	Number    int64 `json:"number"`
-	Status    enum.BeeUserQueueStatus
-	StatusStr string `json:"statusStr"`
-	Name      string `json:"name"`
+	Number    int64                   `json:"number"`
+	Status    enum.BeeUserQueueStatus `json:"status"`
+	StatusStr string                  `json:"statusStr"`
+	Name      string                  `json:"name"`
 }
 
 func (log *MyQueueLog) FillData() {
@@ -19,6 +19,7 @@ func (log *MyQueueLog) FillData() {
 }
 
 type MyQueuingUpType struct {
-	CurNumber int64 `json:"curNumber"`
-	Minitus   int64 `json:"minitus"`
+	CurNumber int64  `json:"curNumber"`
+	Minitus   int64  `json:"minitus"`
+	Name      string `json:"name"`
 }
