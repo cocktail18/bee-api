@@ -678,6 +678,9 @@ func (s *OrderSrv) List(c context.Context, req *proto.ListOrderReq) (*proto.List
 	if err := dbIns.Offset((page - 1) * pageSize).Order("id desc").Limit(pageSize).Find(&orderList).Error; err != nil {
 		return nil, err
 	}
+	if len(orderList) == 0 {
+		return nil, nil
+	}
 	orderIds := lo.Map(orderList, func(item *model.BeeOrder, index int) int64 {
 		return item.Id
 	})

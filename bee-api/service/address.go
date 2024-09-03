@@ -10,6 +10,7 @@ import (
 	"gitee.com/stuinfer/bee-api/proto"
 	"gitee.com/stuinfer/bee-api/util"
 	"github.com/pkg/errors"
+	"github.com/spf13/cast"
 	"gorm.io/gorm"
 	"sync"
 	"time"
@@ -83,48 +84,68 @@ func (srv *AddressSrv) AddAddress(c context.Context, address *model.BeeUserAddre
 	return resp, nil
 }
 
-func (srv *AddressSrv) SaveAddress(c context.Context, address *model.BeeUserAddress) (*proto.UserAddressResp, error) {
+func (srv *AddressSrv) SaveAddress(c context.Context, address *proto.SaveAddressReq) (*proto.UserAddressResp, error) {
 	var oldAddress model.BeeUserAddress
-	err := db.GetDB().Where("id = ? and uid = ? and is_deleted = 0", address.Id, address.Uid).Take(&oldAddress).Error
+	err := db.GetDB().Where("id = ? and uid = ? and is_deleted = 0", address.Id, kit.GetUid(c)).Take(&oldAddress).Error
 	if err != nil {
 		return nil, err
 	}
 
-	resp := &proto.UserAddressResp{}
-	regionDistrict, err := GetRegionSrv().GetRegion(address.DistrictId)
+	if address.Address != nil {
+		oldAddress.Address = cast.ToString(address.Address)
+	}
+	if address.CityId != nil {
+		oldAddress.CityId = cast.ToString(address.CityId)
+		regionCity, err := GetRegionSrv().GetRegion(oldAddress.CityId)
+		if err != nil {
+			return nil, err
+		}
+		oldAddress.CityStr = regionCity.Name
+	}
+	if address.DistrictId != nil {
+		oldAddress.DistrictId = cast.ToString(address.DistrictId)
+		regionDistrict, err := GetRegionSrv().GetRegion(oldAddress.DistrictId)
+		if err != nil {
+			return nil, err
+		}
+		oldAddress.AreaStr = regionDistrict.Name
+	}
+	if address.ProvinceId != nil {
+		oldAddress.ProvinceId = cast.ToString(address.ProvinceId)
+		regionProvince, err := GetRegionSrv().GetRegion(oldAddress.ProvinceId)
+		if err != nil {
+			return nil, err
+		}
+		oldAddress.ProvinceStr = regionProvince.Name
+	}
+	if address.Latitude != nil {
+		oldAddress.Latitude = cast.ToFloat64(address.Latitude)
+	}
+	if address.Longitude != nil {
+		oldAddress.Longitude = cast.ToFloat64(address.Longitude)
+	}
+	if address.LinkMan != nil {
+		oldAddress.LinkMan = cast.ToString(address.LinkMan)
+	}
+	if address.Mobile != nil {
+		oldAddress.Mobile = cast.ToString(address.Mobile)
+	}
+	if address.Status != nil {
+		oldAddress.Status = cast.ToInt64(address.Status)
+	}
+
+	err = db.GetDB().Save(&oldAddress).Error
 	if err != nil {
 		return nil, err
 	}
-	regionCity, err := GetRegionSrv().GetRegion(address.CityId)
+	if cast.ToBool(address.IsDefault) {
+		_ = srv.SetDefault(c, oldAddress.Uid, oldAddress.Id)
+	}
+	addResp, err := srv.GetAddress(c, oldAddress.Id)
 	if err != nil {
 		return nil, err
 	}
-	regionProvince, err := GetRegionSrv().GetRegion(address.ProvinceId)
-	if err != nil {
-		return nil, err
-	}
-	if regionCity != nil {
-		address.CityStr = regionCity.Name
-	}
-	if regionDistrict != nil {
-		address.AreaStr = regionDistrict.Name
-	}
-	if regionProvince != nil {
-		address.ProvinceStr = regionProvince.Name
-	}
-	address.DateUpdate = common.JsonTime(time.Now())
-	err = db.GetDB().Save(address).Error
-	if err != nil {
-		return nil, err
-	}
-	if address.IsDefault {
-		_ = srv.SetDefault(c, address.Uid, address.Id)
-	}
-	util.CopyStruct(resp, address)
-	resp.RegionCity = regionCity
-	resp.RegionDistrict = regionDistrict
-	resp.RegionProvince = regionProvince
-	return resp, nil
+	return addResp.Info, nil
 }
 
 func (srv *AddressSrv) ListAddress(c context.Context) ([]*proto.UserAddressResp, error) {

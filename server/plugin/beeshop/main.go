@@ -166,6 +166,8 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 		},
 	)
 	utils.RegisterApis(ins.genPluginApi("beePrinter", "打印机")...)
+	utils.RegisterApis(ins.genPluginApi("beeQueue", "排队叫号")...)
+	utils.RegisterApis(ins.genPluginApi("beeUserQueue", "取号列表")...)
 	utils.RegisterApis(ins.genPluginApi("beeOrderPeisong", "订单配送")...)
 	utils.RegisterApis(ins.genPluginApi("beeOrderPeisongLog", "订单配送日志")...)
 	utils.RegisterApis(ins.genPluginApi("beeDelivery", "配送供应商")...)
@@ -209,6 +211,38 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 			Method:      "POST",
 		},
 	)
+	utils.RegisterApis(
+		system.SysApi{
+			Path:        "/bee-shop/beeQueue/passBeeQueue",
+			Description: "过号",
+			ApiGroup:    "bee-shop",
+			Method:      "PUT",
+		},
+	)
+	utils.RegisterApis(
+		system.SysApi{
+			Path:        "/bee-shop/beeQueue/callBeeQueue",
+			Description: "叫号",
+			ApiGroup:    "bee-shop",
+			Method:      "PUT",
+		},
+	)
+	utils.RegisterApis(
+		system.SysApi{
+			Path:        "/bee-shop/beeQueue/reCallBeeQueue",
+			Description: "重新叫号",
+			ApiGroup:    "bee-shop",
+			Method:      "PUT",
+		},
+	)
+	utils.RegisterApis(
+		system.SysApi{
+			Path:        "/bee-shop/beeQueue/nextBeeQueue",
+			Description: "叫号下一位",
+			ApiGroup:    "bee-shop",
+			Method:      "PUT",
+		},
+	)
 	ins.registerBaseMenu("shop-order-admin", system.SysBaseMenu{
 		Path: "beeOrderPeisong",
 		Name: "beeOrderPeisong",
@@ -244,6 +278,29 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 		Meta: system.Meta{
 			Title: "商城大盘",
 			Icon:  "data-analysis",
+		},
+	})
+	ins.registerBaseMenu("bee_index", system.SysBaseMenu{
+		Path:      "beeQueueAdmin",
+		Name:      "beeQueueAdmin",
+		Component: "view/routerHolder.vue",
+		Meta: system.Meta{
+			Title: "排队叫号",
+			Icon:  "goblet-square",
+		},
+	})
+	ins.registerBaseMenu("beeQueueAdmin", system.SysBaseMenu{
+		Path: "beeQueue",
+		Name: "beeQueue",
+		Meta: system.Meta{
+			Title: "队列维护",
+		},
+	})
+	ins.registerBaseMenu("beeQueueAdmin", system.SysBaseMenu{
+		Path: "beeUserQueue",
+		Name: "beeUserQueue",
+		Meta: system.Meta{
+			Title: "取号列表",
 		},
 	})
 	ins.registerBaseMenu("bee_index", system.SysBaseMenu{
@@ -465,6 +522,8 @@ func (*BeeShopPlugin) Register(group *gin.RouterGroup) {
 	beeRouter.InitBeePrinterRouter(privateGroup, publicGroup)
 	beeRouter.InitBeeDeliveryRouter(privateGroup, publicGroup)
 	beeRouter.InitBeeOrderPeisongLogRouter(privateGroup, publicGroup)
+	beeRouter.InitBeeQueueRouter(privateGroup, publicGroup)
+	beeRouter.InitBeeUserQueueRouter(privateGroup, publicGroup)
 }
 
 func (*BeeShopPlugin) RouterPath() string {

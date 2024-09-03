@@ -7,10 +7,12 @@ import (
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
+	"gitee.com/stuinfer/bee-api/util"
 	"github.com/pkg/errors"
 	"github.com/samber/lo"
 	"github.com/spf13/cast"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 	"sync"
 )
 
@@ -43,7 +45,7 @@ func (srv *QueueSrv) GetMyQueueInfo(c context.Context, queueId int64, status str
 
 	var queueInfoList = make([]*model.BeeQueue, 0)
 	if err := db.GetDB().Where("is_deleted = 0 and id in ?", lo.Map(myQueueList, func(item *model.BeeUserQueue, index int) int64 {
-		return item.Id
+		return item.QueueId
 	})).Find(&queueInfoList).Error; err != nil {
 		return nil, err
 	}
@@ -59,25 +61,26 @@ func (srv *QueueSrv) GetMyQueueInfo(c context.Context, queueId int64, status str
 		if item.Status != enum.BeeUserQueueStatusDone {
 			if item.Number < queueInfo.CurNumber {
 				item.Status = enum.BeeUserQueueStatusNormal
-			} else if item.Number == queueInfo.CurNumber {
+			} else if item.Number >= queueInfo.CurNumber {
 				item.Status = enum.BeeUserQueueStatusDoing
 			} else if item.Number > queueInfo.CurNumber {
 				item.Status = enum.BeeUserQueueStatusOver
 			}
 		}
 		myQueueLog := &proto.MyQueueLog{
-			Number:    item.Number,
-			Status:    item.Status,
-			StatusStr: "",
-			Name:      queueInfo.Name,
+			Number: item.Number,
+			Status: item.Status,
+			Name:   queueInfo.Name,
 		}
 		myQueueLog.FillData()
+		queueUpType := &proto.MyQueuingUpType{
+			CurNumber: queueInfo.CurNumber,
+			Minitus:   util.IF(item.Status == enum.BeeUserQueueStatusNormal, queueInfo.Minutes, 0),
+			Name:      queueInfo.Name,
+		}
 		res = append(res, &proto.MyQueue{
-			QueuingLog: myQueueLog,
-			QueuingUpType: &proto.MyQueuingUpType{
-				CurNumber: queueInfo.CurNumber,
-				Minitus:   queueInfo.Minutes,
-			},
+			QueuingLog:    myQueueLog,
+			QueuingUpType: queueUpType,
 		})
 	}
 
@@ -106,19 +109,19 @@ func (srv *QueueSrv) Get(c context.Context, queueId int64, mobile string) error 
 	} else {
 		return enum.NewBussErr(nil, 30005, "您已取过号了")
 	}
-	var queueInfo = &model.BeeQueue{}
-	err := db.GetDB().Where(map[string]interface{}{
-		"is_deleted": 0,
-		"id":         queueId,
-	}).Take(&queueInfo).Error
-	if err != nil {
-		return err
-	}
-	if queueInfo.MaxNumber <= queueInfo.CurNumber {
-		return enum.NewBussErr(nil, 30006, "排号已满，下次再来")
-	}
+
 	return db.GetDB().Transaction(func(tx *gorm.DB) error {
-		//@todo 并发处理
+		var queueInfo = &model.BeeQueue{}
+		err := tx.Clauses(clause.Locking{Strength: "UPDATE"}).Where(map[string]interface{}{
+			"is_deleted": 0,
+			"id":         queueId,
+		}).Take(&queueInfo).Error
+		if err != nil {
+			return err
+		}
+		if queueInfo.MaxNumber <= queueInfo.CurNumber {
+			return enum.NewBussErr(nil, 30006, "排号已满，下次再来")
+		}
 		if err := tx.Model(&model.BeeQueue{}).Where(map[string]interface{}{
 			"is_deleted": 0,
 			"id":         queueId,
@@ -136,4 +139,81 @@ func (srv *QueueSrv) Get(c context.Context, queueId int64, mobile string) error 
 		}
 		return nil
 	})
+}
+
+func (srv *QueueSrv) CallQueue(c context.Context, id int64, curNumber int64) error {
+	var queueInfo = &model.BeeQueue{}
+	if err := db.GetDB().Where("id = ? and is_deleted = 0", id).Take(queueInfo).Error; err != nil {
+		return err
+	}
+	if queueInfo.Status != enum.BeeQueueStatusNormal {
+		return enum.NewBussErr(nil, 30007, "当前状态不可叫号")
+	}
+	queueInfo.CurNumber = curNumber
+	return db.GetDB().Save(queueInfo).Error
+}
+
+func (srv *QueueSrv) PassQueue(c context.Context, id int64) error {
+	var queueInfo = &model.BeeQueue{}
+	if err := db.GetDB().Where("id = ? and is_deleted = 0", id).Take(queueInfo).Error; err != nil {
+		return err
+	}
+	if queueInfo.Status != enum.BeeQueueStatusNormal {
+		return enum.NewBussErr(nil, 30007, "当前状态不可叫号")
+	}
+	if queueInfo.CurNumber >= queueInfo.NumberGet {
+		return enum.NewBussErr(nil, 30008, "已经是最后一个号了")
+	}
+	var userQueue = &model.BeeUserQueue{}
+	if err := db.GetDB().Where("queue_id = ? and number = ? and is_deleted = 0", id, queueInfo.CurNumber).Take(userQueue).Error; err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return err
+	}
+	return db.GetDB().Transaction(func(tx *gorm.DB) error {
+		if userQueue != nil && userQueue.Id > 0 {
+			userQueue.Status = enum.BeeUserQueueStatusOver
+			if err := tx.Save(userQueue).Error; err != nil {
+				return err
+			}
+		}
+		queueInfo.CurNumber++
+		return tx.Save(queueInfo).Error
+	})
+}
+
+func (srv *QueueSrv) NextBeeQueue(c context.Context, id int64) error {
+	var queueInfo = &model.BeeQueue{}
+	if err := db.GetDB().Where("id = ? and is_deleted = 0", id).Take(queueInfo).Error; err != nil {
+		return err
+	}
+	if queueInfo.Status != enum.BeeQueueStatusNormal {
+		return enum.NewBussErr(nil, 30007, "当前状态不可叫号")
+	}
+	if queueInfo.CurNumber >= queueInfo.NumberGet {
+		return enum.NewBussErr(nil, 30008, "已经是最后一个号了")
+	}
+	var userQueue = &model.BeeUserQueue{}
+	if err := db.GetDB().Where("queue_id = ? and number = ? and is_deleted = 0", id, queueInfo.CurNumber).Take(userQueue).Error; err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return err
+	}
+	return db.GetDB().Transaction(func(tx *gorm.DB) error {
+		if userQueue != nil && userQueue.Id > 0 {
+			userQueue.Status = enum.BeeUserQueueStatusDone
+			if err := tx.Save(userQueue).Error; err != nil {
+				return err
+			}
+		}
+		queueInfo.CurNumber++
+		return tx.Save(queueInfo).Error
+	})
+}
+
+func (srv *QueueSrv) ReCallBeeQueue(ctx context.Context, id int64) error {
+	var queueInfo = &model.BeeQueue{}
+	if err := db.GetDB().Where("id = ? and is_deleted = 0", id).Take(queueInfo).Error; err != nil {
+		return err
+	}
+	if queueInfo.Status != enum.BeeQueueStatusNormal {
+		return enum.NewBussErr(nil, 30007, "当前状态不可叫号")
+	}
+	return nil
 }

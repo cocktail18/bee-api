@@ -36,6 +36,8 @@ func initBeeDict() {
 	initByMap("配送状态", "BeeOrderPeisongStatus", enum.OrderPeisongStatusMap)
 	initByMap("配送取消订单理由", "BeeDeliveryCancelReason", enum.DeliveryCancelReasonMap)
 	initByMap("配送收费类型", "BeePeiSongFeeTypeMap", enum.BeePeiSongFeeTypeMap)
+	initByMap("排队队列状态", "BeeQueueStatus", enum.BeeQueueStatusMap)
+	initByMap("用户排队状态", "BeeUserQueueStatus", enum.BeeUserQueueStatusMap)
 }
 
 func initByMap[T1 comparable, T2 any](name string, t string, m map[T1]T2) {

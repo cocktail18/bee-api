@@ -39,6 +39,8 @@ type RouterGroup struct {
 	BeeNoticeRouter
 	BeeLogisticsRouter
 	BeePrinterRouter
+	BeeQueueRouter
+	BeeUserQueueRouter
 }
 
 var RouterGroupApp = new(RouterGroup)

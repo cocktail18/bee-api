@@ -17,10 +17,11 @@ import (
 
 var router = gin.New()
 
-var whiteUrlList = []string{
+var tokenWhiteUrlList = []string{
 	"/user/wxapp/authorize",
 	"/user/wxapp/login",
 	"/user/level/list",
+	"/user/recharge/send/rule",
 }
 
 // 注册主账号id到context
@@ -60,7 +61,7 @@ func regSysUserByPostForm() gin.HandlerFunc {
 
 func CheckToken() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		if lo.Contains(whiteUrlList, c.Request.RequestURI) {
+		if lo.Contains(tokenWhiteUrlList, c.Request.RequestURI) {
 			c.Next()
 			return
 		}

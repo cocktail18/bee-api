@@ -64,6 +64,7 @@ var AllModel = []interface{}{
 	&BeeWxConfig{},
 	&BeeWxPayConfig{},
 	&BeeQueue{},
+	&RechargeSendRule{},
 	&BeeUserQueue{},
 	&BeeOrderPrintLog{},
 }
