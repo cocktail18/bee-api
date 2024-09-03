@@ -109,13 +109,13 @@ aws-s3
 
    a. 先到云喇叭官网开通账号 [https://pao.ylb.io/open/sandbox/developer/register](https://pao.ylb.io/open/sandbox/developer/register)
 
-   b. 在 `bee商城/运费相关/配送供应商配置` 配置页面增加一条配置, app_key 对应上一步的 appId ， app_secret 对应上一步的 secret，source_id 留空即可
+   b. 在 `bee商城/运费相关/配送供应商配置` 配置页面增加一条配置, app_key 对应上一步的 appId ， app_secret 对应上一步的 secret，source_id 填正式的云喇叭接口 host
  
    c. 在云喇叭申请开发者账号页面配置授权接入的H5页面地址: {{host}}/yunlaba/bind.html
 
    d. 在 `bee商城/运费相关/绑定云喇叭账户` 填入上一步获得的信息 
 
-   d. 在 `bee商城/商城基本信息/商店信息` 配置页面找到对应的商铺，`生鲜配送` 配置填`dada`, 注意是 `dada`,`达达门店编号`配置为跟shop_id一样的值
+   d. 在 `bee商城/商城基本信息/商店信息` 配置页面找到对应的商铺，`生鲜配送` 配置填`yunlaba`, 注意是 `yunlaba`,`达达门店编号`配置为跟shop_id一样的值
 8.  
 
 ### 后台截图de

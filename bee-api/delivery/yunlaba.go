@@ -3,6 +3,7 @@ package delivery
 import (
 	"context"
 	"errors"
+	"gitee.com/stuinfer/bee-api/config"
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
@@ -66,7 +67,7 @@ func (d *YunlabaDelivery) AddOrderDirect(ctx context.Context, req *proto.AddOrde
 		DaySeq:             req.DaySeq,
 		DeliveryTime:       0,
 		Foods:              nil,
-		NotifyUrl:          d.GetNotifyUrl(ctx, ""),
+		NotifyUrl:          d.GetNotifyUrl(ctx, config.GetHost()),
 		OrderId:            req.OriginId, //订单号order_id参数请使用由纯数字组成的字符串，确保风格统一
 		OriginalPrice:      req.CargoPrice.String(),
 		PaidPrice:          req.CargoPrice.String(),
@@ -123,7 +124,7 @@ func (d *YunlabaDelivery) GetNotifyUrl(c context.Context, host string) string {
 			host = scheme + "://" + ginContext.Request.Host
 		}
 	}
-	return host + "/" + kit.GetDomain(c) + "/yunlaba/dada"
+	return host + "/" + kit.GetDomain(c) + "/notify/yunlaba"
 }
 
 func (d *YunlabaDelivery) GetResponse(cmd string, body *yunlabasdk.ResponseBody) (*yunlabasdk.Request, error) {

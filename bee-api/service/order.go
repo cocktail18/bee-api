@@ -1243,14 +1243,32 @@ func (s *OrderSrv) notifySupplierToDelivery(ctx context.Context) {
 				logger.GetLogger().Error("获取订单详情失败", zap.Error(err), zap.Any("orderId", item.OrderId))
 				return
 			}
+			var shopInfo *model.BeeShopInfo
+			shopInfo, err = GetShopSrv().GetShopInfo(ctx2, orderDto.ShopId, 0, 0)
+			if err != nil {
+				logger.GetLogger().Error("获取店铺信息失败", zap.Error(err), zap.Any("shop_id", orderDto.ShopId))
+				return
+			}
 			_, err = GetDeliverySrv().AddOrderDirect(ctx2, item.Type, &proto.AddOrderDirectReq{
-				QueryDeliverFeeReq: proto.QueryDeliverFeeReq{},
-				DeliveryNo:         item.PeisongOrderId,
-				DaySeq:             orderDto.Id,
-				Source:             "",
-				ShopAddress:        "",
-				ShopName:           "",
-				ShopPhone:          "",
+				QueryDeliverFeeReq: proto.QueryDeliverFeeReq{
+					ShopNo:          shopInfo.Number,
+					OriginId:        cast.ToString(item.Id),
+					CargoPrice:      orderDto.Amount,
+					IsPrepay:        0,
+					ReceiverName:    orderDto.OrderLogistics.LinkMan,
+					ReceiverAddress: orderDto.OrderLogistics.Address,
+					CargoWeight:     cast.ToFloat64(orderDto.CalWeightTotal().StringFixed(2)),
+					ReceiverLat:     orderDto.OrderLogistics.Latitude,
+					ReceiverLng:     orderDto.OrderLogistics.Longitude,
+					ReceiverPhone:   orderDto.OrderLogistics.Mobile,
+					Info:            orderDto.ExtJsonToString(),
+				},
+				DeliveryNo:  item.PeisongOrderId,
+				DaySeq:      orderDto.Id,
+				Source:      "自营",
+				ShopAddress: shopInfo.Address,
+				ShopName:    shopInfo.Name,
+				ShopPhone:   shopInfo.LinkPhone,
 			})
 			return
 		}
@@ -1347,13 +1365,7 @@ func (s *OrderSrv) createDeliveryByOrderInfo(ctx context.Context, orderId int64)
 		return errors.Wrap(err, "获取回调地址失败")
 	}
 
-	weightTotal := decimal.Zero
-	for _, orderGoods := range orderDto.OrderGoods {
-		weightTotal = weightTotal.Add(orderGoods.Weight)
-	}
-	if weightTotal.IsZero() {
-		weightTotal = decimal.NewFromFloat(0.1)
-	}
+	weightTotal := orderDto.CalWeightTotal()
 	peisongOrderNo := util.GetRandInt64()
 	amountTotal := orderDto.Amount
 	deliveryReq := &proto.QueryDeliverFeeReq{

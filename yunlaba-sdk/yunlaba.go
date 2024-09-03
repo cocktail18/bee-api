@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"github.com/imroc/req/v3"
 	"github.com/spf13/cast"
+	"log"
 	"strings"
 	"time"
 )
@@ -17,8 +18,8 @@ import (
 // 线上环境域名：https://xxxx/具体接口名
 // 共用测试appId：9999 测试secret：YH0QTIHfnyh2
 const (
-	host      = "o"
-	debugHost = "https://pao.ylb.i/shop/message/open"
+	host      = "" //@todo
+	debugHost = "https://pao.ylb.io/shop/message/open"
 )
 
 type Cmd string
@@ -57,7 +58,7 @@ type Response struct {
 type YunlabaSdk struct {
 	AppKey    string `json:"app_key"` //对应appid
 	AppSecret string `json:"app_secret"`
-	SourceId  string `json:"source_id"`
+	Host      string `json:"host"`
 	Debug     bool   `json:"debug"` //是否debug模式
 	client    *req.Client
 }
@@ -88,33 +89,33 @@ type BindShopReq struct {
 }
 
 type CreateOrderReq struct {
-	CreatedTime  string `json:"created_time"`
-	DaySeq       int64  `json:"day_seq"`
-	DeliveryTime int    `json:"delivery_time"`
+	CreatedTime  string `json:"created_time,omitempty"`
+	DaySeq       int64  `json:"day_seq,omitempty"`
+	DeliveryTime int    `json:"delivery_tim,omitempty"`
 	Foods        []struct {
-		BoxNum   int    `json:"box_num"`
-		BoxPrice int    `json:"box_price"`
-		Name     string `json:"name"`
-		Price    string `json:"price"`
-		Quantity int    `json:"quantity"`
-	} `json:"foods"`
-	NotifyUrl          string `json:"notify_url"`
-	OrderId            string `json:"order_id"`
-	OriginalPrice      string `json:"original_price"`
-	PaidPrice          string `json:"paid_price"`
-	Quantity           int    `json:"quantity"`
-	RecipientAddress   string `json:"recipient_address"`
-	RecipientLatitude  string `json:"recipient_latitude"`
-	RecipientLongitude string `json:"recipient_longitude"`
-	RecipientName      string `json:"recipient_name"`
-	RecipientPhone     string `json:"recipient_phone"`
-	Remarks            string `json:"remarks"`
+		BoxNum   int    `json:"box_num,omitempty"`
+		BoxPrice int    `json:"box_price,omitempty"`
+		Name     string `json:"name,omitempty"`
+		Price    string `json:"price,omitempty"`
+		Quantity int    `json:"quantity,omitempty"`
+	} `json:"foods,omitempty"`
+	NotifyUrl          string `json:"notify_url,omitempty"`
+	OrderId            string `json:"order_id,omitempty"`
+	OriginalPrice      string `json:"original_price,omitempty"`
+	PaidPrice          string `json:"paid_price,omitempty"`
+	Quantity           int    `json:"quantity,omitempty"`
+	RecipientAddress   string `json:"recipient_address,omitempty"`
+	RecipientLatitude  string `json:"recipient_latitude,omitempty"`
+	RecipientLongitude string `json:"recipient_longitude,omitempty"`
+	RecipientName      string `json:"recipient_name,omitempty"`
+	RecipientPhone     string `json:"recipient_phone,omitempty"`
+	Remarks            string `json:"remarks,omitempty"`
 	ShopAddress        string `json:"shop_address,omitempty"`
 	ShopId             string `json:"shop_id,omitempty"` // 门店唯一标识ID
 	ShopName           string `json:"shop_name,omitempty"`
 	ShopPhone          string `json:"shop_phone,omitempty"`
-	Source             string `json:"source"` // 订单来源
-	UpdatedTime        string `json:"updated_time"`
+	Source             string `json:"source,omitempty"` // 订单来源
+	UpdatedTime        string `json:"updated_time,omitempty"`
 }
 
 type DeliveryStateSync struct {
@@ -143,7 +144,7 @@ type Request struct {
 	Sign      string `json:"sign"`
 	Cmd       string `json:"cmd"`
 	Source    int    `json:"source"`
-	Body      any    `json:"body"`
+	Body      string `json:"body"`
 	Version   string `json:"version"`
 	Timestamp int64  `json:"timestamp"`
 }
@@ -159,12 +160,12 @@ type NotifyData struct {
 
 // generateParams 构建请求参数
 func (sdk *YunlabaSdk) generateParams(cmd string, body any) (*Request, error) {
-
+	bodyBs, _ := json.Marshal(body)
 	_req := &Request{
 		Cmd:       cmd,
 		Source:    cast.ToInt(sdk.AppKey),
-		Body:      body,
-		Version:   "2.0",
+		Body:      string(bodyBs),
+		Version:   "1.0",
 		Timestamp: time.Now().Unix(),
 	}
 
@@ -174,10 +175,12 @@ func (sdk *YunlabaSdk) generateParams(cmd string, body any) (*Request, error) {
 
 // signature 计算签名
 func (sdk *YunlabaSdk) signature(req *Request) string {
-	bs, _ := json.Marshal(req.Body)
 	// Append appSecret to the string
-	finalSignStr := fmt.Sprintf("body=%s&cmd=%s&source=%s&timestamp=%d&version=v2.0%s", string(bs), req.Cmd, sdk.AppKey, req.Timestamp, sdk.AppSecret)
+	finalSignStr := fmt.Sprintf("body=%s&cmd=%s&source=%s&timestamp=%d&version=%s%s", req.Body, req.Cmd, sdk.AppKey, req.Timestamp, req.Version, sdk.AppSecret)
 	// MD5 hash
+	if sdk.Debug {
+		log.Println("finalSignStr", finalSignStr)
+	}
 	hash := md5.Sum([]byte(finalSignStr))
 	return strings.ToUpper(hex.EncodeToString(hash[:]))
 }
@@ -186,7 +189,7 @@ func (sdk *YunlabaSdk) getHost() string {
 	if sdk.Debug {
 		return debugHost
 	}
-	return host
+	return sdk.Host
 }
 
 func (sdk *YunlabaSdk) post(ctx context.Context, cmd string, traceId string, body any, res any) error {
@@ -196,12 +199,12 @@ func (sdk *YunlabaSdk) post(ctx context.Context, cmd string, traceId string, bod
 	}
 	var result = &Response{}
 	headers := map[string]string{
-		"Content-Type": "application/json",
+		"Content-Type": "application/x-www-form-urlencoded",
 	}
 	if traceId != "" {
 		headers["traceId"] = traceId
 	}
-	rs, err := sdk.client.R().SetContext(ctx).SetHeaders(headers).SetBodyJsonMarshal(reqBody).SetSuccessResult(result).Post(fmt.Sprintf("%s", sdk.getHost()))
+	rs, err := sdk.client.R().SetContext(ctx).SetHeaders(headers).SetBody(reqBody).SetSuccessResult(result).Post(fmt.Sprintf("%s", sdk.getHost()))
 	if err != nil {
 		return err
 	}
@@ -221,11 +224,11 @@ func (sdk *YunlabaSdk) GetResponse(cmd string, body *ResponseBody) (*Request, er
 	return sdk.generateParams(cmd, body)
 }
 
-func NewYunlabaSdk(appKey, appSecret, sourceId string, debug bool) *YunlabaSdk {
+func NewYunlabaSdk(appKey, appSecret, host string, debug bool) *YunlabaSdk {
 	sdk := &YunlabaSdk{
 		AppKey:    appKey,
 		AppSecret: appSecret,
-		SourceId:  sourceId,
+		Host:      host,
 		Debug:     debug,
 		client:    req.C(),
 	}

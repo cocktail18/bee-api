@@ -1,9 +1,10 @@
 package api
 
 import (
-	"gitee.com/stuinfer/bee-api/common"
+	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model"
+	"gitee.com/stuinfer/bee-api/proto"
 	"gitee.com/stuinfer/bee-api/service"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cast"
@@ -55,38 +56,16 @@ func (api ShippingAddressApi) Detail(c *gin.Context) {
 }
 
 func (api ShippingAddressApi) Update(c *gin.Context) {
-	linkMan := c.PostForm("linkMan") // xxx
-	address := c.PostForm("address") // 广东省广州市天河区天府路1号广州市天河区人民政府(天府路西)
-	mobile := c.PostForm("mobile")
-	isDefault := cast.ToBool(c.PostForm("isDefault"))
-	latitude := cast.ToFloat64(c.PostForm("latitude"))
-	longitude := cast.ToFloat64(c.PostForm("longitude"))
-	provinceId := c.PostForm("provinceId")
-	cityId := c.PostForm("cityId")
-	districtId := c.PostForm("districtId")
-	id := cast.ToInt64(c.PostForm("id"))
-
-	userAddress := &model.BeeUserAddress{
-		BaseModel: common.BaseModel{
-			Id:     id,
-			UserId: kit.GetUserId(c),
-		},
-		Address:     address,
-		AreaStr:     "",
-		CityId:      cityId,
-		CityStr:     "",
-		DistrictId:  districtId,
-		IsDefault:   isDefault,
-		Latitude:    latitude,
-		LinkMan:     linkMan,
-		Longitude:   longitude,
-		Mobile:      mobile,
-		ProvinceId:  provinceId,
-		ProvinceStr: "",
-		Status:      0,
-		Uid:         kit.GetUid(c),
+	var req proto.SaveAddressReq
+	if err := c.Bind(&req); err != nil {
+		api.Res(c, nil, err)
+		return
 	}
-	_, err := service.GetAddressSrv().SaveAddress(c, userAddress)
+	if req.Id <= 0 {
+		api.Res(c, "", enum.ErrParamError)
+		return
+	}
+	_, err := service.GetAddressSrv().SaveAddress(c, &req)
 	api.Res(c, "success", err)
 }
 
