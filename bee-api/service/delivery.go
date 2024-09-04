@@ -119,10 +119,10 @@ func (s *DeliverySrv) BindYunlaba(ctx context.Context, shopId int64, appId strin
 		return err
 	}
 	impl := _impl.(*delivery.YunlabaDelivery)
-	info, err := impl.QueryShopInfo(ctx, &yunlabasdk.QueryShopReq{ShopId: cast.ToString(shopId)})
-	if err != nil {
-		return err
-	}
+	//info, err := impl.QueryShopInfo(ctx, &yunlabasdk.QueryShopReq{ShopId: cast.ToString(shopId)})
+	//if err != nil {
+	//	return err
+	//}
 	bindReq := &yunlabasdk.BindShopReq{
 		Address:    shop.Address,
 		Latitude:   shop.Latitude,
@@ -133,9 +133,9 @@ func (s *DeliverySrv) BindYunlaba(ctx context.Context, shopId int64, appId strin
 		ShopId:     cast.ToString(shop.Id),
 		State:      state,
 	}
-	if info == nil || info.ShopId == "" {
-		return impl.BindShop(ctx, bindReq)
-	}
+	//if info == nil || info.ShopId == "" {
+	return impl.BindShop(ctx, bindReq)
+	//}
 
-	return impl.UpdateShopInfo(ctx, bindReq)
+	//return impl.UpdateShopInfo(ctx, bindReq)
 }

@@ -116,6 +116,8 @@ aws-s3
    d. 在 `bee商城/运费相关/绑定云喇叭账户` 填入上一步获得的信息 
 
    d. 在 `bee商城/商城基本信息/商店信息` 配置页面找到对应的商铺，`生鲜配送` 配置填`yunlaba`, 注意是 `yunlaba`,`达达门店编号`配置为跟shop_id一样的值
+   
+   e. 云喇叭接口测试方法· [https://console-docs.apipost.cn/preview/100a3773567008af/77e6c9c9a13d21be?target_id=2cc8aef0-70a9-4f50-9e22-daa57cf8d01b#user-content-测试方法](https://console-docs.apipost.cn/preview/100a3773567008af/77e6c9c9a13d21be?target_id=2cc8aef0-70a9-4f50-9e22-daa57cf8d01b#user-content-测试方法)
 8.  
 
 ### 后台截图de
@@ -127,6 +129,22 @@ aws-s3
 ![](imgs/demo06.jpg)
 ![](imgs/demo07.jpg)
 ![](imgs/demo08.jpg)
+
+#### 功能列表
+
+- [x] cms模块
+- [x] 购物车
+- [x] 运费配置
+- [x] 商品管理
+- [x] 优惠券
+- [x] 用户管理
+- [x] 订单模块
+- [x] 取号叫号
+- [x] 扫码点餐
+- [x] 打印机，目前支持飞蛾跟大趋
+- [x] 配送商，目前支持达达跟云喇叭
+- [ ] 充值优惠
+- [ ] 
 
 
 #### QQ交流群 963437155

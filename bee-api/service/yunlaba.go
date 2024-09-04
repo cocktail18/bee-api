@@ -10,7 +10,6 @@ import (
 	"gitee.com/stuinfer/bee-api/logger"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/util"
-	"github.com/spf13/cast"
 	"go.uber.org/zap"
 	"sync"
 	yunlabasdk "yunlaba/gosdk"
@@ -59,13 +58,12 @@ func (s *YunlabaSrv) Notify(c context.Context, param *yunlabasdk.NotifyData) (*y
 	switch yunlabasdk.Cmd(param.Cmd) {
 	case yunlabasdk.CmdDeliveryStateSync:
 		var data yunlabasdk.DeliveryStateSync
-		if err := json.Unmarshal(param.Body, &data); err != nil {
+		if err := json.Unmarshal([]byte(param.Body), &data); err != nil {
 			logger.GetLogger().Info("云喇叭回调解析失败", zap.Any("param", param), zap.Error(err))
 			return nil, err
 		}
 
-		peisongOrderId := cast.ToInt64(data.OrderId)
-		peisongOrderInfo, err := GetOrderSrv().GetPeisongOrderInfoById(c, peisongOrderId)
+		peisongOrderInfo, err := GetOrderSrv().GetPeisongOrderInfoByPeisongOrderNo(c, data.OrderId)
 		if err != nil {
 			return nil, err
 		}
@@ -83,7 +81,7 @@ func (s *YunlabaSrv) Notify(c context.Context, param *yunlabasdk.NotifyData) (*y
 		logger.GetLogger().Info("当前配送订单状态", zap.Any("peisongOrderInfo", peisongOrderInfo), zap.Any("status", peisongOrderInfo.Status))
 		if peisongOrderInfo.Status == enum.OrderPaisongStatusFinish {
 			logger.GetLogger().Warn("配送订单已完成，忽略回调", zap.String("peisongOrderNo", peisongOrderInfo.PeisongOrderNo))
-			return impl.GetResponse(param.Cmd, &yunlabasdk.ResponseBody{
+			return impl.GetResponse("resp."+param.Cmd, &yunlabasdk.ResponseBody{
 				Code:   0,
 				ErrMsg: "success",
 			})
@@ -94,18 +92,18 @@ func (s *YunlabaSrv) Notify(c context.Context, param *yunlabasdk.NotifyData) (*y
 		if err := GetOrderSrv().UpdatePeisongOrderInfoStatus(c, peisongOrderInfo); err != nil {
 			return nil, err
 		}
-		return impl.GetResponse(param.Cmd, &yunlabasdk.ResponseBody{
+		return impl.GetResponse("resp."+param.Cmd, &yunlabasdk.ResponseBody{
 			Code:   0,
 			ErrMsg: "success",
 		})
 	case yunlabasdk.CmdPushErrCallback:
 		var data yunlabasdk.ErrorCallback
-		if err := json.Unmarshal(param.Body, &data); err != nil {
+		if err := json.Unmarshal([]byte(param.Body), &data); err != nil {
 			logger.GetLogger().Info("云喇叭回调解析失败", zap.Any("param", param), zap.Error(err))
 			return nil, err
 		}
-		peisongOrderNo := data.TraceId
-		peisongOrderInfo, err := GetOrderSrv().GetPeisongOrderInfoByPeisongOrderNo(c, peisongOrderNo)
+		peisongOrderId := data.TraceId
+		peisongOrderInfo, err := GetOrderSrv().GetPeisongOrderInfoByPeisongOrderId(c, peisongOrderId)
 		if err != nil {
 			return nil, err
 		}
@@ -122,7 +120,7 @@ func (s *YunlabaSrv) Notify(c context.Context, param *yunlabasdk.NotifyData) (*y
 		logger.GetLogger().Info("当前配送订单状态", zap.Any("peisongOrderInfo", peisongOrderInfo), zap.Any("status", peisongOrderInfo.Status))
 		if peisongOrderInfo.Status == enum.OrderPaisongStatusFinish {
 			logger.GetLogger().Warn("配送订单已完成，忽略回调", zap.String("peisongOrderNo", peisongOrderInfo.PeisongOrderNo))
-			return impl.GetResponse(param.Cmd, &yunlabasdk.ResponseBody{
+			return impl.GetResponse("resp."+param.Cmd, &yunlabasdk.ResponseBody{
 				Code:   0,
 				ErrMsg: "success",
 			})
@@ -133,12 +131,12 @@ func (s *YunlabaSrv) Notify(c context.Context, param *yunlabasdk.NotifyData) (*y
 		if err := GetOrderSrv().UpdatePeisongOrderInfoStatus(c, peisongOrderInfo); err != nil {
 			return nil, err
 		}
-		return impl.GetResponse(param.Cmd, &yunlabasdk.ResponseBody{
+		return impl.GetResponse("resp."+param.Cmd, &yunlabasdk.ResponseBody{
 			Code:   0,
 			ErrMsg: "success",
 		})
 	default:
-		return impl.GetResponse(param.Cmd, &yunlabasdk.ResponseBody{
+		return impl.GetResponse("resp."+param.Cmd, &yunlabasdk.ResponseBody{
 			Code:   0,
 			ErrMsg: "success",
 		})

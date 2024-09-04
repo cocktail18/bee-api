@@ -1252,7 +1252,7 @@ func (s *OrderSrv) notifySupplierToDelivery(ctx context.Context) {
 			_, err = GetDeliverySrv().AddOrderDirect(ctx2, item.Type, &proto.AddOrderDirectReq{
 				QueryDeliverFeeReq: proto.QueryDeliverFeeReq{
 					ShopNo:          shopInfo.Number,
-					OriginId:        cast.ToString(item.Id),
+					OriginId:        cast.ToString(item.PeisongOrderNo),
 					CargoPrice:      orderDto.Amount,
 					IsPrepay:        0,
 					ReceiverName:    orderDto.OrderLogistics.LinkMan,
@@ -1270,6 +1270,16 @@ func (s *OrderSrv) notifySupplierToDelivery(ctx context.Context) {
 				ShopName:    shopInfo.Name,
 				ShopPhone:   shopInfo.LinkPhone,
 			})
+			if err != nil {
+				return
+			}
+			//下单成功
+			logger.GetLogger().Info("通知供应商配送成功", zap.Any("orderId", item.OrderId), zap.Any("peisongOrderId", item.PeisongOrderId))
+			err = db.GetDB().Model(&model.BeeOrderPeisong{}).Where("id = ? and status = ?", item.Id, item.Status).Updates(map[string]interface{}{
+				"last_retry_unix": time.Now().Unix(),
+				"status":          enum.OrderPaisongStatusWaiting,
+				"date_update":     time.Now(),
+			}).Error
 			return
 		}
 	})
@@ -1282,6 +1292,15 @@ func (s *OrderSrv) GetPeisongOrderInfoByPeisongOrderNo(c context.Context, peison
 	}
 	return &item, nil
 }
+
+func (s *OrderSrv) GetPeisongOrderInfoByPeisongOrderId(c context.Context, peisongOrderId string) (*model.BeeOrderPeisong, error) {
+	var item model.BeeOrderPeisong
+	if err := db.GetDB().Where("peisong_order_id = ?", peisongOrderId).Take(&item).Error; err != nil {
+		return nil, err
+	}
+	return &item, nil
+}
+
 func (s *OrderSrv) GetPeisongOrderInfoById(c context.Context, id int64) (*model.BeeOrderPeisong, error) {
 	var item model.BeeOrderPeisong
 	if err := db.GetDB().Where("id = ?", id).Take(&item).Error; err != nil {
@@ -1441,6 +1460,9 @@ func (s *OrderSrv) CancelDelivery(ctx context.Context, peisongId int64, reasonId
 	}
 	if item.ReqData == "" {
 		return errors.New("请求数据为空，不能重试")
+	}
+	if reason == "" && reasonId != 0 {
+		reason = enum.DeliveryCancelReasonMap[enum.DeliveryCancelReason(reasonId)]
 	}
 	//@todo 兼容不同配送商
 	res, err := GetDeliverySrv().CancelOrder(ctx, item.Type, &proto.CancelDeliverOrderReq{

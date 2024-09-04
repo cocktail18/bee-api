@@ -151,7 +151,7 @@ func (beeOrderPeisongApi *BeeOrderPeisongApi) NotifyBeeOrderPeisong(c *gin.Conte
 	beeOrderPeisong.UserId = &shopUserId
 	if err := beeOrderPeisongService.Notify(beeOrderPeisong, shopUserId); err != nil {
 		global.GVA_LOG.Error("通知失败!", zap.Error(err))
-		response.FailWithMessage("通知失败", c)
+		response.FailWithMessage("通知失败"+err.Error(), c)
 	} else {
 		response.OkWithMessage("通知成功", c)
 	}
@@ -225,7 +225,7 @@ func (beeOrderPeisongApi *BeeOrderPeisongApi) GetBeeOrderPeisongDetail(c *gin.Co
 	shopUserId := int(utils.GetShopUserID(c))
 	if detail, err := beeOrderPeisongService.GetBeeOrderPeisongDetail(info.Id, shopUserId); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
-		response.FailWithMessage("查询失败", c)
+		response.FailWithMessage("查询失败"+err.Error(), c)
 	} else {
 		response.OkWithData(detail, c)
 	}

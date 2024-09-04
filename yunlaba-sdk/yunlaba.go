@@ -150,12 +150,12 @@ type Request struct {
 }
 
 type NotifyData struct {
-	Sign      string          `json:"sign"`
-	Cmd       string          `json:"cmd"`
-	Source    int             `json:"source"`
-	Body      json.RawMessage `json:"body"`
-	Version   string          `json:"version"`
-	Timestamp int64           `json:"timestamp"`
+	Sign      string `json:"sign" form:"sign"`
+	Cmd       string `json:"cmd" form:"cmd"`
+	Source    int    `json:"source" form:"source"`
+	Body      string `json:"body" form:"body"`
+	Version   string `json:"version" form:"version"`
+	Timestamp int64  `json:"timestamp" form:"timestamp"`
 }
 
 // generateParams 构建请求参数

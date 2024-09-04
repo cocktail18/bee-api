@@ -15,6 +15,10 @@ type YunlabaAPi struct {
 
 func (a YunlabaAPi) Notify(c *gin.Context) {
 	var param yunlaba_sdk.NotifyData
+	if err := c.ShouldBind(&param); err != nil {
+		c.JSON(http.StatusInternalServerError, map[string]interface{}{"code": 500})
+		return
+	}
 	resp, err := service.GetYunlabaSrv().Notify(c, &param)
 	if err != nil {
 		logger.GetLogger().Error("云喇叭回调失败", zap.Error(err), zap.Any("param", param))

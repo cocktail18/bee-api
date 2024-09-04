@@ -11,7 +11,7 @@ func (sdk *YunlabaSdk) CancelOrder(ctx context.Context, req *CancelOrderRequest)
 }
 
 func (sdk *YunlabaSdk) QueryShopInfo(ctx context.Context, req *QueryShopReq, res *QueryShopRes) error {
-	return sdk.post(ctx, "resp.shop.get", "", req, res)
+	return sdk.post(ctx, "shop.get", "", req, res)
 }
 
 func (sdk *YunlabaSdk) BindShop(ctx context.Context, req *BindShopReq) error {
