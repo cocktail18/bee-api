@@ -153,11 +153,21 @@
             <td class="table-cell">{{ item.id }}</td>
             <td class="table-cell">{{ item.peisongOrderId }} </td>
             <td class="table-cell">{{ item.peisongOrderNo }} </td>
-            <td class="table-cell">{{ formatEnum(item.status, beeOrderPeisongStatus) }} </td>
+            <td class="table-cell"> <el-tooltip
+                class="box-item"
+                effect="dark"
+                :content="item.errMsg ? item.errMsg : '正常'"
+                placement="top-start"
+            >{{ formatEnum(item.status, beeOrderPeisongStatus) }}</el-tooltip> </td>
             <td class="table-cell">{{ item.money }} </td>
             <td class="table-cell">{{ item.realMoney }} </td>
             <td class="table-cell">{{ item.deductFee }} </td>
-            <td class="table-cell">{{ item.isCancel ? '是' : '否' }} </td>
+            <td class="table-cell"> <el-tooltip
+                class="box-item"
+                effect="dark"
+                :content="item.errMsg ? item.errMsg : '正常'"
+                placement="top-start"
+            >{{ item.isCancel ? '是' : '否' }} </el-tooltip></td>
             <td class="table-cell">{{ formatDate(item.dateUpdate) }} </td>
             <td class="table-cell">
               <td class="table-cell">

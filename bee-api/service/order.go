@@ -324,7 +324,10 @@ func (s *OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOr
 				return nil, errors.Wrap(err, "获取配送费失败，请检查配送配置")
 			}
 			var deliveryFee decimal.Decimal
-			deliveryFee, err = s.calDeliveryFee(c, cast.ToInt64(req.PeisongFeeId), queryFeeRes.Distance, queryFeeRes.DeliverFee)
+			if queryFeeRes.Distance != 0 {
+				distance = queryFeeRes.Distance
+			}
+			deliveryFee, err = s.calDeliveryFee(c, cast.ToInt64(req.PeisongFeeId), distance, queryFeeRes.DeliverFee)
 			if err != nil {
 				return nil, errors.Wrap(err, "获取配送费失败")
 			}
@@ -1189,9 +1192,88 @@ func (s *OrderSrv) notifySupplierToDelivery(ctx context.Context) {
 			logger.GetLogger().Error("获取系统用户信息失败", zap.Error(err), zap.Any("user_id", item.UserId))
 			return
 		}
-
-		err = GetDeliverySrv().AddOrder(ctx2, item.Type, item.PeisongOrderId)
-		if err == nil {
+		supportPreOrder, err := GetDeliverySrv().SupportPreOrder(ctx2, item.Type)
+		if err != nil {
+			logger.GetLogger().Error("获取是否支持预下单失败", zap.Error(err), zap.Any("user_id", item.UserId))
+			return
+		}
+		if supportPreOrder {
+			err = GetDeliverySrv().AddOrder(ctx2, item.Type, item.PeisongOrderId)
+			if err == nil {
+				logger.GetLogger().Info("通知供应商配送成功", zap.Any("orderId", item.OrderId), zap.Any("peisongOrderId", item.PeisongOrderId))
+				err = db.GetDB().Model(&model.BeeOrderPeisong{}).Where("id = ? and status = ?", item.Id, item.Status).Updates(map[string]interface{}{
+					"last_retry_unix": time.Now().Unix(),
+					"status":          enum.OrderPaisongStatusWaiting,
+					"date_update":     time.Now(),
+				}).Error
+				return
+			}
+			logger.GetLogger().Error("添加配送订单失败", zap.Error(err), zap.Any("item", item))
+			var dadaErr *dadasdk.BussError
+			if errors.As(err, &dadaErr) {
+				switch dadaErr.Code {
+				case 2005, 2011, 2062, 2064: //达达订单不存在,数据异常, 重新下单
+					logger.GetLogger().Info("达达订单不存在,重新下单", zap.Any("orderId", item.OrderId))
+					err = s.NotifyDelivery(ctx2, item.OrderId)
+					if err == nil {
+						if err2 := db.GetDB().Model(&model.BeeOrderPeisong{}).Updates(map[string]interface{}{
+							"status":          item.RetryTimes + 1,
+							"is_cancel":       1,
+							"err_msg":         fmt.Sprintf("达达订单不存在:%d", dadaErr.Code),
+							"last_retry_unix": time.Now().Unix(),
+						}).Where("id = ? and status = ?", item.Id, item.Status).Error; err2 != nil {
+							logger.GetLogger().Error("更新订单配送信息失败", zap.Error(err), zap.Any("item", item))
+						}
+					}
+					return
+				case 2012, 2050, 2051, 2052, 2065, 2066: //处理中
+					logger.GetLogger().Info("达达订单处理中，不需要额外处理", zap.Any("orderId", item.OrderId))
+					err = db.GetDB().Model(&model.BeeOrderPeisong{}).Updates(map[string]interface{}{
+						"retry_times":     item.RetryTimes + 1,
+						"last_retry_unix": time.Now().Unix(),
+						"status":          enum.OrderPaisongStatusWaiting,
+					}).Where("id = ? and status = ?", item.Id, item.Status).Error
+					return
+				}
+			}
+		} else { //不支持预下单，直接下单
+			var orderDto *proto.OrderDetailDto
+			orderDto, err = s.GetOrderDetailByOrderId(ctx2, item.OrderId)
+			if err != nil {
+				logger.GetLogger().Error("获取订单详情失败", zap.Error(err), zap.Any("orderId", item.OrderId))
+				return
+			}
+			var shopInfo *model.BeeShopInfo
+			shopInfo, err = GetShopSrv().GetShopInfo(ctx2, orderDto.ShopId, 0, 0)
+			if err != nil {
+				logger.GetLogger().Error("获取店铺信息失败", zap.Error(err), zap.Any("shop_id", orderDto.ShopId))
+				return
+			}
+			_, err = GetDeliverySrv().AddOrderDirect(ctx2, item.Type, &proto.AddOrderDirectReq{
+				QueryDeliverFeeReq: proto.QueryDeliverFeeReq{
+					ShopNo:          shopInfo.Number,
+					OriginId:        cast.ToString(item.PeisongOrderNo),
+					CargoPrice:      orderDto.Amount,
+					IsPrepay:        0,
+					ReceiverName:    orderDto.OrderLogistics.LinkMan,
+					ReceiverAddress: orderDto.OrderLogistics.Address,
+					CargoWeight:     cast.ToFloat64(orderDto.CalWeightTotal().StringFixed(2)),
+					ReceiverLat:     orderDto.OrderLogistics.Latitude,
+					ReceiverLng:     orderDto.OrderLogistics.Longitude,
+					ReceiverPhone:   orderDto.OrderLogistics.Mobile,
+					Info:            orderDto.ExtJsonToString(),
+				},
+				DeliveryNo:  item.PeisongOrderId,
+				DaySeq:      orderDto.Id,
+				Source:      "自营",
+				ShopAddress: shopInfo.Address,
+				ShopName:    shopInfo.Name,
+				ShopPhone:   shopInfo.LinkPhone,
+			})
+			if err != nil {
+				return
+			}
+			//下单成功
 			logger.GetLogger().Info("通知供应商配送成功", zap.Any("orderId", item.OrderId), zap.Any("peisongOrderId", item.PeisongOrderId))
 			err = db.GetDB().Model(&model.BeeOrderPeisong{}).Where("id = ? and status = ?", item.Id, item.Status).Updates(map[string]interface{}{
 				"last_retry_unix": time.Now().Unix(),
@@ -1199,34 +1281,6 @@ func (s *OrderSrv) notifySupplierToDelivery(ctx context.Context) {
 				"date_update":     time.Now(),
 			}).Error
 			return
-		}
-		logger.GetLogger().Error("添加配送订单失败", zap.Error(err), zap.Any("item", item))
-		var dadaErr *dadasdk.BussError
-		if errors.As(err, &dadaErr) {
-			switch dadaErr.Code {
-			case 2005, 2011, 2062, 2064: //达达订单不存在,数据异常, 重新下单
-				logger.GetLogger().Info("达达订单不存在,重新下单", zap.Any("orderId", item.OrderId))
-				err = s.NotifyDelivery(ctx2, item.OrderId)
-				if err == nil {
-					if err2 := db.GetDB().Model(&model.BeeOrderPeisong{}).Updates(map[string]interface{}{
-						"status":          item.RetryTimes + 1,
-						"is_cancel":       1,
-						"err_msg":         fmt.Sprintf("达达订单不存在:%d", dadaErr.Code),
-						"last_retry_unix": time.Now().Unix(),
-					}).Where("id = ? and status = ?", item.Id, item.Status).Error; err2 != nil {
-						logger.GetLogger().Error("更新订单配送信息失败", zap.Error(err), zap.Any("item", item))
-					}
-				}
-				return
-			case 2012, 2050, 2051, 2052, 2065, 2066: //处理中
-				logger.GetLogger().Info("达达订单处理中，不需要额外处理", zap.Any("orderId", item.OrderId))
-				err = db.GetDB().Model(&model.BeeOrderPeisong{}).Updates(map[string]interface{}{
-					"retry_times":     item.RetryTimes + 1,
-					"last_retry_unix": time.Now().Unix(),
-					"status":          enum.OrderPaisongStatusWaiting,
-				}).Where("id = ? and status = ?", item.Id, item.Status).Error
-				return
-			}
 		}
 	})
 }
@@ -1238,6 +1292,15 @@ func (s *OrderSrv) GetPeisongOrderInfoByPeisongOrderNo(c context.Context, peison
 	}
 	return &item, nil
 }
+
+func (s *OrderSrv) GetPeisongOrderInfoByPeisongOrderId(c context.Context, peisongOrderId string) (*model.BeeOrderPeisong, error) {
+	var item model.BeeOrderPeisong
+	if err := db.GetDB().Where("peisong_order_id = ?", peisongOrderId).Take(&item).Error; err != nil {
+		return nil, err
+	}
+	return &item, nil
+}
+
 func (s *OrderSrv) GetPeisongOrderInfoById(c context.Context, id int64) (*model.BeeOrderPeisong, error) {
 	var item model.BeeOrderPeisong
 	if err := db.GetDB().Where("id = ?", id).Take(&item).Error; err != nil {
@@ -1321,13 +1384,7 @@ func (s *OrderSrv) createDeliveryByOrderInfo(ctx context.Context, orderId int64)
 		return errors.Wrap(err, "获取回调地址失败")
 	}
 
-	weightTotal := decimal.Zero
-	for _, orderGoods := range orderDto.OrderGoods {
-		weightTotal = weightTotal.Add(orderGoods.Weight)
-	}
-	if weightTotal.IsZero() {
-		weightTotal = decimal.NewFromFloat(0.1)
-	}
+	weightTotal := orderDto.CalWeightTotal()
 	peisongOrderNo := util.GetRandInt64()
 	amountTotal := orderDto.Amount
 	deliveryReq := &proto.QueryDeliverFeeReq{
@@ -1345,6 +1402,7 @@ func (s *OrderSrv) createDeliveryByOrderInfo(ctx context.Context, orderId int64)
 		Info:            orderDto.ExtJsonToString(),
 		ReceiverTel:     "",
 	}
+
 	deliveryFee, err := GetDeliverySrv().QueryDeliveryFee(ctx, enum.DeliveryStrMap[shopInfo.ExpressType], deliveryReq)
 	if err != nil {
 		return errors.Wrap(err, "获取配送费失败")
@@ -1402,6 +1460,9 @@ func (s *OrderSrv) CancelDelivery(ctx context.Context, peisongId int64, reasonId
 	}
 	if item.ReqData == "" {
 		return errors.New("请求数据为空，不能重试")
+	}
+	if reason == "" && reasonId != 0 {
+		reason = enum.DeliveryCancelReasonMap[enum.DeliveryCancelReason(reasonId)]
 	}
 	//@todo 兼容不同配送商
 	res, err := GetDeliverySrv().CancelOrder(ctx, item.Type, &proto.CancelDeliverOrderReq{

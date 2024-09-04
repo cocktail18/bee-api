@@ -106,6 +106,31 @@ func (beeDeliveryApi *BeeDeliveryApi) UpdateBeeDelivery(c *gin.Context) {
 	}
 }
 
+// BindYunlabaShop 绑定云喇叭商户
+// @Tags BeeDelivery
+// @Summary 绑定云喇叭商户
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body bee.BeeDelivery true "更新beeDelivery表"
+// @Success 200 {object} response.Response{msg=string} "更新成功"
+// @Router /beeDelivery/bindYunlabaShop [put]
+func (beeDeliveryApi *BeeDeliveryApi) BindYunlabaShop(c *gin.Context) {
+	var bindReq beeReq.BeeDeliveryBindYunlabaShopReq
+	err := c.ShouldBindJSON(&bindReq)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	shopUserId := int(utils.GetShopUserID(c))
+	if err := beeDeliveryService.BindYunlabaShop(bindReq, shopUserId); err != nil {
+		global.GVA_LOG.Error("绑定失败!", zap.Error(err))
+		response.FailWithMessage("绑定失败"+err.Error(), c)
+	} else {
+		response.OkWithMessage("绑定成功", c)
+	}
+}
+
 // FindBeeDelivery 用id查询beeDelivery表
 // @Tags BeeDelivery
 // @Summary 用id查询beeDelivery表

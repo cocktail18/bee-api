@@ -57,6 +57,9 @@ done WXAPI.scoreSign(wx.getStorageSync('token'))
 done WXAPI.scoreSignLogs({
 done WXAPI.shareGroupGetScore(
 done WXAPI.orderClose(wx.getStorageSync('token'), orderId).then(function(res) {
+done WXAPI.queuingGet(wx.getStorageSync('token'), queueType.id)
+done WXAPI.queuingMy(wx.getStorageSync('token'))
+done WXAPI.queuingTypes()
 
 // 积分优惠
 @todo 暂无充值优惠 WXAPI.rechargeSendRules()
@@ -83,10 +86,7 @@ done WXAPI.orderClose(wx.getStorageSync('token'), orderId).then(function(res) {
 @todo WXAPI.goodsTimesSchedule(goodsId, '') // todo sku
 
 
-// 排队取号
-@todo WXAPI.queuingGet(wx.getStorageSync('token'), queueType.id)
-@todo WXAPI.queuingMy(wx.getStorageSync('token'))
-@todo WXAPI.queuingTypes()
+
 
 // 砍价
 @todo WXAPI.kanjiaDetail(_data.curGoodsKanjia.id, that.data.kjJoinUid)

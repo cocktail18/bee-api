@@ -32,6 +32,7 @@
         "screenfull": "^6.0.2",
         "sortablejs": "^1.15.2",
         "spark-md5": "^3.0.2",
+        "speak-tts": "^2.0.8",
         "tailwindcss": "^3.3.3",
         "vite-auto-import-svg": "^1.0.0",
         "vue": "^3.4.21",

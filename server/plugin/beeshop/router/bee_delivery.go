@@ -20,6 +20,7 @@ func (s *BeeDeliveryRouter) InitBeeDeliveryRouter(Router *gin.RouterGroup, Publi
 		beeDeliveryRouter.DELETE("deleteBeeDelivery", beeDeliveryApi.DeleteBeeDelivery)           // 删除beeDelivery表
 		beeDeliveryRouter.DELETE("deleteBeeDeliveryByIds", beeDeliveryApi.DeleteBeeDeliveryByIds) // 批量删除beeDelivery表
 		beeDeliveryRouter.PUT("updateBeeDelivery", beeDeliveryApi.UpdateBeeDelivery)              // 更新beeDelivery表
+		beeDeliveryRouter.PUT("bindYunlabaShop", beeDeliveryApi.BindYunlabaShop)                  // 绑定云喇叭账户
 	}
 	{
 		beeDeliveryRouterWithoutRecord.GET("findBeeDelivery", beeDeliveryApi.FindBeeDelivery)       // 根据ID获取beeDelivery表

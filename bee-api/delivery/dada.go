@@ -3,6 +3,7 @@ package delivery
 import (
 	"context"
 	dadasdk "dada/gosdk"
+	"errors"
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
@@ -19,6 +20,14 @@ func NewDadaDelivery(cfg *model.BeeDelivery) *DadaDelivery {
 	return &DadaDelivery{
 		sdk: dadasdk.NewDadaSdk(cfg.AppKey, cfg.AppSecret, cfg.SourceId, cfg.Debug),
 	}
+}
+
+func (d *DadaDelivery) AddOrderDirect(ctx context.Context, req *proto.AddOrderDirectReq) (*proto.AddOrderDirectResp, error) {
+	return nil, errors.New("not support")
+}
+
+func (d *DadaDelivery) SupportPreOrder() bool {
+	return true
 }
 
 func (d *DadaDelivery) QueryOrder(ctx context.Context, orderId string) (*proto.QueryDeliveryResult, error) {

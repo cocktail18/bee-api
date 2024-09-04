@@ -197,6 +197,14 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 	)
 	utils.RegisterApis(
 		system.SysApi{
+			Path:        "/bee-shop/beeDelivery/bindYunlabaShop",
+			Description: "绑定云喇叭",
+			ApiGroup:    "bee-shop",
+			Method:      "PUT",
+		},
+	)
+	utils.RegisterApis(
+		system.SysApi{
 			Path:        "/bee-shop/beeOrder/shippedBeeOrder",
 			Description: "确认已发货",
 			ApiGroup:    "bee-shop",
@@ -270,6 +278,14 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 		Name: "beeDelivery",
 		Meta: system.Meta{
 			Title: "配送供应商配置",
+		},
+	})
+	ins.registerBaseMenu("bee_logistics_admin", system.SysBaseMenu{
+		Path:      "beeDeliveryBindYunlaba",
+		Name:      "beeDeliveryBindYunlaba",
+		Component: "plugin/beeshop/view/beeDelivery/beeDeliveryYunlabaBind.vue",
+		Meta: system.Meta{
+			Title: "绑定云喇叭账户",
 		},
 	})
 	ins.registerBaseMenu("bee_index", system.SysBaseMenu{

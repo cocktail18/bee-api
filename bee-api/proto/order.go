@@ -226,6 +226,17 @@ type OrderDetailDto struct {
 	OrderLogistics *model.BeeOrderLogistics
 }
 
+func (o *OrderDetailDto) CalWeightTotal() decimal.Decimal {
+	weightTotal := decimal.Zero
+	for _, orderGoods := range o.OrderGoods {
+		weightTotal = weightTotal.Add(orderGoods.Weight)
+	}
+	if weightTotal.IsZero() {
+		weightTotal = decimal.NewFromFloat(0.1)
+	}
+	return weightTotal
+}
+
 func BeeOrder2Dto(item *model.BeeOrder) *OrderDto {
 	return &OrderDto{
 		BeeOrder:    *item,

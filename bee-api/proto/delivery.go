@@ -39,22 +39,38 @@ type QueryDeliverFeeResult struct {
 
 // QueryDeliverFeeReq 查询配送订单费用req
 type QueryDeliverFeeReq struct {
-	ShopNo          string          `json:"shop_no"`                  //	是 	门店编号，门店创建后可在门店列表查看
-	OriginId        string          `json:"origin_id"`                //	是	第三方订单ID
-	CargoPrice      decimal.Decimal `json:"cargo_price"`              //	是	订单金额（单位：元）
-	IsPrepay        int8            `json:"is_prepay"`                //	是	是否需要垫付 1:是 0:否 (垫付订单金额，非运费)
-	ReceiverName    string          `json:"receiver_name"`            //	是	收货人姓名
-	ReceiverAddress string          `json:"receiver_address"`         //	是	收货人地址
-	Callback        string          `json:"callback"`                 //	是	回调URL（查看回调说明）
-	CargoWeight     float64         `json:"cargo_weight"`             //	是	订单重量（单位：Kg）
-	ReceiverLat     float64         `json:"receiver_lat"`             //	是	收货人地址纬度（支持火星坐标系(高德、腾讯地图))
-	ReceiverLng     float64         `json:"receiver_lng"`             // 	是	收货人地址经度（支持火星坐标系(高德、腾讯地图))
-	ReceiverPhone   string          `json:"receiver_phone,omitempty"` //	否	收货人手机号（手机号和座机号必填一项），如传入隐私号，请使用英文逗号","分隔格式，并确保支持接收短信
-	ReceiverTel     string          `json:"receiver_tel,omitempty"`   //	否	收货人座机号（手机号和座机号必填一项）
-	Tips            decimal.Decimal `json:"tips,omitempty"`           //	否	小费（单位：元，精确小数点后一位，小费金额不能高于订单金额。）
-	Info            string          `json:"info,omitempty"`           //	否	订单备注
-	CargoType       int             `json:"cargo_type,omitempty"`     //	否	支持配送的物品品类见链接。请选择门店真实配送品类，如无法判断可咨询您的销售经理。
-	CargoNum        int             `json:"cargo_num,omitempty"`      //	否	订单商品数量
+	ShopNo          string          `json:"shop_no"`                                   //	是 	门店编号，门店创建后可在门店列表查看
+	OriginId        string          `json:"origin_id"`                                 //	是	第三方订单ID
+	CargoPrice      decimal.Decimal `json:"cargo_price"`                               //	是	订单金额（单位：元）
+	IsPrepay        int8            `json:"is_prepay"`                                 //	是	是否需要垫付 1:是 0:否 (垫付订单金额，非运费)
+	ReceiverName    string          `json:"receiver_name"`                             //	是	收货人姓名
+	ReceiverAddress string          `json:"receiver_address"`                          //	是	收货人地址
+	Callback        string          `json:"callback"`                                  //	是	回调URL（查看回调说明）
+	CargoWeight     float64         `json:"cargo_weight"`                              //	是	订单重量（单位：Kg）
+	ReceiverLat     float64         `json:"proto.QueryDeliverFeeResult{}receiver_lat"` //	是	收货人地址纬度（支持火星坐标系(高德、腾讯地图))
+	ReceiverLng     float64         `json:"receiver_lng"`                              // 	是	收货人地址经度（支持火星坐标系(高德、腾讯地图))
+	ReceiverPhone   string          `json:"receiver_phone,omitempty"`                  //	否	收货人手机号（手机号和座机号必填一项），如传入隐私号，请使用英文逗号","分隔格式，并确保支持接收短信
+	ReceiverTel     string          `json:"receiver_tel,omitempty"`                    //	否	收货人座机号（手机号和座机号必填一项）
+	Tips            decimal.Decimal `json:"tips,omitempty"`                            //	否	小费（单位：元，精确小数点后一位，小费金额不能高于订单金额。）
+	Info            string          `json:"info,omitempty"`                            //	否	订单备注
+	CargoType       int             `json:"cargo_type,omitempty"`                      //	否	支持配送的物品品类见链接。请选择门店真实配送品类，如无法判断可咨询您的销售经理。
+	CargoNum        int             `json:"cargo_num,omitempty"`                       //	否	订单商品数量
+}
+
+// AddOrderDirectReq 直接下单req
+type AddOrderDirectReq struct {
+	QueryDeliverFeeReq
+	DeliveryNo  string `json:"deliveryNo"` //	是	平台订单编号
+	DaySeq      int64  `json:"daySeq"`     //流水号
+	Source      string `json:"source"`
+	ShopAddress string `json:"shop_address"`
+	ShopName    string `json:"shop_name"`
+	ShopPhone   string `json:"shop_phone"`
+}
+
+// AddOrderDirectResp 直接下单resp
+type AddOrderDirectResp struct {
+	QueryDeliverFeeResult
 }
 
 type AddDeliverOrderReq struct {
@@ -67,6 +83,8 @@ type CancelDeliverOrderReq struct {
 	OrderId        string `json:"order_id"`
 	CancelReasonId int64  `json:"cancel_reason_id"`
 	CancelReason   string `json:"cancel_reason"`
+	ShopId         string `json:"shop_id"`
+	Source         string `json:"source"` //订单来源
 }
 
 type CancelDeliverOrderRes struct {

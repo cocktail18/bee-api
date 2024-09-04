@@ -95,7 +95,7 @@ aws-s3
 
     c. 在 `bee商城/商城基本信息/商店信息` 配置页面找到对应的商铺，`生鲜配送` 配置填`dada`,`达达门店编号`配置填第一步获得的达达门店编号，默认是用户支付之后就通知配送商，如果想要手动通知，将`配送接单需商家确认`配置设置为true
 
-   d. 在 `bee商城/运费相关/配送信息` 配置页新增一条记录，内容为你想要的配送费配置, 注意不是运费模板模块，目前运费模板暂时没效果
+    d. 在 `bee商城/运费相关/配送信息` 配置页新增一条记录，内容为你想要的配送费配置, 注意不是运费模板模块，目前运费模板暂时没效果
 
 6. dada配送、微信支付没有回调
    
@@ -105,7 +105,20 @@ aws-s3
        host: "改成你的域名"
     ```
 
+7. 云喇叭配置
+
+   a. 先到云喇叭官网开通账号 [https://pao.ylb.io/open/sandbox/developer/register](https://pao.ylb.io/open/sandbox/developer/register)
+
+   b. 在 `bee商城/运费相关/配送供应商配置` 配置页面增加一条配置, app_key 对应上一步的 appId ， app_secret 对应上一步的 secret，source_id 填正式的云喇叭接口 host
+ 
+   c. 在云喇叭申请开发者账号页面配置授权接入的H5页面地址: {{host}}/yunlaba/bind.html
+
+   d. 在 `bee商城/运费相关/绑定云喇叭账户` 填入上一步获得的信息 
+
+   d. 在 `bee商城/商城基本信息/商店信息` 配置页面找到对应的商铺，`生鲜配送` 配置填`yunlaba`, 注意是 `yunlaba`,`达达门店编号`配置为跟shop_id一样的值
    
+   e. 云喇叭接口测试方法· [https://console-docs.apipost.cn/preview/100a3773567008af/77e6c9c9a13d21be?target_id=2cc8aef0-70a9-4f50-9e22-daa57cf8d01b#user-content-测试方法](https://console-docs.apipost.cn/preview/100a3773567008af/77e6c9c9a13d21be?target_id=2cc8aef0-70a9-4f50-9e22-daa57cf8d01b#user-content-测试方法)
+8.  
 
 ### 后台截图de
 ![](imgs/demo01.jpg)
@@ -116,6 +129,22 @@ aws-s3
 ![](imgs/demo06.jpg)
 ![](imgs/demo07.jpg)
 ![](imgs/demo08.jpg)
+
+#### 功能列表
+
+- [x] cms模块
+- [x] 购物车
+- [x] 运费配置
+- [x] 商品管理
+- [x] 优惠券
+- [x] 用户管理
+- [x] 订单模块
+- [x] 取号叫号
+- [x] 扫码点餐
+- [x] 打印机，目前支持飞蛾跟大趋
+- [x] 配送商，目前支持达达跟云喇叭
+- [ ] 充值优惠
+- [ ] 
 
 
 #### QQ交流群 963437155
