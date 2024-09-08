@@ -22,7 +22,7 @@ type BeePrinter struct {
 	Code       string     `json:"code" form:"code" gorm:"column:code;comment:打印机编号;size:100;"`                      //打印机编号
 	Num        *int       `json:"num" form:"num" gorm:"column:num;comment:打印份数;size:10;"`                           //打印份数
 	ShopId     *int       `json:"shopId" form:"shopId" gorm:"column:shop_id;comment:店铺id;size:19;"`                 //店铺id
-	Template   string     `json:"template" form:"template" gorm:"column:template;comment:打印模板;size:100;"`           //打印模板
+	Template   string     `json:"template" form:"template" gorm:"column:template;comment:打印模板;size:8000;"`          //打印模板
 	Voice      string     `json:"voice" form:"voice" gorm:"column:voice;comment:打印音源;size:100;"`                    //打印音源
 }
 

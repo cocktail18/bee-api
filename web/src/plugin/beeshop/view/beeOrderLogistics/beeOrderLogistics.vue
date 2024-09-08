@@ -59,7 +59,7 @@
         <el-table-column align="left" label="用户id" prop="uid" width="120" />
         <el-table-column align="left" label="订单id" prop="orderId" width="120" />
         <el-table-column align="left" label="商店id" prop="shopId" width="120" />
-        <el-table-column align="left" label="达达门店编号" prop="dadaShopNo" width="120" />
+        <el-table-column align="left" label="快递门店编号" prop="dadaShopNo" width="120" />
         <el-table-column align="left" label="已删除" prop="isDeleted" width="120">
           <template #default="scope">{{ formatBoolean(scope.row.isDeleted) }}</template>
         </el-table-column>
@@ -166,8 +166,8 @@
             <el-form-item label="商店id:"  prop="shopId" >
               <el-input v-model.number="formData.shopId" :clearable="true" placeholder="请输入商店id" />
             </el-form-item>
-            <el-form-item label="达达门店编号:"  prop="dadaShopNo" >
-              <el-input v-model.number="formData.dadaShopNo" :clearable="true" placeholder="请输入达达门店编号" />
+            <el-form-item label="快递门店编号:"  prop="dadaShopNo" >
+              <el-input v-model.number="formData.dadaShopNo" :clearable="true" placeholder="请输入快递门店编号" />
             </el-form-item>
           </el-form>
     </el-drawer>

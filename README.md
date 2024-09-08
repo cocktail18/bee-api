@@ -85,7 +85,7 @@ aws-s3
 
 4. 获取配送费失败，请检查配送配置: 无效的门店编号
 
-    商店信息里面找到 `达达门店编号` 配置，填上即可
+    商店信息里面找到 `快递门店编号` 配置，填上即可
 
 5. 如何配置dada配送
 
@@ -93,7 +93,7 @@ aws-s3
 
     b. 在 `bee商城/运费相关/配送供应商配置` 配置页面增加一条配置,内容为上一步奏获得的 app_key 、app_secret 、app_id，测试的时候可以打开debug开关，防止无效扣费
 
-    c. 在 `bee商城/商城基本信息/商店信息` 配置页面找到对应的商铺，`生鲜配送` 配置填`dada`,`达达门店编号`配置填第一步获得的达达门店编号，默认是用户支付之后就通知配送商，如果想要手动通知，将`配送接单需商家确认`配置设置为true
+    c. 在 `bee商城/商城基本信息/商店信息` 配置页面找到对应的商铺，`生鲜配送` 配置填`dada`,`快递门店编号`配置填第一步获得的快递门店编号，默认是用户支付之后就通知配送商，如果想要手动通知，将`配送接单需商家确认`配置设置为true
 
     d. 在 `bee商城/运费相关/配送信息` 配置页新增一条记录，内容为你想要的配送费配置, 注意不是运费模板模块，目前运费模板暂时没效果
 
@@ -115,11 +115,26 @@ aws-s3
 
    d. 在 `bee商城/运费相关/绑定云喇叭账户` 填入上一步获得的信息 
 
-   d. 在 `bee商城/商城基本信息/商店信息` 配置页面找到对应的商铺，`生鲜配送` 配置填`yunlaba`, 注意是 `yunlaba`,`达达门店编号`配置为跟shop_id一样的值
+   d. 在 `bee商城/商城基本信息/商店信息` 配置页面找到对应的商铺，`生鲜配送` 配置填`yunlaba`, 注意是 `yunlaba`,`快递门店编号`配置为跟shop_id一样的值
    
    e. 云喇叭接口测试方法· [https://console-docs.apipost.cn/preview/100a3773567008af/77e6c9c9a13d21be?target_id=2cc8aef0-70a9-4f50-9e22-daa57cf8d01b#user-content-测试方法](https://console-docs.apipost.cn/preview/100a3773567008af/77e6c9c9a13d21be?target_id=2cc8aef0-70a9-4f50-9e22-daa57cf8d01b#user-content-测试方法)
-8.  
 
+8. 下单提示获取地址失败
+
+   a. 检查 `bee商城/商城基本信息/商店信息` 里面的 `生鲜配送` 配置项，目前只支持 `dada` 跟 `yunlaba`
+   
+   b. 如果是使用云喇叭配送，在小程序端全局替换
+   `if (this.data.shopInfo && this.data.shopInfo.number && this.data.shopInfo.expressType == 'dada' && postData.peisongType == 'kd') {`
+为 `if (this.data.shopInfo && this.data.shopInfo.number && (this.data.shopInfo.expressType == 'dada'||this.data.shopInfo.expressType == 'yunlaba') && postData.peisongType == 'kd') {`
+
+9. 错误提示
+Out of range value for colunm 'longitude' 或者 Out of range value for colunm 'latitude' 的时候手动改下表结构， 表名自己替换下
+
+   ```sql
+   ALTER TABLE bee_shop_info MODIFY COLUMN longitude double(9,6) DEFAULT NULL NULL COMMENT '经度';
+   ALTER TABLE bee_shop_info MODIFY COLUMN latitude double(9,6) DEFAULT NULL NULL COMMENT '纬度';
+   ```
+   
 ### 后台截图de
 ![](imgs/demo01.jpg)
 ![](imgs/demo02.jpg)

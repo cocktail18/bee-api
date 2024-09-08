@@ -17,7 +17,7 @@ type BeePrinter struct {
 	Code      string                `gorm:"column:code;type:varchar(100);comment:打印机编号" json:"code"`
 	Num       int                   `gorm:"column:num;type:int(11);comment:打印份数" json:"num"`
 	ShopId    int64                 `gorm:"column:shop_id;type:bigint(11);comment:店铺id" json:"shopId"`
-	Template  string                `gorm:"column:template;type:varchar(100);comment:打印模板" json:"template"`
+	Template  string                `gorm:"column:template;type:text;comment:打印模板" json:"template"`
 	Voice     string                `gorm:"column:voice;type:varchar(100);comment:音源" json:"voice"`
 }
 

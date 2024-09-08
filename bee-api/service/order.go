@@ -267,6 +267,13 @@ func (s *OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOr
 	_ = distance
 
 	if needPeisong {
+		if shopInfo.Number == "" {
+			return nil, errors.New("请先设置商店的快递门店编号")
+		}
+		if shopInfo.ExpressType == "" {
+			return nil, errors.New("请先设置商店的生鲜配送类型")
+		}
+
 		// 配送是直接使用传过来的地址
 		if address == nil {
 			address = &model.BeeUserAddress{

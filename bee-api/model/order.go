@@ -118,7 +118,7 @@ func (m *BeeOrderGoods) TableName() string {
 type BeeOrderLogistics struct {
 	BeeUserAddress
 	OrderId    int64  `gorm:"column:order_id;type:bigint(11);comment:订单id" json:"orderId"`
-	DadaShopNo string `gorm:"column:dada_shop_no;type:varchar(100);comment:达达门店编号" json:"dadaShopNo"`
+	DadaShopNo string `gorm:"column:dada_shop_no;type:varchar(100);comment:快递门店编号" json:"dadaShopNo"`
 	ShopId     int64  `gorm:"column:shop_id;type:bigint(11);comment:商店id" json:"shopId"`
 }
 
