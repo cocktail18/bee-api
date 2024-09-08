@@ -2,7 +2,6 @@ package bee
 
 import (
 	"context"
-	"errors"
 	"gitee.com/stuinfer/bee-api/common"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/model"
@@ -12,6 +11,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
+	"github.com/pkg/errors"
 	"github.com/spf13/cast"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
@@ -109,6 +109,32 @@ func (beePrinterService *BeePrinterService) UpdateBeePrinter(beePrinter bee.BeeP
 	if err = beePrinterService.checkTemplate(beePrinter.Template); err != nil {
 		return err
 	}
+
+	var needReBind = false
+	oldPrinterInfo, err := beePrinterService.GetBeePrinter(cast.ToString(beePrinter.Id), shopUserId)
+	if err != nil {
+		return err
+	}
+	if oldPrinterInfo.Code != beePrinter.Code || cast.ToInt(beePrinter.Brand) != cast.ToInt(oldPrinterInfo.Brand) ||
+		beePrinter.Appid != oldPrinterInfo.Appid || beePrinter.AppSecret != oldPrinterInfo.AppSecret ||
+		beePrinter.Key != oldPrinterInfo.Key || beePrinter.Name != oldPrinterInfo.Name {
+		needReBind = true
+	}
+	// 先解绑再绑定
+	if needReBind {
+		cfg := beePrinterService.printer2apiPrinter(&oldPrinterInfo)
+		p := printer.GetPrinter(cfg)
+		if p != nil {
+			if err := p.DelPrinter(cfg, []string{cfg.Code}); err != nil {
+				return errors.Wrap(err, "移除旧打印机失败")
+			} else {
+				global.GVA_LOG.Info("移除旧的打印机成功")
+			}
+		} else {
+			global.GVA_LOG.Info("旧的打印机不支持移除，跳过")
+		}
+	}
+
 	return GetBeeDB().Transaction(func(tx *gorm.DB) error {
 		if err := GetBeeDB().Model(&bee.BeePrinter{}).Where("id = ? and user_id = ?", beePrinter.Id, shopUserId).Updates(&beePrinter).Error; err != nil {
 			return err
@@ -119,7 +145,12 @@ func (beePrinterService *BeePrinterService) UpdateBeePrinter(beePrinter bee.BeeP
 			err = errors.New("该品牌暂不支持")
 			return err
 		}
-		return p.AddPrinter(cfg)
+		if needReBind {
+			if err := p.AddPrinter(cfg); err != nil {
+				return err
+			}
+		}
+		return nil
 	})
 }
 
@@ -136,14 +167,32 @@ func (beePrinterService *BeePrinterService) TestBeePrinter(beePrinter bee.BeePri
 		err = errors.New("该品牌暂不支持")
 		return err
 	}
-	if err := p.AddPrinter(cfg); err != nil {
-		return err
-	}
-	defer func() {
-		if err := p.DelPrinter(cfg, []string{cfg.Code}); err != nil {
-			global.GVA_LOG.Error("移除打印机失败", zap.Error(err))
+	var needReBind = false
+	if cfg.Id == 0 {
+		needReBind = true
+	} else {
+		oldPrinterInfo, err := beePrinterService.GetBeePrinter(cast.ToString(beePrinter.Id), shopUserId)
+		if err != nil {
+			return err
 		}
-	}()
+		if oldPrinterInfo.Code != beePrinter.Code || cast.ToInt(beePrinter.Brand) != cast.ToInt(oldPrinterInfo.Brand) ||
+			beePrinter.Appid != oldPrinterInfo.Appid || beePrinter.AppSecret != oldPrinterInfo.AppSecret ||
+			beePrinter.Key != oldPrinterInfo.Key || beePrinter.Name != oldPrinterInfo.Name {
+			needReBind = true
+		}
+	}
+	if needReBind {
+		if err := p.AddPrinter(cfg); err != nil {
+			if !errors.Is(err, printer.ErrAlreadyAdd) {
+				return err
+			}
+		}
+		defer func() {
+			if err := p.DelPrinter(cfg, []string{cfg.Code}); err != nil {
+				global.GVA_LOG.Error("移除打印机失败", zap.Error(err))
+			}
+		}()
+	}
 	return service.GetPrinterSrv().TestPrinter(context.Background(), cfg)
 }
 

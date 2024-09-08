@@ -2,6 +2,7 @@ package printer
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/util"
@@ -23,6 +24,15 @@ type DaQuRes struct {
 	Code    int             `json:"code"`
 	Message string          `json:"message"`
 	Data    json.RawMessage `json:"data"`
+}
+
+type DaQuError struct {
+	Code    int    `json:"code"`
+	Message string `json:"message"`
+}
+
+func (r *DaQuError) Error() string {
+	return fmt.Sprintf("大趋服务器返回失败 code = %d msg = %s", r.Code, r.Message)
 }
 
 func NewDaQu() *DaQuPrinter {
@@ -52,6 +62,12 @@ func (d *DaQuPrinter) AddPrinter(config *model.BeePrinter) error {
 	}
 	_, err := d.post(d.addUrl, config, data)
 	if err != nil {
+		var daquErr = &DaQuError{}
+		if errors.Is(err, daquErr) {
+			if daquErr.Code == 31412 {
+				return ErrAlreadyAdd
+			}
+		}
 		return err
 	}
 	return err
@@ -90,7 +106,7 @@ func (d *DaQuPrinter) post(url string, config *model.BeePrinter, data any) (*DaQ
 		return nil, curlRes.Err
 	}
 	if res.Code != 0 {
-		return nil, fmt.Errorf("请求大趋服务器失败，code:%d msg:%s", res.Code, res.Message)
+		return nil, &DaQuError{Code: res.Code, Message: res.Message}
 	}
 	return res, nil
 }

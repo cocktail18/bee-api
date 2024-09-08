@@ -1,9 +1,12 @@
 package printer
 
 import (
+	"errors"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/model"
 )
+
+var ErrAlreadyAdd = errors.New("已经添加过该打印机了")
 
 type Printer interface {
 	Print(config *model.BeePrinter, voice, content string) error

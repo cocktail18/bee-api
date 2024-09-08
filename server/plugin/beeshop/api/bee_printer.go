@@ -114,7 +114,7 @@ func (beePrinterApi *BeePrinterApi) UpdateBeePrinter(c *gin.Context) {
 // @Produce application/json
 // @Param data body bee.BeePrinter true "检查配置是否正确"
 // @Success 200 {object} response.Response{msg=string} "成功"
-// @Router /beePrinter/updateBeePrinter [post]
+// @Router /beePrinter/testBeePrinter [post]
 func (beePrinterApi *BeePrinterApi) TestBeePrinter(c *gin.Context) {
 	var beePrinter bee.BeePrinter
 	err := c.ShouldBindJSON(&beePrinter)
