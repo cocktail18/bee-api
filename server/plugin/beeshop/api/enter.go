@@ -39,6 +39,7 @@ type ApiGroup struct {
 	BeePrinterApi
 	BeeQueueApi
 	BeeUserQueueApi
+	BeeRechargeSendRuleApi
 }
 
 var ApiGroupApp = new(ApiGroup)

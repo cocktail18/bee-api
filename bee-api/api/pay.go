@@ -27,10 +27,10 @@ func (api PayApi) WxApp(c *gin.Context) {
 		return
 	}
 	remark := c.PostForm("remark")
-	nextAction := c.PostForm("nextAction") // {"type":4,"uid":6803950,"money":"123"}
+	nextAction := c.PostForm("nextAction") // {"type":4,"uid":6803950,"money":"123"}, 充值的时候为空
 	payName := c.PostForm("payName")
 
-	res, err := service.GetPaySrv().GetWxAppPayInfo(c, c.Request.Host, money, remark, nextAction, payName)
+	res, err := service.GetPaySrv().GetWxAppPayInfo(c, money, remark, nextAction, payName)
 	api.Res(c, res, err)
 }
 
@@ -49,18 +49,19 @@ func (api PayApi) WxPayCallBack(c *gin.Context) {
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
 	}
-	ret, err := service.GetPaySrv().WxNotify(c, c.ClientIP(), req)
+	err = service.GetPaySrv().WxNotify(c, c.ClientIP(), req)
 	if err != nil {
 		logger.GetLogger().Error("微信回调处理失败",
-			zap.Any("id", req.Id), zap.Error(err))
-		c.Status(http.StatusInternalServerError)
+			zap.Any("req", req), zap.Error(err))
 		c.AbortWithStatusJSON(http.StatusInternalServerError, &proto.WxPayNotifyResp{
-			Code:    "100",
-			Message: err.Error(),
+			Code:    "FAIL",
+			Message: "失败",
 		})
 		return
 	}
-	c.JSON(http.StatusOK, ret)
+	c.JSON(http.StatusOK, &proto.WxPayNotifyResp{
+		Code: "SUCCESS",
+	})
 	return
 }
 
@@ -81,4 +82,9 @@ func (api PayApi) getWxV3NotifyReq(c *gin.Context) (*wechat.V3NotifyReq, error) 
 		return nil, fmt.Errorf("json.Unmarshal(%s, %+v)：%w", string(body), notifyReq, err)
 	}
 	return notifyReq, nil
+}
+
+func (api PayApi) RechargeSendRule(c *gin.Context) {
+	resp, err := service.GetPaySrv().RechargeSendRule(c)
+	api.Res(c, resp, err)
 }

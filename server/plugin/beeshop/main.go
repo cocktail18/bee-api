@@ -165,6 +165,7 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 			Method:      "GET",
 		},
 	)
+	utils.RegisterApis(ins.genPluginApi("beeRechargeSendRule", "充值优惠规则")...)
 	utils.RegisterApis(ins.genPluginApi("beePrinter", "打印机")...)
 	utils.RegisterApis(ins.genPluginApi("beeQueue", "排队叫号")...)
 	utils.RegisterApis(ins.genPluginApi("beeUserQueue", "取号列表")...)
@@ -256,6 +257,14 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 		Name: "beeOrderPeisong",
 		Meta: system.Meta{
 			Title: "订单配送信息",
+		},
+	})
+
+	ins.registerBaseMenu("beeFinancialManager", system.SysBaseMenu{
+		Path: "beeRechargeSendRule",
+		Name: "beeRechargeSendRule",
+		Meta: system.Meta{
+			Title: "充值优惠规则配置",
 		},
 	})
 
@@ -540,6 +549,7 @@ func (*BeeShopPlugin) Register(group *gin.RouterGroup) {
 	beeRouter.InitBeeOrderPeisongLogRouter(privateGroup, publicGroup)
 	beeRouter.InitBeeQueueRouter(privateGroup, publicGroup)
 	beeRouter.InitBeeUserQueueRouter(privateGroup, publicGroup)
+	beeRouter.InitBeeRechargeSendRuleRouter(privateGroup, publicGroup)
 }
 
 func (*BeeShopPlugin) RouterPath() string {

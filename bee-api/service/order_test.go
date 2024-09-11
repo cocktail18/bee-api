@@ -25,7 +25,9 @@ func TestOrderSrv_CreateOrderDada(t *testing.T) {
 	config.InitConfig()
 	ctx := GetTestContext()
 	srv := GetOrderSrv()
-	gomonkey.ApplyMethodFunc(GetDeliverySrv(), "GetNotifyUrl", func(ctx context.Context, t enum.DeliveryType) (string, error) {
+	patchers := gomonkey.NewPatches()
+	defer patchers.Reset()
+	patchers.ApplyMethodFunc(GetDeliverySrv(), "GetNotifyUrl", func(ctx context.Context, t enum.DeliveryType) (string, error) {
 		return "", nil
 	})
 	Convey("金额计算测试", t, func() {
@@ -223,7 +225,7 @@ func TestOrderSrv_PayOrder(t *testing.T) {
 			Uid:        kit.GetUid(ctx),
 		}
 		db.GetDB().Create(payLog)
-		err = srv.PayOrderByBalance(ctx, "ip", payLog, cast.ToString(resp.Id), "", resp.AmountReal)
+		err = srv.PayOrderByBalance(ctx, "ip", payLog, cast.ToString(resp.Id), util.GetRandInt64(), resp.AmountReal)
 		So(err, ShouldBeNil)
 		orderInfo, err := srv.GetOrderByOrderId(ctx, resp.Id)
 		So(err, ShouldBeNil)

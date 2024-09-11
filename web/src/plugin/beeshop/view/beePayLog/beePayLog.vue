@@ -33,8 +33,12 @@
 
         </el-form-item>
 
-        <el-form-item label="order_no" prop="orderNo">
+        <el-form-item label="订单号" prop="orderNo">
          <el-input v-model="searchInfo.orderNo" placeholder="搜索条件" />
+
+        </el-form-item>
+        <el-form-item label="第三方订单号" prop="thirdOrderNo">
+         <el-input v-model="searchInfo.thirdOrderNo" placeholder="搜索条件" />
 
         </el-form-item>
            <el-form-item label="支付状态" prop="status">
@@ -86,7 +90,8 @@
         <el-table-column sortable align="left" label="id字段" prop="id" width="120" />
         <el-table-column sortable align="left" label="总金额" prop="money" width="120" />
         <el-table-column align="left" label="next_action" prop="nextAction" width="120" />
-        <el-table-column align="left" label="第三方订单号" prop="orderNo" width="120" />
+        <el-table-column align="left" label="订单号" prop="orderNo" width="120" />
+        <el-table-column align="left" label="第三方订单号" prop="thirdOrderNo" width="120" />
         <el-table-column align="left" label="支付网关" prop="payGate" width="120" />
         <el-table-column align="left" label="备注" prop="remark" width="120" />
         <el-table-column sortable align="left" label="支付状态" prop="status" width="120">
@@ -159,8 +164,11 @@
             <el-form-item label="next_action:"  prop="nextAction" >
               <el-input v-model="formData.nextAction" :clearable="true"  placeholder="请输入next_action" />
             </el-form-item>
-            <el-form-item label="第三方订单号:"  prop="orderNo" >
-              <el-input v-model="formData.orderNo" :clearable="true"  placeholder="请输入第三方订单号" />
+            <el-form-item label="订单号:"  prop="orderNo" >
+              <el-input v-model="formData.orderNo" :clearable="true"  placeholder="请输入订单号" />
+            </el-form-item>
+            <el-form-item label="第三方订单号:"  prop="thirdOrderNo" >
+              <el-input v-model="formData.thirdOrderNo" :clearable="true"  placeholder="请输入第三方订单号" />
             </el-form-item>
             <el-form-item label="支付网关:"  prop="payGate" >
               <el-input v-model="formData.payGate" :clearable="true"  placeholder="请输入支付网关" />
@@ -223,6 +231,7 @@ const formData = ref({
         money: 0,
         nextAction: '',
         orderNo: '',
+        thirdOrderNo: '',
         payGate: '',
         remark: '',
         status: '',
@@ -465,6 +474,7 @@ const closeDialog = () => {
         money: 0,
         nextAction: '',
         orderNo: '',
+        thirdOrderNo: '',
         payGate: '',
         remark: '',
         status: '',

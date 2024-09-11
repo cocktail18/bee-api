@@ -42,6 +42,12 @@ subDomain: `cocktailBeeOrder`
 8.  将小程序的 miniprogram_npm/apifm-wxapi/index.js 的 API_BASE_URL 改为对应的域名， 默认开发环境：http://127.0.0.1:18083
 9.  默认api端口：18083，管理后台：8888，可以使用nginx进行代理（建议）
 
+#### 使用 docker 启动
+
+1. 确定已安装好 `docker`、`docker-compose` 并且配置好了国内代理
+2. 执行 `make run-dev`，默认前端端口 8080、api端口 8888
+3. 如果需要可以修改对应的配置文件，`config.docker.yaml`
+
 #### 使用说明
 
 1.  配置小程序APPID/SECRET （必须）
@@ -134,6 +140,10 @@ Out of range value for colunm 'longitude' 或者 Out of range value for colunm '
    ALTER TABLE bee_shop_info MODIFY COLUMN longitude double(9,6) DEFAULT NULL NULL COMMENT '经度';
    ALTER TABLE bee_shop_info MODIFY COLUMN latitude double(9,6) DEFAULT NULL NULL COMMENT '纬度';
    ```
+
+10. docker启动提示 no matching manifest for linux/arm64/v8 in the manifest list entries
+   
+   这个是由于 docker 默认的镜像不是arm64的，需要修改镜像为arm架构的镜像
    
 ### 后台截图de
 ![](imgs/demo01.jpg)

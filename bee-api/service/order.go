@@ -967,8 +967,9 @@ func (s *OrderSrv) PayOrderByBalance(c context.Context, ip string, payLog *model
 			}
 		}
 		payLogUpdateRs := db.GetDB().Model(&model.BeePayLog{}).Where("id = ?", payLog.Id).Updates(map[string]interface{}{
-			"status":      enum.PayLogStatusPaid,
-			"date_update": time.Now(),
+			"status":         enum.PayLogStatusPaid,
+			"date_update":    time.Now(),
+			"third_order_no": thirdId,
 		})
 		if payLogUpdateRs.Error != nil {
 			return errors.Wrap(payLogUpdateRs.Error, "更新支付信息失败")

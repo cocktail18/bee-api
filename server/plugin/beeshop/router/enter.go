@@ -41,6 +41,7 @@ type RouterGroup struct {
 	BeePrinterRouter
 	BeeQueueRouter
 	BeeUserQueueRouter
+	BeeRechargeSendRuleRouter
 }
 
 var RouterGroupApp = new(RouterGroup)

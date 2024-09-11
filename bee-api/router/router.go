@@ -228,7 +228,7 @@ func NewRouter() *gin.Engine {
 		userGroup.GET("/dynamicUserCode", (api.UserApi{}).GetDynamicUserCode)
 
 		userGroup.POST("/payLogs", (api.UserApi{}).PayLogs)
-		userGroup.GET("/recharge/send/rule", (api.UserApi{}).RechargeSendRule)
+		userGroup.GET("/recharge/send/rule", (api.PayApi{}).RechargeSendRule)
 
 		{ // 收获地址
 			userGroup.GET("/shipping-address/list", (api.ShippingAddressApi{}).List)

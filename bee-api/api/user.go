@@ -64,11 +64,6 @@ func (api UserApi) CashLog(c *gin.Context) {
 	api.Res(c, resp, err)
 }
 
-func (api UserApi) RechargeSendRule(c *gin.Context) {
-	resp, err := service.GetUserSrv().RechargeSendRule(c)
-	api.Res(c, resp, err)
-}
-
 // PayLogs 获取充值/支付记录
 func (api UserApi) PayLogs(c *gin.Context) {
 	userInfo := api.GetUserInfo(c)

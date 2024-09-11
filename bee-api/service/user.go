@@ -287,14 +287,6 @@ func (srv *UserSrv) GetLevelByAmount(c context.Context, amount decimal.Decimal) 
 	return item, nil
 }
 
-func (srv *UserSrv) RechargeSendRule(c context.Context) ([]*model.RechargeSendRule, error) {
-	var list []*model.RechargeSendRule
-	if err := db.GetDB().Where("user_id = ?", kit.GetUserId(c)).Find(&list).Error; err != nil {
-		return nil, err
-	}
-	return list, nil
-}
-
 func (srv *UserSrv) GetUserLevel(c context.Context, uid int64) (*model.BeeUserLevel, error) {
 	item := &model.BeeUserLevel{}
 	if err := db.GetDB().Where("uid = ?", uid).Take(item).Error; err != nil {
