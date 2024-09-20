@@ -40,6 +40,9 @@ func (m *JsonTime) UnmarshalJSON(data []byte) error {
 }
 
 func (m JsonTime) Value() (driver.Value, error) {
+	if time.Time(m).IsZero() {
+		return nil, nil
+	}
 	return time.Time(m), nil
 }
 
