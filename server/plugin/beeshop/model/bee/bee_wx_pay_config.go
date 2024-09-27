@@ -9,7 +9,7 @@ import (
 type BeeWxPayConfig struct {
 	Id          *int       `json:"id" form:"id" gorm:"primarykey;column:id;comment:;size:20;"`                        //id字段
 	UserId      *int       `json:"userId" form:"userId" gorm:"column:user_id;comment:商店用户ID;size:19;"`                //商店用户ID
-	Mchid       string     `json:"mchid" form:"mchid" gorm:"column:mchid;comment:;size:100;"`                         //mchid字段
+	Mchid       string     `json:"mchid" form:"mchid" gorm:"column:mchid;comment:;size:100;"`                         //商户ID
 	AppId       string     `json:"appId" form:"appId" gorm:"column:app_id;comment:;size:100;"`                        //appId字段
 	AppSecret   string     `json:"appSecret" form:"appSecret" gorm:"column:app_secret;comment:;size:100;"`            //appSecret字段
 	Token       string     `json:"token" form:"token" gorm:"column:token;comment:;size:100;"`                         //token字段

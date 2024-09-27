@@ -8,8 +8,8 @@
         <el-form-item label="商店用户ID:" prop="userId">
           <el-input v-model.number="formData.userId" :clearable="true" placeholder="请输入" />
        </el-form-item>
-        <el-form-item label="mchid字段:" prop="mchid">
-          <el-input v-model="formData.mchid" :clearable="true"  placeholder="请输入mchid字段" />
+        <el-form-item label="商户ID:" prop="mchid">
+          <el-input v-model="formData.mchid" :clearable="true"  placeholder="请输入商户ID" />
        </el-form-item>
         <el-form-item label="appId字段:" prop="appId">
           <el-input v-model="formData.appId" :clearable="true"  placeholder="请输入appId字段" />

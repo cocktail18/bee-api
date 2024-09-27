@@ -31,11 +31,11 @@
         <el-table-column type="selection" width="55" />
         
         <el-table-column align="left" label="id字段" prop="id" width="120" />
-        <el-table-column align="left" label="mchid字段" prop="mchid" width="120" />
-        <el-table-column align="left" label="appId字段" prop="appId" width="120" />
-<!--        <el-table-column align="left" label="appSecret字段" prop="appSecret" width="120" />-->
-        <el-table-column align="left" label="token字段" prop="token" width="120" />
-<!--        <el-table-column align="left" label="v3私钥" prop="privateCert" width="120" />-->
+        <el-table-column align="left" label="商户ID" prop="mchid" width="120" />
+        <el-table-column align="left" label="公众号ID" prop="appId" width="120" />
+<!--        <el-table-column align="left" label="APIv3Key" prop="appSecret" width="120" />-->
+        <el-table-column align="left" label="商户API证书的证书序列号" prop="token" width="120" />
+<!--        <el-table-column align="left" label="v3证书私钥" prop="privateCert" width="120" />-->
           <el-table-column align="left" label="调试模式" prop="debug" width="120">
             <template #default="scope">{{ formatBoolean(scope.row.debug) }}</template>
           </el-table-column>
@@ -85,20 +85,20 @@
             <el-form-item label="id字段:"  prop="id" >
               <el-input v-model.number="formData.id" :clearable="true" placeholder="请输入id字段" />
             </el-form-item>
-            <el-form-item label="mchid字段:"  prop="mchid" >
-              <el-input v-model="formData.mchid" :clearable="true"  placeholder="请输入mchid字段" />
+            <el-form-item label="商户ID:"  prop="mchid" >
+              <el-input v-model="formData.mchid" :clearable="true"  placeholder="请输入商户ID" />
             </el-form-item>
-            <el-form-item label="appId字段:"  prop="appId" >
-              <el-input v-model="formData.appId" :clearable="true"  placeholder="请输入appId字段" />
+            <el-form-item label="公众号ID:"  prop="appId" >
+              <el-input v-model="formData.appId" :clearable="true"  placeholder="请输入公众号ID" />
             </el-form-item>
-            <el-form-item label="appSecret字段:"  prop="appSecret" >
-              <el-input v-model="formData.appSecret" :clearable="true"  placeholder="请输入appSecret字段" />
+            <el-form-item label="商户平台APIv3Key:"  prop="appSecret" >
+              <el-input v-model="formData.appSecret" :clearable="true"  placeholder="请输入APIv3Key" />
             </el-form-item>
-            <el-form-item label="token字段:"  prop="token" >
-              <el-input v-model="formData.token" :clearable="true"  placeholder="请输入token字段" />
+            <el-form-item label="商户API证书的证书序列号:"  prop="token" >
+              <el-input v-model="formData.token" :clearable="true"  placeholder="请输入商户API证书的证书序列号" />
             </el-form-item>
-            <el-form-item label="v3私钥:"  prop="privateCert" >
-              <el-input v-model="formData.privateCert" :clearable="true"  placeholder="请输入v3私钥" />
+            <el-form-item label="v3证书私钥:"  prop="privateCert" >
+              <el-input v-model="formData.privateCert" :clearable="true"  placeholder="请输入v3证书私钥" />
             </el-form-item>
             <el-form-item label="回调域名:"  prop="notifyUrl" >
               <el-input v-model="formData.notifyUrl" :clearable="true"  placeholder="请输入回调域名" />
