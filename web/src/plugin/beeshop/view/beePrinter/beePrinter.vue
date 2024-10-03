@@ -125,7 +125,7 @@
           <el-input v-model.number="formData.shopId" :clearable="true" placeholder="请输入店铺id" />
         </el-form-item>
         <el-form-item label="打印模板:"  prop="template" >
-          <el-input type="textarea" v-model="formData.template" :clearable="true"  placeholder="请输入打印模板" />
+          <el-input type="textarea" style="min-height: 50px" autosize  v-model="formData.template" :clearable="true"  placeholder="请输入打印模板" />
         </el-form-item>
 <!--        <el-form-item label="已删除:"  prop="isDeleted" >-->
 <!--          <el-switch v-model="formData.isDeleted" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否" clearable ></el-switch>-->

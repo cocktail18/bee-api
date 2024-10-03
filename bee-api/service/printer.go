@@ -70,6 +70,7 @@ func (srv *PrinterSrv) printOrder(ctx context.Context, item *model.BeeOrderPrint
 
 		content, err := srv.buildContent(ctx, _printer.Template, map[string]interface{}{
 			"order":     orderDto,
+			"beeOrder":  orderDto.OrderDto,
 			"userCash":  userBalance,
 			"user":      userInfo,
 			"logistics": orderDto.OrderLogistics,
@@ -147,21 +148,21 @@ func (srv *PrinterSrv) TestPrinter(ctx context.Context, _printer *model.BeePrint
 				BaseModel:        common.BaseModel{},
 				AfterSale:        "",
 				HadPayAmount:     decimal.Decimal{},
-				Amount:           decimal.Decimal{},
-				AmountCoupon:     decimal.Decimal{},
-				AmountSingle:     decimal.Decimal{},
-				AmountSingleBase: decimal.Decimal{},
+				Amount:           decimal.NewFromInt(20),
+				AmountCoupon:     decimal.NewFromInt(10),
+				AmountSingle:     decimal.NewFromInt(20),
+				AmountSingleBase: decimal.NewFromInt(20),
 				BuyRewardEnd:     false,
 				CategoryId:       0,
 				CyTableStatus:    0,
 				FxType:           0,
 				GoodsId:          0,
-				GoodsName:        "",
+				GoodsName:        "商品名",
 				GoodsSubName:     "",
 				IsScoreOrder:     false,
-				Number:           0,
-				NumberNoFahuo:    0,
-				OrderId:          0,
+				Number:           1,
+				NumberNoFahuo:    10,
+				OrderId:          10000,
 				Persion:          0,
 				Pic:              "",
 				PriceId:          0,
@@ -223,12 +224,15 @@ func (srv *PrinterSrv) TestPrinter(ctx context.Context, _printer *model.BeePrint
 	}
 	content, err := srv.buildContent(ctx, _printer.Template, map[string]interface{}{
 		"order":     orderDto,
+		"beeOrder":  orderDto.OrderDto,
 		"userCash":  userBalance,
 		"user":      userInfo,
 		"logistics": orderDto.OrderLogistics,
 		"goods":     orderDto.OrderGoods,
-		"extJson":   make(map[string]interface{}),
-		"nowStr":    time.Now().Format("2006-01-02 15:04:05"),
+		"extJson": map[string]interface{}{
+			"ext": 1,
+		},
+		"nowStr": time.Now().Format("2006-01-02 15:04:05"),
 	})
 	if err != nil {
 		return err

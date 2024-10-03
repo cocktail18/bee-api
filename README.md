@@ -168,8 +168,33 @@ Out of range value for colunm 'longitude' 或者 Out of range value for colunm '
 - [x] 扫码点餐
 - [x] 打印机，目前支持飞蛾跟大趋
 - [x] 配送商，目前支持达达跟云喇叭
-- [ ] 充值优惠
-- [ ] 
+- [x] 充值优惠
+
+#### 打印模板参考
+```html
+外卖订单详情:
+订单号: {{.order.Id}}
+下单时间: {{.nowStr}}
+
+顾客信息:
+姓名: {{.user.Nick}}
+电话: {{.user.Mobile}}
+余额: ¥{{.userCash.Balance}}
+
+收货地址: {{if .logistics}} {{.logistics.Address}} {{else}} 无 {{end}}
+
+订单内容:
+{{range .goods}}  - {{.GoodsName}} (x{{.Number}}) - ¥{{.AmountSingle}}
+{{end}}
+
+总价: ¥{{.order.Amount}}
+用户余额: ¥{{.userCash.Balance}}
+
+额外信息: 
+{{range $k, $v := .extJson}}
+- {{$k}}: {{$v}}
+{{end}}
+```
 
 
 #### QQ交流群 963437155
