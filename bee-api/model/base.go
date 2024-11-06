@@ -103,7 +103,7 @@ func InitDemoData() error {
 
 func initBeeRegion() {
 	// 打开文件
-	file, err := os.Open("data/bee_region.sql")
+	file, err := os.Open("data/bee-region.sql")
 	if err != nil { //文件不存在之类的
 		logger.GetLogger().Error("打开地址库文件失败", zap.Error(err))
 		return
