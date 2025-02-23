@@ -18,7 +18,7 @@
 const tableData = [
   {
     ranking: 1,
-    title : "更简洁的使用界面，更快速的操作体验",
+    title : "更简洁的使用界",
     click_num : 523,
     hot : 263
   },
