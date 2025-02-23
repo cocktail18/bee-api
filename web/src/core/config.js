@@ -4,9 +4,9 @@
 import chalk from "chalk";
 
 const config = {
-  appName: 'Gin-Vue-Admin',
+  appName: '98coffee',
   appLogo: 'logo.png',
-  showViteLogo: true,
+  showViteLogo: false,
   logs: [],
 }
 
