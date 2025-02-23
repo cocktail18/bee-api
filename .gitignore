@@ -33,4 +33,7 @@ web/.pnpm-debug.log
 web/pnpm-lock.yaml
 build/
 rm_file/
-.workflow
+.workflowdist.tar.gz
+server/nohup.out
+server/bee-init.lock
+bee-api/beeapi
