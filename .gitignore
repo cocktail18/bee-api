@@ -22,9 +22,8 @@ yarn-error.log*
 *.sln
 *.sw?
 
-/server/log/
+
 /server/gva
-/server/latest_log
 /server/__debug_bin*
 
 *.iml
@@ -33,6 +32,5 @@ web/pnpm-lock.yaml
 build/
 rm_file/
 .workflowdist.tar.gz
-server/nohup.out
 server/bee-init.lock
 bee-api/beeapi
