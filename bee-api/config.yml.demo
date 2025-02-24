@@ -1,13 +1,16 @@
-app:
+
+
+
+ app:
  listen: :8081
  storePath: "" # 本地上传文件的路径
 
 default:
  wx:
-  appid: xxxx
-  secret: xxxx
+  appid: wxa4bc935c9ba87528
+  secret: 368ce6cfeeee84764a694ff1cd2ef9ea
  sysUser:
-  domain: "cocktailBeeOrder"
+  domain: "9kuai8coffee.asia"
   username: bee
   password: 123456
 
@@ -19,9 +22,9 @@ upload:
 
 db:
  user: root
- password: 123456
+ password: PASS
  host: 127.0.0.1
  port: 3306
  database: bee
- drop: true #是否清之前的数据
+ drop: false #是否清之前的数据
  needInit: true #是否需要初始化数据
