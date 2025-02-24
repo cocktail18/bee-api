@@ -294,7 +294,7 @@ func CreateBeeShopPlug() *BeeShopPlugin {
 		Name:      "beeDeliveryBindYunlaba",
 		Component: "plugin/beeshop/view/beeDelivery/beeDeliveryYunlabaBind.vue",
 		Meta: system.Meta{
-			Title: "绑定喇叭账户",
+			Title: "绑定云喇叭账户",
 		},
 	})
 	ins.registerBaseMenu("bee_index", system.SysBaseMenu{
