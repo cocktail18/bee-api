@@ -1,0 +1,51 @@
+更新并重启后端服务：
+
+cd /root/bee-api && git pull
+cd bee-api && go build -o beeapi main.go
+kill -9 `ps -ef | grep beeapi | grep -v grep | awk '{print $2}'` && nohup ./beeapi &
+
+cd server && go build -o server main.go
+kill -9 `ps -ef | grep server | grep -v grep | awk '{print $2}'` && nohup ./server &
+
+
+
+更新并重新构建前端：
+
+cd /root/bee-api/web
+git pull
+
+npm install
+npm run serve  # 开发环境
+# 特点：
+- 启动开发服务器，实时编译和热重载
+- 代码不会被压缩混淆
+- 包含 source map，方便调试
+- 直接运行在内存中，不生成实际文件
+- 通常运行在 localhost 上
+
+# 或
+npm run build  # 生产环境
+# 特点：
+- 生成静态文件，通常在 dist 目录下
+- 代码会被压缩混淆，体积更小
+- 移除调试信息
+- 需要 web 服务器（如 nginx）来托管
+- 针对性能做了优化
+
+
+MySQL 数据库服务:
+systemctl status mysql
+# 如果没有启动则
+systemctl start MySQL
+
+
+# 检查端口是否正常监听
+netstat -tulpn | grep beeapi
+# 停止当前服务
+pkill -f beeapi
+
+# 重新启动
+nohup ./beeapi > beeapi.log 2>&1 &
+# 查看日志
+tail -f beeapi.log
+tail -f server.log

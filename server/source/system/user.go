@@ -59,7 +59,7 @@ func (i *initUser) InitializeData(ctx context.Context) (next context.Context, er
 			UUID:        uuid.Must(uuid.NewV4()),
 			Username:    "admin",
 			Password:    adminPassword,
-			NickName:    "Mr.奇淼",
+			NickName:    "admin",
 			HeaderImg:   "https://qmplusimg.henrongyi.top/gva_header.jpg",
 			AuthorityId: 888,
 			Phone:       "17611111111",
@@ -67,7 +67,7 @@ func (i *initUser) InitializeData(ctx context.Context) (next context.Context, er
 		},
 		{
 			UUID:        uuid.Must(uuid.NewV4()),
-			Username:    "a303176530",
+			Username:    "user1",
 			Password:    password,
 			NickName:    "用户1",
 			HeaderImg:   "https:///qmplusimg.henrongyi.top/1572075907logo.png",
