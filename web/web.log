@@ -1,0 +1,34 @@
+nohup: ignoring input
+
+> gin-vue-admin@2.6.5 serve
+> node openDocument.js && vite --host --mode development
+
+linux
+Port 8080 is in use, trying another one...
+Port 8081 is in use, trying another one...
+Port 8082 is in use, trying another one...
+
+  VITE v4.5.9  ready in 1495 ms
+
+  ➜  Local:   http://localhost:8083/
+  ➜  Network: http://172.16.29.18:8083/
+node:events:495
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: spawn xdg-open ENOENT
+    at ChildProcess._handle.onexit (node:internal/child_process:284:19)
+    at onErrorNT (node:internal/child_process:477:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+Emitted 'error' event on ChildProcess instance at:
+    at ChildProcess._handle.onexit (node:internal/child_process:290:12)
+    at onErrorNT (node:internal/child_process:477:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'spawn xdg-open',
+  path: 'xdg-open',
+  spawnargs: [ 'http://localhost:8083/' ]
+}
+
+Node.js v18.20.6

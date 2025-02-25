@@ -1,0 +1,240 @@
+nohup: ignoring input
+[DEPRECATION WARNING] github.com/qiniu/api.v7 is deprecated. And the repository is moved to github.com/qiniu/api.v7 now
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /uploads/file/*filepath   --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] HEAD   /uploads/file/*filepath   --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] POST   /upload2                  --> gitee.com/stuinfer/bee-api/api.DfsApi.UploadFile-fm (5 handlers)
+[GIN-debug] GET    /yunlaba/bind.html        --> gitee.com/stuinfer/bee-api/router.NewRouter.func1 (3 handlers)
+[GIN-debug] POST   /:domain/dfs/upload/file  --> gitee.com/stuinfer/bee-api/api.DfsApi.UploadFile-fm (5 handlers)
+[GIN-debug] GET    /:domain/config/values    --> gitee.com/stuinfer/bee-api/api.ConfigApi.Values-fm (4 handlers)
+[GIN-debug] POST   /:domain/qrcode/wxa/unlimit --> gitee.com/stuinfer/bee-api/api.QrcodeApi.WxaUnLimit-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/subshop/detail/v2 --> gitee.com/stuinfer/bee-api/api.ShopApi.SubShopDetail-fm (4 handlers)
+[GIN-debug] POST   /:domain/shop/subshop/list --> gitee.com/stuinfer/bee-api/api.ShopApi.SubShopList-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/category/all --> gitee.com/stuinfer/bee-api/api.BaseApi.CategoryAll-fm (4 handlers)
+[GIN-debug] POST   /:domain/shop/goods/list  --> gitee.com/stuinfer/bee-api/api.GoodsApi.List-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/list/v2 --> gitee.com/stuinfer/bee-api/api.GoodsApi.List-fm (4 handlers)
+[GIN-debug] POST   /:domain/shop/goods/price --> gitee.com/stuinfer/bee-api/api.GoodsApi.Price-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/detail --> gitee.com/stuinfer/bee-api/api.GoodsApi.Detail-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/goodsAddition --> gitee.com/stuinfer/bee-api/api.GoodsApi.GoodsAddition-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] POST   /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] PUT    /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] PATCH  /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] HEAD   /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] OPTIONS /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] DELETE /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] CONNECT /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] TRACE  /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/kanjia/info --> gitee.com/stuinfer/bee-api/api.KanjiaApi.Info-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/kanjia/help --> gitee.com/stuinfer/bee-api/api.KanjiaApi.Help-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/kanjia/clear --> gitee.com/stuinfer/bee-api/api.KanjiaApi.Clear-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/kanjia/my --> gitee.com/stuinfer/bee-api/api.KanjiaApi.My-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/kanjia/myHelp --> gitee.com/stuinfer/bee-api/api.KanjiaApi.MyHelp-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/kanjia/set/v2 --> gitee.com/stuinfer/bee-api/api.KanjiaApi.Set-fm (4 handlers)
+[GIN-debug] POST   /:domain/shop/goods/kanjia/join --> gitee.com/stuinfer/bee-api/api.KanjiaApi.Join-fm (4 handlers)
+[GIN-debug] GET    /:domain/cms/page/info/v2 --> gitee.com/stuinfer/bee-api/api.CmsApi.Info-fm (4 handlers)
+[GIN-debug] POST   /:domain/comment/add      --> gitee.com/stuinfer/bee-api/api.CommentApi.Add-fm (5 handlers)
+[GIN-debug] GET    /:domain/notice/last-one  --> gitee.com/stuinfer/bee-api/api.NoticeApi.LastOne-fm (4 handlers)
+[GIN-debug] GET    /:domain/notice/detail    --> gitee.com/stuinfer/bee-api/api.NoticeApi.Detail-fm (4 handlers)
+[GIN-debug] GET    /:domain/banner/list      --> gitee.com/stuinfer/bee-api/api.BannerApi.List-fm (4 handlers)
+[GIN-debug] GET    /common/region/v2/province --> gitee.com/stuinfer/bee-api/api.CommonApi.Province-fm (3 handlers)
+[GIN-debug] GET    /common/region/v2/child   --> gitee.com/stuinfer/bee-api/api.CommonApi.Child-fm (3 handlers)
+[GIN-debug] POST   /common/map/qq/distance   --> gitee.com/stuinfer/bee-api/api.CommonApi.MapQQDistance-fm (3 handlers)
+[GIN-debug] POST   /:domain/yuyue/join       --> gitee.com/stuinfer/bee-api/api.YuyueAPi.Join-fm (5 handlers)
+[GIN-debug] GET    /:domain/discounts/my     --> gitee.com/stuinfer/bee-api/api.DiscountsApi.My-fm (5 handlers)
+[GIN-debug] GET    /:domain/discounts/detail --> gitee.com/stuinfer/bee-api/api.DiscountsApi.CouponDetail-fm (5 handlers)
+[GIN-debug] GET    /:domain/discounts/statistics --> gitee.com/stuinfer/bee-api/api.DiscountsApi.Statistics-fm (5 handlers)
+[GIN-debug] GET    /:domain/discounts/coupons --> gitee.com/stuinfer/bee-api/api.DiscountsApi.Coupons-fm (5 handlers)
+[GIN-debug] POST   /:domain/discounts/fetch  --> gitee.com/stuinfer/bee-api/api.DiscountsApi.Fetch-fm (5 handlers)
+[GIN-debug] POST   /:domain/discounts/exchange --> gitee.com/stuinfer/bee-api/api.DiscountsApi.Exchange-fm (5 handlers)
+[GIN-debug] GET    /:domain/payBill/discounts --> gitee.com/stuinfer/bee-api/api.PayBillApi.Discounts-fm (5 handlers)
+[GIN-debug] POST   /:domain/payBill/pay      --> gitee.com/stuinfer/bee-api/api.PayBillApi.Pay-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/bindSeller  --> gitee.com/stuinfer/bee-api/api.UserApi.BindSeller-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/my          --> gitee.com/stuinfer/bee-api/api.UserApi.My-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/level/list  --> gitee.com/stuinfer/bee-api/api.UserApi.LevelList-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/detail      --> gitee.com/stuinfer/bee-api/api.UserApi.Detail-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/modify      --> gitee.com/stuinfer/bee-api/api.UserApi.Modify-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/amount      --> gitee.com/stuinfer/bee-api/api.UserApi.Amount-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/check-token --> gitee.com/stuinfer/bee-api/api.UserApi.CheckToken-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/wxapp/authorize --> gitee.com/stuinfer/bee-api/api.UserApi.WxAppAuthorize-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/wxapp/login --> gitee.com/stuinfer/bee-api/api.UserApi.WxAppAuthorize-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/wxapp/bindMobile --> gitee.com/stuinfer/bee-api/api.UserApi.BindMobile-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/cashLog     --> gitee.com/stuinfer/bee-api/api.UserApi.CashLog-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/cashLog/v2  --> gitee.com/stuinfer/bee-api/api.UserApi.CashLog-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/dynamicUserCode --> gitee.com/stuinfer/bee-api/api.UserApi.GetDynamicUserCode-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/payLogs     --> gitee.com/stuinfer/bee-api/api.UserApi.PayLogs-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/recharge/send/rule --> gitee.com/stuinfer/bee-api/api.PayApi.RechargeSendRule-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/shipping-address/list --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.List-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/shipping-address/default/v2 --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.Default-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/shipping-address/detail/v2 --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.Detail-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/shipping-address/add --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.Add-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/shipping-address/update --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.Update-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/shipping-address/delete --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.Delete-fm (5 handlers)
+[GIN-debug] GET    /:domain/shopping-cart/info --> gitee.com/stuinfer/bee-api/api.ShoppingCartAPi.Info-fm (5 handlers)
+[GIN-debug] POST   /:domain/shopping-cart/add --> gitee.com/stuinfer/bee-api/api.ShoppingCartAPi.Add-fm (5 handlers)
+[GIN-debug] POST   /:domain/shopping-cart/remove --> gitee.com/stuinfer/bee-api/api.ShoppingCartAPi.Remove-fm (5 handlers)
+[GIN-debug] POST   /:domain/shopping-cart/empty --> gitee.com/stuinfer/bee-api/api.ShoppingCartAPi.Empty-fm (5 handlers)
+[GIN-debug] POST   /:domain/shopping-cart/modifyNumber --> gitee.com/stuinfer/bee-api/api.ShoppingCartAPi.ModifyNumber-fm (5 handlers)
+[GIN-debug] GET    /:domain/order/detail     --> gitee.com/stuinfer/bee-api/api.OrderApi.Detail-fm (5 handlers)
+[GIN-debug] GET    /:domain/order/list       --> gitee.com/stuinfer/bee-api/api.OrderApi.List-fm (5 handlers)
+[GIN-debug] POST   /:domain/order/list       --> gitee.com/stuinfer/bee-api/api.OrderApi.List-fm (5 handlers)
+[GIN-debug] POST   /:domain/order/pay        --> gitee.com/stuinfer/bee-api/api.OrderApi.Pay-fm (5 handlers)
+[GIN-debug] POST   /:domain/order/create     --> gitee.com/stuinfer/bee-api/api.OrderApi.Create-fm (5 handlers)
+[GIN-debug] POST   /:domain/order/close      --> gitee.com/stuinfer/bee-api/api.OrderApi.Close-fm (5 handlers)
+[GIN-debug] POST   /:domain/order/delete     --> gitee.com/stuinfer/bee-api/api.OrderApi.Delete-fm (5 handlers)
+[GIN-debug] POST   /:domain/order/delivery   --> gitee.com/stuinfer/bee-api/api.OrderApi.Delivery-fm (5 handlers)
+[GIN-debug] POST   /:domain/order/reputation --> gitee.com/stuinfer/bee-api/api.OrderApi.Reputation-fm (5 handlers)
+[GIN-debug] POST   /:domain/order/hx         --> gitee.com/stuinfer/bee-api/api.OrderApi.Hx-fm (5 handlers)
+[GIN-debug] GET    /:domain/score/sign/logs  --> gitee.com/stuinfer/bee-api/api.ScoreApi.SignLogs-fm (5 handlers)
+[GIN-debug] POST   /:domain/score/sign/logs  --> gitee.com/stuinfer/bee-api/api.ScoreApi.SignLogs-fm (5 handlers)
+[GIN-debug] POST   /:domain/score/sign       --> gitee.com/stuinfer/bee-api/api.ScoreApi.Sign-fm (5 handlers)
+[GIN-debug] POST   /:domain/score/logs       --> gitee.com/stuinfer/bee-api/api.ScoreApi.Logs-fm (5 handlers)
+[GIN-debug] POST   /:domain/score/share/wxa/group --> gitee.com/stuinfer/bee-api/api.ScoreApi.WxaGroup-fm (5 handlers)
+[GIN-debug] POST   /:domain/pay/wx/wxapp     --> gitee.com/stuinfer/bee-api/api.PayApi.WxApp-fm (5 handlers)
+[GIN-debug] POST   /:domain/notify/wx/pay    --> gitee.com/stuinfer/bee-api/api.PayApi.WxPayCallBack-fm (4 handlers)
+[GIN-debug] GET    /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] POST   /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] PUT    /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] PATCH  /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] HEAD   /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] OPTIONS /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] DELETE /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] CONNECT /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] TRACE  /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] GET    /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] POST   /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] PUT    /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] PATCH  /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] HEAD   /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] OPTIONS /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] DELETE /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] CONNECT /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] TRACE  /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] POST   /:domain/cyTable/add-order --> gitee.com/stuinfer/bee-api/api.CyTableAPi.AddOrder-fm (5 handlers)
+[GIN-debug] POST   /:domain/cyTable/token    --> gitee.com/stuinfer/bee-api/api.CyTableAPi.Token-fm (4 handlers)
+[GIN-debug] GET    /:domain/fee/peisong/list --> gitee.com/stuinfer/bee-api/api.FeeAPi.ListPeiSong-fm (4 handlers)
+[GIN-debug] POST   /:domain/queuing/get      --> gitee.com/stuinfer/bee-api/api.QueuingApi.Get-fm (5 handlers)
+[GIN-debug] GET    /:domain/queuing/types    --> gitee.com/stuinfer/bee-api/api.QueuingApi.Types-fm (4 handlers)
+[GIN-debug] GET    /:domain/queuing/my       --> gitee.com/stuinfer/bee-api/api.QueuingApi.My-fm (5 handlers)
+2025-02-24T19:38:30.898+0800	INFO	model/base.go:73	开始初始化数据库，生产环境请禁用！！
+2025-02-24T19:38:30.898+0800	INFO	model/base.go:75	清空数据库
+2025-02-24T19:38:32.139+0800	INFO	model/base.go:79	清空数据库成功
+2025-02-24T19:38:34.131+0800	INFO	model/base.go:87	建表成功
+2025-02-24T19:38:34.131+0800	INFO	model/base.go:89	开始初始化demo数据
+2025-02-24T19:38:34.131+0800	INFO	model/base.go:93	初始化demo数据成功
+2025-02-24T19:38:34.131+0800	ERROR	model/base.go:108	打开地址库文件失败	{"error": "open data/bee-region.sql: no such file or directory"}
+gitee.com/stuinfer/bee-api/model.initBeeRegion
+	/root/bee-api/bee-api/model/base.go:108
+gitee.com/stuinfer/bee-api/model.InitDB
+	/root/bee-api/bee-api/model/base.go:96
+gitee.com/stuinfer/bee-api/cmd.Run
+	/root/bee-api/bee-api/cmd/run.go:29
+main.main
+	/root/bee-api/bee-api/main.go:24
+runtime.main
+	/usr/local/go/src/runtime/proc.go:271
+2025-02-24T19:38:34.152+0800	INFO	sys/init_db.go:23	清空数据库
+2025-02-24T19:38:34.159+0800	INFO	sys/init_db.go:29	清空数据库成功
+
+2025/02/24 19:38:34 [31;1m/root/bee-api/bee-api/sys/user_srv.go:80 [35;1mrecord not found
+[0m[33m[0.627ms] [34;1m[rows:0][0m SELECT * FROM `sys_user` WHERE domain = '9kuai8coffee.asia' ORDER BY `sys_user`.`id` LIMIT 1
+
+2025/02/24 19:38:34 [31;1m/root/bee-api/bee-api/sys/init_db.go:62 [35;1mrecord not found
+[0m[33m[1.984ms] [34;1m[rows:0][0m SELECT * FROM `bee_wx_config` WHERE user_id = 100 ORDER BY `bee_wx_config`.`id` LIMIT 1
+2025-02-24T19:38:35.004+0800	INFO	cmd/run.go:41	服务启动	{"addr": ":8081"}
+[GIN] 2025/02/24 - 19:39:42 | 200 |     2.09683ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
+[GIN] 2025/02/24 - 19:39:42 | 200 |    2.425649ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[GIN] 2025/02/24 - 19:39:42 | 200 |    2.283868ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[GIN] 2025/02/24 - 19:39:42 | 200 |    1.249871ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=&type="
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0e2Bf00w34TLr43Hh24w3HwS3f3Bf00y&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+[GIN] 2025/02/24 - 19:39:42 | 200 |    6.998522ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0c25XGkl2Ab57f4NhKol2j0khu45XGk5&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+[GIN] 2025/02/24 - 19:39:42 | 200 |    1.927579ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/banner/list"
+[GIN] 2025/02/24 - 19:39:42 | 200 |    2.132411ms |    5.91.175.116 | POST     "/9kuai8coffee.asia/shop/goods/list"
+
+2025/02/24 19:39:43 [31;1m/root/bee-api/bee-api/service/user.go:75 [35;1mrecord not found
+[0m[33m[2.462ms] [34;1m[rows:0][0m SELECT * FROM `bee_user_mapper` WHERE `open_id` = 'oftKL7cVmnv0fzLJ5o3ecidun4LU' LIMIT 1
+[GIN] 2025/02/24 - 19:39:43 | 200 |  440.802099ms |    5.91.175.116 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[GIN] 2025/02/24 - 19:39:43 | 200 |   345.32067ms |    5.91.175.116 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[GIN] 2025/02/24 - 19:39:54 | 200 |    2.616256ms |    5.91.175.116 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/24 - 19:39:55 | 200 |    2.652683ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/shop/goods/goodsAddition?goodsId=1808569"
+[GIN] 2025/02/24 - 19:39:55 | 200 |      9.5412ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/shop/goods/detail?id=1808569&token="
+[GIN] 2025/02/24 - 19:39:55 | 200 |     1.11205ms |    5.91.175.116 | POST     "/9kuai8coffee.asia/shop/goods/times/schedule"
+[GIN] 2025/02/24 - 19:40:01 | 200 |    3.098554ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/user/check-token?token=0a26867cf2a411efbd2a00163e1e690b"
+[GIN] 2025/02/24 - 19:40:02 | 200 |     5.05519ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/user/amount?token=0a26867cf2a411efbd2a00163e1e690b"
+[GIN] 2025/02/24 - 19:40:02 | 200 |     2.68231ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/user/detail?token=0a26867cf2a411efbd2a00163e1e690b"
+[GIN] 2025/02/24 - 19:40:02 | 200 |    6.287248ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/discounts/statistics?token=0a26867cf2a411efbd2a00163e1e690b"
+[GIN] 2025/02/24 - 20:29:09 | 200 |    2.366629ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
+[GIN] 2025/02/24 - 20:29:09 | 200 |     2.29238ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
+[GIN] 2025/02/24 - 20:29:09 | 200 |    2.120906ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[GIN] 2025/02/24 - 20:29:09 | 200 |    3.229906ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[GIN] 2025/02/24 - 20:29:09 | 200 |     2.35077ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/banner/list"
+
+2025/02/24 20:29:09 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.640ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = 'e5331135f0f611ef9e7100163e1e690b' LIMIT 1
+[GIN] 2025/02/24 - 20:29:09 | 200 |    2.187644ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=e5331135f0f611ef9e7100163e1e690b&type="
+[GIN] 2025/02/24 - 20:29:09 | 200 |    2.211953ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
+
+2025/02/24 20:29:10 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.774ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = 'e5331135f0f611ef9e7100163e1e690b' LIMIT 1
+[GIN] 2025/02/24 - 20:29:10 | 200 |    1.745025ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/user/check-token?token=e5331135f0f611ef9e7100163e1e690b"
+
+2025/02/24 20:29:10 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.965ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = 'e5331135f0f611ef9e7100163e1e690b' LIMIT 1
+[GIN] 2025/02/24 - 20:29:10 | 200 |    2.133925ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/user/check-token?token=e5331135f0f611ef9e7100163e1e690b"
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0a36qo000mpIMT1IC2100MtID406qo04&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0f3UHw2w3CjPp43BzE3w3KCp3C1UHw2J&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+
+2025/02/24 20:29:10 [31;1m/root/bee-api/bee-api/service/user.go:75 [35;1mrecord not found
+[0m[33m[1.281ms] [34;1m[rows:0][0m SELECT * FROM `bee_user_mapper` WHERE `open_id` = 'oftKL7T628FdZIAuMXwEzeP2uCDU' LIMIT 1
+[GIN] 2025/02/24 - 20:29:10 | 200 |  191.985523ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[GIN] 2025/02/24 - 20:29:10 | 200 |  131.035859ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[GIN] 2025/02/24 - 20:29:11 | 200 |     2.76623ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/24 - 20:29:11 | 200 |    2.921776ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/24 - 20:29:12 | 200 |    2.200404ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/24 - 20:29:12 | 200 |    2.694328ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/24 - 20:29:13 | 200 |    2.607182ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/24 - 20:29:13 | 200 |    2.661881ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/24 - 20:40:19 | 200 |    1.969025ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
+[GIN] 2025/02/24 - 20:40:19 | 200 |    4.697799ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=f2e82c35f2aa11efbd2a00163e1e690b&type="
+[GIN] 2025/02/24 - 20:40:19 | 200 |    2.206991ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/user/check-token?token=f2e82c35f2aa11efbd2a00163e1e690b"
+[GIN] 2025/02/24 - 23:29:39 | 200 |    6.158451ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
+[GIN] 2025/02/24 - 23:29:40 | 200 |    2.023843ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[GIN] 2025/02/24 - 23:29:40 | 200 |    2.848623ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[GIN] 2025/02/24 - 23:29:40 | 200 |    2.691631ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/banner/list"
+
+2025/02/24 23:29:40 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.790ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '0a26867cf2a411efbd2a00163e1e690b' LIMIT 1
+[GIN] 2025/02/24 - 23:29:40 | 200 |    3.874896ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=0a26867cf2a411efbd2a00163e1e690b&type="
+
+2025/02/24 23:29:40 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.709ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '0a26867cf2a411efbd2a00163e1e690b' LIMIT 1
+[GIN] 2025/02/24 - 23:29:40 | 200 |    1.727429ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/user/check-token?token=0a26867cf2a411efbd2a00163e1e690b"
+[GIN] 2025/02/24 - 23:29:40 | 200 |    2.620353ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
+
+2025/02/24 23:29:40 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.759ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '0a26867cf2a411efbd2a00163e1e690b' LIMIT 1
+[GIN] 2025/02/24 - 23:29:40 | 200 |    1.909051ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/user/check-token?token=0a26867cf2a411efbd2a00163e1e690b"
+[GIN] 2025/02/24 - 23:29:41 | 200 |    2.846293ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0e2tVDkl2W8c7f4MN7ml2uwxfO3tVDky&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+[GIN] 2025/02/24 - 23:29:41 | 200 |  179.286555ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0a20eXZv3BQSr43IJA2w3Vmsf830eXZo&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+[GIN] 2025/02/24 - 23:29:42 | 200 |  146.856917ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[GIN] 2025/02/24 - 23:29:44 | 200 |    3.137022ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/24 - 23:29:45 | 200 |    2.252197ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/24 - 23:29:48 | 200 |    3.314266ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/shop/subshop/list"
+[GIN] 2025/02/24 - 23:29:52 | 200 |    3.559199ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=2b035c8af2c411efbd2a00163e1e690b&type="
+[GIN] 2025/02/24 - 23:29:53 | 200 |      2.0955ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/24 - 23:29:56 | 200 |    1.978646ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/shop/goods/goodsAddition?goodsId=1808569"
+[GIN] 2025/02/24 - 23:29:56 | 200 |    8.923378ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/shop/goods/detail?id=1808569&token="
+[GIN] 2025/02/24 - 23:29:56 | 200 |     1.09069ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/shop/goods/times/schedule"
+[GIN] 2025/02/24 - 23:29:59 | 200 |    4.172285ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/shop/goods/price"
+2025-02-24T23:30:00.016+0800	INFO	api/shopping_cart.go:30	添加购物车	{"uid": 1, "goodsId": 1808569, "number": 1, "sku": "[{\"optionId\":211245,\"optionValueId\":1686933},{\"optionId\":211246,\"optionValueId\":1686934},{\"optionId\":211247,\"optionValueId\":1686938}]", "addition": ""}
+
+2025/02/24 23:30:00 [31;1m/root/bee-api/bee-api/service/shopping_card.go:52 [35;1mrecord not found
+[0m[33m[0.958ms] [34;1m[rows:0][0m SELECT * FROM `bee_shopping_cart` WHERE uid = 1 and sku_id = 7809218 LIMIT 1
+[GIN] 2025/02/24 - 23:30:00 | 200 |   23.063478ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/shopping-cart/add"
+[GIN] 2025/02/24 - 23:30:00 | 200 |    6.448418ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=2b035c8af2c411efbd2a00163e1e690b&type="

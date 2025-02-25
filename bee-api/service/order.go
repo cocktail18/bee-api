@@ -173,6 +173,13 @@ func (s *OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOr
 	}
 
 	orderGoodsList := make([]*proto.BeeOrderGoods, 0, 10)
+	tmp := make([]map[string]interface{}, 0)
+	_ = json.Unmarshal([]byte(req.GoodsJsonStr), &tmp)
+	for _, t := range tmp {
+		t["inviter_id"] = cast.ToInt64(t["inviter_id"])
+	}
+	data, _ := json.Marshal(tmp)
+	req.GoodsJsonStr = cast.ToString(data)
 	if err := json.Unmarshal([]byte(req.GoodsJsonStr), &orderGoodsList); err != nil {
 		return nil, errors.Wrap(err, "解析商品信息失败")
 	}
