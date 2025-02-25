@@ -1,0 +1,1256 @@
+nohup: ignoring input
+2025/02/25 00:26:32 maxprocs: Leaving GOMAXPROCS=2: CPU quota undefined
+[DEPRECATION WARNING] github.com/qiniu/api.v7 is deprecated. And the repository is moved to github.com/qiniu/api.v7 now
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+您正在使用gin模式的debug环境名称,config的路径为config.yaml
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.865	[34minfo[0m	/root/bee-api/server/initialize/gorm.go:68	register table success
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /uploads/file/*filepath   --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] HEAD   /uploads/file/*filepath   --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] GET    /swagger/*any             --> github.com/swaggo/gin-swagger.CustomWrapHandler.func1 (3 handlers)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.868	[34minfo[0m	/root/bee-api/server/initialize/router.go:60	register swagger handler
+[GIN-debug] GET    /health                   --> github.com/flipped-aurora/gin-vue-admin/server/initialize.Routers.func1 (3 handlers)
+[GIN-debug] POST   /base/login               --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).Login-fm (3 handlers)
+[GIN-debug] POST   /base/captcha             --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).Captcha-fm (3 handlers)
+[GIN-debug] POST   /init/initdb              --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DBApi).InitDB-fm (3 handlers)
+[GIN-debug] POST   /init/checkdb             --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DBApi).CheckDB-fm (3 handlers)
+[GIN-debug] POST   /api/createApi            --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).CreateApi-fm (6 handlers)
+[GIN-debug] POST   /api/deleteApi            --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).DeleteApi-fm (6 handlers)
+[GIN-debug] POST   /api/getApiById           --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).GetApiById-fm (6 handlers)
+[GIN-debug] POST   /api/updateApi            --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).UpdateApi-fm (6 handlers)
+[GIN-debug] DELETE /api/deleteApisByIds      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).DeleteApisByIds-fm (6 handlers)
+[GIN-debug] POST   /api/getAllApis           --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).GetAllApis-fm (5 handlers)
+[GIN-debug] POST   /api/getApiList           --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).GetApiList-fm (5 handlers)
+[GIN-debug] GET    /api/freshCasbin          --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApiApi).FreshCasbin-fm (3 handlers)
+[GIN-debug] POST   /jwt/jsonInBlacklist      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*JwtApi).JsonInBlacklist-fm (5 handlers)
+[GIN-debug] POST   /user/admin_register      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).Register-fm (6 handlers)
+[GIN-debug] POST   /user/changePassword      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).ChangePassword-fm (6 handlers)
+[GIN-debug] POST   /user/setUserAuthority    --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).SetUserAuthority-fm (6 handlers)
+[GIN-debug] DELETE /user/deleteUser          --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).DeleteUser-fm (6 handlers)
+[GIN-debug] PUT    /user/setUserInfo         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).SetUserInfo-fm (6 handlers)
+[GIN-debug] PUT    /user/setSelfInfo         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).SetSelfInfo-fm (6 handlers)
+[GIN-debug] POST   /user/setUserAuthorities  --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).SetUserAuthorities-fm (6 handlers)
+[GIN-debug] POST   /user/resetPassword       --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).ResetPassword-fm (6 handlers)
+[GIN-debug] POST   /user/getUserList         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).GetUserList-fm (5 handlers)
+[GIN-debug] GET    /user/getUserInfo         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*BaseApi).GetUserInfo-fm (5 handlers)
+[GIN-debug] POST   /menu/addBaseMenu         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).AddBaseMenu-fm (6 handlers)
+[GIN-debug] POST   /menu/addMenuAuthority    --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).AddMenuAuthority-fm (6 handlers)
+[GIN-debug] POST   /menu/deleteBaseMenu      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).DeleteBaseMenu-fm (6 handlers)
+[GIN-debug] POST   /menu/updateBaseMenu      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).UpdateBaseMenu-fm (6 handlers)
+[GIN-debug] POST   /menu/getMenu             --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).GetMenu-fm (5 handlers)
+[GIN-debug] POST   /menu/getMenuList         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).GetMenuList-fm (5 handlers)
+[GIN-debug] POST   /menu/getBaseMenuTree     --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).GetBaseMenuTree-fm (5 handlers)
+[GIN-debug] POST   /menu/getMenuAuthority    --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).GetMenuAuthority-fm (5 handlers)
+[GIN-debug] POST   /menu/getBaseMenuById     --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityMenuApi).GetBaseMenuById-fm (5 handlers)
+[GIN-debug] POST   /system/getSystemConfig   --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApi).GetSystemConfig-fm (6 handlers)
+[GIN-debug] POST   /system/setSystemConfig   --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApi).SetSystemConfig-fm (6 handlers)
+[GIN-debug] POST   /system/getServerInfo     --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApi).GetServerInfo-fm (6 handlers)
+[GIN-debug] POST   /system/reloadSystem      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SystemApi).ReloadSystem-fm (6 handlers)
+[GIN-debug] POST   /casbin/updateCasbin      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*CasbinApi).UpdateCasbin-fm (6 handlers)
+[GIN-debug] POST   /casbin/getPolicyPathByAuthorityId --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*CasbinApi).GetPolicyPathByAuthorityId-fm (5 handlers)
+[GIN-debug] GET    /autoCode/getDB           --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeApi).GetDB-fm (5 handlers)
+[GIN-debug] GET    /autoCode/getTables       --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeApi).GetTables-fm (5 handlers)
+[GIN-debug] GET    /autoCode/getColumn       --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeApi).GetColumn-fm (5 handlers)
+[GIN-debug] POST   /autoCode/preview         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeApi).PreviewTemp-fm (5 handlers)
+[GIN-debug] POST   /autoCode/createTemp      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeApi).CreateTemp-fm (5 handlers)
+[GIN-debug] POST   /autoCode/createPackage   --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeApi).CreatePackage-fm (5 handlers)
+[GIN-debug] POST   /autoCode/getPackage      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeApi).GetPackage-fm (5 handlers)
+[GIN-debug] POST   /autoCode/delPackage      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeApi).DelPackage-fm (5 handlers)
+[GIN-debug] POST   /autoCode/createPlug      --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeApi).AutoPlug-fm (5 handlers)
+[GIN-debug] POST   /autoCode/installPlugin   --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeApi).InstallPlugin-fm (5 handlers)
+[GIN-debug] POST   /autoCode/pubPlug         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeApi).PubPlug-fm (5 handlers)
+[GIN-debug] POST   /authority/createAuthority --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityApi).CreateAuthority-fm (6 handlers)
+[GIN-debug] POST   /authority/deleteAuthority --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityApi).DeleteAuthority-fm (6 handlers)
+[GIN-debug] PUT    /authority/updateAuthority --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityApi).UpdateAuthority-fm (6 handlers)
+[GIN-debug] POST   /authority/copyAuthority  --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityApi).CopyAuthority-fm (6 handlers)
+[GIN-debug] POST   /authority/setDataAuthority --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityApi).SetDataAuthority-fm (6 handlers)
+[GIN-debug] POST   /authority/getAuthorityList --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityApi).GetAuthorityList-fm (5 handlers)
+[GIN-debug] POST   /sysDictionary/createSysDictionary --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryApi).CreateSysDictionary-fm (6 handlers)
+[GIN-debug] DELETE /sysDictionary/deleteSysDictionary --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryApi).DeleteSysDictionary-fm (6 handlers)
+[GIN-debug] PUT    /sysDictionary/updateSysDictionary --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryApi).UpdateSysDictionary-fm (6 handlers)
+[GIN-debug] GET    /sysDictionary/findSysDictionary --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryApi).FindSysDictionary-fm (5 handlers)
+[GIN-debug] GET    /sysDictionary/getSysDictionaryList --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryApi).GetSysDictionaryList-fm (5 handlers)
+[GIN-debug] POST   /autoCode/getMeta         --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeHistoryApi).First-fm (5 handlers)
+[GIN-debug] POST   /autoCode/rollback        --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeHistoryApi).RollBack-fm (5 handlers)
+[GIN-debug] POST   /autoCode/delSysHistory   --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeHistoryApi).Delete-fm (5 handlers)
+[GIN-debug] POST   /autoCode/getSysHistory   --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AutoCodeHistoryApi).GetList-fm (5 handlers)
+[GIN-debug] POST   /sysOperationRecord/createSysOperationRecord --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*OperationRecordApi).CreateSysOperationRecord-fm (5 handlers)
+[GIN-debug] DELETE /sysOperationRecord/deleteSysOperationRecord --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*OperationRecordApi).DeleteSysOperationRecord-fm (5 handlers)
+[GIN-debug] DELETE /sysOperationRecord/deleteSysOperationRecordByIds --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*OperationRecordApi).DeleteSysOperationRecordByIds-fm (5 handlers)
+[GIN-debug] GET    /sysOperationRecord/findSysOperationRecord --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*OperationRecordApi).FindSysOperationRecord-fm (5 handlers)
+[GIN-debug] GET    /sysOperationRecord/getSysOperationRecordList --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*OperationRecordApi).GetSysOperationRecordList-fm (5 handlers)
+[GIN-debug] POST   /sysDictionaryDetail/createSysDictionaryDetail --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryDetailApi).CreateSysDictionaryDetail-fm (6 handlers)
+[GIN-debug] DELETE /sysDictionaryDetail/deleteSysDictionaryDetail --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryDetailApi).DeleteSysDictionaryDetail-fm (6 handlers)
+[GIN-debug] PUT    /sysDictionaryDetail/updateSysDictionaryDetail --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryDetailApi).UpdateSysDictionaryDetail-fm (6 handlers)
+[GIN-debug] GET    /sysDictionaryDetail/findSysDictionaryDetail --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryDetailApi).FindSysDictionaryDetail-fm (5 handlers)
+[GIN-debug] GET    /sysDictionaryDetail/getSysDictionaryDetailList --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*DictionaryDetailApi).GetSysDictionaryDetailList-fm (5 handlers)
+[GIN-debug] POST   /authorityBtn/getAuthorityBtn --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityBtnApi).GetAuthorityBtn-fm (5 handlers)
+[GIN-debug] POST   /authorityBtn/setAuthorityBtn --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityBtnApi).SetAuthorityBtn-fm (5 handlers)
+[GIN-debug] POST   /authorityBtn/canRemoveAuthorityBtn --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*AuthorityBtnApi).CanRemoveAuthorityBtn-fm (5 handlers)
+[GIN-debug] POST   /sysExportTemplate/createSysExportTemplate --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).CreateSysExportTemplate-fm (6 handlers)
+[GIN-debug] DELETE /sysExportTemplate/deleteSysExportTemplate --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).DeleteSysExportTemplate-fm (6 handlers)
+[GIN-debug] DELETE /sysExportTemplate/deleteSysExportTemplateByIds --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).DeleteSysExportTemplateByIds-fm (6 handlers)
+[GIN-debug] PUT    /sysExportTemplate/updateSysExportTemplate --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).UpdateSysExportTemplate-fm (6 handlers)
+[GIN-debug] POST   /sysExportTemplate/importExcel --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).ImportExcel-fm (6 handlers)
+[GIN-debug] GET    /sysExportTemplate/findSysExportTemplate --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).FindSysExportTemplate-fm (5 handlers)
+[GIN-debug] GET    /sysExportTemplate/getSysExportTemplateList --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).GetSysExportTemplateList-fm (5 handlers)
+[GIN-debug] GET    /sysExportTemplate/exportExcel --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).ExportExcel-fm (5 handlers)
+[GIN-debug] GET    /sysExportTemplate/exportTemplate --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/system.(*SysExportTemplateApi).ExportTemplate-fm (5 handlers)
+[GIN-debug] POST   /customer/customer        --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*CustomerApi).CreateExaCustomer-fm (6 handlers)
+[GIN-debug] PUT    /customer/customer        --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*CustomerApi).UpdateExaCustomer-fm (6 handlers)
+[GIN-debug] DELETE /customer/customer        --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*CustomerApi).DeleteExaCustomer-fm (6 handlers)
+[GIN-debug] GET    /customer/customer        --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*CustomerApi).GetExaCustomer-fm (5 handlers)
+[GIN-debug] GET    /customer/customerList    --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*CustomerApi).GetExaCustomerList-fm (5 handlers)
+[GIN-debug] POST   /fileUploadAndDownload/upload --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*FileUploadAndDownloadApi).UploadFile-fm (5 handlers)
+[GIN-debug] POST   /fileUploadAndDownload/getFileList --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*FileUploadAndDownloadApi).GetFileList-fm (5 handlers)
+[GIN-debug] POST   /fileUploadAndDownload/deleteFile --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*FileUploadAndDownloadApi).DeleteFile-fm (5 handlers)
+[GIN-debug] POST   /fileUploadAndDownload/editFileName --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*FileUploadAndDownloadApi).EditFileName-fm (5 handlers)
+[GIN-debug] POST   /fileUploadAndDownload/breakpointContinue --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*FileUploadAndDownloadApi).BreakpointContinue-fm (5 handlers)
+[GIN-debug] GET    /fileUploadAndDownload/findFile --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*FileUploadAndDownloadApi).FindFile-fm (5 handlers)
+[GIN-debug] POST   /fileUploadAndDownload/breakpointContinueFinish --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*FileUploadAndDownloadApi).BreakpointContinueFinish-fm (5 handlers)
+[GIN-debug] POST   /fileUploadAndDownload/removeChunk --> github.com/flipped-aurora/gin-vue-admin/server/api/v1/example.(*FileUploadAndDownloadApi).RemoveChunk-fm (5 handlers)
+无鉴权插件安装==》 &{[0x11a9c60 0x11a8d20] / 0xc000cae680 false}
+鉴权插件安装==》 &{[0x11a9c60 0x11a8d20 0x1b95d60 0x1b963c0] / 0xc000cae680 false}
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.871	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.872	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.874	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.876	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.877	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.879	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.881	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.883	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.889	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.891	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.892	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.894	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.895	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.896	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.898	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.899	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.901	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.902	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.904	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.906	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.907	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.909	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.910	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.912	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.913	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.915	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.920	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.922	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.924	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.925	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.927	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.928	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.929	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.931	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.933	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.934	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.936	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.937	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.939	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.940	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.941	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.943	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.944	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.946	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.948	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.949	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.951	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:70	存在同名menu，跳过
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+插件已安装或存在同名路由
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:32.998	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:361	存在同名menu，跳过	{"name": "beeOrderPeisong"}
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:33.000	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:361	存在同名menu，跳过	{"name": "beeRechargeSendRule"}
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:33.002	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:361	存在同名menu，跳过	{"name": "beeOrderPeisongLog"}
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:33.003	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:361	存在同名menu，跳过	{"name": "beePrinter"}
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:33.005	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:361	存在同名menu，跳过	{"name": "beeDelivery"}
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:33.006	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:361	存在同名menu，跳过	{"name": "beeDeliveryBindYunlaba"}
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:33.007	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:361	存在同名menu，跳过	{"name": "beeDashboard"}
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:33.009	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:361	存在同名menu，跳过	{"name": "beeQueueAdmin"}
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:33.010	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:361	存在同名menu，跳过	{"name": "beeQueue"}
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:33.012	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:361	存在同名menu，跳过	{"name": "beeUserQueue"}
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:33.013	[34minfo[0m	/root/bee-api/server/plugin/beeshop/main.go:361	存在同名menu，跳过	{"name": "beeOrderTodo"}
+[GIN-debug] POST   /email/emailTest          --> github.com/flipped-aurora/gin-vue-admin/server/plugin/email/api.(*EmailApi).EmailTest-fm (6 handlers)
+[GIN-debug] POST   /email/sendEmail          --> github.com/flipped-aurora/gin-vue-admin/server/plugin/email/api.(*EmailApi).SendEmail-fm (6 handlers)
+[GIN-debug] POST   /bee-shop/beeUserMapper/createBeeUserMapper --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserMapperApi).CreateBeeUserMapper-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeUserMapper/deleteBeeUserMapper --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserMapperApi).DeleteBeeUserMapper-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeUserMapper/deleteBeeUserMapperByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserMapperApi).DeleteBeeUserMapperByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeUserMapper/updateBeeUserMapper --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserMapperApi).UpdateBeeUserMapper-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeUserMapper/findBeeUserMapper --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserMapperApi).FindBeeUserMapper-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeUserMapper/getBeeUserMapperList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserMapperApi).GetBeeUserMapperList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeUserMapper/getBeeUserMapperPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserMapperApi).GetBeeUserMapperPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeShopGoodsCategory/createBeeShopGoodsCategory --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsCategoryApi).CreateBeeShopGoodsCategory-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeShopGoodsCategory/deleteBeeShopGoodsCategory --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsCategoryApi).DeleteBeeShopGoodsCategory-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeShopGoodsCategory/deleteBeeShopGoodsCategoryByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsCategoryApi).DeleteBeeShopGoodsCategoryByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeShopGoodsCategory/updateBeeShopGoodsCategory --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsCategoryApi).UpdateBeeShopGoodsCategory-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsCategory/findBeeShopGoodsCategory --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsCategoryApi).FindBeeShopGoodsCategory-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsCategoryApi).GetBeeShopGoodsCategoryList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsCategoryApi).GetBeeShopGoodsCategoryPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeShopInfo/createBeeShopInfo --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopInfoApi).CreateBeeShopInfo-fm (8 handlers)
+[GIN-debug] GET    /uploads/file/*filepath   --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] HEAD   /uploads/file/*filepath   --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] POST   /upload2                  --> gitee.com/stuinfer/bee-api/api.DfsApi.UploadFile-fm (5 handlers)
+[GIN-debug] GET    /yunlaba/bind.html        --> gitee.com/stuinfer/bee-api/router.NewRouter.func1 (3 handlers)
+[GIN-debug] POST   /:domain/dfs/upload/file  --> gitee.com/stuinfer/bee-api/api.DfsApi.UploadFile-fm (5 handlers)
+[GIN-debug] GET    /:domain/config/values    --> gitee.com/stuinfer/bee-api/api.ConfigApi.Values-fm (4 handlers)
+[GIN-debug] POST   /:domain/qrcode/wxa/unlimit --> gitee.com/stuinfer/bee-api/api.QrcodeApi.WxaUnLimit-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/subshop/detail/v2 --> gitee.com/stuinfer/bee-api/api.ShopApi.SubShopDetail-fm (4 handlers)
+[GIN-debug] POST   /:domain/shop/subshop/list --> gitee.com/stuinfer/bee-api/api.ShopApi.SubShopList-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/category/all --> gitee.com/stuinfer/bee-api/api.BaseApi.CategoryAll-fm (4 handlers)
+[GIN-debug] POST   /:domain/shop/goods/list  --> gitee.com/stuinfer/bee-api/api.GoodsApi.List-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/list/v2 --> gitee.com/stuinfer/bee-api/api.GoodsApi.List-fm (4 handlers)
+[GIN-debug] POST   /:domain/shop/goods/price --> gitee.com/stuinfer/bee-api/api.GoodsApi.Price-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/detail --> gitee.com/stuinfer/bee-api/api.GoodsApi.Detail-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/goodsAddition --> gitee.com/stuinfer/bee-api/api.GoodsApi.GoodsAddition-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] POST   /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] PUT    /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] PATCH  /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] HEAD   /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] OPTIONS /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] DELETE /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] CONNECT /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] TRACE  /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/kanjia/info --> gitee.com/stuinfer/bee-api/api.KanjiaApi.Info-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/kanjia/help --> gitee.com/stuinfer/bee-api/api.KanjiaApi.Help-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/kanjia/clear --> gitee.com/stuinfer/bee-api/api.KanjiaApi.Clear-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/kanjia/my --> gitee.com/stuinfer/bee-api/api.KanjiaApi.My-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/kanjia/myHelp --> gitee.com/stuinfer/bee-api/api.KanjiaApi.MyHelp-fm (4 handlers)
+[GIN-debug] GET    /:domain/shop/goods/kanjia/set/v2 --> gitee.com/stuinfer/bee-api/api.KanjiaApi.Set-fm (4 handlers)
+[GIN-debug] POST   /:domain/shop/goods/kanjia/join --> gitee.com/stuinfer/bee-api/api.KanjiaApi.Join-fm (4 handlers)
+[GIN-debug] GET    /:domain/cms/page/info/v2 --> gitee.com/stuinfer/bee-api/api.CmsApi.Info-fm (4 handlers)
+[GIN-debug] POST   /:domain/comment/add      --> gitee.com/stuinfer/bee-api/api.CommentApi.Add-fm (5 handlers)
+[GIN-debug] GET    /:domain/notice/last-one  --> gitee.com/stuinfer/bee-api/api.NoticeApi.LastOne-fm (4 handlers)
+[GIN-debug] GET    /:domain/notice/detail    --> gitee.com/stuinfer/bee-api/api.NoticeApi.Detail-fm (4 handlers)
+[GIN-debug] GET    /:domain/banner/list      --> gitee.com/stuinfer/bee-api/api.BannerApi.List-fm (4 handlers)
+[GIN-debug] GET    /common/region/v2/province --> gitee.com/stuinfer/bee-api/api.CommonApi.Province-fm (3 handlers)
+[GIN-debug] GET    /common/region/v2/child   --> gitee.com/stuinfer/bee-api/api.CommonApi.Child-fm (3 handlers)
+[GIN-debug] POST   /common/map/qq/distance   --> gitee.com/stuinfer/bee-api/api.CommonApi.MapQQDistance-fm (3 handlers)
+[GIN-debug] POST   /:domain/yuyue/join       --> gitee.com/stuinfer/bee-api/api.YuyueAPi.Join-fm (5 handlers)
+[GIN-debug] GET    /:domain/discounts/my     --> gitee.com/stuinfer/bee-api/api.DiscountsApi.My-fm (5 handlers)
+[GIN-debug] GET    /:domain/discounts/detail --> gitee.com/stuinfer/bee-api/api.DiscountsApi.CouponDetail-fm (5 handlers)
+[GIN-debug] GET    /:domain/discounts/statistics --> gitee.com/stuinfer/bee-api/api.DiscountsApi.Statistics-fm (5 handlers)
+[GIN-debug] GET    /:domain/discounts/coupons --> gitee.com/stuinfer/bee-api/api.DiscountsApi.Coupons-fm (5 handlers)
+[GIN-debug] POST   /:domain/discounts/fetch  --> gitee.com/stuinfer/bee-api/api.DiscountsApi.Fetch-fm (5 handlers)
+[GIN-debug] POST   /:domain/discounts/exchange --> gitee.com/stuinfer/bee-api/api.DiscountsApi.Exchange-fm (5 handlers)
+[GIN-debug] GET    /:domain/payBill/discounts --> gitee.com/stuinfer/bee-api/api.PayBillApi.Discounts-fm (5 handlers)
+[GIN-debug] POST   /:domain/payBill/pay      --> gitee.com/stuinfer/bee-api/api.PayBillApi.Pay-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/bindSeller  --> gitee.com/stuinfer/bee-api/api.UserApi.BindSeller-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/my          --> gitee.com/stuinfer/bee-api/api.UserApi.My-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/level/list  --> gitee.com/stuinfer/bee-api/api.UserApi.LevelList-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/detail      --> gitee.com/stuinfer/bee-api/api.UserApi.Detail-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/modify      --> gitee.com/stuinfer/bee-api/api.UserApi.Modify-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/amount      --> gitee.com/stuinfer/bee-api/api.UserApi.Amount-fm (5 handlers)
+[GIN-debug] DELETE /bee-shop/beeShopInfo/deleteBeeShopInfo --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopInfoApi).DeleteBeeShopInfo-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeShopInfo/deleteBeeShopInfoByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopInfoApi).DeleteBeeShopInfoByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeShopInfo/updateBeeShopInfo --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopInfoApi).UpdateBeeShopInfo-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeShopInfo/findBeeShopInfo --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopInfoApi).FindBeeShopInfo-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeShopInfo/getBeeShopInfoList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopInfoApi).GetBeeShopInfoList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeShopInfo/getBeeShopInfoPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopInfoApi).GetBeeShopInfoPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeUserBalanceLog/createBeeUserBalanceLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserBalanceLogApi).CreateBeeUserBalanceLog-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeUserBalanceLog/deleteBeeUserBalanceLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserBalanceLogApi).DeleteBeeUserBalanceLog-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeUserBalanceLog/deleteBeeUserBalanceLogByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserBalanceLogApi).DeleteBeeUserBalanceLogByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeUserBalanceLog/updateBeeUserBalanceLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserBalanceLogApi).UpdateBeeUserBalanceLog-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeUserBalanceLog/findBeeUserBalanceLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserBalanceLogApi).FindBeeUserBalanceLog-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeUserBalanceLog/getBeeUserBalanceLogList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserBalanceLogApi).GetBeeUserBalanceLogList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeUserBalanceLog/getBeeUserBalanceLogPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserBalanceLogApi).GetBeeUserBalanceLogPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeCoupon/createBeeCoupon --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCouponApi).CreateBeeCoupon-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeCoupon/deleteBeeCoupon --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCouponApi).DeleteBeeCoupon-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeCoupon/deleteBeeCouponByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCouponApi).DeleteBeeCouponByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeCoupon/updateBeeCoupon --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCouponApi).UpdateBeeCoupon-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeCoupon/findBeeCoupon --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCouponApi).FindBeeCoupon-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeCoupon/getBeeCouponList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCouponApi).GetBeeCouponList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeCoupon/getBeeCouponPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCouponApi).GetBeeCouponPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeUserCoupon/createBeeUserCoupon --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserCouponApi).CreateBeeUserCoupon-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeUserCoupon/deleteBeeUserCoupon --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserCouponApi).DeleteBeeUserCoupon-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeUserCoupon/deleteBeeUserCouponByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserCouponApi).DeleteBeeUserCouponByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeUserCoupon/updateBeeUserCoupon --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserCouponApi).UpdateBeeUserCoupon-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeUserCoupon/findBeeUserCoupon --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserCouponApi).FindBeeUserCoupon-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeUserCoupon/getBeeUserCouponList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserCouponApi).GetBeeUserCouponList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeUserCoupon/getBeeUserCouponPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserCouponApi).GetBeeUserCouponPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeCashLog/createBeeCashLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCashLogApi).CreateBeeCashLog-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeCashLog/deleteBeeCashLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCashLogApi).DeleteBeeCashLog-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeCashLog/deleteBeeCashLogByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCashLogApi).DeleteBeeCashLogByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeCashLog/updateBeeCashLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCashLogApi).UpdateBeeCashLog-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeCashLog/findBeeCashLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCashLogApi).FindBeeCashLog-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeCashLog/getBeeCashLogList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCashLogApi).GetBeeCashLogList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeCashLog/getBeeCashLogPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCashLogApi).GetBeeCashLogPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeConfig/createBeeConfig --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeConfigApi).CreateBeeConfig-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeConfig/deleteBeeConfig --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeConfigApi).DeleteBeeConfig-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeConfig/deleteBeeConfigByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeConfigApi).DeleteBeeConfigByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeConfig/updateBeeConfig --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeConfigApi).UpdateBeeConfig-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeConfig/findBeeConfig --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeConfigApi).FindBeeConfig-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeConfig/getBeeConfigList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeConfigApi).GetBeeConfigList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeConfig/getBeeConfigPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeConfigApi).GetBeeConfigPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeShopGoodsProp/createBeeShopGoodsProp --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsPropApi).CreateBeeShopGoodsProp-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeShopGoodsProp/deleteBeeShopGoodsProp --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsPropApi).DeleteBeeShopGoodsProp-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeShopGoodsProp/deleteBeeShopGoodsPropByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsPropApi).DeleteBeeShopGoodsPropByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeShopGoodsProp/updateBeeShopGoodsProp --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsPropApi).UpdateBeeShopGoodsProp-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsProp/findBeeShopGoodsProp --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsPropApi).FindBeeShopGoodsProp-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsPropApi).GetBeeShopGoodsPropList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsProp/getBeeShopGoodsPropPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsPropApi).GetBeeShopGoodsPropPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeShopGoodsAddition/createBeeShopGoodsAddition --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsAdditionApi).CreateBeeShopGoodsAddition-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeShopGoodsAddition/deleteBeeShopGoodsAddition --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsAdditionApi).DeleteBeeShopGoodsAddition-fm (8 handlers)
+[GIN-debug] GET    /:domain/user/check-token --> gitee.com/stuinfer/bee-api/api.UserApi.CheckToken-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/wxapp/authorize --> gitee.com/stuinfer/bee-api/api.UserApi.WxAppAuthorize-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/wxapp/login --> gitee.com/stuinfer/bee-api/api.UserApi.WxAppAuthorize-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/wxapp/bindMobile --> gitee.com/stuinfer/bee-api/api.UserApi.BindMobile-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/cashLog     --> gitee.com/stuinfer/bee-api/api.UserApi.CashLog-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/cashLog/v2  --> gitee.com/stuinfer/bee-api/api.UserApi.CashLog-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/dynamicUserCode --> gitee.com/stuinfer/bee-api/api.UserApi.GetDynamicUserCode-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/payLogs     --> gitee.com/stuinfer/bee-api/api.UserApi.PayLogs-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/recharge/send/rule --> gitee.com/stuinfer/bee-api/api.PayApi.RechargeSendRule-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/shipping-address/list --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.List-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/shipping-address/default/v2 --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.Default-fm (5 handlers)
+[GIN-debug] GET    /:domain/user/shipping-address/detail/v2 --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.Detail-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/shipping-address/add --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.Add-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/shipping-address/update --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.Update-fm (5 handlers)
+[GIN-debug] POST   /:domain/user/shipping-address/delete --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.Delete-fm (5 handlers)
+[GIN-debug] GET    /:domain/shopping-cart/info --> gitee.com/stuinfer/bee-api/api.ShoppingCartAPi.Info-fm (5 handlers)
+[GIN-debug] POST   /:domain/shopping-cart/add --> gitee.com/stuinfer/bee-api/api.ShoppingCartAPi.Add-fm (5 handlers)
+[GIN-debug] POST   /:domain/shopping-cart/remove --> gitee.com/stuinfer/bee-api/api.ShoppingCartAPi.Remove-fm (5 handlers)
+[GIN-debug] POST   /:domain/shopping-cart/empty --> gitee.com/stuinfer/bee-api/api.ShoppingCartAPi.Empty-fm (5 handlers)
+[GIN-debug] POST   /:domain/shopping-cart/modifyNumber --> gitee.com/stuinfer/bee-api/api.ShoppingCartAPi.ModifyNumber-fm (5 handlers)
+[GIN-debug] GET    /:domain/order/detail     --> gitee.com/stuinfer/bee-api/api.OrderApi.Detail-fm (5 handlers)
+[GIN-debug] GET    /:domain/order/list       --> gitee.com/stuinfer/bee-api/api.OrderApi.List-fm (5 handlers)
+[GIN-debug] POST   /:domain/order/list       --> gitee.com/stuinfer/bee-api/api.OrderApi.List-fm (5 handlers)
+[GIN-debug] POST   /:domain/order/pay        --> gitee.com/stuinfer/bee-api/api.OrderApi.Pay-fm (5 handlers)
+[GIN-debug] POST   /:domain/order/create     --> gitee.com/stuinfer/bee-api/api.OrderApi.Create-fm (5 handlers)
+[GIN-debug] POST   /:domain/order/close      --> gitee.com/stuinfer/bee-api/api.OrderApi.Close-fm (5 handlers)
+[GIN-debug] POST   /:domain/order/delete     --> gitee.com/stuinfer/bee-api/api.OrderApi.Delete-fm (5 handlers)
+[GIN-debug] POST   /:domain/order/delivery   --> gitee.com/stuinfer/bee-api/api.OrderApi.Delivery-fm (5 handlers)
+[GIN-debug] POST   /:domain/order/reputation --> gitee.com/stuinfer/bee-api/api.OrderApi.Reputation-fm (5 handlers)
+[GIN-debug] POST   /:domain/order/hx         --> gitee.com/stuinfer/bee-api/api.OrderApi.Hx-fm (5 handlers)
+[GIN-debug] GET    /:domain/score/sign/logs  --> gitee.com/stuinfer/bee-api/api.ScoreApi.SignLogs-fm (5 handlers)
+[GIN-debug] POST   /:domain/score/sign/logs  --> gitee.com/stuinfer/bee-api/api.ScoreApi.SignLogs-fm (5 handlers)
+[GIN-debug] POST   /:domain/score/sign       --> gitee.com/stuinfer/bee-api/api.ScoreApi.Sign-fm (5 handlers)
+[GIN-debug] POST   /:domain/score/logs       --> gitee.com/stuinfer/bee-api/api.ScoreApi.Logs-fm (5 handlers)
+[GIN-debug] POST   /:domain/score/share/wxa/group --> gitee.com/stuinfer/bee-api/api.ScoreApi.WxaGroup-fm (5 handlers)
+[GIN-debug] POST   /:domain/pay/wx/wxapp     --> gitee.com/stuinfer/bee-api/api.PayApi.WxApp-fm (5 handlers)
+[GIN-debug] POST   /:domain/notify/wx/pay    --> gitee.com/stuinfer/bee-api/api.PayApi.WxPayCallBack-fm (4 handlers)
+[GIN-debug] GET    /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] POST   /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] PUT    /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] PATCH  /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] HEAD   /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] OPTIONS /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] DELETE /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] CONNECT /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] TRACE  /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
+[GIN-debug] GET    /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] POST   /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] PUT    /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] PATCH  /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] HEAD   /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] OPTIONS /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] DELETE /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] CONNECT /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] TRACE  /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
+[GIN-debug] POST   /:domain/cyTable/add-order --> gitee.com/stuinfer/bee-api/api.CyTableAPi.AddOrder-fm (5 handlers)
+[GIN-debug] POST   /:domain/cyTable/token    --> gitee.com/stuinfer/bee-api/api.CyTableAPi.Token-fm (4 handlers)
+[GIN-debug] GET    /:domain/fee/peisong/list --> gitee.com/stuinfer/bee-api/api.FeeAPi.ListPeiSong-fm (4 handlers)
+[GIN-debug] POST   /:domain/queuing/get      --> gitee.com/stuinfer/bee-api/api.QueuingApi.Get-fm (5 handlers)
+[GIN-debug] GET    /:domain/queuing/types    --> gitee.com/stuinfer/bee-api/api.QueuingApi.Types-fm (4 handlers)
+[GIN-debug] GET    /:domain/queuing/my       --> gitee.com/stuinfer/bee-api/api.QueuingApi.My-fm (5 handlers)
+[GIN-debug] DELETE /bee-shop/beeShopGoodsAddition/deleteBeeShopGoodsAdditionByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsAdditionApi).DeleteBeeShopGoodsAdditionByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeShopGoodsAddition/updateBeeShopGoodsAddition --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsAdditionApi).UpdateBeeShopGoodsAddition-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsAddition/findBeeShopGoodsAddition --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsAdditionApi).FindBeeShopGoodsAddition-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsAddition/getBeeShopGoodsAdditionList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsAdditionApi).GetBeeShopGoodsAdditionList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsAddition/getBeeShopGoodsAdditionPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsAdditionApi).GetBeeShopGoodsAdditionPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeShopGoods/createBeeShopGoods --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsApi).CreateBeeShopGoods-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeShopGoods/deleteBeeShopGoods --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsApi).DeleteBeeShopGoods-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeShopGoods/deleteBeeShopGoodsByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsApi).DeleteBeeShopGoodsByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeShopGoods/updateBeeShopGoods --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsApi).UpdateBeeShopGoods-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoods/findBeeShopGoods --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsApi).FindBeeShopGoods-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoods/getBeeShopGoodsList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsApi).GetBeeShopGoodsList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoods/getBeeShopGoodsPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsApi).GetBeeShopGoodsPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeShopGoodsImages/createBeeShopGoodsImages --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsImagesApi).CreateBeeShopGoodsImages-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeShopGoodsImages/deleteBeeShopGoodsImages --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsImagesApi).DeleteBeeShopGoodsImages-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeShopGoodsImages/deleteBeeShopGoodsImagesByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsImagesApi).DeleteBeeShopGoodsImagesByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeShopGoodsImages/updateBeeShopGoodsImages --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsImagesApi).UpdateBeeShopGoodsImages-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsImages/findBeeShopGoodsImages --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsImagesApi).FindBeeShopGoodsImages-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsImagesApi).GetBeeShopGoodsImagesList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsImagesApi).GetBeeShopGoodsImagesPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeShopGoodsSku/createBeeShopGoodsSku --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsSkuApi).CreateBeeShopGoodsSku-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeShopGoodsSku/deleteBeeShopGoodsSku --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsSkuApi).DeleteBeeShopGoodsSku-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeShopGoodsSku/deleteBeeShopGoodsSkuByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsSkuApi).DeleteBeeShopGoodsSkuByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeShopGoodsSku/updateBeeShopGoodsSku --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsSkuApi).UpdateBeeShopGoodsSku-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsSku/findBeeShopGoodsSku --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsSkuApi).FindBeeShopGoodsSku-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsSku/getBeeShopGoodsSkuList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsSkuApi).GetBeeShopGoodsSkuList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsSku/getBeeShopGoodsSkuPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsSkuApi).GetBeeShopGoodsSkuPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeShopGoodsContent/createBeeShopGoodsContent --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsContentApi).CreateBeeShopGoodsContent-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeShopGoodsContent/deleteBeeShopGoodsContent --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsContentApi).DeleteBeeShopGoodsContent-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeShopGoodsContent/deleteBeeShopGoodsContentByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsContentApi).DeleteBeeShopGoodsContentByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeShopGoodsContent/updateBeeShopGoodsContent --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsContentApi).UpdateBeeShopGoodsContent-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsContent/findBeeShopGoodsContent --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsContentApi).FindBeeShopGoodsContent-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsContent/getBeeShopGoodsContentList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsContentApi).GetBeeShopGoodsContentList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeShopGoodsContent/getBeeShopGoodsContentPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeShopGoodsContentApi).GetBeeShopGoodsContentPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeWxConfig/createBeeWxConfig --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeWxConfigApi).CreateBeeWxConfig-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeWxConfig/deleteBeeWxConfig --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeWxConfigApi).DeleteBeeWxConfig-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeWxConfig/deleteBeeWxConfigByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeWxConfigApi).DeleteBeeWxConfigByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeWxConfig/updateBeeWxConfig --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeWxConfigApi).UpdateBeeWxConfig-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeWxConfig/findBeeWxConfig --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeWxConfigApi).FindBeeWxConfig-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeWxConfig/getBeeWxConfigList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeWxConfigApi).GetBeeWxConfigList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeWxConfig/getBeeWxConfigPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeWxConfigApi).GetBeeWxConfigPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeComment/createBeeComment --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCommentApi).CreateBeeComment-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeComment/deleteBeeComment --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCommentApi).DeleteBeeComment-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeComment/deleteBeeCommentByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCommentApi).DeleteBeeCommentByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeComment/updateBeeComment --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCommentApi).UpdateBeeComment-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeComment/findBeeComment --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCommentApi).FindBeeComment-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeComment/getBeeCommentList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCommentApi).GetBeeCommentList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeComment/getBeeCommentPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCommentApi).GetBeeCommentPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeOrder/createBeeOrder --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderApi).CreateBeeOrder-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeOrder/deleteBeeOrder --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderApi).DeleteBeeOrder-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeOrder/deleteBeeOrderByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderApi).DeleteBeeOrderByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeOrder/updateBeeOrder --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderApi).UpdateBeeOrder-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeOrder/updateBeeOrderExtJsonStr --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderApi).UpdateBeeOrderExtJsonStr-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeOrder/updateBeeOrderStatus --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderApi).UpdateBeeOrderStatus-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeOrder/markBeeOrderDone --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderApi).MarkBeeOrderDone-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeOrder/markBeeOrderPaid --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderApi).MarkBeeOrderPaid-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeOrder/shippedBeeOrder --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderApi).ShippedBeeOrder-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeOrder/findBeeOrder --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderApi).FindBeeOrder-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeOrder/getBeeOrderList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderApi).GetBeeOrderList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeOrder/getBeeOrderPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderApi).GetBeeOrderPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeOrderReputation/createBeeOrderReputation --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderReputationApi).CreateBeeOrderReputation-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeOrderReputation/deleteBeeOrderReputation --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderReputationApi).DeleteBeeOrderReputation-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeOrderReputation/deleteBeeOrderReputationByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderReputationApi).DeleteBeeOrderReputationByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeOrderReputation/updateBeeOrderReputation --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderReputationApi).UpdateBeeOrderReputation-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderReputation/findBeeOrderReputation --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderReputationApi).FindBeeOrderReputation-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderReputation/getBeeOrderReputationList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderReputationApi).GetBeeOrderReputationList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderReputation/getBeeOrderReputationPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderReputationApi).GetBeeOrderReputationPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeBanner/createBeeBanner --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeBannerApi).CreateBeeBanner-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeBanner/deleteBeeBanner --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeBannerApi).DeleteBeeBanner-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeBanner/deleteBeeBannerByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeBannerApi).DeleteBeeBannerByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeBanner/updateBeeBanner --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeBannerApi).UpdateBeeBanner-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeBanner/findBeeBanner --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeBannerApi).FindBeeBanner-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeBanner/getBeeBannerList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeBannerApi).GetBeeBannerList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeBanner/getBeeBannerPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeBannerApi).GetBeeBannerPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeUserAmount/createBeeUserAmount --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserAmountApi).CreateBeeUserAmount-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeUserAmount/deleteBeeUserAmount --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserAmountApi).DeleteBeeUserAmount-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeUserAmount/deleteBeeUserAmountByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserAmountApi).DeleteBeeUserAmountByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeUserAmount/updateBeeUserAmount --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserAmountApi).UpdateBeeUserAmount-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeUserAmount/findBeeUserAmount --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserAmountApi).FindBeeUserAmount-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeUserAmount/getBeeUserAmountList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserAmountApi).GetBeeUserAmountList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeUserAmount/getBeeUserAmountPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserAmountApi).GetBeeUserAmountPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeCyTable/createBeeCyTable --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCyTableApi).CreateBeeCyTable-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeCyTable/deleteBeeCyTable --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCyTableApi).DeleteBeeCyTable-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeCyTable/deleteBeeCyTableByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCyTableApi).DeleteBeeCyTableByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeCyTable/updateBeeCyTable --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCyTableApi).UpdateBeeCyTable-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeCyTable/getBeeCyTableQrCode --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCyTableApi).GetBeeCyTableQrCode-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeCyTable/findBeeCyTable --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCyTableApi).FindBeeCyTable-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeCyTable/getBeeCyTableList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCyTableApi).GetBeeCyTableList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeCyTable/getBeeCyTablePublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCyTableApi).GetBeeCyTablePublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeRegion/createBeeRegion --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeRegionApi).CreateBeeRegion-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeRegion/deleteBeeRegion --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeRegionApi).DeleteBeeRegion-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeRegion/deleteBeeRegionByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeRegionApi).DeleteBeeRegionByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeRegion/updateBeeRegion --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeRegionApi).UpdateBeeRegion-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeRegion/findBeeRegion --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeRegionApi).FindBeeRegion-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeRegion/getBeeRegionList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeRegionApi).GetBeeRegionList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeRegion/getBeeRegionCityTree --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeRegionApi).GetBeeRegionCityTree-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeRegion/getBeeRegionPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeRegionApi).GetBeeRegionPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeCmsInfo/createBeeCmsInfo --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCmsInfoApi).CreateBeeCmsInfo-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeCmsInfo/deleteBeeCmsInfo --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCmsInfoApi).DeleteBeeCmsInfo-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeCmsInfo/deleteBeeCmsInfoByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCmsInfoApi).DeleteBeeCmsInfoByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeCmsInfo/updateBeeCmsInfo --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCmsInfoApi).UpdateBeeCmsInfo-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeCmsInfo/findBeeCmsInfo --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCmsInfoApi).FindBeeCmsInfo-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeCmsInfo/getBeeCmsInfoList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCmsInfoApi).GetBeeCmsInfoList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeCmsInfo/getBeeCmsInfoPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeCmsInfoApi).GetBeeCmsInfoPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeUserAddress/createBeeUserAddress --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserAddressApi).CreateBeeUserAddress-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeUserAddress/deleteBeeUserAddress --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserAddressApi).DeleteBeeUserAddress-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeUserAddress/deleteBeeUserAddressByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserAddressApi).DeleteBeeUserAddressByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeUserAddress/updateBeeUserAddress --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserAddressApi).UpdateBeeUserAddress-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeUserAddress/findBeeUserAddress --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserAddressApi).FindBeeUserAddress-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeUserAddress/getBeeUserAddressList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserAddressApi).GetBeeUserAddressList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeUserAddress/getBeeUserAddressPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserAddressApi).GetBeeUserAddressPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beePeiSong/createBeePeiSong --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePeiSongApi).CreateBeePeiSong-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beePeiSong/deleteBeePeiSong --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePeiSongApi).DeleteBeePeiSong-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beePeiSong/deleteBeePeiSongByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePeiSongApi).DeleteBeePeiSongByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beePeiSong/updateBeePeiSong --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePeiSongApi).UpdateBeePeiSong-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beePeiSong/findBeePeiSong --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePeiSongApi).FindBeePeiSong-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beePeiSong/getBeePeiSongList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePeiSongApi).GetBeePeiSongList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beePeiSong/getBeePeiSongPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePeiSongApi).GetBeePeiSongPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeUser/createBeeUser --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserApi).CreateBeeUser-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeUser/deleteBeeUser --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserApi).DeleteBeeUser-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeUser/deleteBeeUserByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserApi).DeleteBeeUserByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeUser/updateBeeUser --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserApi).UpdateBeeUser-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeUser/findBeeUser --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserApi).FindBeeUser-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeUser/getBeeUserList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserApi).GetBeeUserList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeUser/getBeeUserPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserApi).GetBeeUserPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeOrderGoods/createBeeOrderGoods --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderGoodsApi).CreateBeeOrderGoods-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeOrderGoods/deleteBeeOrderGoods --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderGoodsApi).DeleteBeeOrderGoods-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeOrderGoods/deleteBeeOrderGoodsByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderGoodsApi).DeleteBeeOrderGoodsByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeOrderGoods/updateBeeOrderGoods --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderGoodsApi).UpdateBeeOrderGoods-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderGoods/findBeeOrderGoods --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderGoodsApi).FindBeeOrderGoods-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderGoods/getBeeOrderGoodsList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderGoodsApi).GetBeeOrderGoodsList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderGoods/getBeeOrderGoodsPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderGoodsApi).GetBeeOrderGoodsPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeOrderLogistics/createBeeOrderLogistics --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderLogisticsApi).CreateBeeOrderLogistics-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeOrderLogistics/deleteBeeOrderLogistics --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderLogisticsApi).DeleteBeeOrderLogistics-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeOrderLogistics/deleteBeeOrderLogisticsByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderLogisticsApi).DeleteBeeOrderLogisticsByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeOrderLogistics/updateBeeOrderLogistics --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderLogisticsApi).UpdateBeeOrderLogistics-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderLogistics/findBeeOrderLogistics --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderLogisticsApi).FindBeeOrderLogistics-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderLogistics/getBeeOrderLogisticsList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderLogisticsApi).GetBeeOrderLogisticsList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderLogistics/getBeeOrderLogisticsPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderLogisticsApi).GetBeeOrderLogisticsPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeUploadFile/createBeeUploadFile --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUploadFileApi).CreateBeeUploadFile-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeUploadFile/deleteBeeUploadFile --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUploadFileApi).DeleteBeeUploadFile-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeUploadFile/deleteBeeUploadFileByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUploadFileApi).DeleteBeeUploadFileByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeUploadFile/updateBeeUploadFile --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUploadFileApi).UpdateBeeUploadFile-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeUploadFile/findBeeUploadFile --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUploadFileApi).FindBeeUploadFile-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeUploadFile/getBeeUploadFileList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUploadFileApi).GetBeeUploadFileList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeUploadFile/getBeeUploadFilePublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUploadFileApi).GetBeeUploadFilePublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beePayLog/createBeePayLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePayLogApi).CreateBeePayLog-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beePayLog/deleteBeePayLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePayLogApi).DeleteBeePayLog-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beePayLog/deleteBeePayLogByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePayLogApi).DeleteBeePayLogByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beePayLog/updateBeePayLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePayLogApi).UpdateBeePayLog-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beePayLog/findBeePayLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePayLogApi).FindBeePayLog-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beePayLog/getBeePayLogList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePayLogApi).GetBeePayLogList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beePayLog/getBeePayTotal --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePayLogApi).GetBeePayTotal-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beePayLog/getBeePayLogPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePayLogApi).GetBeePayLogPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeWxPayConfig/createBeeWxPayConfig --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeWxPayConfigApi).CreateBeeWxPayConfig-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeWxPayConfig/deleteBeeWxPayConfig --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeWxPayConfigApi).DeleteBeeWxPayConfig-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeWxPayConfig/deleteBeeWxPayConfigByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeWxPayConfigApi).DeleteBeeWxPayConfigByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeWxPayConfig/updateBeeWxPayConfig --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeWxPayConfigApi).UpdateBeeWxPayConfig-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeWxPayConfig/findBeeWxPayConfig --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeWxPayConfigApi).FindBeeWxPayConfig-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeWxPayConfig/getBeeWxPayConfigList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeWxPayConfigApi).GetBeeWxPayConfigList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeWxPayConfig/getBeeWxPayConfigPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeWxPayConfigApi).GetBeeWxPayConfigPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeNotice/createBeeNotice --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeNoticeApi).CreateBeeNotice-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeNotice/deleteBeeNotice --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeNoticeApi).DeleteBeeNotice-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeNotice/deleteBeeNoticeByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeNoticeApi).DeleteBeeNoticeByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeNotice/updateBeeNotice --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeNoticeApi).UpdateBeeNotice-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeNotice/findBeeNotice --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeNoticeApi).FindBeeNotice-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeNotice/getBeeNoticeList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeNoticeApi).GetBeeNoticeList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeNotice/getBeeNoticePublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeNoticeApi).GetBeeNoticePublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeLogistics/createBeeLogistics --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeLogisticsApi).CreateBeeLogistics-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeLogistics/deleteBeeLogistics --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeLogisticsApi).DeleteBeeLogistics-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeLogistics/deleteBeeLogisticsByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeLogisticsApi).DeleteBeeLogisticsByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeLogistics/updateBeeLogistics --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeLogisticsApi).UpdateBeeLogistics-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeLogistics/findBeeLogistics --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeLogisticsApi).FindBeeLogistics-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeLogistics/getBeeLogisticsList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeLogisticsApi).GetBeeLogisticsList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeLogistics/getBeeLogisticsPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeLogisticsApi).GetBeeLogisticsPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeOrderPeisong/createBeeOrderPeisong --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderPeisongApi).CreateBeeOrderPeisong-fm (8 handlers)
+[GIN-debug] POST   /bee-shop/beeOrderPeisong/cancelBeeOrderPeisong --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderPeisongApi).CancelBeeOrderPeisong-fm (8 handlers)
+[GIN-debug] POST   /bee-shop/beeOrderPeisong/notifyBeeOrderPeisong --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderPeisongApi).NotifyBeeOrderPeisong-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeOrderPeisong/deleteBeeOrderPeisong --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderPeisongApi).DeleteBeeOrderPeisong-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeOrderPeisong/deleteBeeOrderPeisongByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderPeisongApi).DeleteBeeOrderPeisongByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeOrderPeisong/updateBeeOrderPeisong --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderPeisongApi).UpdateBeeOrderPeisong-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderPeisong/findBeeOrderPeisong --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderPeisongApi).FindBeeOrderPeisong-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderPeisong/getBeeOrderPeisongList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderPeisongApi).GetBeeOrderPeisongList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderPeisong/getBeeOrderPeisongDetail --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderPeisongApi).GetBeeOrderPeisongDetail-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderPeisong/getBeeOrderPeisongPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderPeisongApi).GetBeeOrderPeisongPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeOrderLog/createBeeOrderLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderLogApi).CreateBeeOrderLog-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeOrderLog/deleteBeeOrderLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderLogApi).DeleteBeeOrderLog-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeOrderLog/deleteBeeOrderLogByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderLogApi).DeleteBeeOrderLogByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeOrderLog/updateBeeOrderLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderLogApi).UpdateBeeOrderLog-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderLog/findBeeOrderLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderLogApi).FindBeeOrderLog-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderLog/getBeeOrderLogList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderLogApi).GetBeeOrderLogList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderLog/getBeeOrderLogPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderLogApi).GetBeeOrderLogPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beePrinter/createBeePrinter --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePrinterApi).CreateBeePrinter-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beePrinter/deleteBeePrinter --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePrinterApi).DeleteBeePrinter-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beePrinter/deleteBeePrinterByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePrinterApi).DeleteBeePrinterByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beePrinter/updateBeePrinter --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePrinterApi).UpdateBeePrinter-fm (8 handlers)
+[GIN-debug] POST   /bee-shop/beePrinter/testBeePrinter --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePrinterApi).TestBeePrinter-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beePrinter/findBeePrinter --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePrinterApi).FindBeePrinter-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beePrinter/getBeePrinterList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePrinterApi).GetBeePrinterList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beePrinter/getBeePrinterPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeePrinterApi).GetBeePrinterPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeDelivery/createBeeDelivery --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeDeliveryApi).CreateBeeDelivery-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeDelivery/deleteBeeDelivery --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeDeliveryApi).DeleteBeeDelivery-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeDelivery/deleteBeeDeliveryByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeDeliveryApi).DeleteBeeDeliveryByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeDelivery/updateBeeDelivery --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeDeliveryApi).UpdateBeeDelivery-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeDelivery/bindYunlabaShop --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeDeliveryApi).BindYunlabaShop-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeDelivery/findBeeDelivery --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeDeliveryApi).FindBeeDelivery-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeDelivery/getBeeDeliveryList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeDeliveryApi).GetBeeDeliveryList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeDelivery/getBeeDeliveryPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeDeliveryApi).GetBeeDeliveryPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeOrderPeisongLog/createBeeOrderPeisongLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderPeisongLogApi).CreateBeeOrderPeisongLog-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeOrderPeisongLog/deleteBeeOrderPeisongLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderPeisongLogApi).DeleteBeeOrderPeisongLog-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeOrderPeisongLog/deleteBeeOrderPeisongLogByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderPeisongLogApi).DeleteBeeOrderPeisongLogByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeOrderPeisongLog/updateBeeOrderPeisongLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderPeisongLogApi).UpdateBeeOrderPeisongLog-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderPeisongLog/findBeeOrderPeisongLog --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderPeisongLogApi).FindBeeOrderPeisongLog-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderPeisongLog/getBeeOrderPeisongLogList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderPeisongLogApi).GetBeeOrderPeisongLogList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeOrderPeisongLog/getBeeOrderPeisongLogPublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeOrderPeisongLogApi).GetBeeOrderPeisongLogPublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeQueue/createBeeQueue --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeQueueApi).CreateBeeQueue-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeQueue/deleteBeeQueue --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeQueueApi).DeleteBeeQueue-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeQueue/deleteBeeQueueByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeQueueApi).DeleteBeeQueueByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeQueue/updateBeeQueue --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeQueueApi).UpdateBeeQueue-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeQueue/callBeeQueue --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeQueueApi).CallBeeQueue-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeQueue/reCallBeeQueue --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeQueueApi).ReCallBeeQueue-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeQueue/passBeeQueue --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeQueueApi).PassBeeQueue-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeQueue/nextBeeQueue --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeQueueApi).NextBeeQueue-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeQueue/findBeeQueue --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeQueueApi).FindBeeQueue-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeQueue/getBeeQueueList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeQueueApi).GetBeeQueueList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeQueue/getBeeQueuePublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeQueueApi).GetBeeQueuePublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeUserQueue/createBeeUserQueue --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserQueueApi).CreateBeeUserQueue-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeUserQueue/deleteBeeUserQueue --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserQueueApi).DeleteBeeUserQueue-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeUserQueue/deleteBeeUserQueueByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserQueueApi).DeleteBeeUserQueueByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeUserQueue/updateBeeUserQueue --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserQueueApi).UpdateBeeUserQueue-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeUserQueue/findBeeUserQueue --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserQueueApi).FindBeeUserQueue-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeUserQueue/getBeeUserQueueList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserQueueApi).GetBeeUserQueueList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeUserQueue/getBeeUserQueuePublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeUserQueueApi).GetBeeUserQueuePublic-fm (5 handlers)
+[GIN-debug] POST   /bee-shop/beeRechargeSendRule/createBeeRechargeSendRule --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeRechargeSendRuleApi).CreateBeeRechargeSendRule-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeRechargeSendRule/deleteBeeRechargeSendRule --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeRechargeSendRuleApi).DeleteBeeRechargeSendRule-fm (8 handlers)
+[GIN-debug] DELETE /bee-shop/beeRechargeSendRule/deleteBeeRechargeSendRuleByIds --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeRechargeSendRuleApi).DeleteBeeRechargeSendRuleByIds-fm (8 handlers)
+[GIN-debug] PUT    /bee-shop/beeRechargeSendRule/updateBeeRechargeSendRule --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeRechargeSendRuleApi).UpdateBeeRechargeSendRule-fm (8 handlers)
+[GIN-debug] GET    /bee-shop/beeRechargeSendRule/findBeeRechargeSendRule --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeRechargeSendRuleApi).FindBeeRechargeSendRule-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeRechargeSendRule/getBeeRechargeSendRuleList --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeRechargeSendRuleApi).GetBeeRechargeSendRuleList-fm (7 handlers)
+[GIN-debug] GET    /bee-shop/beeRechargeSendRule/getBeeRechargeSendRulePublic --> github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/api.(*BeeRechargeSendRuleApi).GetBeeRechargeSendRulePublic-fm (5 handlers)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:34.130	[34minfo[0m	/root/bee-api/server/initialize/router.go:106	router register success
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:34.128	[34minfo[0m	/root/bee-api/bee-api/cmd/run.go:41	服务启动	{"addr": "127.0.0.1:18083"}
+[GIN-debug] GET    /form-generator/*filepath --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[GIN-debug] HEAD   /form-generator/*filepath --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:26:34.130	[34minfo[0m	/root/bee-api/server/core/server.go:37	server run success on 	{"address": ":8888"}
+
+	欢迎使用 gin-vue-admin
+	当前版本:v2.6.5
+    加群方式:微信号：shouzi_1994 QQ群：470239250
+	项目地址：https://github.com/flipped-aurora/gin-vue-admin
+	插件市场:https://plugin.gin-vue-admin.com
+	GVA讨论社区:https://support.qq.com/products/371961
+	默认自动化文档地址:http://127.0.0.1:8888/swagger/index.html
+	默认前端文件运行地址:http://127.0.0.1:8080
+	--------------------------------------版权声明--------------------------------------
+	** 版权所有方：flipped-aurora开源团队 **
+	** 版权持有公司：北京翻转极光科技有限责任公司 **
+	** 剔除授权标识需购买商用授权：https://gin-vue-admin.com/empower/index.html **
+2025/02/25 00:26:34 227122 :8888
+[GIN] 2025/02/25 - 00:27:05 | 200 |   27.145797ms |    37.163.44.70 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 00:27:07 | 200 |    6.290023ms |    37.163.44.70 | GET      "/user/getUserInfo"
+
+2025/02/25 00:27:09 [31;1m/root/bee-api/server/plugin/beeshop/service/bee/bee_region.go:99 [35;1mError 1146 (42S02): Table 'bee.bee_region' doesn't exist
+[0m[33m[1.185ms] [34;1m[rows:0][0m SELECT count(*) FROM `bee_region` WHERE is_deleted = false AND `level` in (1,2,3)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:27:09.019	[31merror[0m	/root/bee-api/server/plugin/beeshop/api/bee_region.go:175	获取失败!	{"error": "Error 1146 (42S02): Table 'bee.bee_region' doesn't exist"}
+[GIN] 2025/02/25 - 00:27:09 | 200 |   24.109681ms |    37.163.44.70 | GET      "/bee-shop/beeRegion/getBeeRegionCityTree"
+[GIN] 2025/02/25 - 00:27:14 | 200 |    7.017364ms |    37.163.44.70 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 00:35:49 | 200 |     6.59887ms |    37.163.44.70 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 00:35:49 | 200 |    6.701897ms |    37.163.44.70 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 00:35:50 | 200 |   11.366004ms |    37.163.44.70 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+
+2025/02/25 00:35:50 [31;1m/root/bee-api/server/plugin/beeshop/service/bee/bee_region.go:99 [35;1mError 1146 (42S02): Table 'bee.bee_region' doesn't exist
+[0m[33m[0.774ms] [34;1m[rows:0][0m SELECT count(*) FROM `bee_region` WHERE is_deleted = false AND `level` in (1,2,3)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:35:50.399	[31merror[0m	/root/bee-api/server/plugin/beeshop/api/bee_region.go:175	获取失败!	{"error": "Error 1146 (42S02): Table 'bee.bee_region' doesn't exist"}
+[GIN] 2025/02/25 - 00:35:50 | 200 |    21.44315ms |    37.163.44.70 | GET      "/bee-shop/beeRegion/getBeeRegionCityTree"
+[GIN] 2025/02/25 - 00:35:53 | 200 |    8.046037ms |    37.163.44.70 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 00:35:54 | 200 |    6.701667ms |    37.163.44.70 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 00:35:55 | 200 |    11.57301ms |    37.163.44.70 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+
+2025/02/25 00:35:55 [31;1m/root/bee-api/server/plugin/beeshop/service/bee/bee_region.go:99 [35;1mError 1146 (42S02): Table 'bee.bee_region' doesn't exist
+[0m[33m[0.826ms] [34;1m[rows:0][0m SELECT count(*) FROM `bee_region` WHERE is_deleted = false AND `level` in (1,2,3)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:35:55.586	[31merror[0m	/root/bee-api/server/plugin/beeshop/api/bee_region.go:175	获取失败!	{"error": "Error 1146 (42S02): Table 'bee.bee_region' doesn't exist"}
+[GIN] 2025/02/25 - 00:35:55 | 200 |   14.985371ms |    37.163.44.70 | GET      "/bee-shop/beeRegion/getBeeRegionCityTree"
+[GIN] 2025/02/25 - 00:37:30 | 200 |   19.276611ms |    37.163.44.70 | POST     "/bee-shop/beeShopInfo/createBeeShopInfo"
+[GIN] 2025/02/25 - 00:37:30 | 200 |    6.901095ms |    37.163.44.70 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 00:38:49 | 200 |    6.650053ms |    37.163.44.70 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 00:38:49 | 200 |    6.036398ms |    37.163.44.70 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 00:38:50 | 200 |    9.271425ms |    37.163.44.70 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+
+2025/02/25 00:38:50 [31;1m/root/bee-api/server/plugin/beeshop/service/bee/bee_region.go:99 [35;1mError 1146 (42S02): Table 'bee.bee_region' doesn't exist
+[0m[33m[0.753ms] [34;1m[rows:0][0m SELECT count(*) FROM `bee_region` WHERE is_deleted = false AND `level` in (1,2,3)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 00:38:50.376	[31merror[0m	/root/bee-api/server/plugin/beeshop/api/bee_region.go:175	获取失败!	{"error": "Error 1146 (42S02): Table 'bee.bee_region' doesn't exist"}
+[GIN] 2025/02/25 - 00:38:50 | 200 |   21.907714ms |    37.163.44.70 | GET      "/bee-shop/beeRegion/getBeeRegionCityTree"
+[GIN] 2025/02/25 - 00:40:32 | 200 |    6.721379ms |    37.163.44.70 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 00:40:33 | 200 |    5.613969ms |    37.163.44.70 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 00:40:34 | 200 |    7.777396ms |    37.163.44.70 | GET      "/sysDictionary/findSysDictionary?type=OrderStatus"
+[GIN] 2025/02/25 - 00:40:34 | 200 |   32.806888ms |    37.163.44.70 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-17T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:34 | 200 |   38.079316ms |    37.163.44.70 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-17T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:34 | 200 |   30.244824ms |    37.163.44.70 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-17T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 00:40:34 | 200 |   10.022886ms |    37.163.44.70 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-17T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:34 | 200 |    18.64996ms |    37.163.44.70 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-17T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 00:40:35 | 200 |   19.280193ms |    37.163.44.70 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-18T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:35 | 200 |   23.531401ms |    37.163.44.70 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-18T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:35 | 200 |    49.81004ms |    37.163.44.70 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-18T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 00:40:35 | 200 |   16.729924ms |    37.163.44.70 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-18T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:35 | 200 |   39.658668ms |    37.163.44.70 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-18T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 00:40:35 | 200 |   20.231856ms |    37.163.44.70 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-19T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:35 | 200 |   28.316092ms |    37.163.44.70 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-19T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:35 | 200 |   30.786477ms |    37.163.44.70 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-19T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:35 | 200 |   30.042693ms |    37.163.44.70 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-19T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 00:40:35 | 200 |    25.46762ms |    37.163.44.70 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-19T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 00:40:36 | 200 |   12.192695ms |    37.163.44.70 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-20T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:36 | 200 |   37.278763ms |    37.163.44.70 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-20T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 00:40:36 | 200 |   58.473782ms |    37.163.44.70 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-20T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:36 | 200 |   30.112932ms |    37.163.44.70 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-20T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 00:40:36 | 200 |   45.652586ms |    37.163.44.70 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-20T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:36 | 200 |   56.807409ms |    37.163.44.70 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-21T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:36 | 200 |   57.220376ms |    37.163.44.70 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-21T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:36 | 200 |    45.45487ms |    37.163.44.70 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-21T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:36 | 200 |   38.820696ms |    37.163.44.70 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-21T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 00:40:36 | 200 |   25.938762ms |    37.163.44.70 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-21T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 00:40:36 | 200 |   23.678144ms |    37.163.44.70 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-22T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:36 | 200 |   26.364617ms |    37.163.44.70 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-22T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 00:40:36 | 200 |   23.371914ms |    37.163.44.70 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-22T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:36 | 200 |    20.13148ms |    37.163.44.70 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-22T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:36 | 200 |   25.701458ms |    37.163.44.70 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-22T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 00:40:37 | 200 |   24.585124ms |    37.163.44.70 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-23T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:37 | 200 |   46.980925ms |    37.163.44.70 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-23T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 00:40:37 | 200 |   18.996708ms |    37.163.44.70 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-23T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 00:40:37 | 200 |   34.987771ms |    37.163.44.70 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-23T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:37 | 200 |   28.297652ms |    37.163.44.70 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-23T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:37 | 200 |   16.018333ms |    37.163.44.70 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-24T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:37 | 200 |   52.553151ms |    37.163.44.70 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-24T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:37 | 200 |   54.027861ms |    37.163.44.70 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-24T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 00:40:37 | 200 |   15.268501ms |    37.163.44.70 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-24T22:59:59.999Z"
+[GIN] 2025/02/25 - 00:40:37 | 200 |   22.812388ms |    37.163.44.70 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-24T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 00:40:38 | 200 |   11.392564ms |    37.163.44.70 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=100&status=1"
+[GIN] 2025/02/25 - 00:40:57 | 200 |   11.025687ms |    37.163.44.70 | GET      "/bee-shop/beeShopGoodsContent/getBeeShopGoodsContentList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 00:41:00 | 200 |    6.670737ms |    37.163.44.70 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 00:42:13 | 200 |    2.165572ms |    37.163.44.70 | POST     "/base/captcha"
+[GIN] 2025/02/25 - 00:42:22 | 200 |   75.959996ms |    37.163.44.70 | POST     "/base/login"
+[GIN] 2025/02/25 - 00:42:22 | 200 |    6.616312ms |    37.163.44.70 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 00:42:34 | 200 |    5.758151ms |    37.163.44.70 | POST     "/menu/getMenuList"
+[GIN] 2025/02/25 - 00:42:38 | 200 |    3.900213ms |    37.163.44.70 | POST     "/menu/getBaseMenuById"
+[GIN] 2025/02/25 - 00:42:55 | 200 |    3.503017ms |    37.163.44.70 | POST     "/menu/getBaseMenuById"
+[GIN] 2025/02/25 - 00:43:07 | 200 |    4.188889ms |    37.163.44.70 | GET      "/sysDictionary/findSysDictionary?type=BeeOrderLogType"
+[GIN] 2025/02/25 - 00:43:07 | 200 |    3.459811ms |    37.163.44.70 | GET      "/sysDictionary/findSysDictionary?type=OrderStatus"
+[GIN] 2025/02/25 - 00:43:08 | 200 |    3.572048ms |    37.163.44.70 | GET      "/sysDictionary/findSysDictionary?type=BeeOrderPeisongStatus"
+[GIN] 2025/02/25 - 00:43:08 | 200 |    3.741838ms |    37.163.44.70 | GET      "/sysDictionary/findSysDictionary?type=BeeDeliveryCancelReason"
+[GIN] 2025/02/25 - 00:43:10 | 200 |   13.785725ms |    37.163.44.70 | GET      "/bee-shop/beeShopGoodsContent/getBeeShopGoodsContentList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 00:43:12 | 200 |    8.990145ms |    37.163.44.70 | GET      "/bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 00:43:13 | 200 |   16.507932ms |    37.163.44.70 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=100000"
+[GIN] 2025/02/25 - 00:43:13 | 200 |   40.287248ms |    37.163.44.70 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsStatus"
+[GIN] 2025/02/25 - 00:43:13 | 200 |    19.05971ms |    37.163.44.70 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 00:43:13 | 200 |   41.802052ms |    37.163.44.70 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 00:43:13 | 200 |   37.852677ms |    37.163.44.70 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 00:43:13 | 200 |   53.523299ms |    37.163.44.70 | GET      "/bee-shop/beeLogistics/getBeeLogisticsList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 00:43:13 | 200 |    3.846226ms |    37.163.44.70 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsAfterSale"
+[GIN] 2025/02/25 - 00:43:43 | 200 |    6.530042ms |    37.163.44.70 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 01:02:13 | 200 |    6.294131ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 01:02:14 | 200 |    5.801208ms |    5.91.175.116 | GET      "/user/getUserInfo"
+
+2025/02/25 01:02:15 [31;1m/root/bee-api/server/plugin/beeshop/service/bee/bee_region.go:99 [35;1mError 1146 (42S02): Table 'bee.bee_region' doesn't exist
+[0m[33m[0.759ms] [34;1m[rows:0][0m SELECT count(*) FROM `bee_region` WHERE is_deleted = false AND `level` in (1,2,3)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 01:02:15.156	[31merror[0m	/root/bee-api/server/plugin/beeshop/api/bee_region.go:175	获取失败!	{"error": "Error 1146 (42S02): Table 'bee.bee_region' doesn't exist"}
+[GIN] 2025/02/25 - 01:02:15 | 200 |   17.928842ms |    5.91.175.116 | GET      "/bee-shop/beeRegion/getBeeRegionCityTree"
+[GIN] 2025/02/25 - 01:02:15 | 200 |    7.901162ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 01:02:19 | 200 |   21.696035ms |    5.91.175.116 | DELETE   "/bee-shop/beeShopInfo/deleteBeeShopInfo?id=1"
+[GIN] 2025/02/25 - 01:02:19 | 200 |   11.231072ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 01:02:22 | 200 |   17.293328ms |    5.91.175.116 | DELETE   "/bee-shop/beeShopInfo/deleteBeeShopInfo?id=391593"
+[GIN] 2025/02/25 - 01:02:23 | 200 |    6.973905ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 01:02:28 | 200 |    6.686571ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 01:02:29 | 200 |    5.690069ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 01:02:30 | 200 |    9.767063ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+
+2025/02/25 01:02:30 [31;1m/root/bee-api/server/plugin/beeshop/service/bee/bee_region.go:99 [35;1mError 1146 (42S02): Table 'bee.bee_region' doesn't exist
+[0m[33m[0.991ms] [34;1m[rows:0][0m SELECT count(*) FROM `bee_region` WHERE is_deleted = false AND `level` in (1,2,3)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 01:02:30.106	[31merror[0m	/root/bee-api/server/plugin/beeshop/api/bee_region.go:175	获取失败!	{"error": "Error 1146 (42S02): Table 'bee.bee_region' doesn't exist"}
+[GIN] 2025/02/25 - 01:02:30 | 200 |   17.280926ms |    5.91.175.116 | GET      "/bee-shop/beeRegion/getBeeRegionCityTree"
+[GIN] 2025/02/25 - 01:03:05 | 200 |    7.379918ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 01:03:06 | 200 |    9.856579ms |    5.91.175.116 | GET      "/user/getUserInfo"
+
+2025/02/25 01:03:07 [31;1m/root/bee-api/server/plugin/beeshop/service/bee/bee_region.go:99 [35;1mError 1146 (42S02): Table 'bee.bee_region' doesn't exist
+[0m[33m[1.390ms] [34;1m[rows:0][0m SELECT count(*) FROM `bee_region` WHERE is_deleted = false AND `level` in (1,2,3)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 01:03:07.316	[31merror[0m	/root/bee-api/server/plugin/beeshop/api/bee_region.go:175	获取失败!	{"error": "Error 1146 (42S02): Table 'bee.bee_region' doesn't exist"}
+[GIN] 2025/02/25 - 01:03:07 | 200 |   24.732005ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 01:03:07 | 200 |   41.786962ms |    5.91.175.116 | GET      "/bee-shop/beeRegion/getBeeRegionCityTree"
+[GIN] 2025/02/25 - 01:03:58 | 200 |    48.78871ms |    5.91.175.116 | POST     "/bee-shop/beeShopInfo/createBeeShopInfo"
+[GIN] 2025/02/25 - 01:03:58 | 200 |   30.777149ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 01:04:29 | 200 |   17.093156ms |    5.91.175.116 | POST     "/bee-shop/beeShopInfo/createBeeShopInfo"
+[GIN] 2025/02/25 - 01:04:29 | 200 |    6.903281ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 01:06:04 | 200 |    7.370204ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 01:06:05 | 200 |    7.514717ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 01:06:06 | 200 |   10.836802ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+
+2025/02/25 01:06:06 [31;1m/root/bee-api/server/plugin/beeshop/service/bee/bee_region.go:99 [35;1mError 1146 (42S02): Table 'bee.bee_region' doesn't exist
+[0m[33m[0.800ms] [34;1m[rows:0][0m SELECT count(*) FROM `bee_region` WHERE is_deleted = false AND `level` in (1,2,3)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 01:06:06.513	[31merror[0m	/root/bee-api/server/plugin/beeshop/api/bee_region.go:175	获取失败!	{"error": "Error 1146 (42S02): Table 'bee.bee_region' doesn't exist"}
+[GIN] 2025/02/25 - 01:06:06 | 200 |   22.268454ms |    5.91.175.116 | GET      "/bee-shop/beeRegion/getBeeRegionCityTree"
+[GIN] 2025/02/25 - 01:13:44 | 200 |    8.700863ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 01:13:44 | 200 |    6.180557ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 01:13:45 | 200 |    7.763031ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+
+2025/02/25 01:13:45 [31;1m/root/bee-api/server/plugin/beeshop/service/bee/bee_region.go:99 [35;1mError 1146 (42S02): Table 'bee.bee_region' doesn't exist
+[0m[33m[0.650ms] [34;1m[rows:0][0m SELECT count(*) FROM `bee_region` WHERE is_deleted = false AND `level` in (1,2,3)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 01:13:45.368	[31merror[0m	/root/bee-api/server/plugin/beeshop/api/bee_region.go:175	获取失败!	{"error": "Error 1146 (42S02): Table 'bee.bee_region' doesn't exist"}
+[GIN] 2025/02/25 - 01:13:45 | 200 |   20.526533ms |    5.91.175.116 | GET      "/bee-shop/beeRegion/getBeeRegionCityTree"
+[GIN] 2025/02/25 - 01:29:56 | 200 |   55.639184ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 01:29:57 | 200 |    7.790262ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 01:29:58 | 200 |   17.956913ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+
+2025/02/25 01:29:58 [31;1m/root/bee-api/server/plugin/beeshop/service/bee/bee_region.go:99 [35;1mError 1146 (42S02): Table 'bee.bee_region' doesn't exist
+[0m[33m[10.990ms] [34;1m[rows:0][0m SELECT count(*) FROM `bee_region` WHERE is_deleted = false AND `level` in (1,2,3)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 01:29:58.512	[31merror[0m	/root/bee-api/server/plugin/beeshop/api/bee_region.go:175	获取失败!	{"error": "Error 1146 (42S02): Table 'bee.bee_region' doesn't exist"}
+[GIN] 2025/02/25 - 01:29:58 | 200 |   41.028665ms |    5.91.175.116 | GET      "/bee-shop/beeRegion/getBeeRegionCityTree"
+[GIN] 2025/02/25 - 01:34:03 | 200 |    7.483723ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 01:34:04 | 200 |    5.839416ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 01:34:05 | 200 |    9.109523ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+
+2025/02/25 01:34:05 [31;1m/root/bee-api/server/plugin/beeshop/service/bee/bee_region.go:99 [35;1mError 1146 (42S02): Table 'bee.bee_region' doesn't exist
+[0m[33m[0.791ms] [34;1m[rows:0][0m SELECT count(*) FROM `bee_region` WHERE is_deleted = false AND `level` in (1,2,3)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 01:34:05.254	[31merror[0m	/root/bee-api/server/plugin/beeshop/api/bee_region.go:175	获取失败!	{"error": "Error 1146 (42S02): Table 'bee.bee_region' doesn't exist"}
+[GIN] 2025/02/25 - 01:34:05 | 200 |   19.770973ms |    5.91.175.116 | GET      "/bee-shop/beeRegion/getBeeRegionCityTree"
+[GIN] 2025/02/25 - 01:57:57 | 200 |   10.817561ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsContent/getBeeShopGoodsContentList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 01:57:58 | 200 |    13.75264ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 01:58:01 | 200 |    4.768825ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsStatus"
+[GIN] 2025/02/25 - 01:58:01 | 200 |   10.816499ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 01:58:02 | 200 |   12.426081ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 01:58:02 | 200 |    4.634857ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsAfterSale"
+[GIN] 2025/02/25 - 01:58:02 | 200 |    20.98735ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 01:58:02 | 200 |   40.314036ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=100000"
+[GIN] 2025/02/25 - 01:58:02 | 200 |   23.895249ms |    5.91.175.116 | GET      "/bee-shop/beeLogistics/getBeeLogisticsList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 01:58:28 | 200 |    6.959725ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 01:58:29 | 200 |    9.027963ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 01:58:29 | 200 |    3.308824ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsStatus"
+[GIN] 2025/02/25 - 01:58:29 | 200 |     8.33033ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 01:58:29 | 200 |   28.247347ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 01:58:29 | 200 |   17.012044ms |    5.91.175.116 | GET      "/bee-shop/beeLogistics/getBeeLogisticsList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 01:58:29 | 200 |    7.755115ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=100000"
+[GIN] 2025/02/25 - 01:58:29 | 200 |   12.308689ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 01:58:30 | 200 |     3.74892ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsAfterSale"
+[GIN] 2025/02/25 - 01:58:35 | 200 |    8.770014ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesList?page=1&pageSize=10&sort=id&order=descending&goodsId=1808573"
+[GIN] 2025/02/25 - 01:58:45 | 200 |    8.921818ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 01:58:55 | 200 |    10.87147ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsContent/getBeeShopGoodsContentList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 01:58:57 | 200 |    13.09101ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=100000"
+[GIN] 2025/02/25 - 01:58:57 | 200 |    7.118476ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 01:58:57 | 200 |   21.625335ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 01:58:57 | 200 |   19.968119ms |    5.91.175.116 | GET      "/bee-shop/beeLogistics/getBeeLogisticsList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 01:58:57 | 200 |   25.748863ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 01:59:19 | 200 |    8.046563ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10000&propertyId=0"
+[GIN] 2025/02/25 - 01:59:19 | 200 |    7.865642ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:00:04 | 200 |    7.359465ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/findBeeShopGoodsProp?id=1686934"
+[GIN] 2025/02/25 - 02:00:12 | 200 |   30.578184ms |    5.91.175.116 | PUT      "/bee-shop/beeShopGoodsProp/updateBeeShopGoodsProp"
+[GIN] 2025/02/25 - 02:00:13 | 200 |    9.032942ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10000&propertyId=0"
+[GIN] 2025/02/25 - 02:00:13 | 200 |    8.510309ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:01:03 | 200 |    8.109995ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/findBeeShopGoodsProp?id=1686937"
+[GIN] 2025/02/25 - 02:01:12 | 200 |   29.800888ms |    5.91.175.116 | PUT      "/bee-shop/beeShopGoodsProp/updateBeeShopGoodsProp"
+[GIN] 2025/02/25 - 02:01:13 | 200 |    8.689474ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10000&propertyId=0"
+[GIN] 2025/02/25 - 02:01:13 | 200 |    9.892561ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:01:25 | 200 |    16.91667ms |    5.91.175.116 | POST     "/bee-shop/beeShopGoodsProp/createBeeShopGoodsProp"
+[GIN] 2025/02/25 - 02:01:25 | 200 |   15.886803ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10000&propertyId=0"
+[GIN] 2025/02/25 - 02:01:25 | 200 |   16.329498ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:01:42 | 200 |   20.526234ms |    5.91.175.116 | POST     "/bee-shop/beeShopGoodsProp/createBeeShopGoodsProp"
+[GIN] 2025/02/25 - 02:01:42 | 200 |   12.040058ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10000&propertyId=0"
+[GIN] 2025/02/25 - 02:01:42 | 200 |    8.295504ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:01:49 | 200 |   23.710473ms |    5.91.175.116 | POST     "/bee-shop/beeShopGoodsProp/createBeeShopGoodsProp"
+[GIN] 2025/02/25 - 02:01:50 | 200 |    9.318106ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10000&propertyId=0"
+[GIN] 2025/02/25 - 02:01:50 | 200 |    9.401008ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:02:09 | 200 |    7.538915ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 02:02:10 | 200 |     5.94698ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 02:02:12 | 200 |    3.497106ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsStatus"
+[GIN] 2025/02/25 - 02:02:12 | 200 |    12.76695ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:02:12 | 200 |   14.063958ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:02:12 | 200 |    22.78945ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=100000"
+[GIN] 2025/02/25 - 02:02:12 | 200 |    9.806662ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:02:12 | 200 |   22.620842ms |    5.91.175.116 | GET      "/bee-shop/beeLogistics/getBeeLogisticsList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:02:12 | 200 |    4.358388ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsAfterSale"
+[GIN] 2025/02/25 - 02:02:28 | 200 |   16.445773ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsContent/getBeeShopGoodsContentList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:02:29 | 200 |     8.53643ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10000&propertyId=0"
+[GIN] 2025/02/25 - 02:02:29 | 200 |    9.211542ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:02:38 | 200 |    17.49023ms |    5.91.175.116 | POST     "/bee-shop/beeShopGoodsProp/createBeeShopGoodsProp"
+[GIN] 2025/02/25 - 02:02:39 | 200 |   10.226705ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:02:39 | 200 |   13.724341ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10000&propertyId=0"
+[GIN] 2025/02/25 - 02:02:48 | 200 |   17.976236ms |    5.91.175.116 | POST     "/bee-shop/beeShopGoodsProp/createBeeShopGoodsProp"
+[GIN] 2025/02/25 - 02:02:48 | 200 |    9.563924ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10000&propertyId=0"
+[GIN] 2025/02/25 - 02:02:48 | 200 |    11.83664ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:03:15 | 200 |    12.00153ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=2&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:03:15 | 200 |    7.993727ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10000&propertyId=0"
+[GIN] 2025/02/25 - 02:03:19 | 200 |    18.56257ms |    5.91.175.116 | DELETE   "/bee-shop/beeShopGoodsProp/deleteBeeShopGoodsProp?id=211245"
+[GIN] 2025/02/25 - 02:03:19 | 200 |   14.051672ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=2&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:03:19 | 200 |    9.943397ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10000&propertyId=0"
+[GIN] 2025/02/25 - 02:03:21 | 200 |   24.587842ms |    5.91.175.116 | DELETE   "/bee-shop/beeShopGoodsProp/deleteBeeShopGoodsProp?id=1686932"
+[GIN] 2025/02/25 - 02:03:22 | 200 |    8.535954ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10000&propertyId=0"
+[GIN] 2025/02/25 - 02:03:22 | 200 |    9.536619ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=2&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:03:24 | 200 |   18.713973ms |    5.91.175.116 | DELETE   "/bee-shop/beeShopGoodsProp/deleteBeeShopGoodsProp?id=1686933"
+[GIN] 2025/02/25 - 02:03:25 | 200 |    8.678585ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10000&propertyId=0"
+[GIN] 2025/02/25 - 02:03:25 | 200 |   17.365172ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=2&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:03:25 | 200 |    9.063686ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10000&propertyId=0"
+[GIN] 2025/02/25 - 02:03:25 | 200 |   10.867534ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:03:28 | 200 |    7.907524ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10000&propertyId=0"
+[GIN] 2025/02/25 - 02:03:28 | 200 |    7.498736ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=2&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:03:31 | 200 |   12.522766ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=100000"
+[GIN] 2025/02/25 - 02:03:31 | 200 |     12.8102ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsSku/getBeeShopGoodsSkuList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:04:17 | 200 |     8.60306ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10000&propertyId=0"
+[GIN] 2025/02/25 - 02:04:17 | 200 |    7.397422ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:05:01 | 200 |    6.894138ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:05:07 | 200 |   17.764952ms |    5.91.175.116 | DELETE   "/bee-shop/beeShopGoodsCategory/deleteBeeShopGoodsCategory?id=449491"
+[GIN] 2025/02/25 - 02:05:07 | 200 |    5.686398ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:05:09 | 200 |   15.582059ms |    5.91.175.116 | DELETE   "/bee-shop/beeShopGoodsCategory/deleteBeeShopGoodsCategory?id=449490"
+[GIN] 2025/02/25 - 02:05:09 | 200 |    6.421419ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:05:11 | 200 |   19.492922ms |    5.91.175.116 | DELETE   "/bee-shop/beeShopGoodsCategory/deleteBeeShopGoodsCategory?id=449489"
+[GIN] 2025/02/25 - 02:05:11 | 200 |    6.388661ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:05:13 | 200 |   15.768958ms |    5.91.175.116 | DELETE   "/bee-shop/beeShopGoodsCategory/deleteBeeShopGoodsCategory?id=449488"
+[GIN] 2025/02/25 - 02:05:13 | 200 |   10.941908ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:05:15 | 200 |   17.157901ms |    5.91.175.116 | DELETE   "/bee-shop/beeShopGoodsCategory/deleteBeeShopGoodsCategory?id=449486"
+[GIN] 2025/02/25 - 02:05:15 | 200 |    6.095371ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:06:02 | 200 |   25.334741ms |    5.91.175.116 | POST     "/bee-shop/beeShopGoodsCategory/createBeeShopGoodsCategory"
+[GIN] 2025/02/25 - 02:06:02 | 200 |    6.670069ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:06:14 | 200 |   10.365068ms |    5.91.175.116 | POST     "/bee-shop/beeShopGoodsCategory/createBeeShopGoodsCategory"
+[GIN] 2025/02/25 - 02:06:21 | 200 |     9.86646ms |    5.91.175.116 | POST     "/bee-shop/beeShopGoodsCategory/createBeeShopGoodsCategory"
+[GIN] 2025/02/25 - 02:06:24 | 200 |    6.497391ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 02:06:25 | 200 |    6.646213ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 02:06:25 | 200 |    5.533946ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:06:34 | 200 |   17.489727ms |    5.91.175.116 | POST     "/bee-shop/beeShopGoodsCategory/createBeeShopGoodsCategory"
+[GIN] 2025/02/25 - 02:06:35 | 200 |   12.069834ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:06:44 | 200 |   15.902166ms |    5.91.175.116 | POST     "/bee-shop/beeShopGoodsCategory/createBeeShopGoodsCategory"
+[GIN] 2025/02/25 - 02:06:44 | 200 |    5.620753ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:06:53 | 200 |   15.623803ms |    5.91.175.116 | POST     "/bee-shop/beeShopGoodsCategory/createBeeShopGoodsCategory"
+[GIN] 2025/02/25 - 02:06:54 | 200 |    5.919032ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:07:03 | 200 |   15.720584ms |    5.91.175.116 | POST     "/bee-shop/beeShopGoodsCategory/createBeeShopGoodsCategory"
+[GIN] 2025/02/25 - 02:07:03 | 200 |    6.467274ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:07:33 | 200 |     5.15661ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/findBeeShopGoodsCategory?id=449492"
+[GIN] 2025/02/25 - 02:07:35 | 200 |   16.615066ms |    5.91.175.116 | PUT      "/bee-shop/beeShopGoodsCategory/updateBeeShopGoodsCategory"
+[GIN] 2025/02/25 - 02:07:35 | 200 |    6.096329ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:07:38 | 200 |    3.603042ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeePrinterBrand"
+[GIN] 2025/02/25 - 02:07:38 | 200 |   18.656542ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeePrinterCondition"
+[GIN] 2025/02/25 - 02:07:38 | 200 |   30.028364ms |    5.91.175.116 | GET      "/bee-shop/beePrinter/getBeePrinterList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:08:24 | 200 |    7.977062ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/getBeeConfigList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:08:28 | 200 |   12.021583ms |    5.91.175.116 | GET      "/bee-shop/beeCyTable/getBeeCyTableList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:08:31 | 200 |    6.881811ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 02:08:32 | 200 |    5.650485ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 02:08:33 | 200 |   18.329188ms |    5.91.175.116 | GET      "/bee-shop/beeCyTable/getBeeCyTableList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:08:36 | 200 |     7.97708ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/getBeeConfigList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:08:39 | 200 |    7.260408ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/findBeeConfig?id=1"
+[GIN] 2025/02/25 - 02:08:47 | 200 |   19.585239ms |    5.91.175.116 | PUT      "/bee-shop/beeConfig/updateBeeConfig"
+[GIN] 2025/02/25 - 02:08:47 | 200 |    7.951013ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/getBeeConfigList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:09:42 | 200 |   14.465483ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/findBeeConfig?id=1"
+[GIN] 2025/02/25 - 02:09:46 | 200 |    16.68194ms |    5.91.175.116 | PUT      "/bee-shop/beeConfig/updateBeeConfig"
+[GIN] 2025/02/25 - 02:09:47 | 200 |    7.845809ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/getBeeConfigList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:09:55 | 200 |     6.65319ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/findBeeConfig?id=3"
+[GIN] 2025/02/25 - 02:09:58 | 200 |   26.827002ms |    5.91.175.116 | PUT      "/bee-shop/beeConfig/updateBeeConfig"
+[GIN] 2025/02/25 - 02:09:59 | 200 |    8.418108ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/getBeeConfigList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:10:06 | 200 |    6.855695ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/findBeeConfig?id=4"
+[GIN] 2025/02/25 - 02:10:09 | 200 |   18.376575ms |    5.91.175.116 | PUT      "/bee-shop/beeConfig/updateBeeConfig"
+[GIN] 2025/02/25 - 02:10:10 | 200 |    7.889242ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/getBeeConfigList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:10:23 | 200 |   11.465144ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/findBeeConfig?id=7"
+[GIN] 2025/02/25 - 02:10:30 | 200 |   18.549479ms |    5.91.175.116 | PUT      "/bee-shop/beeConfig/updateBeeConfig"
+[GIN] 2025/02/25 - 02:10:31 | 200 |    8.257922ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/getBeeConfigList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:10:36 | 200 |    6.891839ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/findBeeConfig?id=8"
+[GIN] 2025/02/25 - 02:10:41 | 200 |   17.789968ms |    5.91.175.116 | PUT      "/bee-shop/beeConfig/updateBeeConfig"
+[GIN] 2025/02/25 - 02:10:41 | 200 |   12.005549ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/getBeeConfigList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:10:47 | 200 |    8.276125ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/getBeeConfigList?page=2&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:11:01 | 200 |    6.881728ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/findBeeConfig?id=11"
+[GIN] 2025/02/25 - 02:11:06 | 200 |    8.095736ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/getBeeConfigList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:11:09 | 200 |    7.598406ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/getBeeConfigList?page=2&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:11:10 | 200 |   10.681936ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/findBeeConfig?id=11"
+[GIN] 2025/02/25 - 02:11:14 | 200 |   17.728076ms |    5.91.175.116 | PUT      "/bee-shop/beeConfig/updateBeeConfig"
+[GIN] 2025/02/25 - 02:11:14 | 200 |    7.138707ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/getBeeConfigList?page=2&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:11:27 | 200 |    7.189488ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/findBeeConfig?id=12"
+[GIN] 2025/02/25 - 02:11:30 | 200 |   25.463809ms |    5.91.175.116 | PUT      "/bee-shop/beeConfig/updateBeeConfig"
+[GIN] 2025/02/25 - 02:11:30 | 200 |   10.533743ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/getBeeConfigList?page=2&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:11:35 | 200 |    6.850435ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/findBeeConfig?id=13"
+[GIN] 2025/02/25 - 02:11:37 | 200 |   17.972346ms |    5.91.175.116 | PUT      "/bee-shop/beeConfig/updateBeeConfig"
+[GIN] 2025/02/25 - 02:11:38 | 200 |    7.794396ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/getBeeConfigList?page=2&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:11:39 | 200 |   17.675379ms |    5.91.175.116 | GET      "/bee-shop/beeCyTable/getBeeCyTableList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:11:46 | 200 |    6.558233ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10&sort=id&order=descending"
+
+2025/02/25 02:11:48 [31;1m/root/bee-api/server/plugin/beeshop/service/bee/bee_region.go:99 [35;1mError 1146 (42S02): Table 'bee.bee_region' doesn't exist
+[0m[33m[1.169ms] [34;1m[rows:0][0m SELECT count(*) FROM `bee_region` WHERE is_deleted = false AND `level` in (1,2,3)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 02:11:48.982	[31merror[0m	/root/bee-api/server/plugin/beeshop/api/bee_region.go:175	获取失败!	{"error": "Error 1146 (42S02): Table 'bee.bee_region' doesn't exist"}
+[GIN] 2025/02/25 - 02:11:48 | 200 |    21.13417ms |    5.91.175.116 | GET      "/bee-shop/beeRegion/getBeeRegionCityTree"
+[GIN] 2025/02/25 - 02:11:49 | 200 |    7.731581ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:11:56 | 200 |   10.825144ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/getBeeConfigList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:11:57 | 200 |   12.165772ms |    5.91.175.116 | GET      "/bee-shop/beeCyTable/getBeeCyTableList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:11:58 | 200 |    12.38237ms |    5.91.175.116 | GET      "/bee-shop/beeBanner/getBeeBannerList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:12:05 | 200 |     3.57038ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=OrderStatus"
+[GIN] 2025/02/25 - 02:12:05 | 200 |   24.754469ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-17T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:05 | 200 |   27.810758ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-17T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 02:12:06 | 200 |    14.56467ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-17T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:06 | 200 |   18.437688ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-17T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:06 | 200 |   25.472698ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-17T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 02:12:06 | 200 |   24.030181ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-18T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 02:12:06 | 200 |   35.100965ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-18T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:06 | 200 |   18.854811ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-18T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:06 | 200 |   16.179883ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-18T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:06 | 200 |   17.263798ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-18T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 02:12:07 | 200 |   10.627934ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-19T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:07 | 200 |   26.388226ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-19T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 02:12:07 | 200 |   53.958182ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-19T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:07 | 200 |    34.78202ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-19T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:07 | 200 |   23.739023ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-19T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 02:12:07 | 200 |   18.007342ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-20T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:07 | 200 |   25.790283ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-20T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 02:12:07 | 200 |    9.575956ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-20T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:07 | 200 |    27.78773ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-20T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:07 | 200 |   20.318427ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-20T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 02:12:08 | 200 |   27.371474ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-21T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:08 | 200 |   22.280178ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-21T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 02:12:08 | 200 |    26.34761ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-21T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:08 | 200 |   22.739286ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-21T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:08 | 200 |   26.368852ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-21T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 02:12:08 | 200 |   25.327648ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-22T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:08 | 200 |   22.238523ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-22T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 02:12:08 | 200 |   16.008369ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-22T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:08 | 200 |   31.761175ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-22T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 02:12:08 | 200 |   14.444814ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-22T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:09 | 200 |   19.981449ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-23T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:09 | 200 |   24.397061ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-23T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 02:12:09 | 200 |    30.76208ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-23T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 02:12:09 | 200 |   23.967755ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-23T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:09 | 200 |   25.587255ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-23T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:09 | 200 |   10.380456ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-24T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:09 | 200 |    23.55075ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-24T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 02:12:09 | 200 |   28.504395ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-24T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:09 | 200 |   27.302959ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-24T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:12:10 | 200 |   17.442165ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-24T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 02:12:10 | 200 |    13.84937ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=100&status=1"
+[GIN] 2025/02/25 - 02:12:21 | 200 |    4.787262ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeOrderLogType"
+[GIN] 2025/02/25 - 02:12:22 | 200 |    4.050029ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeOrderPeisongStatus"
+[GIN] 2025/02/25 - 02:12:22 | 200 |    3.958032ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeDeliveryCancelReason"
+[GIN] 2025/02/25 - 02:12:23 | 200 |   20.397245ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:12:23 | 200 |   11.788678ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&sort=id&order=ascending&status=1"
+[GIN] 2025/02/25 - 02:12:26 | 200 |    4.113107ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeUserSource"
+[GIN] 2025/02/25 - 02:12:26 | 200 |    6.857232ms |    5.91.175.116 | GET      "/bee-shop/beeUserMapper/getBeeUserMapperList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:12:29 | 200 |   19.314049ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:12:29 | 200 |   13.599838ms |    5.91.175.116 | GET      "/bee-shop/beeUserAddress/getBeeUserAddressList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:12:30 | 200 |      5.6603ms |    5.91.175.116 | GET      "/bee-shop/beeUploadFile/getBeeUploadFileList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:12:34 | 200 |    11.71886ms |    5.91.175.116 | POST     "/authority/getAuthorityList"
+[GIN] 2025/02/25 - 02:12:35 | 200 |     7.42412ms |    5.91.175.116 | POST     "/menu/getMenuList"
+[GIN] 2025/02/25 - 02:12:35 | 200 |    2.609542ms |    5.91.175.116 | POST     "/api/getApiList"
+[GIN] 2025/02/25 - 02:12:40 | 200 |   14.638971ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsContent/getBeeShopGoodsContentList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:12:41 | 200 |    8.672103ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:13:33 | 200 |    4.047324ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsStatus"
+[GIN] 2025/02/25 - 02:13:33 | 200 |    7.011773ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:13:33 | 200 |     6.14801ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:13:33 | 200 |   24.338408ms |    5.91.175.116 | GET      "/bee-shop/beeLogistics/getBeeLogisticsList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:13:33 | 200 |    9.853689ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:13:33 | 200 |   26.151051ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=100000"
+[GIN] 2025/02/25 - 02:13:33 | 200 |    4.033597ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsAfterSale"
+[GIN] 2025/02/25 - 02:13:34 | 200 |    8.534543ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsAddition/getBeeShopGoodsAdditionList?page=1&pageSize=10000&pid=0"
+[GIN] 2025/02/25 - 02:13:35 | 200 |   13.214438ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsAddition/getBeeShopGoodsAdditionList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:13:36 | 200 |    6.685037ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:13:36 | 200 |    6.872388ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:13:36 | 200 |   12.861083ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:13:36 | 200 |   21.624028ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=100000"
+[GIN] 2025/02/25 - 02:13:36 | 200 |   22.367503ms |    5.91.175.116 | GET      "/bee-shop/beeLogistics/getBeeLogisticsList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:13:37 | 200 |    9.011948ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:13:39 | 200 |    6.306034ms |    5.91.175.116 | POST     "/authority/getAuthorityList"
+[GIN] 2025/02/25 - 02:13:39 | 200 |    5.974592ms |    5.91.175.116 | GET      "/bee-shop/beeUploadFile/getBeeUploadFileList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:13:39 | 200 |   12.698916ms |    5.91.175.116 | GET      "/bee-shop/beeUserAddress/getBeeUserAddressList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:13:40 | 200 |   19.069877ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:13:40 | 200 |    5.822231ms |    5.91.175.116 | GET      "/bee-shop/beeUserMapper/getBeeUserMapperList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:13:42 | 200 |    6.406431ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:13:42 | 200 |   11.151796ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&sort=id&order=ascending&status=1"
+[GIN] 2025/02/25 - 02:13:42 | 200 |   45.434833ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-17T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:42 | 200 |   47.937853ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-17T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:42 | 200 |   51.373774ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-17T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 02:13:42 | 200 |   40.978304ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-17T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:42 | 200 |   39.473056ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-17T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 02:13:43 | 200 |   22.248735ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-18T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 02:13:43 | 200 |   16.980528ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-18T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:43 | 200 |   45.082514ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-18T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 02:13:43 | 200 |   48.490058ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-18T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:43 | 200 |   11.362633ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-18T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:43 | 200 |    24.44796ms |    5.91.175.116 | GET      "/bee-shop/beeBanner/getBeeBannerList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:13:43 | 200 |   16.256938ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-19T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:43 | 200 |   17.587398ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-19T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:43 | 200 |   33.279491ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-19T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 02:13:43 | 200 |   25.368277ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-19T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:43 | 200 |   17.478758ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-19T22:59:59.999Z&sum=money"
+
+2025/02/25 02:13:44 [31;1m/root/bee-api/server/plugin/beeshop/service/bee/bee_region.go:99 [35;1mError 1146 (42S02): Table 'bee.bee_region' doesn't exist
+[0m[33m[0.899ms] [34;1m[rows:0][0m SELECT count(*) FROM `bee_region` WHERE is_deleted = false AND `level` in (1,2,3)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 02:13:44.040	[31merror[0m	/root/bee-api/server/plugin/beeshop/api/bee_region.go:175	获取失败!	{"error": "Error 1146 (42S02): Table 'bee.bee_region' doesn't exist"}
+[GIN] 2025/02/25 - 02:13:44 | 200 |    19.94906ms |    5.91.175.116 | GET      "/bee-shop/beeRegion/getBeeRegionCityTree"
+[GIN] 2025/02/25 - 02:13:44 | 200 |    6.552697ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:13:44 | 200 |   22.602366ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-20T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:44 | 200 |   28.341059ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-20T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 02:13:44 | 200 |   18.671162ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-20T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:44 | 200 |   12.203998ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-20T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:44 | 200 |    16.25494ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-20T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 02:13:45 | 200 |   17.922246ms |    5.91.175.116 | GET      "/bee-shop/beeCyTable/getBeeCyTableList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:13:45 | 200 |   35.453878ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-21T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:45 | 200 |   44.532695ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-21T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:45 | 200 |   48.658324ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-21T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 02:13:45 | 200 |   17.805119ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-21T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:45 | 200 |   19.372969ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-21T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 02:13:45 | 200 |   11.399659ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/getBeeConfigList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:13:45 | 200 |   41.539144ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-22T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 02:13:45 | 200 |   38.993976ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-22T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:45 | 200 |   30.529213ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-22T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:45 | 200 |   60.031598ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-22T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:45 | 200 |   47.468487ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-22T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 02:13:46 | 200 |   15.086498ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-23T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:46 | 200 |   40.572779ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-23T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 02:13:46 | 200 |   48.580166ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-23T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:46 | 200 |    17.96095ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-23T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:46 | 200 |   31.404393ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-23T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 02:13:46 | 200 |    3.247567ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeePrinterBrand"
+[GIN] 2025/02/25 - 02:13:46 | 200 |   23.461269ms |    5.91.175.116 | GET      "/bee-shop/beePrinter/getBeePrinterList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:13:46 | 200 |   29.778246ms |    5.91.175.116 | GET      "/bee-shop/beeUser/getBeeUserList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-24T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:46 | 200 |   10.850762ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-24T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:46 | 200 |   40.909201ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayLogList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-24T22:59:59.999Z&distinct=uid"
+[GIN] 2025/02/25 - 02:13:46 | 200 |   30.573329ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-24T22:59:59.999Z"
+[GIN] 2025/02/25 - 02:13:46 | 200 |   15.624106ms |    5.91.175.116 | GET      "/bee-shop/beePayLog/getBeePayTotal?page=1&pageSize=1&startDateAdd=1970-01-01T00:00:00.000Z&endDateAdd=2025-02-24T22:59:59.999Z&sum=money"
+[GIN] 2025/02/25 - 02:13:47 | 200 |    4.300839ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeePrinterCondition"
+[GIN] 2025/02/25 - 02:13:47 | 200 |   14.568656ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:13:47 | 200 |   27.494073ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=100&status=1"
+[GIN] 2025/02/25 - 02:13:47 | 200 |    9.590751ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=100000"
+[GIN] 2025/02/25 - 02:13:47 | 200 |   11.584959ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsSku/getBeeShopGoodsSkuList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:13:48 | 200 |   10.571276ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10000&propertyId=0"
+[GIN] 2025/02/25 - 02:13:48 | 200 |   14.629803ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:13:48 | 200 |   10.702242ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsContent/getBeeShopGoodsContentList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:14:03 | 200 |    6.708963ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:14:04 | 200 |   16.080558ms |    5.91.175.116 | GET      "/bee-shop/beeOrder/getBeeOrderList?page=1&pageSize=1&sort=id&order=ascending&status=1"
+[GIN] 2025/02/25 - 02:14:10 | 200 |   13.471156ms |    5.91.175.116 | GET      "/bee-shop/beeUserAmount/getBeeUserAmountList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:14:32 | 200 |     6.01841ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 02:14:33 | 200 |     5.47052ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 02:14:34 | 200 |   22.147922ms |    5.91.175.116 | GET      "/bee-shop/beeUserAmount/getBeeUserAmountList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:14:37 | 200 |   12.308052ms |    5.91.175.116 | GET      "/bee-shop/beeUserAmount/findBeeUserAmount?id=1"
+[GIN] 2025/02/25 - 02:14:43 | 200 |   27.175823ms |    5.91.175.116 | PUT      "/bee-shop/beeUserAmount/updateBeeUserAmount"
+[GIN] 2025/02/25 - 02:14:44 | 200 |   16.931677ms |    5.91.175.116 | GET      "/bee-shop/beeUserAmount/getBeeUserAmountList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:15:12 | 200 |   18.662592ms |    5.91.175.116 | GET      "/bee-shop/beeRechargeSendRule/getBeeRechargeSendRuleList?page=1&pageSize=10"
+[GIN] 2025/02/25 - 02:15:14 | 200 |   13.734124ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeCashLogBehavior"
+[GIN] 2025/02/25 - 02:15:14 | 200 |   12.662172ms |    5.91.175.116 | GET      "/bee-shop/beeCashLog/getBeeCashLogList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:15:15 | 200 |    3.777495ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeCashLogType"
+[GIN] 2025/02/25 - 02:15:15 | 200 |    7.628647ms |    5.91.175.116 | GET      "/bee-shop/beeUserCoupon/getBeeUserCouponList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:15:16 | 200 |    4.485727ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BalanceType"
+[GIN] 2025/02/25 - 02:15:16 | 200 |     7.23588ms |    5.91.175.116 | GET      "/bee-shop/beeUserBalanceLog/getBeeUserBalanceLogList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:15:21 | 200 |    7.561472ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+
+2025/02/25 02:15:21 [31;1m/root/bee-api/server/plugin/beeshop/service/bee/bee_region.go:99 [35;1mError 1146 (42S02): Table 'bee.bee_region' doesn't exist
+[0m[33m[0.806ms] [34;1m[rows:0][0m SELECT count(*) FROM `bee_region` WHERE is_deleted = false AND `level` in (1,2,3)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 02:15:21.708	[31merror[0m	/root/bee-api/server/plugin/beeshop/api/bee_region.go:175	获取失败!	{"error": "Error 1146 (42S02): Table 'bee.bee_region' doesn't exist"}
+[GIN] 2025/02/25 - 02:15:21 | 200 |   20.414054ms |    5.91.175.116 | GET      "/bee-shop/beeRegion/getBeeRegionCityTree"
+[GIN] 2025/02/25 - 02:15:24 | 200 |     7.26357ms |    5.91.175.116 | GET      "/bee-shop/beeConfig/getBeeConfigList?page=1&pageSize=10&sort=id&order=descending"
+
+2025/02/25 02:38:35 [31;1m/root/bee-api/server/plugin/beeshop/service/bee/bee_region.go:99 [35;1mError 1146 (42S02): Table 'bee.bee_region' doesn't exist
+[0m[33m[0.753ms] [34;1m[rows:0][0m SELECT count(*) FROM `bee_region` WHERE is_deleted = false AND `level` in (1,2,3)
+[github.com/flipped-aurora/gin-vue-admin/server]2025-02-25 02:38:35.072	[31merror[0m	/root/bee-api/server/plugin/beeshop/api/bee_region.go:175	获取失败!	{"error": "Error 1146 (42S02): Table 'bee.bee_region' doesn't exist"}
+[GIN] 2025/02/25 - 02:38:35 | 200 |    16.45746ms |    5.91.175.116 | GET      "/bee-shop/beeRegion/getBeeRegionCityTree"
+[GIN] 2025/02/25 - 02:38:35 | 200 |    8.256815ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:38:36 | 200 |   15.086134ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsContent/getBeeShopGoodsContentList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:38:37 | 200 |   13.526577ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:38:38 | 200 |    7.060215ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:38:38 | 200 |    9.400881ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsStatus"
+[GIN] 2025/02/25 - 02:38:38 | 200 |    7.437636ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:38:38 | 200 |   24.742992ms |    5.91.175.116 | GET      "/bee-shop/beeLogistics/getBeeLogisticsList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:38:38 | 200 |   22.284464ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=100000"
+[GIN] 2025/02/25 - 02:38:38 | 200 |    5.201955ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsAfterSale"
+[GIN] 2025/02/25 - 02:38:38 | 200 |   14.295588ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:38:47 | 200 |     8.09793ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 02:38:48 | 200 |    9.435454ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 02:38:49 | 200 |    3.755047ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsStatus"
+[GIN] 2025/02/25 - 02:38:49 | 200 |    6.719057ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:38:49 | 200 |    8.032468ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:38:49 | 200 |   13.623831ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=100000"
+[GIN] 2025/02/25 - 02:38:49 | 200 |     13.4702ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:38:49 | 200 |   27.658982ms |    5.91.175.116 | GET      "/bee-shop/beeLogistics/getBeeLogisticsList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:38:49 | 200 |    3.635434ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsAfterSale"
+[GIN] 2025/02/25 - 02:39:40 | 200 |    6.155147ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 02:39:41 | 200 |    6.598122ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 02:39:41 | 200 |     3.84713ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsStatus"
+[GIN] 2025/02/25 - 02:39:41 | 200 |    7.028775ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:39:41 | 200 |    7.503768ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:39:41 | 200 |    18.48073ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:39:41 | 200 |   19.409332ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=100000"
+[GIN] 2025/02/25 - 02:39:41 | 200 |   30.392876ms |    5.91.175.116 | GET      "/bee-shop/beeLogistics/getBeeLogisticsList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:39:42 | 200 |    4.403965ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsAfterSale"
+[GIN] 2025/02/25 - 02:42:11 | 200 |    4.160446ms |    5.91.175.116 | POST     "/fileUploadAndDownload/getFileList"
+[GIN] 2025/02/25 - 02:42:19 | 401 |      17.105µs |    5.91.175.116 | POST     "/fileUploadAndDownload/upload"
+[GIN] 2025/02/25 - 02:42:24 | 401 |      14.463µs |    5.91.175.116 | POST     "/fileUploadAndDownload/upload"
+[GIN] 2025/02/25 - 02:42:42 | 200 |    2.686053ms |    5.91.175.116 | POST     "/fileUploadAndDownload/getFileList"
+[GIN] 2025/02/25 - 02:42:49 | 200 |    2.671452ms |    5.91.175.116 | POST     "/fileUploadAndDownload/getFileList"
+[GIN] 2025/02/25 - 02:43:21 | 200 |   19.140673ms |    5.91.175.116 | POST     "/bee-shop/beeShopGoods/createBeeShopGoods"
+[GIN] 2025/02/25 - 02:43:22 | 200 |    8.927096ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:43:58 | 200 |    8.976468ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesList?page=1&pageSize=10&sort=id&order=descending&goodsId=1808574"
+[GIN] 2025/02/25 - 02:44:01 | 200 |    9.379222ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesList?page=1&pageSize=10&sort=id&order=descending&goodsId=1808574"
+[GIN] 2025/02/25 - 02:44:13 | 200 |   15.530828ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsContent/getBeeShopGoodsContentList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:44:13 | 200 |   10.374811ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:44:14 | 200 |    7.183185ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:44:15 | 200 |    5.858905ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:44:15 | 200 |   14.403704ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=100000"
+[GIN] 2025/02/25 - 02:44:15 | 200 |   26.183526ms |    5.91.175.116 | GET      "/bee-shop/beeLogistics/getBeeLogisticsList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:44:15 | 200 |   11.266892ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:44:15 | 200 |    8.575465ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:44:25 | 200 |     6.01632ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:44:25 | 200 |   25.563789ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:44:25 | 200 |   15.060549ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:44:25 | 200 |   28.980743ms |    5.91.175.116 | GET      "/bee-shop/beeLogistics/getBeeLogisticsList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:44:25 | 200 |   22.809528ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=100000"
+[GIN] 2025/02/25 - 02:44:29 | 200 |   13.003304ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:44:30 | 200 |    7.029534ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:44:30 | 200 |   18.160708ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=100000"
+[GIN] 2025/02/25 - 02:44:30 | 200 |     13.8895ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:44:30 | 200 |   24.995118ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:44:30 | 200 |   23.188255ms |    5.91.175.116 | GET      "/bee-shop/beeLogistics/getBeeLogisticsList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:44:32 | 200 |    7.006237ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 02:44:33 | 200 |    6.131297ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 02:44:34 | 200 |    4.656195ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsStatus"
+[GIN] 2025/02/25 - 02:44:34 | 200 |    8.570732ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:44:34 | 200 |    9.490038ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:44:34 | 200 |   16.108057ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=100000"
+[GIN] 2025/02/25 - 02:44:34 | 200 |   25.676898ms |    5.91.175.116 | GET      "/bee-shop/beeLogistics/getBeeLogisticsList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:44:34 | 200 |   12.714765ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsAfterSale"
+[GIN] 2025/02/25 - 02:44:34 | 200 |   19.310217ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:45:01 | 200 |    7.421346ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 02:45:02 | 200 |    7.125316ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 02:45:02 | 200 |    4.657467ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsStatus"
+[GIN] 2025/02/25 - 02:45:02 | 200 |   10.390883ms |    5.91.175.116 | GET      "/bee-shop/beeShopInfo/getBeeShopInfoList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:45:02 | 200 |   18.098589ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsCategory/getBeeShopGoodsCategoryList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:45:02 | 200 |   25.699563ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsProp/getBeeShopGoodsPropList?page=1&pageSize=100000"
+[GIN] 2025/02/25 - 02:45:02 | 200 |   38.830359ms |    5.91.175.116 | GET      "/bee-shop/beeLogistics/getBeeLogisticsList?page=1&pageSize=10000"
+[GIN] 2025/02/25 - 02:45:02 | 200 |   10.107739ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoods/getBeeShopGoodsList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:45:03 | 200 |    4.680434ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsAfterSale"
+[GIN] 2025/02/25 - 02:45:07 | 200 |    8.701403ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 02:45:10 | 200 |    3.375658ms |    5.91.175.116 | POST     "/fileUploadAndDownload/getFileList"
+[GIN] 2025/02/25 - 02:45:16 | 401 |      46.477µs |    5.91.175.116 | POST     "/fileUploadAndDownload/upload"
+[GIN] 2025/02/25 - 02:45:28 | 401 |      17.395µs |    5.91.175.116 | POST     "/fileUploadAndDownload/upload"
+[GIN] 2025/02/25 - 02:45:55 | 200 |   12.505197ms |    5.91.175.116 | POST     "/menu/getMenuList"
+[GIN] 2025/02/25 - 02:46:03 | 200 |    4.067112ms |    5.91.175.116 | POST     "/menu/getBaseMenuById"
+[GIN] 2025/02/25 - 02:46:07 | 200 |   14.494623ms |    5.91.175.116 | POST     "/menu/updateBaseMenu"
+[GIN] 2025/02/25 - 02:46:07 | 200 |    5.767772ms |    5.91.175.116 | POST     "/menu/getMenuList"
+[GIN] 2025/02/25 - 02:46:11 | 200 |     3.55412ms |    5.91.175.116 | POST     "/menu/getBaseMenuById"
+[GIN] 2025/02/25 - 02:46:19 | 200 |    6.569859ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 02:46:20 | 200 |    5.573305ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 02:46:21 | 200 |    5.264357ms |    5.91.175.116 | POST     "/menu/getMenuList"
+[GIN] 2025/02/25 - 02:46:58 | 200 |    6.236498ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 02:46:59 | 200 |    6.476076ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 02:46:59 | 200 |    5.618573ms |    5.91.175.116 | POST     "/menu/getMenuList"
+[GIN] 2025/02/25 - 02:47:01 | 200 |    3.649603ms |    5.91.175.116 | POST     "/fileUploadAndDownload/getFileList"
+[GIN] 2025/02/25 - 02:47:06 | 200 |    4.982431ms |    5.91.175.116 | GET      "/customer/customerList?page=1&pageSize=10"
+[GIN] 2025/02/25 - 02:47:18 | 200 |   10.321119ms |    5.91.175.116 | GET      "/fileUploadAndDownload/findFile?fileName=20250224-162244.png&fileMd5=4ebde9f68bf94b54f433cd045add02b8&chunkTotal=1"
+[GIN] 2025/02/25 - 02:47:31 | 200 |    7.218507ms |    5.91.175.116 | POST     "/authority/getAuthorityList"
+[GIN] 2025/02/25 - 02:47:36 | 200 |    5.492311ms |    5.91.175.116 | POST     "/menu/getBaseMenuTree"
+[GIN] 2025/02/25 - 02:47:37 | 200 |    3.904646ms |    5.91.175.116 | POST     "/api/getAllApis"
+[GIN] 2025/02/25 - 02:47:37 | 200 |    4.523382ms |    5.91.175.116 | POST     "/menu/getMenuAuthority"
+[GIN] 2025/02/25 - 02:47:39 | 200 |    1.280758ms |    5.91.175.116 | POST     "/casbin/getPolicyPathByAuthorityId"
+[GIN] 2025/02/25 - 02:47:54 | 200 |    92.56044ms |    5.91.175.116 | POST     "/casbin/updateCasbin"
+[GIN] 2025/02/25 - 02:48:14 | 200 |    6.216993ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 02:48:15 | 200 |    6.284557ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 02:48:23 | 200 |    7.951223ms |    5.91.175.116 | GET      "/fileUploadAndDownload/findFile?fileName=20250224-162244.png&fileMd5=4ebde9f68bf94b54f433cd045add02b8&chunkTotal=1"
+[GIN] 2025/02/25 - 02:48:27 | 200 |    2.792537ms |    5.91.175.116 | POST     "/fileUploadAndDownload/getFileList"
+[GIN] 2025/02/25 - 02:48:37 | 401 |      50.883µs |    5.91.175.116 | POST     "/fileUploadAndDownload/upload"
+[GIN] 2025/02/25 - 02:56:51 | 401 |      22.579µs |    5.91.175.116 | POST     "/fileUploadAndDownload/upload"
+[GIN] 2025/02/25 - 03:03:42 | 200 |   11.201744ms |    5.91.175.116 | GET      "/bee-shop/beeWxConfig/getBeeWxConfigList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 03:03:43 | 200 |   19.512677ms |    5.91.175.116 | GET      "/bee-shop/beeWxPayConfig/getBeeWxPayConfigList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 03:03:46 | 200 |   12.401394ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeGoodsFeeType"
+[GIN] 2025/02/25 - 03:03:46 | 200 |   23.774278ms |    5.91.175.116 | GET      "/bee-shop/beeLogistics/getBeeLogisticsList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 03:03:47 | 200 |    3.976244ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeePeiSongFeeTypeMap"
+[GIN] 2025/02/25 - 03:03:47 | 200 |   13.413379ms |    5.91.175.116 | GET      "/bee-shop/beePeiSong/getBeePeiSongList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 03:03:48 | 200 |    3.690536ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeLogisticsType"
+[GIN] 2025/02/25 - 03:03:48 | 200 |    3.844236ms |    5.91.175.116 | GET      "/sysDictionary/findSysDictionary?type=BeeLogisticsUnit"
+[GIN] 2025/02/25 - 03:03:53 | 200 |   15.049172ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 03:03:55 | 200 |    7.939654ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsImages/findBeeShopGoodsImages?id=7869969"
+[GIN] 2025/02/25 - 03:04:02 | 404 |         141ns |    5.91.175.116 | GET      "/   tail -f /www/wwwlogs/bee-api.error.log"
+[GIN] 2025/02/25 - 03:04:03 | 200 |    2.765346ms |    5.91.175.116 | POST     "/fileUploadAndDownload/getFileList"
+[GIN] 2025/02/25 - 03:19:19 | 200 |    6.404514ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 03:19:19 | 200 |     5.85419ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 03:19:20 | 200 |     8.76877ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 03:27:19 | 200 |    6.532623ms |    5.91.175.116 | POST     "/menu/getMenu"
+[GIN] 2025/02/25 - 03:27:20 | 200 |    6.850617ms |    5.91.175.116 | GET      "/user/getUserInfo"
+[GIN] 2025/02/25 - 03:27:20 | 200 |    9.366153ms |    5.91.175.116 | GET      "/bee-shop/beeShopGoodsImages/getBeeShopGoodsImagesList?page=1&pageSize=10&sort=id&order=descending"
+[GIN] 2025/02/25 - 03:27:24 | 200 |    2.716649ms |    5.91.175.116 | POST     "/fileUploadAndDownload/getFileList"
+[GIN] 2025/02/25 - 03:27:30 | 401 |      17.076µs |    5.91.175.116 | POST     "/fileUploadAndDownload/upload"
