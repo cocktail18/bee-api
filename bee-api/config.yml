@@ -22,6 +22,6 @@ db:
  password: PASS
  host: 127.0.0.1
  port: 3306
- database: bee
+ database: bee2
  drop: false #是否清之前的数据
  needInit: true #是否需要初始化数据
