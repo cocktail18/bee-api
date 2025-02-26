@@ -59,7 +59,7 @@ db-list:
       prefix: bee_
       port: "3306"
       config: charset=utf8mb4&parseTime=True&loc=Local
-      db-name: bee
+      db-name: bee2
       username: bee
       password: PASS
       path: ""
@@ -129,7 +129,7 @@ mysql:
     prefix: ""
     port: "3306"
     config: charset=utf8mb4&parseTime=True&loc=Local
-    db-name: bee
+    db-name: bee2
     username: bee
     password: PASS
     path: 127.0.0.1
