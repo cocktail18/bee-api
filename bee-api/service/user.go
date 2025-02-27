@@ -175,9 +175,9 @@ func (srv *UserSrv) CreateUserToken(c context.Context, userId int64, uid int64, 
 	return resp, nil
 }
 
-func (srv *UserSrv) Amount(c context.Context, userId int64) (*proto.GetUserAmountResp, error) {
+func (srv *UserSrv) Amount(c context.Context, uid int64) (*proto.GetUserAmountResp, error) {
 	var userAmount model.BeeUserAmount
-	if err := db.GetDB().Where("user_id = ?", userId).Take(&userAmount).Error; err != nil {
+	if err := db.GetDB().Where("uid = ?", uid).Take(&userAmount).Error; err != nil {
 		return nil, err
 	}
 	return &proto.GetUserAmountResp{

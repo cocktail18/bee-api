@@ -119,13 +119,13 @@ nohup: ignoring input
 [GIN-debug] POST   /:domain/queuing/get      --> gitee.com/stuinfer/bee-api/api.QueuingApi.Get-fm (5 handlers)
 [GIN-debug] GET    /:domain/queuing/types    --> gitee.com/stuinfer/bee-api/api.QueuingApi.Types-fm (4 handlers)
 [GIN-debug] GET    /:domain/queuing/my       --> gitee.com/stuinfer/bee-api/api.QueuingApi.My-fm (5 handlers)
-2025-02-24T19:38:30.898+0800	INFO	model/base.go:73	开始初始化数据库，生产环境请禁用！！
-2025-02-24T19:38:30.898+0800	INFO	model/base.go:75	清空数据库
-2025-02-24T19:38:32.139+0800	INFO	model/base.go:79	清空数据库成功
-2025-02-24T19:38:34.131+0800	INFO	model/base.go:87	建表成功
-2025-02-24T19:38:34.131+0800	INFO	model/base.go:89	开始初始化demo数据
-2025-02-24T19:38:34.131+0800	INFO	model/base.go:93	初始化demo数据成功
-2025-02-24T19:38:34.131+0800	ERROR	model/base.go:108	打开地址库文件失败	{"error": "open data/bee-region.sql: no such file or directory"}
+2025-02-27T10:26:57.758+0800	INFO	model/base.go:73	开始初始化数据库，生产环境请禁用！！
+2025-02-27T10:26:57.758+0800	INFO	model/base.go:75	清空数据库
+2025-02-27T10:26:59.024+0800	INFO	model/base.go:79	清空数据库成功
+2025-02-27T10:27:01.081+0800	INFO	model/base.go:87	建表成功
+2025-02-27T10:27:01.081+0800	INFO	model/base.go:89	开始初始化demo数据
+2025-02-27T10:27:01.081+0800	INFO	model/base.go:93	初始化demo数据成功
+2025-02-27T10:27:01.081+0800	ERROR	model/base.go:108	打开地址库文件失败	{"error": "open data/bee-region.sql: no such file or directory"}
 gitee.com/stuinfer/bee-api/model.initBeeRegion
 	/root/bee-api/bee-api/model/base.go:108
 gitee.com/stuinfer/bee-api/model.InitDB
@@ -136,105 +136,677 @@ main.main
 	/root/bee-api/bee-api/main.go:24
 runtime.main
 	/usr/local/go/src/runtime/proc.go:271
-2025-02-24T19:38:34.152+0800	INFO	sys/init_db.go:23	清空数据库
-2025-02-24T19:38:34.159+0800	INFO	sys/init_db.go:29	清空数据库成功
+2025-02-27T10:27:01.107+0800	INFO	sys/init_db.go:23	清空数据库
+2025-02-27T10:27:01.116+0800	INFO	sys/init_db.go:29	清空数据库成功
+2025-02-27T10:27:01.117+0800	INFO	cmd/run.go:41	服务启动	{"addr": ":8081"}
 
-2025/02/24 19:38:34 [31;1m/root/bee-api/bee-api/sys/user_srv.go:80 [35;1mrecord not found
-[0m[33m[0.627ms] [34;1m[rows:0][0m SELECT * FROM `sys_user` WHERE domain = '9kuai8coffee.asia' ORDER BY `sys_user`.`id` LIMIT 1
+2025/02/27 10:27:27 [31;1m/root/bee-api/bee-api/service/printer.go:271 [35;1mError 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist
+[0m[33m[0.831ms] [34;1m[rows:0][0m SELECT * FROM `bee_order_print_log` WHERE status = 0 and is_deleted=0 and last_try_unix < 1740623237
+2025-02-27T10:27:27.117+0800	ERROR	service/printer.go:272	查询待打印订单失败	{"error": "Error 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist"}
+gitee.com/stuinfer/bee-api/service.(*PrinterSrv).StartDaemon.func1
+	/root/bee-api/bee-api/service/printer.go:272
 
-2025/02/24 19:38:34 [31;1m/root/bee-api/bee-api/sys/init_db.go:62 [35;1mrecord not found
-[0m[33m[1.984ms] [34;1m[rows:0][0m SELECT * FROM `bee_wx_config` WHERE user_id = 100 ORDER BY `bee_wx_config`.`id` LIMIT 1
-2025-02-24T19:38:35.004+0800	INFO	cmd/run.go:41	服务启动	{"addr": ":8081"}
-[GIN] 2025/02/24 - 19:39:42 | 200 |     2.09683ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
-[GIN] 2025/02/24 - 19:39:42 | 200 |    2.425649ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/notice/last-one?type="
-[GIN] 2025/02/24 - 19:39:42 | 200 |    2.283868ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
-[GIN] 2025/02/24 - 19:39:42 | 200 |    1.249871ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=&type="
-[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0e2Bf00w34TLr43Hh24w3HwS3f3Bf00y&secret=368ce6cfeeee84764a694ff1cd2ef9ea
-[GIN] 2025/02/24 - 19:39:42 | 200 |    6.998522ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
-[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0c25XGkl2Ab57f4NhKol2j0khu45XGk5&secret=368ce6cfeeee84764a694ff1cd2ef9ea
-[GIN] 2025/02/24 - 19:39:42 | 200 |    1.927579ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/banner/list"
-[GIN] 2025/02/24 - 19:39:42 | 200 |    2.132411ms |    5.91.175.116 | POST     "/9kuai8coffee.asia/shop/goods/list"
+2025/02/27 10:27:28 [31;1m/root/bee-api/bee-api/service/printer.go:271 [35;1mError 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist
+[0m[33m[0.760ms] [34;1m[rows:0][0m SELECT * FROM `bee_order_print_log` WHERE status = 0 and is_deleted=0 and last_try_unix < 1740623238
+2025-02-27T10:27:28.118+0800	ERROR	service/printer.go:272	查询待打印订单失败	{"error": "Error 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist"}
+gitee.com/stuinfer/bee-api/service.(*PrinterSrv).StartDaemon.func1
+	/root/bee-api/bee-api/service/printer.go:272
 
-2025/02/24 19:39:43 [31;1m/root/bee-api/bee-api/service/user.go:75 [35;1mrecord not found
-[0m[33m[2.462ms] [34;1m[rows:0][0m SELECT * FROM `bee_user_mapper` WHERE `open_id` = 'oftKL7cVmnv0fzLJ5o3ecidun4LU' LIMIT 1
-[GIN] 2025/02/24 - 19:39:43 | 200 |  440.802099ms |    5.91.175.116 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
-[GIN] 2025/02/24 - 19:39:43 | 200 |   345.32067ms |    5.91.175.116 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
-[GIN] 2025/02/24 - 19:39:54 | 200 |    2.616256ms |    5.91.175.116 | POST     "/9kuai8coffee.asia/shop/goods/list"
-[GIN] 2025/02/24 - 19:39:55 | 200 |    2.652683ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/shop/goods/goodsAddition?goodsId=1808569"
-[GIN] 2025/02/24 - 19:39:55 | 200 |      9.5412ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/shop/goods/detail?id=1808569&token="
-[GIN] 2025/02/24 - 19:39:55 | 200 |     1.11205ms |    5.91.175.116 | POST     "/9kuai8coffee.asia/shop/goods/times/schedule"
-[GIN] 2025/02/24 - 19:40:01 | 200 |    3.098554ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/user/check-token?token=0a26867cf2a411efbd2a00163e1e690b"
-[GIN] 2025/02/24 - 19:40:02 | 200 |     5.05519ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/user/amount?token=0a26867cf2a411efbd2a00163e1e690b"
-[GIN] 2025/02/24 - 19:40:02 | 200 |     2.68231ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/user/detail?token=0a26867cf2a411efbd2a00163e1e690b"
-[GIN] 2025/02/24 - 19:40:02 | 200 |    6.287248ms |    5.91.175.116 | GET      "/9kuai8coffee.asia/discounts/statistics?token=0a26867cf2a411efbd2a00163e1e690b"
-[GIN] 2025/02/24 - 20:29:09 | 200 |    2.366629ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
-[GIN] 2025/02/24 - 20:29:09 | 200 |     2.29238ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
-[GIN] 2025/02/24 - 20:29:09 | 200 |    2.120906ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
-[GIN] 2025/02/24 - 20:29:09 | 200 |    3.229906ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/notice/last-one?type="
-[GIN] 2025/02/24 - 20:29:09 | 200 |     2.35077ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/banner/list"
+2025/02/27 10:27:28 [31;1m/root/bee-api/bee-api/service/order.go:1180 [35;1mError 1146 (42S02): Table 'bee.bee_order_peisong' doesn't exist
+[0m[33m[1.064ms] [34;1m[rows:0][0m SELECT * FROM `bee_order_peisong` WHERE status = 0 and is_deleted = 0 and retry_times < 3 and last_retry_unix < 1740623218
 
-2025/02/24 20:29:09 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
-[0m[33m[0.640ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = 'e5331135f0f611ef9e7100163e1e690b' LIMIT 1
-[GIN] 2025/02/24 - 20:29:09 | 200 |    2.187644ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=e5331135f0f611ef9e7100163e1e690b&type="
-[GIN] 2025/02/24 - 20:29:09 | 200 |    2.211953ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
+2025/02/27 10:27:28 [31;1m/root/bee-api/bee-api/service/order.go:1588 [35;1mError 1146 (42S02): Table 'bee.bee_order' doesn't exist
+[0m[33m[0.558ms] [34;1m[rows:0][0m SELECT * FROM `bee_order` WHERE status = 0 and date_close < '2025-02-27 10:27:28.118' LIMIT 100
+2025-02-27T10:27:28.119+0800	ERROR	service/order.go:1589	获取超时未支付的订单失败	{"error": "Error 1146 (42S02): Table 'bee.bee_order' doesn't exist"}
+gitee.com/stuinfer/bee-api/service.(*OrderSrv).closeOrderExceedDaemon
+	/root/bee-api/bee-api/service/order.go:1589
+gitee.com/stuinfer/bee-api/service.(*OrderSrv).StartDaemon.func1
+	/root/bee-api/bee-api/service/order.go:1169
 
-2025/02/24 20:29:10 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
-[0m[33m[0.774ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = 'e5331135f0f611ef9e7100163e1e690b' LIMIT 1
-[GIN] 2025/02/24 - 20:29:10 | 200 |    1.745025ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/user/check-token?token=e5331135f0f611ef9e7100163e1e690b"
+2025/02/27 10:27:28 [31;1m/root/bee-api/bee-api/service/order.go:1553 [35;1mError 1146 (42S02): Table 'bee.bee_order' doesn't exist
+[0m[33m[0.519ms] [34;1m[rows:0][0m SELECT * FROM `bee_order` WHERE status = 2 and date_close < '2025-02-27 10:27:28.119' LIMIT 100
+2025-02-27T10:27:28.120+0800	ERROR	service/order.go:1554	获取超时未确认的订单失败	{"error": "Error 1146 (42S02): Table 'bee.bee_order' doesn't exist"}
+gitee.com/stuinfer/bee-api/service.(*OrderSrv).autoConfirmShippedOrderDaemon
+	/root/bee-api/bee-api/service/order.go:1554
+gitee.com/stuinfer/bee-api/service.(*OrderSrv).StartDaemon.func1
+	/root/bee-api/bee-api/service/order.go:1170
 
-2025/02/24 20:29:10 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
-[0m[33m[0.965ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = 'e5331135f0f611ef9e7100163e1e690b' LIMIT 1
-[GIN] 2025/02/24 - 20:29:10 | 200 |    2.133925ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/user/check-token?token=e5331135f0f611ef9e7100163e1e690b"
-[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0a36qo000mpIMT1IC2100MtID406qo04&secret=368ce6cfeeee84764a694ff1cd2ef9ea
-[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0f3UHw2w3CjPp43BzE3w3KCp3C1UHw2J&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+2025/02/27 10:27:29 [31;1m/root/bee-api/bee-api/service/printer.go:271 [35;1mError 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist
+[0m[33m[0.700ms] [34;1m[rows:0][0m SELECT * FROM `bee_order_print_log` WHERE status = 0 and is_deleted=0 and last_try_unix < 1740623239
+2025-02-27T10:27:29.117+0800	ERROR	service/printer.go:272	查询待打印订单失败	{"error": "Error 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist"}
+gitee.com/stuinfer/bee-api/service.(*PrinterSrv).StartDaemon.func1
+	/root/bee-api/bee-api/service/printer.go:272
 
-2025/02/24 20:29:10 [31;1m/root/bee-api/bee-api/service/user.go:75 [35;1mrecord not found
-[0m[33m[1.281ms] [34;1m[rows:0][0m SELECT * FROM `bee_user_mapper` WHERE `open_id` = 'oftKL7T628FdZIAuMXwEzeP2uCDU' LIMIT 1
-[GIN] 2025/02/24 - 20:29:10 | 200 |  191.985523ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
-[GIN] 2025/02/24 - 20:29:10 | 200 |  131.035859ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
-[GIN] 2025/02/24 - 20:29:11 | 200 |     2.76623ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
-[GIN] 2025/02/24 - 20:29:11 | 200 |    2.921776ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
-[GIN] 2025/02/24 - 20:29:12 | 200 |    2.200404ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
-[GIN] 2025/02/24 - 20:29:12 | 200 |    2.694328ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
-[GIN] 2025/02/24 - 20:29:13 | 200 |    2.607182ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
-[GIN] 2025/02/24 - 20:29:13 | 200 |    2.661881ms |    36.26.112.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
-[GIN] 2025/02/24 - 20:40:19 | 200 |    1.969025ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
-[GIN] 2025/02/24 - 20:40:19 | 200 |    4.697799ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=f2e82c35f2aa11efbd2a00163e1e690b&type="
-[GIN] 2025/02/24 - 20:40:19 | 200 |    2.206991ms |    36.26.112.70 | GET      "/9kuai8coffee.asia/user/check-token?token=f2e82c35f2aa11efbd2a00163e1e690b"
-[GIN] 2025/02/24 - 23:29:39 | 200 |    6.158451ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
-[GIN] 2025/02/24 - 23:29:40 | 200 |    2.023843ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
-[GIN] 2025/02/24 - 23:29:40 | 200 |    2.848623ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/notice/last-one?type="
-[GIN] 2025/02/24 - 23:29:40 | 200 |    2.691631ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/banner/list"
+2025/02/27 10:37:54 [31;1m/root/bee-api/bee-api/service/printer.go:271 [35;1mError 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist
+[0m[33m[4.299ms] [34;1m[rows:0][0m SELECT * FROM `bee_order_print_log` WHERE status = 0 and is_deleted=0 and last_try_unix < 1740623864
+2025-02-27T10:37:54.200+0800	ERROR	service/printer.go:272	查询待打印订单失败	{"error": "Error 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist"}
+gitee.com/stuinfer/bee-api/service.(*PrinterSrv).StartDaemon.func1
+	/root/bee-api/bee-api/service/printer.go:272
 
-2025/02/24 23:29:40 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
-[0m[33m[0.790ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '0a26867cf2a411efbd2a00163e1e690b' LIMIT 1
-[GIN] 2025/02/24 - 23:29:40 | 200 |    3.874896ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=0a26867cf2a411efbd2a00163e1e690b&type="
+2025/02/27 10:37:55 [31;1m/root/bee-api/bee-api/service/printer.go:271 [35;1mError 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist
+[0m[33m[0.925ms] [34;1m[rows:0][0m SELECT * FROM `bee_order_print_log` WHERE status = 0 and is_deleted=0 and last_try_unix < 1740623865
+2025-02-27T10:37:55.118+0800	ERROR	service/printer.go:272	查询待打印订单失败	{"error": "Error 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist"}
+gitee.com/stuinfer/bee-api/service.(*PrinterSrv).StartDaemon.func1
+	/root/bee-api/bee-api/service/printer.go:272
 
-2025/02/24 23:29:40 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
-[0m[33m[0.709ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '0a26867cf2a411efbd2a00163e1e690b' LIMIT 1
-[GIN] 2025/02/24 - 23:29:40 | 200 |    1.727429ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/user/check-token?token=0a26867cf2a411efbd2a00163e1e690b"
-[GIN] 2025/02/24 - 23:29:40 | 200 |    2.620353ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
+2025/02/27 10:37:55 [31;1m/root/bee-api/bee-api/service/order.go:1180 [35;1mError 1146 (42S02): Table 'bee.bee_order_peisong' doesn't exist
+[0m[33m[0.716ms] [34;1m[rows:0][0m SELECT * FROM `bee_order_peisong` WHERE status = 0 and is_deleted = 0 and retry_times < 3 and last_retry_unix < 1740623845
 
-2025/02/24 23:29:40 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
-[0m[33m[0.759ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '0a26867cf2a411efbd2a00163e1e690b' LIMIT 1
-[GIN] 2025/02/24 - 23:29:40 | 200 |    1.909051ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/user/check-token?token=0a26867cf2a411efbd2a00163e1e690b"
-[GIN] 2025/02/24 - 23:29:41 | 200 |    2.846293ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
-[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0e2tVDkl2W8c7f4MN7ml2uwxfO3tVDky&secret=368ce6cfeeee84764a694ff1cd2ef9ea
-[GIN] 2025/02/24 - 23:29:41 | 200 |  179.286555ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
-[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0a20eXZv3BQSr43IJA2w3Vmsf830eXZo&secret=368ce6cfeeee84764a694ff1cd2ef9ea
-[GIN] 2025/02/24 - 23:29:42 | 200 |  146.856917ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
-[GIN] 2025/02/24 - 23:29:44 | 200 |    3.137022ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
-[GIN] 2025/02/24 - 23:29:45 | 200 |    2.252197ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
-[GIN] 2025/02/24 - 23:29:48 | 200 |    3.314266ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/shop/subshop/list"
-[GIN] 2025/02/24 - 23:29:52 | 200 |    3.559199ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=2b035c8af2c411efbd2a00163e1e690b&type="
-[GIN] 2025/02/24 - 23:29:53 | 200 |      2.0955ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/shop/goods/list"
-[GIN] 2025/02/24 - 23:29:56 | 200 |    1.978646ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/shop/goods/goodsAddition?goodsId=1808569"
-[GIN] 2025/02/24 - 23:29:56 | 200 |    8.923378ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/shop/goods/detail?id=1808569&token="
-[GIN] 2025/02/24 - 23:29:56 | 200 |     1.09069ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/shop/goods/times/schedule"
-[GIN] 2025/02/24 - 23:29:59 | 200 |    4.172285ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/shop/goods/price"
-2025-02-24T23:30:00.016+0800	INFO	api/shopping_cart.go:30	添加购物车	{"uid": 1, "goodsId": 1808569, "number": 1, "sku": "[{\"optionId\":211245,\"optionValueId\":1686933},{\"optionId\":211246,\"optionValueId\":1686934},{\"optionId\":211247,\"optionValueId\":1686938}]", "addition": ""}
+2025/02/27 10:37:55 [31;1m/root/bee-api/bee-api/service/order.go:1588 [35;1mError 1146 (42S02): Table 'bee.bee_order' doesn't exist
+[0m[33m[0.444ms] [34;1m[rows:0][0m SELECT * FROM `bee_order` WHERE status = 0 and date_close < '2025-02-27 10:37:55.119' LIMIT 100
+2025-02-27T10:37:55.121+0800	ERROR	service/order.go:1589	获取超时未支付的订单失败	{"error": "Error 1146 (42S02): Table 'bee.bee_order' doesn't exist"}
+gitee.com/stuinfer/bee-api/service.(*OrderSrv).closeOrderExceedDaemon
+	/root/bee-api/bee-api/service/order.go:1589
+gitee.com/stuinfer/bee-api/service.(*OrderSrv).StartDaemon.func1
+	/root/bee-api/bee-api/service/order.go:1169
 
-2025/02/24 23:30:00 [31;1m/root/bee-api/bee-api/service/shopping_card.go:52 [35;1mrecord not found
-[0m[33m[0.958ms] [34;1m[rows:0][0m SELECT * FROM `bee_shopping_cart` WHERE uid = 1 and sku_id = 7809218 LIMIT 1
-[GIN] 2025/02/24 - 23:30:00 | 200 |   23.063478ms |    37.163.44.70 | POST     "/9kuai8coffee.asia/shopping-cart/add"
-[GIN] 2025/02/24 - 23:30:00 | 200 |    6.448418ms |    37.163.44.70 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=2b035c8af2c411efbd2a00163e1e690b&type="
+2025/02/27 10:37:55 [31;1m/root/bee-api/bee-api/service/order.go:1553 [35;1mError 1146 (42S02): Table 'bee.bee_order' doesn't exist
+[0m[33m[1.805ms] [34;1m[rows:0][0m SELECT * FROM `bee_order` WHERE status = 2 and date_close < '2025-02-27 10:37:55.122' LIMIT 100
+2025-02-27T10:37:55.124+0800	ERROR	service/order.go:1554	获取超时未确认的订单失败	{"error": "Error 1146 (42S02): Table 'bee.bee_order' doesn't exist"}
+gitee.com/stuinfer/bee-api/service.(*OrderSrv).autoConfirmShippedOrderDaemon
+	/root/bee-api/bee-api/service/order.go:1554
+gitee.com/stuinfer/bee-api/service.(*OrderSrv).StartDaemon.func1
+	/root/bee-api/bee-api/service/order.go:1170
+
+2025/02/27 10:37:56 [31;1m/root/bee-api/bee-api/service/printer.go:271 [35;1mError 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist
+[0m[33m[0.691ms] [34;1m[rows:0][0m SELECT * FROM `bee_order_print_log` WHERE status = 0 and is_deleted=0 and last_try_unix < 1740623866
+2025-02-27T10:37:56.118+0800	ERROR	service/printer.go:272	查询待打印订单失败	{"error": "Error 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist"}
+gitee.com/stuinfer/bee-api/service.(*PrinterSrv).StartDaemon.func1
+	/root/bee-api/bee-api/service/printer.go:272
+
+2025/02/27 10:37:56 [31;1m/root/bee-api/bee-api/service/order.go:1180 [35;1mError 1146 (42S02): Table 'bee.bee_order_peisong' doesn't exist
+[0m[33m[0.580ms] [34;1m[rows:0][0m SELECT * FROM `bee_order_peisong` WHERE status = 0 and is_deleted = 0 and retry_times < 3 and last_retry_unix < 1740623846
+
+2025/02/27 10:43:09 [31;1m/root/bee-api/bee-api/service/shop.go:29 [35;1mrecord not found
+[0m[33m[4.737ms] [34;1m[rows:0][0m SELECT * FROM `bee_shop_info` WHERE id = 2 and user_id = 100 LIMIT 1
+[GIN] 2025/02/27 - 10:43:09 | 200 |   25.198786ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=2"
+[GIN] 2025/02/27 - 10:43:09 | 200 |   25.327343ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
+[GIN] 2025/02/27 - 10:43:09 | 200 |    4.047612ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[GIN] 2025/02/27 - 10:43:09 | 200 |    3.713416ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[GIN] 2025/02/27 - 10:43:09 | 200 |    3.885877ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/banner/list"
+
+2025/02/27 10:43:09 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[2.512ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '653acca2f3d511efb9ea00163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 10:43:09 | 200 |    5.263346ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=653acca2f3d511efb9ea00163e1e690b&type="
+
+2025/02/27 10:43:09 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.537ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '653acca2f3d511efb9ea00163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 10:43:09 | 200 |    1.671368ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=653acca2f3d511efb9ea00163e1e690b"
+
+2025/02/27 10:43:09 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.768ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '653acca2f3d511efb9ea00163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 10:43:09 | 200 |    1.685116ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=653acca2f3d511efb9ea00163e1e690b"
+[GIN] 2025/02/27 - 10:43:10 | 200 |    2.338113ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0d1hcWll2EXN6f4kSYll2CpXka0hcWlZ&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0e1b0Qkl2K9U7f4Hzmml2wPSOc3b0Qkn&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+
+2025/02/27 10:43:11 [31;1m/root/bee-api/bee-api/service/user.go:75 [35;1mrecord not found
+[0m[33m[4.396ms] [34;1m[rows:0][0m SELECT * FROM `bee_user_mapper` WHERE `open_id` = 'oftKL7cVmnv0fzLJ5o3ecidun4LU' LIMIT 1
+[GIN] 2025/02/27 - 10:43:12 | 200 |  182.181524ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[GIN] 2025/02/27 - 10:43:12 | 200 |  483.653513ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[GIN] 2025/02/27 - 10:43:12 | 200 |    1.187189ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=&type="
+[GIN] 2025/02/27 - 10:43:12 | 404 |         777ns |     83.225.6.25 | POST     "/9kuai8coffee.asia/user/bindSeller"
+
+2025/02/27 10:43:16 [31;1m/root/bee-api/bee-api/service/shop.go:29 [35;1mrecord not found
+[0m[33m[1.088ms] [34;1m[rows:0][0m SELECT * FROM `bee_shop_info` WHERE id = 2 and user_id = 100 LIMIT 1
+[GIN] 2025/02/27 - 10:43:16 | 200 |    2.287278ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=2"
+[GIN] 2025/02/27 - 10:43:16 | 200 |    5.016358ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=9606962cf4b411efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 10:43:17 | 200 |    2.834417ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:43:18 | 200 |    2.207712ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:43:21 | 200 |    2.999248ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:43:21 | 200 |    2.926231ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/detail?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:43:21 | 200 |    6.870485ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/discounts/statistics?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:43:21 | 200 |     8.74891ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/amount?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:43:25 | 200 |    3.309374ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=9606962cf4b411efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 10:43:26 | 200 |    2.182115ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:43:27 | 200 |     2.36027ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:43:28 | 200 |    3.179505ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:43:29 | 200 |     2.04794ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:43:30 | 200 |    2.310474ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:43:31 | 200 |    1.772178ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:43:32 | 200 |    2.528135ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:43:32 | 200 |    2.287425ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:43:33 | 200 |    2.339498ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+
+2025/02/27 10:43:44 [31;1m/root/bee-api/bee-api/service/shop.go:29 [35;1mrecord not found
+[0m[33m[1.111ms] [34;1m[rows:0][0m SELECT * FROM `bee_shop_info` WHERE id = 2 and user_id = 100 LIMIT 1
+[GIN] 2025/02/27 - 10:43:44 | 200 |    2.180612ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=2"
+[GIN] 2025/02/27 - 10:43:45 | 200 |    3.845817ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:43:46 | 200 |    3.368139ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=9606962cf4b411efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 10:43:55 | 200 |    5.656491ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/subshop/list"
+[GIN] 2025/02/27 - 10:43:55 | 200 |    4.010713ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/subshop/list"
+[GIN] 2025/02/27 - 10:43:55 | 200 |     1.86511ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/subshop/list"
+[GIN] 2025/02/27 - 10:44:28 | 200 |    3.480078ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=9606962cf4b411efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 10:44:30 | 200 |    3.449866ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:44:31 | 200 |    2.277609ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:44:32 | 200 |    1.995873ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:44:32 | 200 |    2.108914ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:44:33 | 200 |    2.039034ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:44:57 | 200 |    1.898273ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:44:58 | 200 |    2.304914ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:45:05 | 200 |    2.172536ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:45:08 | 200 |    3.243402ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
+[GIN] 2025/02/27 - 10:45:08 | 200 |    2.880053ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
+[GIN] 2025/02/27 - 10:45:08 | 200 |    2.380566ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[GIN] 2025/02/27 - 10:45:08 | 200 |     2.03853ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[GIN] 2025/02/27 - 10:45:09 | 200 |    2.711685ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/banner/list"
+[GIN] 2025/02/27 - 10:45:09 | 200 |    4.084323ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=9606962cf4b411efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 10:45:09 | 200 |    1.717559ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:45:09 | 200 |    2.484998ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:45:09 | 200 |    3.049443ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:45:10 | 404 |         789ns |     83.225.6.25 | POST     "/9kuai8coffee.asia/user/bindSeller"
+[GIN] 2025/02/27 - 10:45:18 | 200 |    1.992721ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
+[GIN] 2025/02/27 - 10:45:18 | 200 |    2.350777ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
+[GIN] 2025/02/27 - 10:45:18 | 200 |    2.570642ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[GIN] 2025/02/27 - 10:45:18 | 200 |    3.757678ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/banner/list"
+[GIN] 2025/02/27 - 10:45:18 | 200 |    5.830393ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=9606962cf4b411efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 10:45:18 | 200 |    2.951574ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[GIN] 2025/02/27 - 10:45:18 | 200 |    1.987017ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:45:18 | 200 |    2.754611ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:45:19 | 200 |    3.071715ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:45:19 | 404 |         609ns |     83.225.6.25 | POST     "/9kuai8coffee.asia/user/bindSeller"
+[GIN] 2025/02/27 - 10:45:19 | 200 |    2.746863ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:45:20 | 200 |    1.980161ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:45:29 | 200 |    1.985561ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:45:30 | 200 |    2.035169ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:45:30 | 200 |    2.236967ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:45:31 | 200 |    3.043955ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:45:32 | 200 |    2.708096ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:45:32 | 200 |    2.021375ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:45:34 | 200 |     3.05147ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:45:35 | 200 |    1.898267ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/queuing/types?status="
+[GIN] 2025/02/27 - 10:45:35 | 404 |         913ns |     83.225.6.25 | POST     "/9kuai8coffee.asia/user/bindSeller"
+[GIN] 2025/02/27 - 10:45:35 | 200 |    4.890736ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/queuing/my?token=9606962cf4b411efa36300163e1e690b&typeId=&status="
+[GIN] 2025/02/27 - 10:45:36 | 200 |    3.605414ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:45:37 | 200 |    6.181302ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/order/list"
+[GIN] 2025/02/27 - 10:45:39 | 200 |    2.498861ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:45:39 | 200 |    3.062464ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/detail?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:45:39 | 200 |    3.344406ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/amount?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:45:39 | 200 |    7.770565ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/discounts/statistics?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:45:41 | 200 |    3.936295ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=9606962cf4b411efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 10:45:42 | 200 |    2.117681ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:45:43 | 200 |    2.322873ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:45:44 | 200 |    2.244282ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:46:04 | 200 |    4.136947ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/subshop/list"
+[GIN] 2025/02/27 - 10:46:06 | 200 |     3.19928ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=9606962cf4b411efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 10:46:07 | 200 |    2.083261ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:46:09 | 200 |    2.873913ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:46:10 | 200 |    3.061608ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:46:11 | 200 |    2.462975ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:46:12 | 200 |    1.955966ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:46:12 | 200 |    2.050474ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:46:13 | 200 |    2.156476ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:46:14 | 200 |    2.023036ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:46:14 | 200 |    2.874246ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:46:16 | 200 |    2.200665ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
+[GIN] 2025/02/27 - 10:46:20 | 200 |     5.39398ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=9606962cf4b411efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 10:46:21 | 200 |     3.05557ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=9606962cf4b411efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 10:46:21 | 200 |     2.46717ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:46:22 | 200 |    4.263231ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/order/list"
+
+2025/02/27 10:47:11 [31;1m/root/bee-api/bee-api/service/printer.go:271 [35;1mError 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist
+[0m[33m[0.858ms] [34;1m[rows:0][0m SELECT * FROM `bee_order_print_log` WHERE status = 0 and is_deleted=0 and last_try_unix < 1740624421
+2025-02-27T10:47:11.118+0800	ERROR	service/printer.go:272	查询待打印订单失败	{"error": "Error 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist"}
+gitee.com/stuinfer/bee-api/service.(*PrinterSrv).StartDaemon.func1
+	/root/bee-api/bee-api/service/printer.go:272
+
+2025/02/27 10:47:12 [31;1m/root/bee-api/bee-api/service/order.go:1180 [35;1mError 1146 (42S02): Table 'bee.bee_order_peisong' doesn't exist
+[0m[33m[0.824ms] [34;1m[rows:0][0m SELECT * FROM `bee_order_peisong` WHERE status = 0 and is_deleted = 0 and retry_times < 3 and last_retry_unix < 1740624402
+
+2025/02/27 10:47:12 [31;1m/root/bee-api/bee-api/service/printer.go:271 [35;1mError 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist
+[0m[33m[2.240ms] [34;1m[rows:0][0m SELECT * FROM `bee_order_print_log` WHERE status = 0 and is_deleted=0 and last_try_unix < 1740624422
+2025-02-27T10:47:12.119+0800	ERROR	service/printer.go:272	查询待打印订单失败	{"error": "Error 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist"}
+gitee.com/stuinfer/bee-api/service.(*PrinterSrv).StartDaemon.func1
+	/root/bee-api/bee-api/service/printer.go:272
+
+2025/02/27 10:47:12 [31;1m/root/bee-api/bee-api/service/order.go:1588 [35;1mError 1146 (42S02): Table 'bee.bee_order' doesn't exist
+[0m[33m[1.876ms] [34;1m[rows:0][0m SELECT * FROM `bee_order` WHERE status = 0 and date_close < '2025-02-27 10:47:12.118' LIMIT 100
+2025-02-27T10:47:12.120+0800	ERROR	service/order.go:1589	获取超时未支付的订单失败	{"error": "Error 1146 (42S02): Table 'bee.bee_order' doesn't exist"}
+gitee.com/stuinfer/bee-api/service.(*OrderSrv).closeOrderExceedDaemon
+	/root/bee-api/bee-api/service/order.go:1589
+gitee.com/stuinfer/bee-api/service.(*OrderSrv).StartDaemon.func1
+	/root/bee-api/bee-api/service/order.go:1169
+
+2025/02/27 10:47:12 [31;1m/root/bee-api/bee-api/service/order.go:1553 [35;1mError 1146 (42S02): Table 'bee.bee_order' doesn't exist
+[0m[33m[1.836ms] [34;1m[rows:0][0m SELECT * FROM `bee_order` WHERE status = 2 and date_close < '2025-02-27 10:47:12.12' LIMIT 100
+2025-02-27T10:47:12.122+0800	ERROR	service/order.go:1554	获取超时未确认的订单失败	{"error": "Error 1146 (42S02): Table 'bee.bee_order' doesn't exist"}
+gitee.com/stuinfer/bee-api/service.(*OrderSrv).autoConfirmShippedOrderDaemon
+	/root/bee-api/bee-api/service/order.go:1554
+gitee.com/stuinfer/bee-api/service.(*OrderSrv).StartDaemon.func1
+	/root/bee-api/bee-api/service/order.go:1170
+
+2025/02/27 10:47:13 [31;1m/root/bee-api/bee-api/service/printer.go:271 [35;1mError 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist
+[0m[33m[0.858ms] [34;1m[rows:0][0m SELECT * FROM `bee_order_print_log` WHERE status = 0 and is_deleted=0 and last_try_unix < 1740624423
+2025-02-27T10:47:13.118+0800	ERROR	service/printer.go:272	查询待打印订单失败	{"error": "Error 1146 (42S02): Table 'bee.bee_order_print_log' doesn't exist"}
+gitee.com/stuinfer/bee-api/service.(*PrinterSrv).StartDaemon.func1
+	/root/bee-api/bee-api/service/printer.go:272
+[GIN] 2025/02/27 - 10:47:35 | 200 |    3.197103ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
+
+2025/02/27 10:47:35 [31;1m/root/bee-api/bee-api/service/shop.go:29 [35;1mrecord not found
+[0m[33m[0.990ms] [34;1m[rows:0][0m SELECT * FROM `bee_shop_info` WHERE id = 1 and user_id = 100 LIMIT 1
+[GIN] 2025/02/27 - 10:47:35 | 200 |    2.045066ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=1"
+
+2025/02/27 10:47:36 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.743ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '3e5bab80f3dc11efb9ea00163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 10:47:36 | 200 |    1.709262ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/discounts/coupons?token=3e5bab80f3dc11efb9ea00163e1e690b"
+[GIN] 2025/02/27 - 10:47:36 | 200 |    2.823726ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+
+2025/02/27 10:47:36 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.749ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '3e5bab80f3dc11efb9ea00163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 10:47:36 | 200 |    1.880837ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=3e5bab80f3dc11efb9ea00163e1e690b&type="
+[GIN] 2025/02/27 - 10:47:36 | 200 |    4.380957ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/banner/list"
+[GIN] 2025/02/27 - 10:47:36 | 200 |    2.862599ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+
+2025/02/27 10:47:36 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.569ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '3e5bab80f3dc11efb9ea00163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 10:47:36 | 200 |    1.459822ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=3e5bab80f3dc11efb9ea00163e1e690b"
+
+2025/02/27 10:47:36 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.522ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '3e5bab80f3dc11efb9ea00163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 10:47:36 | 200 |    1.866666ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=3e5bab80f3dc11efb9ea00163e1e690b"
+[GIN] 2025/02/27 - 10:47:36 | 200 |    1.992615ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:47:37 | 200 |    2.267152ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[GIN] 2025/02/27 - 10:47:37 | 200 |    2.253925ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/banner/list"
+[GIN] 2025/02/27 - 10:47:37 | 200 |   10.344195ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
+
+2025/02/27 10:47:37 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.910ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '9606962cf4b411efa36300163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 10:47:37 | 200 |   10.507654ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=9606962cf4b411efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 10:47:37 | 200 |   10.966779ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0a2rz90w3wiBs43Uz31w3MyX7h0rz905&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+[GIN] 2025/02/27 - 10:47:37 | 200 |   12.447464ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
+
+2025/02/27 10:47:37 [31;1m/root/bee-api/bee-api/service/user.go:75 [35;1mrecord not found
+[0m[33m[2.500ms] [34;1m[rows:0][0m SELECT * FROM `bee_user_mapper` WHERE `open_id` = 'oftKL7cVmnv0fzLJ5o3ecidun4LU' LIMIT 1
+[GIN] 2025/02/27 - 10:47:37 | 200 |  201.484115ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0c2XgQkl24BU7f4Xtunl2KeYiG3XgQkL&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+
+2025/02/27 10:47:38 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[1.200ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '9606962cf4b411efa36300163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 10:47:38 | 200 |    2.500039ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=9606962cf4b411efa36300163e1e690b"
+
+2025/02/27 10:47:38 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[1.008ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '9606962cf4b411efa36300163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 10:47:38 | 200 |    1.810687ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=9606962cf4b411efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:47:38 | 200 |    1.981471ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:47:38 | 200 |  136.890025ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0b11hQkl27BU7f4bSVnl2qMjE911hQko&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+[GIN] 2025/02/27 - 10:47:39 | 200 |   136.88337ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0a17noll2ovm7f4hV5ll2qPzny37noly&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+[GIN] 2025/02/27 - 10:47:39 | 200 |   89.402168ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[GIN] 2025/02/27 - 10:47:40 | 404 |         537ns |     83.225.6.25 | POST     "/9kuai8coffee.asia/user/bindSeller"
+[GIN] 2025/02/27 - 10:47:43 | 200 |    2.373642ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
+
+2025/02/27 10:47:43 [31;1m/root/bee-api/bee-api/service/shop.go:29 [35;1mrecord not found
+[0m[33m[1.254ms] [34;1m[rows:0][0m SELECT * FROM `bee_shop_info` WHERE id = 1 and user_id = 100 LIMIT 1
+[GIN] 2025/02/27 - 10:47:43 | 200 |    2.089583ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=1"
+[GIN] 2025/02/27 - 10:47:43 | 200 |    1.785832ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[GIN] 2025/02/27 - 10:47:43 | 200 |    4.822885ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/discounts/coupons?token=34afc706f4b511efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:47:43 | 200 |     1.77887ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/banner/list"
+[GIN] 2025/02/27 - 10:47:43 | 200 |    1.718428ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[GIN] 2025/02/27 - 10:47:43 | 200 |    4.655332ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=34afc706f4b511efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 10:47:43 | 200 |    2.583281ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:47:43 | 200 |     2.50952ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=34afc706f4b511efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:47:44 | 200 |    2.334543ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=34afc706f4b511efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:47:45 | 200 |    1.015356ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/discounts/coupons"
+[GIN] 2025/02/27 - 10:47:46 | 200 |    4.523916ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=34afc706f4b511efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:47:47 | 200 |    4.018014ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=34afc706f4b511efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 10:47:49 | 200 |    1.848251ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/subshop/list"
+[GIN] 2025/02/27 - 10:47:51 | 200 |    3.140223ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=34afc706f4b511efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 10:47:52 | 200 |    1.946935ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:47:52 | 200 |    2.258629ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:47:56 | 200 |    2.898655ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:47:56 | 200 |    1.758651ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:48:23 | 200 |    2.227085ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[GIN] 2025/02/27 - 10:48:23 | 200 |    1.700256ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[GIN] 2025/02/27 - 10:48:23 | 200 |    1.616598ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/banner/list"
+[GIN] 2025/02/27 - 10:48:23 | 200 |    2.862803ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=34afc706f4b511efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 10:48:24 | 200 |     1.95608ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:48:25 | 200 |    2.671672ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=34afc706f4b511efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:48:25 | 200 |    3.261865ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[GIN] 2025/02/27 - 10:48:25 | 200 |    2.279728ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[GIN] 2025/02/27 - 10:48:25 | 200 |    2.185717ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/banner/list"
+[GIN] 2025/02/27 - 10:48:25 | 200 |    5.550789ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=34afc706f4b511efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 10:48:26 | 200 |    2.294648ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 10:48:26 | 200 |    2.731856ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=34afc706f4b511efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:48:39 | 200 |    2.354579ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=35977f1df4b511efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:48:39 | 200 |    2.436086ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=35977f1df4b511efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:48:40 | 404 |       2.145µs |     83.225.6.25 | POST     "/9kuai8coffee.asia/user/bindSeller"
+[GIN] 2025/02/27 - 10:48:40 | 200 |    6.604416ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/queuing/types?status="
+[GIN] 2025/02/27 - 10:48:40 | 200 |   11.001844ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/queuing/my?token=35977f1df4b511efa36300163e1e690b&typeId=&status="
+[GIN] 2025/02/27 - 10:48:40 | 200 |    8.588256ms |     83.225.6.25 | POST     "/9kuai8coffee.asia/order/list"
+[GIN] 2025/02/27 - 10:48:41 | 200 |    4.906734ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/check-token?token=35977f1df4b511efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:48:41 | 200 |    8.563931ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/discounts/statistics?token=35977f1df4b511efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:48:41 | 200 |    7.704564ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/amount?token=35977f1df4b511efa36300163e1e690b"
+[GIN] 2025/02/27 - 10:48:41 | 200 |    9.850898ms |     83.225.6.25 | GET      "/9kuai8coffee.asia/user/detail?token=35977f1df4b511efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:24:12 | 200 |    1.682332ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
+[GIN] 2025/02/27 - 19:24:12 | 200 |    2.406861ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
+[GIN] 2025/02/27 - 19:24:13 | 200 |    1.593217ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[GIN] 2025/02/27 - 19:24:13 | 200 |    3.001246ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/banner/list"
+
+2025/02/27 19:24:13 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[1.052ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '35977f1df4b511efa36300163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 19:24:13 | 200 |    2.632683ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=35977f1df4b511efa36300163e1e690b&type="
+
+2025/02/27 19:24:13 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.572ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '35977f1df4b511efa36300163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 19:24:13 | 200 |    1.414182ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/check-token?token=35977f1df4b511efa36300163e1e690b"
+
+2025/02/27 19:24:13 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.587ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '35977f1df4b511efa36300163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 19:24:13 | 200 |    1.600202ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/check-token?token=35977f1df4b511efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:24:13 | 200 |    1.770053ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0b1m4F0w3baEt43Fy44w3dgJ5k4m4F08&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+[GIN] 2025/02/27 - 19:24:14 | 200 |  186.658093ms |   37.159.77.240 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[GIN] 2025/02/27 - 19:24:14 | 200 |    1.995375ms |   37.159.77.240 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0c1ZXrml2NE3af4lihll2IINoo1ZXrmy&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+[GIN] 2025/02/27 - 19:24:14 | 200 |   91.962719ms |   37.159.77.240 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[GIN] 2025/02/27 - 19:24:15 | 404 |       2.243µs |   37.159.77.240 | POST     "/9kuai8coffee.asia/user/bindSeller"
+[GIN] 2025/02/27 - 19:24:55 | 200 |    2.256939ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
+[GIN] 2025/02/27 - 19:24:55 | 200 |     1.85757ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
+[GIN] 2025/02/27 - 19:24:55 | 200 |    3.480798ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[GIN] 2025/02/27 - 19:24:55 | 200 |    2.471013ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[GIN] 2025/02/27 - 19:24:55 | 200 |    2.493232ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/banner/list"
+[GIN] 2025/02/27 - 19:24:55 | 200 |     4.51986ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=601ac1e7f4fd11efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 19:24:56 | 200 |     2.02859ms |   37.159.77.240 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 19:24:56 | 200 |    2.945446ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/check-token?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:24:56 | 200 |    2.397088ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/check-token?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:24:57 | 404 |         541ns |   37.159.77.240 | POST     "/9kuai8coffee.asia/user/bindSeller"
+[GIN] 2025/02/27 - 19:25:06 | 200 |    3.309401ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=601ac1e7f4fd11efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 19:26:07 | 200 |    2.124073ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
+[GIN] 2025/02/27 - 19:26:07 | 200 |     3.66273ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=601ac1e7f4fd11efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 19:26:08 | 200 |     2.21348ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/check-token?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:31:10 | 200 |    2.109767ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
+[GIN] 2025/02/27 - 19:31:10 | 200 |     4.26998ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=601ac1e7f4fd11efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 19:31:11 | 200 |    2.771967ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/check-token?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:31:15 | 200 |    2.038258ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
+[GIN] 2025/02/27 - 19:31:15 | 200 |     3.96305ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=601ac1e7f4fd11efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 19:31:17 | 200 |    2.822965ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/check-token?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:31:19 | 200 |    2.083206ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
+[GIN] 2025/02/27 - 19:31:19 | 200 |    1.976501ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
+[GIN] 2025/02/27 - 19:31:19 | 200 |    2.139585ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[GIN] 2025/02/27 - 19:31:19 | 200 |    1.857407ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[GIN] 2025/02/27 - 19:31:19 | 200 |     1.52739ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/banner/list"
+[GIN] 2025/02/27 - 19:31:20 | 200 |    3.060348ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=601ac1e7f4fd11efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 19:31:20 | 200 |     2.48136ms |   37.159.77.240 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 19:31:20 | 200 |    2.549225ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/check-token?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:31:20 | 200 |    2.642141ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/check-token?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:31:21 | 404 |         768ns |   37.159.77.240 | POST     "/9kuai8coffee.asia/user/bindSeller"
+[GIN] 2025/02/27 - 19:31:24 | 200 |    2.158001ms |   37.159.77.240 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 19:31:27 | 200 |    2.254903ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shop/goods/goodsAddition?goodsId=1808574"
+[GIN] 2025/02/27 - 19:31:27 | 200 |     912.406µs |   37.159.77.240 | POST     "/9kuai8coffee.asia/shop/goods/times/schedule"
+
+2025/02/27 19:31:27 [31;1m/root/bee-api/bee-api/service/goods.go:74 [35;1mrecord not found
+[0m[33m[0.972ms] [34;1m[rows:0][0m SELECT * FROM `bee_shop_goods_content` WHERE goods_id = 1808574 and is_deleted = 0 ORDER BY `bee_shop_goods_content`.`id` LIMIT 1
+[GIN] 2025/02/27 - 19:31:27 | 200 |    7.392931ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shop/goods/detail?id=1808574&token="
+[GIN] 2025/02/27 - 19:31:29 | 200 |    4.148639ms |   37.159.77.240 | POST     "/9kuai8coffee.asia/shop/goods/price"
+2025-02-27T19:31:32.187+0800	INFO	api/shopping_cart.go:30	添加购物车	{"uid": 1, "goodsId": 1808574, "number": 2, "sku": "[{\"optionId\":211245,\"optionValueId\":1686932}]", "addition": ""}
+
+2025/02/27 19:31:32 [31;1m/root/bee-api/bee-api/service/shopping_card.go:52 [35;1mrecord not found
+[0m[33m[0.692ms] [34;1m[rows:0][0m SELECT * FROM `bee_shopping_cart` WHERE uid = 1 and sku_id = 7809247 LIMIT 1
+[GIN] 2025/02/27 - 19:31:32 | 200 |   15.452844ms |   37.159.77.240 | POST     "/9kuai8coffee.asia/shopping-cart/add"
+[GIN] 2025/02/27 - 19:31:32 | 200 |    6.737691ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=601ac1e7f4fd11efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 19:31:32 | 200 |    3.202112ms |   37.159.77.240 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 19:31:35 | 200 |     2.78191ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/check-token?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:31:35 | 404 |         687ns |   37.159.77.240 | POST     "/9kuai8coffee.asia/user/bindSeller"
+[GIN] 2025/02/27 - 19:31:35 | 200 |    2.317316ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/queuing/types?status="
+[GIN] 2025/02/27 - 19:31:35 | 200 |    3.430123ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/queuing/my?token=601ac1e7f4fd11efa36300163e1e690b&typeId=&status="
+[GIN] 2025/02/27 - 19:31:37 | 200 |    2.239193ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/check-token?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:31:38 | 200 |    4.064763ms |   37.159.77.240 | POST     "/9kuai8coffee.asia/order/list"
+[GIN] 2025/02/27 - 19:31:39 | 200 |    2.986564ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/check-token?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:31:40 | 200 |    2.629386ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/detail?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:31:40 | 200 |    3.638697ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/discounts/statistics?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:31:40 | 200 |    3.150329ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/amount?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:33:13 | 200 |    6.933519ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=601ac1e7f4fd11efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 19:33:14 | 200 |    2.823207ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/check-token?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:33:14 | 200 |     3.86634ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/detail?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:33:14 | 200 |    4.972374ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/amount?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:33:15 | 200 |    3.752544ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/discounts/statistics?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:33:18 | 200 |    2.421266ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
+[GIN] 2025/02/27 - 19:33:19 | 200 |    2.760213ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/check-token?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:33:19 | 200 |    2.720799ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/check-token?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:33:19 | 200 |    2.679068ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/detail?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:33:19 | 200 |    4.488781ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/user/amount?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:33:19 | 200 |    5.898457ms |   37.159.77.240 | GET      "/9kuai8coffee.asia/discounts/statistics?token=601ac1e7f4fd11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:34:00 | 200 |    2.869543ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[GIN] 2025/02/27 - 19:34:00 | 200 |    5.329562ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
+[GIN] 2025/02/27 - 19:34:01 | 200 |    4.551143ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/banner/list"
+
+2025/02/27 19:34:01 [31;1m/root/bee-api/bee-api/service/shop.go:29 [35;1mrecord not found
+[0m[33m[0.922ms] [34;1m[rows:0][0m SELECT * FROM `bee_shop_info` WHERE id = 2 and user_id = 100 LIMIT 1
+[GIN] 2025/02/27 - 19:34:01 | 200 |    5.712593ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=2"
+
+2025/02/27 19:34:01 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.608ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '6d88e728f39411efb9ea00163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 19:34:01 | 200 |    4.329236ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=6d88e728f39411efb9ea00163e1e690b&type="
+[GIN] 2025/02/27 - 19:34:01 | 200 |    8.867855ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[GIN] 2025/02/27 - 19:34:01 | 200 |    3.825995ms |   115.213.141.7 | POST     "/9kuai8coffee.asia/shop/goods/list"
+
+2025/02/27 19:34:01 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[1.216ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '6d88e728f39411efb9ea00163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 19:34:01 | 200 |    2.505519ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/user/check-token?token=6d88e728f39411efb9ea00163e1e690b"
+
+2025/02/27 19:34:01 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.811ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '6d88e728f39411efb9ea00163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 19:34:01 | 200 |    1.892667ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/user/check-token?token=6d88e728f39411efb9ea00163e1e690b"
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0f3OLJ000DbkOT1xjW100xp9EF4OLJ0j&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0f3NIs000A83OT1tTG100kxQKf2NIs04&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+
+2025/02/27 19:34:01 [31;1m/root/bee-api/bee-api/service/user.go:75 [35;1mrecord not found
+[0m[33m[1.264ms] [34;1m[rows:0][0m SELECT * FROM `bee_user_mapper` WHERE `open_id` = 'oftKL7T628FdZIAuMXwEzeP2uCDU' LIMIT 1
+[GIN] 2025/02/27 - 19:34:01 | 200 |  234.131539ms |   115.213.141.7 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[GIN] 2025/02/27 - 19:34:01 | 200 |  197.928701ms |   115.213.141.7 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[GIN] 2025/02/27 - 19:34:03 | 200 |    2.757842ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/user/check-token?token=bdfb6e6bf4fe11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:34:03 | 200 |    3.536098ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/user/detail?token=bdfb6e6bf4fe11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:34:03 | 200 |    7.478812ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/discounts/statistics?token=bdfb6e6bf4fe11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:34:03 | 200 |    6.997974ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/user/amount?token=bdfb6e6bf4fe11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:34:04 | 200 |    4.337083ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/user/amount?token=bdfb6e6bf4fe11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:34:04 | 200 |    4.698394ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/user/recharge/send/rule"
+[GIN] 2025/02/27 - 19:34:06 | 200 |    3.356488ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/user/check-token?token=bdfb6e6bf4fe11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:34:06 | 200 |    3.880227ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/user/amount?token=bdfb6e6bf4fe11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:34:06 | 200 |    3.345444ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/user/detail?token=bdfb6e6bf4fe11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:34:06 | 200 |    5.578937ms |   115.213.141.7 | GET      "/9kuai8coffee.asia/discounts/statistics?token=bdfb6e6bf4fe11efa36300163e1e690b"
+
+2025/02/27 19:40:31 [31;1m/root/bee-api/bee-api/service/shop.go:29 [35;1mrecord not found
+[0m[33m[0.859ms] [34;1m[rows:0][0m SELECT * FROM `bee_shop_info` WHERE id = 2 and user_id = 100 LIMIT 1
+[GIN] 2025/02/27 - 19:40:31 | 200 |    1.947292ms |   36.21.218.254 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=2"
+[GIN] 2025/02/27 - 19:40:31 | 200 |    2.738258ms |   36.21.218.254 | GET      "/9kuai8coffee.asia/user/check-token?token=bdfb6e6bf4fe11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:40:32 | 200 |     2.70529ms |   36.21.218.254 | GET      "/9kuai8coffee.asia/user/check-token?token=bdfb6e6bf4fe11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:40:32 | 200 |    2.247806ms |   36.21.218.254 | GET      "/9kuai8coffee.asia/user/detail?token=bdfb6e6bf4fe11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:40:32 | 200 |    3.617141ms |   36.21.218.254 | GET      "/9kuai8coffee.asia/user/amount?token=bdfb6e6bf4fe11efa36300163e1e690b"
+[GIN] 2025/02/27 - 19:40:32 | 200 |    4.892477ms |   36.21.218.254 | GET      "/9kuai8coffee.asia/discounts/statistics?token=bdfb6e6bf4fe11efa36300163e1e690b"
+[GIN] 2025/02/27 - 21:22:30 | 200 |    2.493768ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
+
+2025/02/27 21:22:30 [31;1m/root/bee-api/bee-api/service/shop.go:29 [35;1mrecord not found
+[0m[33m[0.792ms] [34;1m[rows:0][0m SELECT * FROM `bee_shop_info` WHERE id = 2 and user_id = 100 LIMIT 1
+[GIN] 2025/02/27 - 21:22:30 | 200 |    2.169459ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=2"
+[GIN] 2025/02/27 - 21:22:30 | 200 |     2.04844ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[GIN] 2025/02/27 - 21:22:30 | 200 |     2.04785ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[GIN] 2025/02/27 - 21:22:30 | 200 |    2.111421ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/banner/list"
+
+2025/02/27 21:22:30 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.445ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '8c491f85f39211ef9afe00163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 21:22:30 | 200 |    1.267335ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=8c491f85f39211ef9afe00163e1e690b&type="
+[GIN] 2025/02/27 - 21:22:30 | 200 |    1.874221ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/shop/goods/list"
+
+2025/02/27 21:22:30 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.605ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '8c491f85f39211ef9afe00163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 21:22:30 | 200 |     1.74611ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=8c491f85f39211ef9afe00163e1e690b"
+
+2025/02/27 21:22:30 [31;1m/root/bee-api/bee-api/service/token.go:64 [35;1mrecord not found
+[0m[33m[0.648ms] [34;1m[rows:0][0m SELECT * FROM `bee_token` WHERE token = '8c491f85f39211ef9afe00163e1e690b' LIMIT 1
+[GIN] 2025/02/27 - 21:22:30 | 200 |    1.830124ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=8c491f85f39211ef9afe00163e1e690b"
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0e1xk31w3Ki4u43dBs1w3njskV1xk31e&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0e1UPDkl27ph8f4ngLll2UHKHR3UPDkl&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+
+2025/02/27 21:22:31 [31;1m/root/bee-api/bee-api/service/user.go:75 [35;1mrecord not found
+[0m[33m[0.710ms] [34;1m[rows:0][0m SELECT * FROM `bee_user_mapper` WHERE `open_id` = 'oftKL7ZQN242URoDe1rWFq-gHEHM' LIMIT 1
+[GIN] 2025/02/27 - 21:22:31 | 200 |  185.101632ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[GIN] 2025/02/27 - 21:22:31 | 200 |  120.488976ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[GIN] 2025/02/27 - 21:22:34 | 200 |    3.731837ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 21:22:34 | 200 |    4.329336ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/amount?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 21:22:34 | 200 |    6.505488ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/detail?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 21:22:34 | 200 |    7.826359ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/discounts/statistics?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 21:22:36 | 200 |    1.833203ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/recharge/send/rule"
+[GIN] 2025/02/27 - 21:22:36 | 200 |    3.681698ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/amount?token=e61613f0f50d11efa36300163e1e690b"
+
+2025/02/27 21:22:42 [31;1m/root/bee-api/bee-api/service/pay.go:288 [35;1mrecord not found
+[0m[33m[2.108ms] [34;1m[rows:0][0m SELECT * FROM `bee_wx_pay_config` WHERE user_id = 100 and is_deleted = 0 LIMIT 1
+[GIN] 2025/02/27 - 21:22:42 | 200 |    4.654556ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/pay/wx/wxapp"
+[GIN] 2025/02/27 - 21:22:51 | 200 |     2.55809ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 21:22:51 | 200 |     4.67233ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/amount?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 21:22:51 | 200 |    6.881725ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/detail?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 21:22:51 | 200 |    6.082281ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/discounts/statistics?token=e61613f0f50d11efa36300163e1e690b"
+
+2025/02/27 21:23:26 [31;1m/root/bee-api/bee-api/service/shop.go:29 [35;1mrecord not found
+[0m[33m[0.907ms] [34;1m[rows:0][0m SELECT * FROM `bee_shop_info` WHERE id = 2 and user_id = 100 LIMIT 1
+[GIN] 2025/02/27 - 21:23:26 | 200 |     2.11369ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=2"
+[GIN] 2025/02/27 - 21:23:27 | 200 |    2.690722ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 21:23:27 | 200 |     3.13748ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 21:23:27 | 200 |    3.126842ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/detail?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 21:23:27 | 200 |    4.904971ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/amount?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 21:23:27 | 200 |    5.206356ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/discounts/statistics?token=e61613f0f50d11efa36300163e1e690b"
+
+2025/02/27 22:07:52 [31;1m/root/bee-api/bee-api/service/shop.go:29 [35;1mrecord not found
+[0m[33m[1.020ms] [34;1m[rows:0][0m SELECT * FROM `bee_shop_info` WHERE id = 2 and user_id = 100 LIMIT 1
+[GIN] 2025/02/27 - 22:07:52 | 200 |    2.360476ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=2"
+[GIN] 2025/02/27 - 22:07:52 | 200 |    4.076476ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
+[GIN] 2025/02/27 - 22:07:52 | 200 |    2.324753ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[GIN] 2025/02/27 - 22:07:52 | 200 |    2.757218ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/banner/list"
+[GIN] 2025/02/27 - 22:07:52 | 200 |    1.921574ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[GIN] 2025/02/27 - 22:07:52 | 200 |    4.024642ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=e61613f0f50d11efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 22:07:52 | 200 |     2.55512ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:07:52 | 200 |    1.922291ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 22:07:52 | 200 |     2.28078ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=e61613f0f50d11efa36300163e1e690b"
+
+2025/02/27 22:10:38 [31;1m/root/bee-api/bee-api/service/shop.go:29 [35;1mrecord not found
+[0m[33m[1.847ms] [34;1m[rows:0][0m SELECT * FROM `bee_shop_info` WHERE id = 2 and user_id = 100 LIMIT 1
+[GIN] 2025/02/27 - 22:10:38 | 200 |    3.623904ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=2"
+[GIN] 2025/02/27 - 22:10:38 | 200 |    3.536196ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=e61613f0f50d11efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 22:10:39 | 200 |    2.677051ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:10:40 | 200 |    3.015318ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:10:40 | 200 |    3.576957ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/detail?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:10:40 | 200 |    4.131961ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/amount?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:10:40 | 200 |    3.838559ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/discounts/statistics?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:10:43 | 200 |    4.381838ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/score/sign/logs"
+[GIN] 2025/02/27 - 22:10:44 | 200 |     2.66434ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:10:45 | 200 |    2.577517ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:10:45 | 200 |    3.342132ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/detail?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:10:45 | 200 |     6.23199ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/discounts/statistics?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:10:45 | 200 |    6.384627ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/amount?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:10:46 | 200 |    3.187577ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/score/sign/logs"
+[GIN] 2025/02/27 - 22:10:46 | 200 |    2.348529ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=e61613f0f50d11efa36300163e1e690b"
+
+2025/02/27 22:10:47 [31;1m/root/bee-api/bee-api/service/score.go:37 [35;1mrecord not found
+[0m[33m[0.630ms] [34;1m[rows:0][0m SELECT * FROM `bee_sign_log` WHERE uid=3 ORDER BY id desc,`bee_sign_log`.`id` LIMIT 1
+[GIN] 2025/02/27 - 22:10:47 | 200 |   11.757182ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/score/sign"
+[GIN] 2025/02/27 - 22:10:47 | 200 |    3.305577ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/score/sign/logs"
+[GIN] 2025/02/27 - 22:10:50 | 200 |    2.623361ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:10:50 | 200 |    4.896521ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/amount?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:10:50 | 200 |    9.555925ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/detail?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:10:50 | 200 |    9.226186ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/discounts/statistics?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:11:38 | 200 |    1.806916ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/cms/page/info/v2?key=about"
+[GIN] 2025/02/27 - 22:11:39 | 200 |    2.467485ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:11:39 | 200 |    5.908108ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/detail?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:11:39 | 200 |    7.262178ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/amount?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:11:39 | 200 |    9.999483ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/discounts/statistics?token=e61613f0f50d11efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:11:40 | 200 |    2.303574ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/discounts/coupons?token="
+[GIN] 2025/02/27 - 22:11:40 | 200 |    3.061405ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[GIN] 2025/02/27 - 22:11:40 | 200 |    6.533171ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[GIN] 2025/02/27 - 22:11:40 | 200 |    1.697768ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/banner/list"
+[GIN] 2025/02/27 - 22:11:40 | 200 |    2.430675ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=&type="
+[GIN] 2025/02/27 - 22:11:40 | 200 |    2.372781ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[info] request url: https://api.weixin.qq.com/sns/jscode2session?appid=wxa4bc935c9ba87528&grant_type=authorization_code&js_code=0b1T1Nll2QUk9f4QOeml231N973T1NlR&secret=368ce6cfeeee84764a694ff1cd2ef9ea
+[GIN] 2025/02/27 - 22:11:41 | 200 |  173.798531ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/user/wxapp/authorize"
+[GIN] 2025/02/27 - 22:11:41 | 200 |    1.803987ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/shop/subshop/list"
+[GIN] 2025/02/27 - 22:11:46 | 200 |    3.628811ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=c45bb8e2f51411efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 22:11:46 | 200 |    4.657485ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
+[GIN] 2025/02/27 - 22:11:46 | 200 |    3.171319ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:11:48 | 200 |    2.027741ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 22:11:49 | 200 |    2.326593ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 22:11:51 | 200 |    2.285938ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 22:11:52 | 200 |     1.88153ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 22:11:53 | 200 |    3.245168ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 22:11:53 | 200 |    2.815713ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 22:11:54 | 200 |    2.258766ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 22:11:55 | 200 |    3.474922ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/02/27 - 22:11:56 | 200 |    2.668801ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:11:56 | 200 |    2.929141ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/detail?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:11:56 | 200 |    4.561749ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/amount?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:11:56 | 200 |    5.931862ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/discounts/statistics?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:11 | 200 |    3.384492ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/score/sign/logs"
+[GIN] 2025/02/27 - 22:12:12 | 200 |    2.417817ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:13 | 200 |   14.430862ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/score/sign"
+[GIN] 2025/02/27 - 22:12:13 | 200 |    3.006003ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/score/sign/logs"
+[GIN] 2025/02/27 - 22:12:18 | 200 |    2.484995ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:18 | 200 |    3.537995ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/detail?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:18 | 200 |    6.639399ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/amount?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:18 | 200 |    7.220321ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/discounts/statistics?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:21 | 200 |    2.419111ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:21 | 200 |    4.307082ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/order/list"
+[GIN] 2025/02/27 - 22:12:22 | 200 |     3.50042ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:22 | 200 |    3.874146ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/amount?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:22 | 200 |    6.556575ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/detail?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:22 | 200 |    7.899151ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/discounts/statistics?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:23 | 200 |    2.374374ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/cms/page/info/v2?key=about"
+[GIN] 2025/02/27 - 22:12:26 | 200 |    2.773865ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:26 | 200 |    4.909286ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/amount?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:26 | 200 |    7.239774ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/detail?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:26 | 200 |    6.097551ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/discounts/statistics?token=c45bb8e2f51411efa36300163e1e690b"
+
+2025/02/27 22:12:34 [31;1m/root/bee-api/bee-api/service/user.go:232 [35;1mrecord not found
+[0m[33m[0.604ms] [34;1m[rows:0][0m SELECT * FROM `bee_user_dynamic_code` WHERE uid = 100 LIMIT 1
+[GIN] 2025/02/27 - 22:12:34 | 200 |    4.580918ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/amount?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:34 | 200 |    9.208027ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/dynamicUserCode?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:36 | 200 |    2.462969ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:37 | 200 |    3.846736ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/detail?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:37 | 200 |    4.655276ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/amount?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:12:37 | 200 |    5.515011ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/discounts/statistics?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:15:19 | 200 |    3.848512ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=c45bb8e2f51411efa36300163e1e690b&type="
+2025-02-27T22:15:21.095+0800	INFO	api/shopping_cart.go:30	添加购物车	{"uid": 3, "goodsId": 1808570, "number": 2, "sku": "", "addition": ""}
+[GIN] 2025/02/27 - 22:15:21 | 200 |     3.58859ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/shopping-cart/add"
+[GIN] 2025/02/27 - 22:15:22 | 200 |   19.456316ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shop/goods/detail?id=1808569&token="
+[GIN] 2025/02/27 - 22:15:22 | 200 |    1.826974ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shop/goods/goodsAddition?goodsId=1808569"
+[GIN] 2025/02/27 - 22:15:22 | 200 |    1.103586ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/shop/goods/times/schedule"
+[GIN] 2025/02/27 - 22:15:27 | 200 |    3.608909ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/shop/goods/price"
+2025-02-27T22:15:28.969+0800	INFO	api/shopping_cart.go:30	添加购物车	{"uid": 3, "goodsId": 1808569, "number": 1, "sku": "[{\"optionId\":211245,\"optionValueId\":1686932},{\"optionId\":211246,\"optionValueId\":1686936},{\"optionId\":211247,\"optionValueId\":1686937}]", "addition": ""}
+
+2025/02/27 22:15:28 [31;1m/root/bee-api/bee-api/service/shopping_card.go:52 [35;1mrecord not found
+[0m[33m[0.954ms] [34;1m[rows:0][0m SELECT * FROM `bee_shopping_cart` WHERE uid = 3 and sku_id = 7809215 LIMIT 1
+[GIN] 2025/02/27 - 22:15:28 | 200 |   20.243327ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/shopping-cart/add"
+[GIN] 2025/02/27 - 22:15:29 | 200 |    9.030873ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=c45bb8e2f51411efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 22:15:32 | 200 |    2.434219ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/fee/peisong/list"
+[GIN] 2025/02/27 - 22:15:32 | 200 |     4.01745ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/detail?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:15:33 | 200 |    2.873575ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:15:33 | 200 |    8.213134ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=c45bb8e2f51411efa36300163e1e690b&type="
+
+2025/02/27 22:15:33 [31;1m/root/bee-api/bee-api/service/address.go:247 [35;1mrecord not found
+[0m[33m[0.558ms] [34;1m[rows:0][0m SELECT * FROM `bee_user_address` WHERE is_default = 1 and uid = 3 and is_deleted = 0 LIMIT 1
+[GIN] 2025/02/27 - 22:15:33 | 200 |    5.489791ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/shipping-address/default/v2?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:15:33 | 200 |   10.826563ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/order/create"
+[GIN] 2025/02/27 - 22:15:40 | 200 |    9.693749ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/user/modify"
+[GIN] 2025/02/27 - 22:15:40 | 200 |    4.910569ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/detail?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:15:53 | 200 |    36.18101ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/order/create"
+[GIN] 2025/02/27 - 22:15:53 | 200 |     6.39082ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/amount?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:15:53 | 200 |   16.007533ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/shopping-cart/empty"
+[GIN] 2025/02/27 - 22:15:53 | 200 |    7.231449ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/order/pay"
+[GIN] 2025/02/27 - 22:15:54 | 200 |    2.592995ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:15:54 | 200 |   15.870262ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/order/list"
+[GIN] 2025/02/27 - 22:16:13 | 200 |    3.307971ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
+[GIN] 2025/02/27 - 22:16:13 | 200 |    2.618519ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:16:13 | 200 |    3.523252ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:16:13 | 200 |    6.872474ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/order/list"
+[GIN] 2025/02/27 - 22:16:14 | 200 |    3.313036ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=c45bb8e2f51411efa36300163e1e690b&type="
+[GIN] 2025/02/27 - 22:16:15 | 200 |    3.543548ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:16:16 | 200 |    5.143466ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/amount?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:16:16 | 200 |   10.952984ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/detail?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:16:16 | 200 |    9.532081ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/discounts/statistics?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:16:18 | 200 |    2.377048ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:16:18 | 200 |    5.793268ms |   58.19.101.108 | POST     "/9kuai8coffee.asia/order/list"
+[GIN] 2025/02/27 - 22:16:18 | 200 |    7.690855ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:16:18 | 200 |    2.262779ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/queuing/types?status="
+[GIN] 2025/02/27 - 22:16:18 | 200 |    5.602394ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/queuing/my?token=c45bb8e2f51411efa36300163e1e690b&typeId=&status="
+[GIN] 2025/02/27 - 22:16:18 | 200 |    3.346488ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/check-token?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:16:18 | 200 |    2.694334ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/detail?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:16:18 | 200 |    2.902808ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/user/amount?token=c45bb8e2f51411efa36300163e1e690b"
+[GIN] 2025/02/27 - 22:16:18 | 200 |    5.407659ms |   58.19.101.108 | GET      "/9kuai8coffee.asia/discounts/statistics?token=c45bb8e2f51411efa36300163e1e690b"
