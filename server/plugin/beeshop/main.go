@@ -430,12 +430,12 @@ func (*BeeShopPlugin) startBeeApi() {
 		},
 		Default: &config.DefaultConfig{
 			Wx: &config.WxConfig{
-				AppId:  "test", //改成你的
-				Secret: "test", //改成你的
+				AppId:  "wxa4bc935c9ba87528", //改成你的
+				Secret: "368ce6cfeeee84764a694ff1cd2ef9ea", //改成你的
 			},
 			SysUser: &config.SysUser{
-				Domain:   "cocktailBeeOrder",
-				Username: "bee",
+				Domain:   "9kuai8coffee.asia",
+				Username: "admin",
 				Password: "123456",
 			},
 		},
