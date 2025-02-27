@@ -3,10 +3,24 @@
 
 cd /root/bee-api && git pull
 cd bee-api && go build -o beeapi main.go
-kill -9 `ps -ef | grep beeapi | grep -v grep | awk '{print $2}'` && nohup ./beeapi &
+kill -9 `ps -ef | grep beeapi | grep -v grep | awk '{print $2}'` && nohup ./beeapi > beeapi.log 2>&1 &
+tail -f beeapi.log
+
+# 检查端口是否正常监听
+netstat -tulpn | grep beeapi
+# 停止当前服务
+pkill -f beeapi
+
 
 cd /root/bee-api/server && go build -o server main.go
-kill -9 `ps -ef | grep server | grep -v grep | awk '{print $2}'` && nohup ./server &
+kill -9 `ps -ef | grep server | grep -v grep | awk '{print $2}'` && nohup ./server > server.log 2>&1 &
+tail -f server.log
+
+netstat -tulpn | grep server
+# 停止当前服务
+pkill -f server
+
+
 
 
 
@@ -49,13 +63,4 @@ systemctl status mysql
 systemctl start MySQL
 
 
-# 检查端口是否正常监听
-netstat -tulpn | grep beeapi
-# 停止当前服务
-pkill -f beeapi
 
-# 重新启动
-nohup ./beeapi > beeapi.log 2>&1 &
-# 查看日志
-tail -f beeapi.log
-tail -f server.log
