@@ -6,10 +6,10 @@ default:
  wx:
   appid: wxa4bc935c9ba87528
   secret: 368ce6cfeeee84764a694ff1cd2ef9ea
- sysUser:
+sysUser:
   domain: "9kuai8coffee.asia"
-  username: admin
-  password: 123456
+  username: "admin"
+  password: "123456"
 
 upload:
  oss-type: "local"
@@ -24,4 +24,4 @@ db:
  port: 3306
  database: bee2
  drop: true #是否清之前的数据
- needInit: true #是否需要初始化数据
+ needInit: false #是否需要初始化数据
