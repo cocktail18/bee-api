@@ -8,7 +8,7 @@ default:
   secret: 368ce6cfeeee84764a694ff1cd2ef9ea
  sysUser:
   domain: "9kuai8coffee.asia"
-  username: bee
+  username: admin
   password: 123456
 
 upload:
