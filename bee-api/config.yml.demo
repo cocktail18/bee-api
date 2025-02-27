@@ -11,7 +11,7 @@ default:
   secret: 368ce6cfeeee84764a694ff1cd2ef9ea
  sysUser:
   domain: "9kuai8coffee.asia"
-  username: bee
+  username: admin
   password: 123456
 
 upload:
@@ -26,5 +26,5 @@ db:
  host: 127.0.0.1
  port: 3306
  database: bee
- drop: false #是否清之前的数据
+ drop: true #是否清之前的数据
  needInit: true #是否需要初始化数据

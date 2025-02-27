@@ -2,9 +2,9 @@
 更新并重启后端服务：
 
 cd /root/bee-api && git pull
-cd bee-api && go build -o beeapi main.go
+cd /root/bee-api/bee-api && go build -o beeapi main.go
 kill -9 `ps -ef | grep beeapi | grep -v grep | awk '{print $2}'` && nohup ./beeapi > beeapi.log 2>&1 &
-tail -f beeapi.log
+tail +F beeapi.log
 
 # 检查端口是否正常监听
 netstat -tulpn | grep beeapi
@@ -14,7 +14,9 @@ pkill -f beeapi
 
 cd /root/bee-api/server && go build -o server main.go
 kill -9 `ps -ef | grep server | grep -v grep | awk '{print $2}'` && nohup ./server > server.log 2>&1 &
-tail -f server.log
+less +F server.log
+tail +F server.log
+
 
 netstat -tulpn | grep server
 # 停止当前服务
