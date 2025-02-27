@@ -4,7 +4,7 @@ import (
 	"context"
 	"gitee.com/stuinfer/bee-api/common"
 	"gitee.com/stuinfer/bee-api/db"
-	"gitee.com/stuinfer/bee-api/enum"
+	// "gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
@@ -246,7 +246,8 @@ func (srv *AddressSrv) Default(c context.Context) (*proto.UserAddressDetailResp,
 	uid := kit.GetUid(c)
 	err := db.GetDB().Where("is_default = 1 and uid = ? and is_deleted = 0", uid).Take(&address).Error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
-		return nil, enum.ErrEmpty
+		return &proto.UserAddressDetailResp{}, nil
+		// return nil, enum.ErrEmpty
 	}
 	if err != nil {
 		return nil, err

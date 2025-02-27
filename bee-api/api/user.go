@@ -18,7 +18,7 @@ func (api UserApi) My(c *gin.Context) {
 func (api UserApi) Amount(c *gin.Context) {
 	//我的资产信息
 	userInfo := api.GetUserInfo(c)
-	data, err := service.GetUserSrv().Amount(c, userInfo.UserId)
+	data, err := service.GetUserSrv().Amount(c, userInfo.Id)
 	api.Res(c, data, err)
 }
 

@@ -37,3 +37,4 @@ bee-api/beeapi
 bee-api/uploads/
 server/log/
 server/nohup.out
+bee-api/*.log
