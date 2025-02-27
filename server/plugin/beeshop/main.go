@@ -416,13 +416,13 @@ func (*BeeShopPlugin) startBeeApi() {
 	}
 	listen := global.GVA_CONFIG.BeeShop.Listen
 	if listen == "" {
-		listen = "127.0.0.1:18083"
+		listen = "127.0.0.1:8087"
 	}
 	appCfg := &config.AppConfig{
 		App: &config.App{
 			Listen:  listen,
-			DfsHost: util.IF(global.GVA_CONFIG.BeeShop.Host == "", "http://127.0.0.1:18083", global.GVA_CONFIG.BeeShop.Host),
-			Host:    util.IF(global.GVA_CONFIG.BeeShop.Host == "", "http://127.0.0.1:18083", global.GVA_CONFIG.BeeShop.Host),
+			DfsHost: util.IF(global.GVA_CONFIG.BeeShop.Host == "", "http://127.0.0.1:8087", global.GVA_CONFIG.BeeShop.Host),
+			Host:    util.IF(global.GVA_CONFIG.BeeShop.Host == "", "http://127.0.0.1:8087", global.GVA_CONFIG.BeeShop.Host),
 		},
 		DB: &config.AppDBConfig{
 			Drop:     true,
