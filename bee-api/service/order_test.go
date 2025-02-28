@@ -202,7 +202,7 @@ func TestOrderSrv_PayOrder(t *testing.T) {
 			PeisongType:  "zq",
 			IsCanHx:      "true",
 			ShopIdZt:     391592,
-			ShopNameZt:   "龙楼店（文昌市龙楼镇）",
+			ShopNameZt:   "98咖啡（未来社区）",
 			ExtJsonStr:   "{}",
 			DadaShopNo:   "4217-1478883",
 			Lat:          "23.12463",

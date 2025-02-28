@@ -8,14 +8,22 @@ tail +F beeapi.log
 
 # 检查端口是否正常监听
 netstat -tulpn | grep beeapi
+netstat -lanp | grep :8081
 # 停止当前服务
 pkill -f beeapi
+
+go run main.go
+这个命令会编译并立即运行 main.go 文件。适合快速测试和调试代码，因为它不会生成一个可执行文件，而是直接运行代码。
+
+go build -o beeapi main.go
+这个命令会编译 main.go 文件，并生成一个名为 beeapi 的可执行文件。适合构建发布版本，你可以将这个生成的二进制文件部署到服务器上运行。
 
 
 cd /root/bee-api/server && go build -o server main.go
 kill -9 `ps -ef | grep server | grep -v grep | awk '{print $2}'` && nohup ./server > server.log 2>&1 &
 less +F server.log
 tail +F server.log
+ 
 
 
 netstat -tulpn | grep server

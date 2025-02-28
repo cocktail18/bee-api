@@ -13,7 +13,7 @@
       <gva-chart :data="orderTodoData" title="订单待办" />
     </gva-card>
     <gva-card custom-class="col-span-1 lg:col-span-2 h-32" @click="gotoPage('/bee_index/beeFinancialManager/beePayLog')">
-      <gva-chart :data="payData" title="支付金额" />
+      <gva-chart :data="payData" title="总支付金额" />
     </gva-card>
     <gva-card custom-class="col-span-1 lg:col-span-2 h-32" @click="gotoPage('/bee_index/beeFinancialManager/beePayLog')">
       <gva-chart :data="payNumData" title="支付人数" />
