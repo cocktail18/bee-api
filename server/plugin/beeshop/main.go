@@ -425,8 +425,8 @@ func (*BeeShopPlugin) startBeeApi() {
 			Host:    util.IF(global.GVA_CONFIG.BeeShop.Host == "", "http://127.0.0.1:18083", global.GVA_CONFIG.BeeShop.Host),
 		},
 		DB: &config.AppDBConfig{
-			Drop:     true,
-			NeedInit: true,
+			Drop:     false,
+			NeedInit: false,
 		},
 		Default: &config.DefaultConfig{
 			Wx: &config.WxConfig{
