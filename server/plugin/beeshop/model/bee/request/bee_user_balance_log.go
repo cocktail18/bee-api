@@ -1,8 +1,9 @@
 package request
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"time"
+
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 )
 
 type BeeUserBalanceLogSearch struct {
@@ -10,6 +11,7 @@ type BeeUserBalanceLogSearch struct {
 	EndDateAdd   *time.Time `json:"endDateAdd" form:"endDateAdd"`
 	Uid          *int       `json:"uid" form:"uid" `
 	request.PageInfo
-	Sort  string `json:"sort" form:"sort"`
-	Order string `json:"order" form:"order"`
+	Sort   string `json:"sort" form:"sort"`
+	Order  string `json:"order" form:"order"`
+	ShopId int    `json:"shopId" form:"shopId"`
 }

@@ -1,6 +1,7 @@
 package bee
 
 import (
+	"gitee.com/stuinfer/bee-api/model"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -75,4 +76,13 @@ func (beeShopInfoService *BeeShopInfoService) GetBeeShopInfoInfoList(info beeReq
 
 	err = db.Find(&beeShopInfos).Error
 	return beeShopInfos, total, err
+}
+
+func (service *BeeShopInfoService) GetAllBeeShopInfos() ([]model.BeeShopInfo, error) {
+	var list []model.BeeShopInfo
+	if err := GetBeeDB().Debug().Model(&model.BeeShopInfo{}).Order("id desc").Find(&list).Error; err != nil {
+		return list, err
+	} else {
+		return list, nil
+	}
 }

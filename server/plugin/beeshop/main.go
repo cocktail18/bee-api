@@ -4,6 +4,11 @@ import (
 	_ "embed"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"sort"
+	"strings"
+	"time"
+
 	"gitee.com/stuinfer/bee-api/cmd"
 	"gitee.com/stuinfer/bee-api/config"
 	"gitee.com/stuinfer/bee-api/db"
@@ -16,10 +21,6 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/plugin-tool/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
-	"io/ioutil"
-	"sort"
-	"strings"
-	"time"
 )
 
 type BeeShopPlugin struct {
@@ -430,7 +431,7 @@ func (*BeeShopPlugin) startBeeApi() {
 		},
 		Default: &config.DefaultConfig{
 			Wx: &config.WxConfig{
-				AppId:  "wxa4bc935c9ba87528", //改成你的
+				AppId:  "wxa4bc935c9ba87528",               //改成你的
 				Secret: "368ce6cfeeee84764a694ff1cd2ef9ea", //改成你的
 			},
 			SysUser: &config.SysUser{

@@ -9,60 +9,86 @@
         :rules="searchRule"
         @keyup.enter="onSubmit"
       >
-        <el-form-item label="用户id" prop="uid">
-          <el-input v-model.number="searchInfo.uid" placeholder="搜索条件" />
+        <el-form-item label="创建时间" prop="dateAdd">
+          <template #label>
+            <span>
+              创建时间
+              <el-tooltip
+                content="搜索范围是开始日期（包含）至结束日期（不包含）"
+              >
+                <el-icon><QuestionFilled /></el-icon>
+              </el-tooltip>
+            </span>
+          </template>
+          <el-date-picker
+            v-model="searchInfo.startDateAdd"
+            type="datetime"
+            placeholder="开始日期"
+            :disabled-date="
+              (time) =>
+                searchInfo.endDateAdd
+                  ? time.getTime() > searchInfo.endDateAdd.getTime()
+                  : false
+            "
+          ></el-date-picker>
+          —
+          <el-date-picker
+            v-model="searchInfo.endDateAdd"
+            type="datetime"
+            placeholder="结束日期"
+            :disabled-date="
+              (time) =>
+                searchInfo.startDateAdd
+                  ? time.getTime() < searchInfo.startDateAdd.getTime()
+                  : false
+            "
+          ></el-date-picker>
         </el-form-item>
-        <el-form-item label="门店" prop="shopId">
+
+        <el-form-item label="订单号" prop="orderNo">
+          <el-input v-model="searchInfo.orderNo" placeholder="搜索条件" />
+        </el-form-item>
+        <el-form-item label="第三方订单号" prop="thirdOrderNo">
+          <el-input v-model="searchInfo.thirdOrderNo" placeholder="搜索条件" />
+        </el-form-item>
+        <el-form-item label="支付状态" prop="status">
           <el-select
-            v-model="searchInfo.shopId"
-            filterable
-            placeholder="请选择门店"
-            style="width: 240px"
+            v-model="searchInfo.status"
+            clearable
+            placeholder="请选择"
+            @clear="
+              () => {
+                searchInfo.status = undefined;
+              }
+            "
           >
             <el-option
-              v-for="item in shops"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
+              v-for="(item, key) in beePayLogStatus"
+              :key="key"
+              :label="item.label"
+              :value="parseInt(item.value)"
             />
           </el-select>
         </el-form-item>
+        <el-form-item label="用户id" prop="uid">
+          <el-input v-model.number="searchInfo.uid" placeholder="搜索条件" />
+        </el-form-item>
+        <el-form-item label="门店" prop="shopid">
+          <el-input v-model.number="searchInfo.shopid" placeholder="搜索条件" />
+        </el-form-item>
+
         <template v-if="showAllQuery">
           <!-- 将需要控制显示状态的查询条件添加到此范围内 -->
-          <el-form-item label="添加时间" prop="createTime">
-            <template #label>
-              <span>
-                添加时间
-                <el-tooltip
-                  content="搜索范围是开始日期（包含）至结束日期（不包含）"
-                >
-                  <el-icon><QuestionFilled /></el-icon>
-                </el-tooltip>
-              </span>
-            </template>
-            <el-date-picker
-              v-model="searchInfo.startDateAdd"
-              type="datetime"
-              placeholder="开始日期"
-              :disabled-date="
-                (time) =>
-                  searchInfo.endDateAdd
-                    ? time.getTime() > searchInfo.endDateAdd.getTime()
-                    : false
-              "
-            ></el-date-picker>
+          <el-form-item label="总金额" prop="money">
+            <el-input
+              v-model.number="searchInfo.startMoney"
+              placeholder="最小值"
+            />
             —
-            <el-date-picker
-              v-model="searchInfo.endDateAdd"
-              type="datetime"
-              placeholder="结束日期"
-              :disabled-date="
-                (time) =>
-                  searchInfo.startDateAdd
-                    ? time.getTime() < searchInfo.startDateAdd.getTime()
-                    : false
-              "
-            ></el-date-picker>
+            <el-input
+              v-model.number="searchInfo.endMoney"
+              placeholder="最大值"
+            />
           </el-form-item>
         </template>
 
@@ -110,15 +136,29 @@
         :data="tableData"
         row-key="id"
         @selection-change="handleSelectionChange"
+        @sort-change="sortChange"
       >
         <el-table-column type="selection" width="55" />
 
         <el-table-column
-          align="left"
           sortable
+          align="left"
           label="id字段"
           prop="id"
-          width="80"
+          width="120"
+        />
+        <el-table-column
+          sortable
+          align="left"
+          label="总金额"
+          prop="money"
+          width="120"
+        />
+        <el-table-column
+          align="left"
+          label="next_action"
+          prop="nextAction"
+          width="120"
         />
         <el-table-column
           align="left"
@@ -128,29 +168,41 @@
         />
         <el-table-column
           align="left"
-          label="订单id"
-          prop="orderId"
+          label="订单号"
+          prop="orderNo"
           width="120"
         />
         <el-table-column
           align="left"
-          label="订单金额"
-          prop="amount"
+          label="第三方订单号"
+          prop="thirdOrderNo"
           width="120"
         />
         <el-table-column
           align="left"
-          label="货币类型"
-          prop="balanceType"
+          label="支付网关"
+          prop="payGate"
+          width="120"
+        />
+        <el-table-column align="left" label="备注" prop="remark" width="120" />
+        <el-table-column
+          sortable
+          align="left"
+          label="支付状态"
+          prop="status"
           width="120"
         >
-          <template #default="scope">{{
-            formatEnum(scope.row.balanceType, balanceTypeMap)
-          }}</template>
+          <template #default="scope">
+            {{ formatEnum(scope.row.status, beePayLogStatus) }}
+          </template>
         </el-table-column>
-        <el-table-column align="left" label="数量" prop="num" width="120" />
-        <el-table-column align="left" label="用户id" prop="uid" width="120" />
-        <el-table-column align="left" label="备注" prop="mark" width="120" />
+        <el-table-column
+          sortable
+          align="left"
+          label="用户id"
+          prop="uid"
+          width="120"
+        />
         <el-table-column
           align="left"
           label="已删除"
@@ -203,7 +255,7 @@
               link
               icon="edit"
               class="table-button"
-              @click="updateBeeUserBalanceLogFunc(scope.row)"
+              @click="updateBeePayLogFunc(scope.row)"
               >变更</el-button
             >
             <el-button
@@ -271,48 +323,69 @@
         <!--            <el-form-item label="删除时间:"  prop="dateDelete" >-->
         <!--              <el-date-picker v-model="formData.dateDelete" type="date" style="width:100%" placeholder="选择日期" :clearable="true"  />-->
         <!--            </el-form-item>-->
-        <el-form-item label="订单id:" prop="orderId">
-          <el-input
-            v-model="formData.orderId"
+        <el-form-item label="总金额:" prop="money">
+          <el-input-number
+            v-model="formData.money"
+            style="width: 100%"
+            :precision="2"
             :clearable="true"
-            placeholder="请输入订单id"
           />
         </el-form-item>
-        <el-form-item label="货币类型:" prop="balanceType">
+        <el-form-item label="next_action:" prop="nextAction">
+          <el-input
+            v-model="formData.nextAction"
+            :clearable="true"
+            placeholder="请输入next_action"
+          />
+        </el-form-item>
+        <el-form-item label="订单号:" prop="orderNo">
+          <el-input
+            v-model="formData.orderNo"
+            :clearable="true"
+            placeholder="请输入订单号"
+          />
+        </el-form-item>
+        <el-form-item label="第三方订单号:" prop="thirdOrderNo">
+          <el-input
+            v-model="formData.thirdOrderNo"
+            :clearable="true"
+            placeholder="请输入第三方订单号"
+          />
+        </el-form-item>
+        <el-form-item label="支付网关:" prop="payGate">
+          <el-input
+            v-model="formData.payGate"
+            :clearable="true"
+            placeholder="请输入支付网关"
+          />
+        </el-form-item>
+        <el-form-item label="备注:" prop="remark">
+          <el-input
+            v-model="formData.remark"
+            :clearable="true"
+            placeholder="请输入remark"
+          />
+        </el-form-item>
+        <el-form-item label="支付状态:" prop="status">
           <el-select
-            v-model="formData.balanceType"
-            clearable
-            placeholder="请选择"
-            :clearable="false"
+            v-model="formData.status"
+            placeholder="请选择支付状态"
+            style="width: 100%"
+            :clearable="true"
           >
             <el-option
-              v-for="(item, key) in balanceTypeMap"
+              v-for="(item, key) in beePayLogStatus"
               :key="key"
               :label="item.label"
               :value="parseInt(item.value)"
             />
           </el-select>
         </el-form-item>
-        <el-form-item label="数量:" prop="num">
-          <el-input-number
-            v-model="formData.num"
-            style="width: 100%"
-            :precision="2"
-            :clearable="true"
-          />
-        </el-form-item>
         <el-form-item label="用户id:" prop="uid">
           <el-input
             v-model.number="formData.uid"
             :clearable="true"
             placeholder="请输入用户id"
-          />
-        </el-form-item>
-        <el-form-item label="备注:" prop="mark">
-          <el-input
-            v-model="formData.mark"
-            :clearable="true"
-            placeholder="请输入备注"
           />
         </el-form-item>
       </el-form>
@@ -322,16 +395,14 @@
 
 <script setup>
 import {
-  createBeeUserBalanceLog,
-  deleteBeeUserBalanceLog,
-  deleteBeeUserBalanceLogByIds,
-  updateBeeUserBalanceLog,
-  findBeeUserBalanceLog,
-  getBeeUserBalanceLogList,
-} from "@/plugin/beeshop/api/beeUserBalanceLog";
-import {
-  getAllBeeShopInfos
-} from '@/plugin/beeshop/api/beeShopInfo'
+  createBeePayLog,
+  deleteBeePayLog,
+  deleteBeePayLogByIds,
+  updateBeePayLog,
+  findBeePayLog,
+  getBeePayLogList,
+} from "@/plugin/beeshop/api/beePayLog";
+
 // 全量引入格式化工具 请按需保留
 import {
   getDictFunc,
@@ -347,33 +418,28 @@ import { ElMessage, ElMessageBox } from "element-plus";
 import { ref, reactive } from "vue";
 
 defineOptions({
-  name: "BeeUserBalanceLog",
+  name: "BeePayLog",
 });
 
 // 控制更多查询条件显示/隐藏状态
 const showAllQuery = ref(false);
-const shops = ref([])
-const balanceTypeMap = ref([]);
-const init = async () => {
-  balanceTypeMap.value = await getDictFunc("BalanceType");
-  console.log(balanceTypeMap);
-  shops.value  = (await getAllBeeShopInfos()).data.list
-  
-};
-init();
 
 // 自动化生成的字典（可能为空）以及字段
+const beePayLogStatus = ref([]);
 const formData = ref({
   id: undefined,
   isDeleted: false,
   dateAdd: new Date(),
   dateUpdate: new Date(),
   dateDelete: undefined,
-  orderId: "",
-  balanceType: undefined,
-  num: 0,
+  money: 0,
+  nextAction: "",
+  orderNo: "",
+  thirdOrderNo: "",
+  payGate: "",
+  remark: "",
+  status: "",
   uid: undefined,
-  mark: "",
 });
 
 // 验证规则
@@ -381,6 +447,32 @@ const rule = reactive({});
 
 const searchRule = reactive({
   createdAt: [
+    {
+      validator: (rule, value, callback) => {
+        if (searchInfo.value.startCreatedAt && !searchInfo.value.endCreatedAt) {
+          callback(new Error("请填写结束日期"));
+        } else if (
+          !searchInfo.value.startCreatedAt &&
+          searchInfo.value.endCreatedAt
+        ) {
+          callback(new Error("请填写开始日期"));
+        } else if (
+          searchInfo.value.startCreatedAt &&
+          searchInfo.value.endCreatedAt &&
+          (searchInfo.value.startCreatedAt.getTime() ===
+            searchInfo.value.endCreatedAt.getTime() ||
+            searchInfo.value.startCreatedAt.getTime() >
+              searchInfo.value.endCreatedAt.getTime())
+        ) {
+          callback(new Error("开始日期应当早于结束日期"));
+        } else {
+          callback();
+        }
+      },
+      trigger: "change",
+    },
+  ],
+  dateAdd: [
     {
       validator: (rule, value, callback) => {
         if (searchInfo.value.startDateAdd && !searchInfo.value.endDateAdd) {
@@ -406,6 +498,35 @@ const searchRule = reactive({
       trigger: "change",
     },
   ],
+  dateUpdate: [
+    {
+      validator: (rule, value, callback) => {
+        if (
+          searchInfo.value.startDateUpdate &&
+          !searchInfo.value.endDateUpdate
+        ) {
+          callback(new Error("请填写结束日期"));
+        } else if (
+          !searchInfo.value.startDateUpdate &&
+          searchInfo.value.endDateUpdate
+        ) {
+          callback(new Error("请填写开始日期"));
+        } else if (
+          searchInfo.value.startDateUpdate &&
+          searchInfo.value.endDateUpdate &&
+          (searchInfo.value.startDateUpdate.getTime() ===
+            searchInfo.value.endDateUpdate.getTime() ||
+            searchInfo.value.startDateUpdate.getTime() >
+              searchInfo.value.endDateUpdate.getTime())
+        ) {
+          callback(new Error("开始日期应当早于结束日期"));
+        } else {
+          callback();
+        }
+      },
+      trigger: "change",
+    },
+  ],
 });
 
 const elFormRef = ref();
@@ -419,8 +540,27 @@ const tableData = ref([]);
 const searchInfo = ref({
   sort: "id",
   order: "descending",
-  shopId: ''
 });
+// 排序
+const sortChange = ({ prop, order }) => {
+  const sortMap = {
+    id: "id",
+    dateAdd: "date_add",
+    dateUpdate: "date_update",
+    money: "money",
+    status: "status",
+    uid: "uid",
+  };
+
+  let sort = sortMap[prop];
+  if (!sort) {
+    sort = prop.replace(/[A-Z]/g, (match) => `_${match.toLowerCase()}`);
+  }
+
+  searchInfo.value.sort = sort;
+  searchInfo.value.order = order;
+  getTableData();
+};
 
 // 重置
 const onReset = () => {
@@ -458,7 +598,7 @@ const handleCurrentChange = (val) => {
 
 // 查询
 const getTableData = async () => {
-  const table = await getBeeUserBalanceLogList({
+  const table = await getBeePayLogList({
     page: page.value,
     pageSize: pageSize.value,
     ...searchInfo.value,
@@ -476,7 +616,9 @@ getTableData();
 // ============== 表格控制部分结束 ===============
 
 // 获取需要的字典 可能为空 按需保留
-const setOptions = async () => {};
+const setOptions = async () => {
+  beePayLogStatus.value = await getDictFunc("BeePayLogStatus");
+};
 
 // 获取需要的字典 可能为空 按需保留
 setOptions();
@@ -495,7 +637,7 @@ const deleteRow = (row) => {
     cancelButtonText: "取消",
     type: "warning",
   }).then(() => {
-    deleteBeeUserBalanceLogFunc(row);
+    deleteBeePayLogFunc(row);
   });
 };
 
@@ -518,7 +660,7 @@ const onDelete = async () => {
       multipleSelection.value.map((item) => {
         ids.push(item.id);
       });
-    const res = await deleteBeeUserBalanceLogByIds({ ids });
+    const res = await deleteBeePayLogByIds({ ids });
     if (res.code === 0) {
       ElMessage({
         type: "success",
@@ -536,8 +678,8 @@ const onDelete = async () => {
 const type = ref("");
 
 // 更新行
-const updateBeeUserBalanceLogFunc = async (row) => {
-  const res = await findBeeUserBalanceLog({ id: row.id });
+const updateBeePayLogFunc = async (row) => {
+  const res = await findBeePayLog({ id: row.id });
   type.value = "update";
   if (res.code === 0) {
     formData.value = res.data;
@@ -546,8 +688,8 @@ const updateBeeUserBalanceLogFunc = async (row) => {
 };
 
 // 删除行
-const deleteBeeUserBalanceLogFunc = async (row) => {
-  const res = await deleteBeeUserBalanceLog({ id: row.id });
+const deleteBeePayLogFunc = async (row) => {
+  const res = await deleteBeePayLog({ id: row.id });
   if (res.code === 0) {
     ElMessage({
       type: "success",
@@ -578,11 +720,14 @@ const closeDialog = () => {
     dateAdd: new Date(),
     dateUpdate: new Date(),
     dateDelete: undefined,
-    orderId: "",
-    balanceType: undefined,
-    num: 0,
+    money: 0,
+    nextAction: "",
+    orderNo: "",
+    thirdOrderNo: "",
+    payGate: "",
+    remark: "",
+    status: "",
     uid: undefined,
-    mark: "",
   };
 };
 // 弹窗确定
@@ -592,13 +737,13 @@ const enterDialog = async () => {
     let res;
     switch (type.value) {
       case "create":
-        res = await createBeeUserBalanceLog(formData.value);
+        res = await createBeePayLog(formData.value);
         break;
       case "update":
-        res = await updateBeeUserBalanceLog(formData.value);
+        res = await updateBeePayLog(formData.value);
         break;
       default:
-        res = await createBeeUserBalanceLog(formData.value);
+        res = await createBeePayLog(formData.value);
         break;
     }
     if (res.code === 0) {
