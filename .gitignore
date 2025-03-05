@@ -22,7 +22,7 @@ yarn-error.log*
 *.sln
 *.sw?
 
-
+/server/config.yaml
 /server/gva
 /server/__debug_bin*
 
