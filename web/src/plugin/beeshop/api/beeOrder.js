@@ -175,3 +175,19 @@ export const getBeeOrderList = (params) => {
     params
   })
 }
+
+// @Tags BeeOrder
+// @Summary 分页获取用户订单列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query request.PageInfo true "分页获取用户订单列表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router /beeOrder/orderList [get]
+export const orderList = (params) => {
+  return service({
+    url: '/bee-shop/beeOrder/orderList',
+    method: 'get',
+    params
+  })
+}

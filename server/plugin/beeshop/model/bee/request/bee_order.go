@@ -1,12 +1,14 @@
 package request
 
 import (
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 	"time"
+
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
 )
 
 type BeeOrderSearch struct {
 	ID                   *int       `json:"id" form:"id" `
+	ShopId               *int       `json:"shopId" form:"shopId"`
 	IsDeleted            *bool      `json:"isDeleted" form:"isDeleted" `
 	OrderNumber          *string    `json:"orderNumber" form:"orderNumber" `
 	HxNumber             *string    `json:"hxNumber" form:"hxNumber" `

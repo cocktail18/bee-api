@@ -196,7 +196,7 @@ func (beeOrderApi *BeeOrderApi) GetBeeOrderList(c *gin.Context) {
 		return
 	}
 	shopUserId := int(utils.GetShopUserID(c))
-	if list, total, err := beeOrderService.GetBeeOrderInfoList(pageInfo, shopUserId); err != nil {
+	if list, total, _, err := beeOrderService.GetBeeOrderInfoList(pageInfo, shopUserId); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -284,5 +284,31 @@ func (beeOrderApi *BeeOrderApi) ShippedBeeOrder(c *gin.Context) {
 		response.FailWithMessage("设置失败", c)
 	} else {
 		response.OkWithMessage("设置成功", c)
+	}
+}
+
+// ShippedBeeOrder 门店订单列表
+// @Tags BeeOrder
+// @Summary 门店订单列表查询
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Success 200 {object} response.Response{msg=string} "设置成功"
+// @Router /beeOrder/orderList [get]
+func (api *BeeOrderApi) OrderList(c *gin.Context) {
+	var param beeReq.BeeOrderSearch
+
+	if err := c.ShouldBindQuery(&param); err != nil {
+		response.FailWithMessage("请求参数异常", c)
+	} else {
+		if list, total, sum, err := beeOrderService.GetBeeOrderInfoList(param, 100); err != nil {
+			response.FailWithMessage("查询异常", c)
+		} else {
+			response.OkWithData(response.PageResult{
+				List:  list,
+				Total: total,
+				Sum:   sum,
+			}, c)
+		}
 	}
 }
