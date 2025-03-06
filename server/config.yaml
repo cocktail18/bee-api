@@ -12,7 +12,7 @@ autocode:
     server-api: /api/v1/%s
     server-plug: /plugin/%s
     server-initialize: /initialize
-    root: E:\project\bee-api
+    root: /root/bee-api
     web-table: /view
     web: /web/src
     server-service: /service/%s
