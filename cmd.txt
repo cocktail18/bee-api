@@ -3,6 +3,7 @@
 
 cd /root/bee-api && git pull
 cd /root/bee-api/bee-api && go build -o beeapi main.go
+这个命令会编译 main.go 文件，并生成一个名为 beeapi 的可执行文件。适合构建发布版本，你可以将这个生成的二进制文件部署到服务器上运行。
 kill -9 `ps -ef | grep beeapi | grep -v grep | awk '{print $2}'` && nohup ./beeapi > beeapi.log 2>&1 &
 tail +F beeapi.log
 
@@ -15,23 +16,17 @@ pkill -f beeapi
 go run main.go
 这个命令会编译并立即运行 main.go 文件。适合快速测试和调试代码，因为它不会生成一个可执行文件，而是直接运行代码。
 
-go build -o beeapi main.go
-这个命令会编译 main.go 文件，并生成一个名为 beeapi 的可执行文件。适合构建发布版本，你可以将这个生成的二进制文件部署到服务器上运行。
 
 
 cd /root/bee-api/server && go build -o server main.go
 kill -9 `ps -ef | grep server | grep -v grep | awk '{print $2}'` && nohup ./server > server.log 2>&1 &
 less +F server.log
 tail +F server.log
+
  
-
-
-netstat -tulpn | grep server
 # 停止当前服务
+netstat -tulpn | grep server
 pkill -f server
-
-
-
 
 
 
@@ -41,6 +36,21 @@ git add .
 git commit -m "Add new files"
 git push origin main
 
+
+2. 拉取最新的远程分支
+在切换之前，先确保远程分支 shopid 存在：
+
+git fetch --all
+git branch -r  # 查看远程分支是否有 shopid
+
+3. 切换到 shopid 分支
+如果本地没有 shopid 分支，先创建并切换：
+git checkout -b shopid origin/shopid
+如果本地已经有 shopid 分支，直接切换：
+git checkout shopid
+
+
+git pull origin shopid
 
 
 下载更新并重新构建前端：
