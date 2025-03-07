@@ -171,3 +171,23 @@ func (beeShopInfoApi *BeeShopInfoApi) GetBeeShopInfoPublic(c *gin.Context) {
 		"info": "不需要鉴权的商店信息接口信息",
 	}, "获取成功", c)
 }
+
+// getAllBeeShopInfos 获取商店信息列表
+// @Tags BeeShopInfo
+// @Summary 获取商店信息列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Success 200 {object} response.Response{data=response.Response,msg=string} "获取成功"
+// @Router /beeShopInfo/getAllBeeShopInfos [get]
+func (api *BeeShopInfoApi) GetAllBeeShopInfos(c *gin.Context) {
+
+	if list, err := beeShopInfoService.GetAllBeeShopInfos(); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.Response{
+			Data: list,
+		}, "获取成功", c)
+	}
+}

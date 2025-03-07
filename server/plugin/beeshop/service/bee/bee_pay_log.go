@@ -2,6 +2,8 @@ package bee
 
 import (
 	"fmt"
+
+	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/dto"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -57,34 +59,34 @@ func (beePayLogService *BeePayLogService) GetBeePayLog(id string, shopUserId int
 
 // GetBeePayLogInfoList 分页获取支付流水记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (beePayLogService *BeePayLogService) GetBeePayLogInfoList(info beeReq.BeePayLogSearch, shopUserId int) (list []bee.BeePayLog, total int64, err error) {
+func (beePayLogService *BeePayLogService) GetBeePayLogInfoList(info beeReq.BeePayLogSearch, shopUserId int) (list []dto.BeePayLogInfoDto, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := GetBeeDB().Model(&bee.BeePayLog{})
-	db = db.Where("user_id = ?", shopUserId)
-	var beePayLogs []bee.BeePayLog
+	db := GetBeeDB().Model(&dto.BeePayLogInfoDto{}).Joins(" left join bee_order a on a.order_number = bee_pay_log.order_no left join bee_shop_info b on b.id = a.shop_id")
+	db = db.Where("bee_pay_log.user_id = ?", shopUserId)
+	var beePayLogs []dto.BeePayLogInfoDto
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.Distinct != "" {
 		db.Select(fmt.Sprintf("distinct(%s)", info.Distinct))
 	}
 	if info.StartDateAdd != nil && info.EndDateAdd != nil {
-		db = db.Where("date_add BETWEEN ? AND ? ", info.StartDateAdd, info.EndDateAdd)
+		db = db.Where("bee_pay_log.date_add BETWEEN ? AND ? ", info.StartDateAdd, info.EndDateAdd)
 	}
 	if info.StartDateUpdate != nil && info.EndDateUpdate != nil {
-		db = db.Where("date_update BETWEEN ? AND ? ", info.StartDateUpdate, info.EndDateUpdate)
+		db = db.Where("bee_pay_log.date_update BETWEEN ? AND ? ", info.StartDateUpdate, info.EndDateUpdate)
 	}
 	if info.StartMoney != nil && info.EndMoney != nil {
-		db = db.Where("money BETWEEN ? AND ? ", info.StartMoney, info.EndMoney)
+		db = db.Where("bee_pay_log.money BETWEEN ? AND ? ", info.StartMoney, info.EndMoney)
 	}
 	if info.OrderNo != "" {
-		db = db.Where("order_no = ?", info.OrderNo)
+		db = db.Where("bee_pay_log.order_no = ?", info.OrderNo)
 	}
 	if info.Status != "" {
-		db = db.Where("status = ?", info.Status)
+		db = db.Where("bee_pay_log.status = ?", info.Status)
 	}
 	if info.Uid != nil {
-		db = db.Where("uid = ?", info.Uid)
+		db = db.Where("bee_pay_log.uid = ?", info.Uid)
 	}
 	err = db.Count(&total).Error
 	if err != nil {
@@ -107,7 +109,7 @@ func (beePayLogService *BeePayLogService) GetBeePayLogInfoList(info beeReq.BeePa
 	}
 
 	if limit != 0 {
-		db = db.Limit(limit).Offset(offset)
+		db = db.Limit(limit).Offset(offset).Select("bee_pay_log.*, b.name as shopName").Debug()
 	}
 
 	err = db.Find(&beePayLogs).Error

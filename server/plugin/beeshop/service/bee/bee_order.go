@@ -2,12 +2,15 @@ package bee
 
 import (
 	"context"
+
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/service"
+	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
 	"github.com/spf13/cast"
+	"gorm.io/gorm"
 )
 
 type BeeOrderService struct{}
@@ -102,11 +105,11 @@ func (beeOrderService *BeeOrderService) GetBeeOrder(id string, shopUserId int) (
 
 // GetBeeOrderInfoList 分页获取用户订单记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (beeOrderService *BeeOrderService) GetBeeOrderInfoList(info beeReq.BeeOrderSearch, shopUserId int) (list []bee.BeeOrder, total int64, err error) {
+func (beeOrderService *BeeOrderService) GetBeeOrderInfoList(info beeReq.BeeOrderSearch, shopUserId int) (list []bee.BeeOrder, total int64, sum float64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
-	db := GetBeeDB().Model(&bee.BeeOrder{})
+	db := GetBeeDB().Model(&bee.BeeOrder{}).Debug()
 	db = db.Where("user_id = ?", shopUserId)
 	var beeOrders []bee.BeeOrder
 	// 如果有条件搜索 下方会自动创建搜索语句
@@ -140,6 +143,9 @@ func (beeOrderService *BeeOrderService) GetBeeOrderInfoList(info beeReq.BeeOrder
 	if info.StartDatePay != nil && info.EndDatePay != nil {
 		db = db.Where("date_pay BETWEEN ? AND ? ", info.StartDatePay, info.EndDatePay)
 	}
+	if info.ShopId != nil && *info.ShopId > 0 {
+		db = db.Where("shop_id = ?", info.ShopId)
+	}
 	if info.HasRefund != nil {
 		db = db.Where("has_refund = ?", info.HasRefund)
 	}
@@ -171,6 +177,12 @@ func (beeOrderService *BeeOrderService) GetBeeOrderInfoList(info beeReq.BeeOrder
 	if err != nil {
 		return
 	}
+	var sums []float64
+	if err = db.Session(&gorm.Session{}).Select("ifnull(sum(amount),0) amount").Pluck("amount", &sums).Error; err != nil {
+		global.GVA_LOG.Error("订单列表查询,统计订单总金额失败")
+		return
+	}
+	db = db.Session(&gorm.Session{})
 	var OrderStr string
 	orderMap := make(map[string]bool)
 	orderMap["id"] = true
@@ -188,7 +200,8 @@ func (beeOrderService *BeeOrderService) GetBeeOrderInfoList(info beeReq.BeeOrder
 	}
 
 	err = db.Find(&beeOrders).Error
-	return beeOrders, total, err
+	sum = sums[0]
+	return beeOrders, total, sum, err
 }
 
 func (beeOrderService *BeeOrderService) ShippedBeeOrder(id int64, shopUserId int) error {

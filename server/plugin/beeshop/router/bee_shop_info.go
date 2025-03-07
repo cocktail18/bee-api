@@ -19,7 +19,8 @@ func (s *BeeShopInfoRouter) InitBeeShopInfoRouter(Router *gin.RouterGroup, Publi
 		beeShopInfoRouter.POST("createBeeShopInfo", beeShopInfoApi.CreateBeeShopInfo)             // 新建商店信息
 		beeShopInfoRouter.DELETE("deleteBeeShopInfo", beeShopInfoApi.DeleteBeeShopInfo)           // 删除商店信息
 		beeShopInfoRouter.DELETE("deleteBeeShopInfoByIds", beeShopInfoApi.DeleteBeeShopInfoByIds) // 批量删除商店信息
-		beeShopInfoRouter.PUT("updateBeeShopInfo", beeShopInfoApi.UpdateBeeShopInfo)              // 更新商店信息
+		beeShopInfoRouter.PUT("updateBeeShopInfo", beeShopInfoApi.UpdateBeeShopInfo)
+		beeShopInfoRouter.GET("/GetAllBeeShopInfos", beeShopInfoApi.GetAllBeeShopInfos) // 获取所有门店列表
 	}
 	{
 		beeShopInfoRouterWithoutRecord.GET("findBeeShopInfo", beeShopInfoApi.FindBeeShopInfo)       // 根据ID获取商店信息

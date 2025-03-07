@@ -51,6 +51,11 @@
              <el-input v-model.number="searchInfo.uid" placeholder="搜索条件" />
 
         </el-form-item>
+        <el-form-item label="门店" prop="shopid">
+            
+          <el-input v-model.number="searchInfo.shopid" placeholder="搜索条件" />
+
+     </el-form-item>
 
         <template v-if="showAllQuery">
           <!-- 将需要控制显示状态的查询条件添加到此范围内 -->
@@ -90,6 +95,7 @@
         <el-table-column sortable align="left" label="id字段" prop="id" width="120" />
         <el-table-column sortable align="left" label="总金额" prop="money" width="120" />
         <el-table-column align="left" label="next_action" prop="nextAction" width="120" />
+        <el-table-column align="left" label="门店" prop="shopName" width="120" />
         <el-table-column align="left" label="订单号" prop="orderNo" width="120" />
         <el-table-column align="left" label="第三方订单号" prop="thirdOrderNo" width="120" />
         <el-table-column align="left" label="支付网关" prop="payGate" width="120" />
@@ -139,7 +145,7 @@
                   <el-button type="primary" @click="enterDialog">确 定</el-button>
                   <el-button @click="closeDialog">取 消</el-button>
                 </div>
-              </div>
+              </div>                                                                                                                                                        
             </template>
 
           <el-form :model="formData" label-position="top" ref="elFormRef" :rules="rule" label-width="80px">

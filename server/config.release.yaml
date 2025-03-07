@@ -12,7 +12,7 @@ autocode:
     server-api: /api/v1/%s
     server-plug: /plugin/%s
     server-initialize: /initialize
-    root: /root/bee-api
+    root: /root/bee-server/
     web-table: /view
     web: /web/src
     server-service: /service/%s
@@ -60,9 +60,9 @@ db-list:
       port: "3306"
       config: charset=utf8mb4&parseTime=True&loc=Local
       db-name: bee
-      username: bee
+      username: root
       password: PASS
-      path: ""
+      path: 127.0.0.1
       engine: ""
       log-mode: error
       max-idle-conns: 10
@@ -89,7 +89,7 @@ hua-wei-obs:
     access-key: you-access-key
     secret-key: you-secret-key
 jwt:
-    signing-key: ac62eabe-92a5-427e-9b73-145b73cba8f1
+    signing-key: 68d05468-6e72-49b9-b326-1e3ae99829d6
     expires-time: 7d
     buffer-time: 1d
     issuer: qmPlus
@@ -126,12 +126,12 @@ mssql:
     singular: false
     log-zap: false
 mysql:
-    prefix: ""
+    prefix: "bee"
     port: "3306"
     config: charset=utf8mb4&parseTime=True&loc=Local
     db-name: bee
-    username: bee
-    password: PASS
+    username: root
+    password: "PASS"
     path: 127.0.0.1
     engine: ""
     log-mode: error
