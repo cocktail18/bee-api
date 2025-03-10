@@ -64,7 +64,7 @@ func (beeUserBalanceLogService *BeeUserBalanceLogService) GetBeeUserBalanceLogIn
 	db := GetBeeDB().Debug().Table(bee.BeeUserBalanceLog{}.TableName() + " as log ").
 		Joins("inner join bee_order a on concat('pay',a.order_number) = log.order_id").
 		Joins(" inner join bee_shop_info b on a.shop_id = b.id")
-	db = db.Where("log.user_id = ?", shopUserId)
+	db = db.Where("log.user_id = ?", shopUserId).Where("a.is_pay = ?", 1)
 	var beeUserBalanceLogs []dto.BeeUserBalanceLogDto
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.Uid != nil {

@@ -58,16 +58,12 @@ git pull origin shopid
 cd /root/bee-api/web
 git pull
 
-npm install
-npm run serve  # 开发环境
-# 特点：
-- 启动开发服务器，实时编译和热重载
-- 代码不会被压缩混淆
-- 包含 source map，方便调试
-- 直接运行在内存中，不生成实际文件
-- 通常运行在 localhost 上
 
-# 或
+# 或者使用阿里云镜像
+npm config set registry https://registry.npm.taobao.org
+
+npm install
+
 npm run build  # 生产环境
 # 特点：
 - 生成静态文件，通常在 dist 目录下
@@ -76,6 +72,13 @@ npm run build  # 生产环境
 - 需要 web 服务器（如 nginx）来托管
 - 针对性能做了优化
 
+
+
+# 复制构建文件到 nginx 目录
+# 注意：可能需要 sudo 权限
+sudo cp -r dist/* /var/www/bee/
+
+echo "部署完成！"
 
 MySQL 数据库服务:
 systemctl status mysql

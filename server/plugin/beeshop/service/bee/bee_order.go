@@ -110,7 +110,7 @@ func (beeOrderService *BeeOrderService) GetBeeOrderInfoList(info beeReq.BeeOrder
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
 	db := GetBeeDB().Model(&bee.BeeOrder{}).Debug()
-	db = db.Where("user_id = ?", shopUserId)
+	db = db.Where("user_id = ?", shopUserId).Where("is_pay = ?", 1)
 	var beeOrders []bee.BeeOrder
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.ID != nil {
