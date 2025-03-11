@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"gitee.com/stuinfer/bee-api/config"
 	"gitee.com/stuinfer/bee-api/db"
@@ -280,9 +281,13 @@ func (fee *PaySrv) GetWechatPayClient(ctx context.Context, cfg *WxPayConfig) (*w
 
 func (fee *PaySrv) GetWxAppPayInfo(c context.Context, money decimal.Decimal, remark string, nextAction string, name string) (*proto.GetWxPayInfoRes, error) {
 	// 获取配置
+	type payAction struct {
+		Type int32 `json:"type"`
+		ID   int64 `json:"id"`
+	}
 	var wxPayConfig model.BeeWxPayConfig
 	var payType = enum.PayNextActionTypeRecharge
-	var nextActionJson *simplejson.Json
+	var nextActionJson payAction
 	var payOrderId string
 	var err error
 	if err = db.GetDB().Where("user_id = ? and is_deleted = 0", kit.GetUserId(c)).Take(&wxPayConfig).Error; err != nil {
@@ -290,18 +295,15 @@ func (fee *PaySrv) GetWxAppPayInfo(c context.Context, money decimal.Decimal, rem
 	}
 
 	if len(nextAction) > 0 {
-		nextActionJson, err = simplejson.NewJson([]byte(nextAction))
-		if err != nil {
-			return nil, errors.New("nextAction err")
-		}
-		payType = enum.PayNextActionType(nextActionJson.Get("type").MustInt())
+		_ = json.Unmarshal([]byte(nextAction), &nextActionJson)
+		payType = enum.PayNextActionType(nextActionJson.Type)
 	} else {
 		payType = enum.PayNextActionTypeRecharge
 	}
 	switch payType {
 	case enum.PayNextActionTypePayOrder:
-		orderId := nextActionJson.Get("id").MustString()
-		orderInfo, err := GetOrderSrv().GetOrderByOrderId(c, cast.ToInt64(orderId))
+		orderId := nextActionJson.ID
+		orderInfo, err := GetOrderSrv().GetOrderByOrderId(c, orderId)
 		if err != nil {
 			return nil, err
 		}
@@ -419,3 +421,4 @@ type WxPayConfig struct {
 	PrivateCertPath string `json:"privateCertPath"` //商户API证书下载后，私钥 apiclient_key.pem 读取后的字符串内容
 	Debug           bool   `json:"debug"`
 }
+
