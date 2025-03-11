@@ -431,8 +431,10 @@ func (*BeeShopPlugin) startBeeApi() {
 		},
 		Default: &config.DefaultConfig{
 			Wx: &config.WxConfig{
-				AppId:  "wxa4bc935c9ba87528",               //改成你的
-				Secret: "368ce6cfeeee84764a694ff1cd2ef9ea", //改成你的
+				AppId:  "wxf9be667c59929008",               
+				Secret: "ff7ab953f4a349d401cae151ca51b42e", 
+				//AppId:  "wxa4bc935c9ba87528",               
+				//Secret: "368ce6cfeeee84764a694ff1cd2ef9ea", 
 			},
 			SysUser: &config.SysUser{
 				Domain:   "9kuai8coffee.asia",

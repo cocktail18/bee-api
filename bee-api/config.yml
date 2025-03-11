@@ -4,8 +4,12 @@ app:
 
 default:
  wx:
-  appid: wxa4bc935c9ba87528
-  secret: 368ce6cfeeee84764a694ff1cd2ef9ea
+  #appid: wxa4bc935c9ba87528
+  #secret: 368ce6cfeeee84764a694ff1cd2ef9ea
+  appid: wxf9be667c59929008 
+  secret: ff7ab953f4a349d401cae151ca51b42e
+
+
 sysUser:
   domain: "9kuai8coffee.asia"
   username: "admin"
