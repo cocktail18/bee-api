@@ -31,6 +31,7 @@ type BeeShopGoods struct {
 	Miaosha              *bool      `json:"miaosha" form:"miaosha" gorm:"column:miaosha;comment:秒杀;"`                                                        //秒杀
 	MinBuyNumber         *int       `json:"minBuyNumber" form:"minBuyNumber" gorm:"column:min_buy_number;comment:最低购买数量;size:19;"`                           //最低购买数量
 	MinPrice             *float64   `json:"minPrice" form:"minPrice" gorm:"column:min_price;comment:最低价格;size:10;"`                                          //最低价格
+	VipPrice             *float64   `json:"vipPrice" form:"vipPrice" gorm:"column:vip_price;comment:会员价格;size:10;"`                                          //最低价格
 	MinScore             *float64   `json:"minScore" form:"minScore" gorm:"column:min_score;comment:需要积分数量;size:10;"`                                        //需要积分数量
 	Name                 string     `json:"name" form:"name" gorm:"column:name;comment:商品名字;size:100;"`                                                      //商品名字
 	NumberFav            *int       `json:"numberFav" form:"numberFav" gorm:"column:number_fav;comment:喜欢数量;size:19;"`                                       //喜欢数量

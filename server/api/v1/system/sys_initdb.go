@@ -52,7 +52,7 @@ func (i *DBApi) CheckDB(c *gin.Context) {
 
 	if global.GVA_DB != nil {
 		message = "数据库无需初始化"
-		needInit = false
+		needInit = true
 	}
 	global.GVA_LOG.Info(message)
 	response.OkWithDetailed(gin.H{"needInit": needInit}, message, c)

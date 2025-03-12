@@ -42,6 +42,7 @@ type GoodsPriceResp struct {
 	Id                 int64           `json:"id"`
 	OriginalPrice      decimal.Decimal `json:"originalPrice"`
 	PingtuanPrice      decimal.Decimal `json:"pingtuanPrice"`
+	VipPrice           decimal.Decimal `json:"vipPrice"`
 	Price              decimal.Decimal `json:"price"`
 	PropertyChildIds   string          `json:"propertyChildIds"`
 	PropertyChildNames string          `json:"propertyChildNames"`

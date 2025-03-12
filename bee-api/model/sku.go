@@ -14,6 +14,7 @@ type BeeShopGoodsSku struct {
 	OriginalPrice    decimal.Decimal `gorm:"column:original_price;type:decimal(10,2);comment:市场价" json:"originalPrice"`
 	PingtuanPrice    decimal.Decimal `gorm:"column:pingtuan_price;type:decimal(10,2);comment:拼团价" json:"pingtuanPrice"`
 	Price            decimal.Decimal `gorm:"column:price;type:decimal(10,2);comment:价格" json:"price"`
+	VipPrice         decimal.Decimal `gorm:"column:vip_price;type:decimal(10,2);comment:会员价格" json:"vipPrice"`
 	PropertyChildIds string          `gorm:"column:property_child_ids;type:varchar(1000);comment:属性关系" json:"propertyChildIds"`
 	Score            decimal.Decimal `gorm:"column:score;type:decimal(10,2);comment:需要积分" json:"score"`
 	Stores           int64           `gorm:"column:stores;type:bigint(20);comment:库存" json:"stores"`

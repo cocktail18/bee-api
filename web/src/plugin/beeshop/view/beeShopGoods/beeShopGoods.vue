@@ -154,6 +154,7 @@
         <el-table-column align="left" label="评分数量" prop="numberReputation" width="120" />
         <el-table-column align="left" label="销售数量" prop="numberSells" width="120" />
         <el-table-column align="left" label="原价" prop="originalPrice" width="120" />
+        <el-table-column align="left" label="会员价" prop="vipPrice" width="120" />
 <!--        <el-table-column align="left" label="海外直邮" prop="overseas" width="120">-->
 <!--            <template #default="scope">{{ formatBoolean(scope.row.overseas) }}</template>-->
 <!--        </el-table-column>-->

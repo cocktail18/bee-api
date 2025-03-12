@@ -264,6 +264,7 @@ func (srv *GoodsSrv) GetPrice(c context.Context, goodsId int64, propertyChildIds
 		OriginalPrice:      curSku.OriginalPrice,
 		PingtuanPrice:      curSku.PingtuanPrice,
 		Price:              curSku.Price,
+		VipPrice:           curSku.VipPrice,
 		PropertyChildIds:   propertyChildIds,
 		PropertyChildNames: curSku.PropertyChildNames,
 		Score:              curSku.Score,

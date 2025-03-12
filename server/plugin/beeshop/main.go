@@ -417,7 +417,7 @@ func (*BeeShopPlugin) startBeeApi() {
 	}
 	listen := global.GVA_CONFIG.BeeShop.Listen
 	if listen == "" {
-		listen = "127.0.0.1:18083"
+		listen = "0.0.0.0:18083"
 	}
 	appCfg := &config.AppConfig{
 		App: &config.App{
@@ -431,10 +431,10 @@ func (*BeeShopPlugin) startBeeApi() {
 		},
 		Default: &config.DefaultConfig{
 			Wx: &config.WxConfig{
-				AppId:  "wxf9be667c59929008",               
-				Secret: "ff7ab953f4a349d401cae151ca51b42e", 
-				//AppId:  "wxa4bc935c9ba87528",               
-				//Secret: "368ce6cfeeee84764a694ff1cd2ef9ea", 
+				AppId:  "wxf9be667c59929008",
+				Secret: "ff7ab953f4a349d401cae151ca51b42e",
+				//AppId:  "wxa4bc935c9ba87528",
+				//Secret: "368ce6cfeeee84764a694ff1cd2ef9ea",
 			},
 			SysUser: &config.SysUser{
 				Domain:   "9kuai8coffee.asia",
