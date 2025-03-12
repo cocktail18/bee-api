@@ -74,8 +74,10 @@ func (srv *UserSrv) Login(c context.Context, code string) (*proto.AuthorizeResp,
 	var mapper model.BeeUserMapper
 	err = db.GetDB().Where("open_id", authResp.OpenID).Take(&mapper).Error
 	var uid int64
+	var userLevel int64
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		// 用户不存在，新建
+		userLevel = 0
 		err = db.GetDB().Transaction(func(tx *gorm.DB) error {
 			var user model.BeeUser
 			now := time.Now()
@@ -106,9 +108,14 @@ func (srv *UserSrv) Login(c context.Context, code string) (*proto.AuthorizeResp,
 		return nil, err
 	} else {
 		uid = mapper.Uid
+		level, err := GetUserSrv().GetUserLevel(c, uid)
+		if err != nil {
+			return nil, err
+		}
+		userLevel = level.Level
 	}
 
-	return srv.CreateUserToken(c, kit.GetUserId(c), uid, authResp.OpenID, authResp.SessionKey)
+	return srv.CreateUserToken(c, kit.GetUserId(c), uid, authResp.OpenID, authResp.SessionKey, userLevel)
 }
 
 func (srv *UserSrv) CreateUser(c context.Context, tx *gorm.DB, user *model.BeeUser) error {
@@ -162,7 +169,7 @@ func (srv *UserSrv) CreateUser(c context.Context, tx *gorm.DB, user *model.BeeUs
 	return tx.Create(userLevel).Error
 }
 
-func (srv *UserSrv) CreateUserToken(c context.Context, userId int64, uid int64, openId string, sessionKey string) (*proto.AuthorizeResp, error) {
+func (srv *UserSrv) CreateUserToken(c context.Context, userId int64, uid int64, openId string, sessionKey string, userLevel int64) (*proto.AuthorizeResp, error) {
 	token, err := GetTokenSrv().CreateToken(c, uid, sessionKey)
 	if err != nil {
 		return nil, err
@@ -172,6 +179,7 @@ func (srv *UserSrv) CreateUserToken(c context.Context, userId int64, uid int64, 
 	resp.Token = token
 	resp.Uid = uid
 	resp.UserId = userId
+	resp.UserLevel = userLevel
 	return resp, nil
 }
 
@@ -296,15 +304,25 @@ func (srv *UserSrv) GetUserLevel(c context.Context, uid int64) (*model.BeeUserLe
 }
 
 func (srv *UserSrv) IncrUserLevelAmount(c context.Context, tx *gorm.DB, uid int64, payAmount decimal.Decimal) error {
+	balance, err := GetBalanceSrv().GetAmount(c, kit.GetUid(c))
+	if err != nil {
+		return err
+	}
 	item := &model.BeeUserLevel{}
 	if err := tx.Where("uid = ?", uid).Take(item).Error; err != nil {
 		return err
 	}
+	if balance.Balance.GreaterThan(decimal.NewFromFloat(100.00)) {
+		item.Level = 1
+	} else if balance.Balance.LessThan(decimal.NewFromFloat(9.80)) {
+		item.Level = 0
+	}
+
 	item.PayAmount = item.PayAmount.Add(payAmount)
-	newLevelInfo, err := srv.GetLevelByAmount(c, item.PayAmount)
+	/*newLevelInfo, err := srv.GetLevelByAmount(c, item.PayAmount)
 	if err == nil {
 		item.Level = newLevelInfo.Level
-	}
+	}*/
 	return tx.Save(item).Error
 }
 

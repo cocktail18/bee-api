@@ -36,6 +36,7 @@ type BeeShopGoods struct {
 	Hidden               int64            `gorm:"column:hidden;type:bigint(11);comment:隐藏" json:"hidden"`
 	Kanjia               bool             `gorm:"column:kanjia;type:tinyint(1);comment:允许砍价" json:"kanjia"`
 	KanjiaPrice          decimal.Decimal  `gorm:"column:kanjia_price;type:decimal(10,2);comment:砍价价格" json:"kanjiaPrice"`
+	VipPrice             decimal.Decimal  `gorm:"column:vip_price;type:decimal(10,2);comment:会员价格" json:"vipPrice"`
 	Limitation           bool             `gorm:"column:limitation;type:tinyint(1);comment:限制" json:"limitation"`
 	LogisticsId          int64            `gorm:"column:logistics_id;type:bigint(11);comment:物流id" json:"logisticsId"`
 	MaxCoupons           int64            `gorm:"column:max_coupons;type:bigint(11);comment:最大使用优惠券数量" json:"maxCoupons"`

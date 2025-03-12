@@ -75,6 +75,13 @@ func (srv *ShoppingCartSrv) Add(c context.Context, goodsId int64, num int64, sku
 			SkuId:            skuInfo.Id,
 			PropertyChildIds: kit.GetDBPropertyChildIds(propertyChildIds),
 		}
+		level, err := GetUserSrv().GetUserLevel(c, uid)
+		if err != nil {
+			level.Level = 0
+		}
+		if level.Level > 0 {
+			cartInfo.Price = skuInfo.VipPrice
+		}
 		err = db.GetDB().Create(&cartInfo).Error
 		if err != nil {
 			return nil, errors.Wrap(err, "保存到数据库失败")
@@ -99,6 +106,10 @@ func (srv *ShoppingCartSrv) GetShoppingCart(c context.Context, userId int64) (*p
 		Items:       make([]*proto.ShoppingCartGoodsItem, len(cartList)),
 		GoodsStatus: make([]*proto.ShoppingCartGoodsStatus, len(cartList)),
 	}
+	level, err := GetUserSrv().GetUserLevel(c, userId)
+	if err != nil {
+		level.Level = 0
+	}
 	for i, _ := range cartList {
 		cart := cartList[i]
 		resp.Number = resp.Number + cart.Number
@@ -122,6 +133,10 @@ func (srv *ShoppingCartSrv) GetShoppingCart(c context.Context, userId int64) (*p
 			skuInfo = &model.BeeShopGoodsSku{}
 		}
 		skuList := proto.NewShoppingCartGoodsSkuList(skuInfo)
+		price := skuInfo.Price
+		if level.Level > 0 {
+			price = skuInfo.VipPrice
+		}
 		resp.Items[i] = &proto.ShoppingCartGoodsItem{
 			CategoryId:   cart.CategoryId,
 			GoodsId:      cart.GoodsId,
@@ -132,7 +147,7 @@ func (srv *ShoppingCartSrv) GetShoppingCart(c context.Context, userId int64) (*p
 			Number:       cart.Number,
 			Overseas:     goodsInfo.Overseas,
 			Pic:          goodsInfo.Pic,
-			Price:        skuInfo.Price,
+			Price:        price,
 			Score:        skuInfo.Score,
 			Selected:     cart.Selected,
 			ShopId:       cart.ShopId,
