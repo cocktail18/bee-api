@@ -54,7 +54,7 @@ func (s CyTableSrv) Token(c context.Context, tableId int64, key string) (*proto.
 			}
 		}
 		var err error
-		resp, err = GetUserSrv().CreateUserToken(c, info.UserId, info.Uid, "", "")
+		resp, err = GetUserSrv().CreateUserToken(c, info.UserId, info.Uid, "", "", 0)
 		return err
 	}); err != nil {
 		return nil, err

@@ -76,6 +76,7 @@
         <el-table-column align="left" label="sku编号" prop="code" width="120"/>
         <!--        <el-table-column align="left" label="返现类型" prop="fxType" width="120" />-->
         <el-table-column align="left" label="市场价" prop="originalPrice" width="120"/>
+        <el-table-column align="left" label="会员价" prop="vipPrice" width="120"/>
         <!--        <el-table-column align="left" label="拼团价" prop="pingtuanPrice" width="120" />-->
         <el-table-column align="left" label="价格" prop="price" width="120"/>
         <el-table-column align="left" label="属性关系" prop="propertyChildIds" width="120">
@@ -167,6 +168,9 @@
         <!--            </el-form-item>-->
         <el-form-item label="原价:" prop="originalPrice">
           <el-input-number v-model="formData.originalPrice" style="width:100%" :precision="2" :clearable="true"/>
+        </el-form-item>
+        <el-form-item label="会员价:" prop="vipPrice">
+          <el-input-number v-model="formData.vipPrice" style="width:100%" :precision="2" :clearable="true"/>
         </el-form-item>
         <!--            <el-form-item label="拼团价:"  prop="pingtuanPrice" >-->
         <!--              <el-input-number v-model="formData.pingtuanPrice"  style="width:100%" :precision="2" :clearable="true"  />-->

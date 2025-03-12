@@ -152,7 +152,7 @@ func NewRouter() *gin.Engine {
 		{ //商品
 			shopGroup.GET("/goods/category/all", (api.GoodsApi{}).CategoryAll)
 			shopGroup.POST("/goods/list", (api.GoodsApi{}).List)
-			shopGroup.GET("/goods/list/v2", (api.GoodsApi{}).List)
+			shopGroup.POST("/goods/list/v2", (api.GoodsApi{}).List)
 			shopGroup.POST("/goods/price", (api.GoodsApi{}).Price)
 			shopGroup.GET("/goods/detail", (api.GoodsApi{}).Detail)
 			shopGroup.GET("/goods/goodsAddition", (api.GoodsApi{}).GoodsAddition)

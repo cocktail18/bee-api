@@ -98,6 +98,9 @@
         <el-form-item label="原价:" prop="originalPrice">
           <el-input-number v-model="formData.originalPrice" :precision="2" :clearable="true"></el-input-number>
        </el-form-item>
+        <el-form-item label="会员价:" prop="vipPrice">
+          <el-input-number v-model="formData.vipPrice" :precision="2" :clearable="true"></el-input-number>
+        </el-form-item>
         <el-form-item label="海外直邮:" prop="overseas">
           <el-switch v-model="formData.overseas" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否" clearable ></el-switch>
        </el-form-item>
@@ -216,6 +219,7 @@ const formData = ref({
             numberReputation: undefined,
             numberSells: undefined,
             originalPrice: 0,
+            vipPrice: 0,
             overseas: false,
             paixu: undefined,
             persion: undefined,
