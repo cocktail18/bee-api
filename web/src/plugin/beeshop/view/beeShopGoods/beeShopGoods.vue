@@ -360,6 +360,9 @@
             <el-form-item label="原价:"  prop="originalPrice" >
               <el-input-number v-model="formData.originalPrice"  style="width:100%" :precision="2" :clearable="true"  />
             </el-form-item>
+            <el-form-item label="会员价:"  prop="vipPrice" >
+              <el-input-number v-model="formData.vipPrice"  style="width:100%" :precision="2" :clearable="true"  />
+            </el-form-item>
 <!--            <el-form-item label="海外直邮:"  prop="overseas" >-->
 <!--              <el-switch v-model="formData.overseas" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否" clearable ></el-switch>-->
 <!--            </el-form-item>-->

@@ -169,6 +169,9 @@
         <el-form-item label="原价:" prop="originalPrice">
           <el-input-number v-model="formData.originalPrice" style="width:100%" :precision="2" :clearable="true"/>
         </el-form-item>
+        <el-form-item label="会员价:" prop="vipPrice">
+          <el-input-number v-model="formData.vipPrice" style="width:100%" :precision="2" :clearable="true"/>
+        </el-form-item>
         <!--            <el-form-item label="拼团价:"  prop="pingtuanPrice" >-->
         <!--              <el-input-number v-model="formData.pingtuanPrice"  style="width:100%" :precision="2" :clearable="true"  />-->
         <!--            </el-form-item>-->
