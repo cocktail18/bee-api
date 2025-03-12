@@ -20,8 +20,8 @@
         <el-form-item label="token字段:" prop="token">
           <el-input v-model="formData.token" :clearable="true"  placeholder="请输入token字段" />
        </el-form-item>
-        <el-form-item label="v3私钥:" prop="privateCert">
-          <el-input v-model="formData.privateCert" :clearable="true"  placeholder="请输入v3私钥" />
+        <el-form-item label="v3私钥文件路径:" prop="privateCert">
+          <el-input v-model="formData.privateCert" :clearable="true"  placeholder="请输入v3私钥文件路径（绝对路径）" />
        </el-form-item>
         <el-form-item label="已删除:" prop="isDeleted">
           <el-switch v-model="formData.isDeleted" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否" clearable ></el-switch>
