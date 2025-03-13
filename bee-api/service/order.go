@@ -632,7 +632,7 @@ func (s *OrderSrv) getQuDanHao(c context.Context, shopInfo *model.BeeShopInfo, t
 func (s *OrderSrv) callAmount(goods *proto.BeeOrderGoods, goodsInfo *model.BeeShopGoods, skuInfo *model.BeeShopGoodsSku, userLevel int64) decimal.Decimal {
 	//@todo 拼团之类的
 	// vip
-	if userLevel > 0 {
+	if userLevel > 0 && skuInfo.VipPrice.GreaterThan(decimal.Zero) {
 		return decimal.NewFromInt(goods.Number).Mul(skuInfo.VipPrice)
 	}
 	return decimal.NewFromInt(goods.Number).Mul(skuInfo.Price)
@@ -969,6 +969,19 @@ func (s *OrderSrv) PayOrderByBalance(c context.Context, ip string, payLog *model
 			_, err = GetBalanceSrv().OperAmountByTx(c, tx, orderInfo.Uid, enum.BalanceTypeBalance, amountBalance.Neg(), "pay"+orderInfo.OrderNumber, "订单支付")
 			if err != nil {
 				return errors.Wrap(err, "扣除余额失败")
+			}
+			balance, err := GetBalanceSrv().GetAmount(c, kit.GetUid(c))
+			if err != nil {
+				return err
+			}
+			item := &model.BeeUserLevel{}
+			if err := tx.Where("uid = ?", orderInfo.Uid).Take(item).Error; err != nil {
+				return err
+			}
+			if balance.Balance.GreaterThan(decimal.NewFromFloat(100.00)) {
+				item.Level = 1
+			} else if balance.Balance.LessThan(decimal.NewFromFloat(9.80)) {
+				item.Level = 0
 			}
 		}
 
