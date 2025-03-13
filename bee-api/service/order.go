@@ -970,6 +970,19 @@ func (s *OrderSrv) PayOrderByBalance(c context.Context, ip string, payLog *model
 			if err != nil {
 				return errors.Wrap(err, "扣除余额失败")
 			}
+			balance, err := GetBalanceSrv().GetAmount(c, kit.GetUid(c))
+			if err != nil {
+				return err
+			}
+			item := &model.BeeUserLevel{}
+			if err := tx.Where("uid = ?", orderInfo.Uid).Take(item).Error; err != nil {
+				return err
+			}
+			if balance.Balance.GreaterThan(decimal.NewFromFloat(100.00)) {
+				item.Level = 1
+			} else if balance.Balance.LessThan(decimal.NewFromFloat(9.80)) {
+				item.Level = 0
+			}
 		}
 
 		if err = s.paySuccess(c, tx, orderInfo, userInfo, amount, ip); err != nil {
