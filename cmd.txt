@@ -62,13 +62,15 @@ npm run build  # 生产环境
 - 需要 web 服务器（如 nginx）来托管
 - 针对性能做了优化
 
-
+把打包出来的dist文件夹去替换/var/www/bee文件 
 
 # 复制构建文件到 nginx 目录
 # 注意：可能需要 sudo 权限
 sudo cp -r dist/* /var/www/bee/
 
 echo "部署完成！"
+
+nginx -s reload
 
 --------
 
