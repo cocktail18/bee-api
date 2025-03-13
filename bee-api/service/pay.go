@@ -337,7 +337,7 @@ func (fee *PaySrv) GetWxAppPayInfo(c context.Context, money decimal.Decimal, rem
 		"description":  util.IF(remark != "", remark, "订单支付"),
 		"notify_url":   fee.getWxPayNotifyUrl(c, &wxPayConfig),
 		"amount": map[string]interface{}{
-			"total":    money.Mul(decimal.NewFromInt(100)).StringFixed(0),
+			"total":    money.Mul(decimal.NewFromInt(100)).IntPart(),
 			"currency": "CNY",
 		},
 		"time_expire": time.Now().Add(time.Hour * 1).Format(time.RFC3339), // 限制一小时内支付

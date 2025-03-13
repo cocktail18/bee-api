@@ -1,6 +1,7 @@
 app:
  listen: :8081
  storePath: "uploads/file" # 本地上传文件的路径
+ host: "https://9kuai8coffee.asia"
 
 default:
  wx:

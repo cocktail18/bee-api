@@ -370,7 +370,7 @@ func (srv *UserSrv) BindWxMobile(c context.Context, req *proto.BindWxMobileReq) 
 
 func (srv *UserSrv) GetUserWxOpenId(c context.Context) (string, error) {
 	item := &model.BeeUserMapper{}
-	if err := db.GetDB().Where("uid = ? and source = ?", kit.GetUserId(c), enum.BeeUserSourceWx).Take(item).Error; err != nil {
+	if err := db.GetDB().Where("uid = ? and source = ?", kit.GetUid(c), enum.BeeUserSourceWx).Take(item).Error; err != nil {
 		return "", err
 	}
 	return item.OpenId, nil
