@@ -79,7 +79,7 @@ func (srv *ShoppingCartSrv) Add(c context.Context, goodsId int64, num int64, sku
 		if err != nil {
 			level.Level = 0
 		}
-		if level.Level > 0 {
+		if level.Level > 0 && skuInfo.VipPrice.GreaterThan(decimal.Zero) {
 			cartInfo.Price = skuInfo.VipPrice
 		}
 		err = db.GetDB().Create(&cartInfo).Error
@@ -134,7 +134,7 @@ func (srv *ShoppingCartSrv) GetShoppingCart(c context.Context, userId int64) (*p
 		}
 		skuList := proto.NewShoppingCartGoodsSkuList(skuInfo)
 		price := skuInfo.Price
-		if level.Level > 0 {
+		if level.Level > 0 && skuInfo.VipPrice.GreaterThan(decimal.Zero) {
 			price = skuInfo.VipPrice
 		}
 		resp.Items[i] = &proto.ShoppingCartGoodsItem{

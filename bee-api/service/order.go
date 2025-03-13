@@ -632,7 +632,7 @@ func (s *OrderSrv) getQuDanHao(c context.Context, shopInfo *model.BeeShopInfo, t
 func (s *OrderSrv) callAmount(goods *proto.BeeOrderGoods, goodsInfo *model.BeeShopGoods, skuInfo *model.BeeShopGoodsSku, userLevel int64) decimal.Decimal {
 	//@todo 拼团之类的
 	// vip
-	if userLevel > 0 {
+	if userLevel > 0 && skuInfo.VipPrice.GreaterThan(decimal.Zero) {
 		return decimal.NewFromInt(goods.Number).Mul(skuInfo.VipPrice)
 	}
 	return decimal.NewFromInt(goods.Number).Mul(skuInfo.Price)
