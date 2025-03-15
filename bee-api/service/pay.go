@@ -57,7 +57,7 @@ func (fee *PaySrv) WxNotify(c context.Context, ip string, req *wechat.V3NotifyRe
 	}
 	// 获取配置
 	var wxPayConfig model.BeeWxPayConfig
-	if err := db.GetDB().Where("user_id = ? and is_deleted = 0").Take(&wxPayConfig).Error; err != nil {
+	if err := db.GetDB().Where("user_id = ? and is_deleted = 0", kit.GetUserId(c)).Take(&wxPayConfig).Error; err != nil {
 		return errors.Wrap(err, "获取微信配置失败！")
 	}
 
