@@ -6,7 +6,6 @@ import (
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/kit"
-	"gitee.com/stuinfer/bee-api/logger"
 	"gitee.com/stuinfer/bee-api/model"
 	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
@@ -123,7 +122,6 @@ func (srv *BalanceSrv) OperAmountByTx(c context.Context, tx *gorm.DB, userId int
 		}
 	}
 	balance, err := GetBalanceSrv().GetAmount(c, userId)
-	logger.GetLogger().Debug("余额"+balance.Balance.String())
 	if err != nil {
 		return nil, err
 	}
