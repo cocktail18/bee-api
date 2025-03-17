@@ -20,7 +20,7 @@ upload:
 db:
  user: root
  password: PASS
- host: 127.0.0.1
+ host: 47.98.186.186
  port: 3306
  database: bee
  drop: false #是否清之前的数据

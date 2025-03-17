@@ -139,7 +139,7 @@ import { getBeeOrderList, orderList } from "@/plugin/beeshop/api/beeOrder";
 import { getBeeShopGoodsList } from "@/plugin/beeshop/api/beeShopGoods";
 import { formatDate, formatEnum, getDictFunc } from "@/utils/format";
 import { useRoute, useRouter } from "vue-router";
-import { getAllBeeShopInfos } from "@/plugin/beeshop/api/beeShopInfo";
+import { getAllMyBeeShopInfos } from "@/plugin/beeshop/api/beeShopInfo";
 const route = useRoute();
 const router = useRouter();
 
@@ -236,7 +236,7 @@ const init = async () => {
     }
   }
   await refreshOrders();
-  getAllBeeShopInfos().then((res) => {
+  getAllMyBeeShopInfos().then((res) => {
     if (res.code == 0) {
       shops.value = res.data.list;
     }

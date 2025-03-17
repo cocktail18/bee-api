@@ -23,8 +23,9 @@ func (s *BeeShopInfoRouter) InitBeeShopInfoRouter(Router *gin.RouterGroup, Publi
 		beeShopInfoRouter.GET("/GetAllBeeShopInfos", beeShopInfoApi.GetAllBeeShopInfos) // 获取所有门店列表
 	}
 	{
-		beeShopInfoRouterWithoutRecord.GET("findBeeShopInfo", beeShopInfoApi.FindBeeShopInfo)       // 根据ID获取商店信息
-		beeShopInfoRouterWithoutRecord.GET("getBeeShopInfoList", beeShopInfoApi.GetBeeShopInfoList) // 获取商店信息列表
+		beeShopInfoRouterWithoutRecord.GET("findBeeShopInfo", beeShopInfoApi.FindBeeShopInfo)           // 根据ID获取商店信息
+		beeShopInfoRouterWithoutRecord.GET("getBeeShopInfoList", beeShopInfoApi.GetBeeShopInfoList)     // 获取商店信息列表
+		beeShopInfoRouterWithoutRecord.GET("getMyBeeShopInfoList", beeShopInfoApi.GetMyBeeShopInfoList) // 获取商店信息列表,根据我的角色
 	}
 	{
 		beeShopInfoRouterWithoutAuth.GET("getBeeShopInfoPublic", beeShopInfoApi.GetBeeShopInfoPublic) // 获取商店信息列表

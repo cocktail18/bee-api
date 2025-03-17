@@ -118,7 +118,19 @@ func (authorityService *AuthorityService) UpdateAuthority(auth system.SysAuthori
 		global.GVA_LOG.Debug(err.Error())
 		return system.SysAuthority{}, errors.New("查询角色数据失败")
 	}
-	err = global.GVA_DB.Model(&oldAuthority).Updates(&auth).Error
+	err = global.GVA_DB.Transaction(func(tx *gorm.DB) error {
+		err = global.GVA_DB.Debug().Model(&oldAuthority).Updates(&auth).Error
+		if err != nil {
+			return err
+		}
+		err = global.GVA_DB.Debug().Model(&oldAuthority).Association("ShopInfos").Replace(auth.ShopInfos)
+		if err != nil {
+			return err
+		}
+
+		return nil
+
+	})
 	return auth, err
 }
 
@@ -191,7 +203,7 @@ func (authorityService *AuthorityService) GetAuthorityInfoList(info request.Page
 		return
 	}
 	var authority []system.SysAuthority
-	err = db.Limit(limit).Offset(offset).Preload("DataAuthorityId").Where("parent_id = ?", "0").Find(&authority).Error
+	err = db.Limit(limit).Offset(offset).Preload("DataAuthorityId").Preload("ShopInfos").Where("parent_id = ?", "0").Find(&authority).Error
 	for k := range authority {
 		err = authorityService.findChildrenAuthority(&authority[k])
 	}
