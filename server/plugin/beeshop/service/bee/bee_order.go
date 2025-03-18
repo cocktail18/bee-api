@@ -6,6 +6,7 @@ import (
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/service"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -105,7 +106,27 @@ func (beeOrderService *BeeOrderService) GetBeeOrder(id string, shopUserId int) (
 
 // GetBeeOrderInfoList 分页获取用户订单记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (beeOrderService *BeeOrderService) GetBeeOrderInfoList(info beeReq.BeeOrderSearch, shopUserId int) (list []bee.BeeOrder, total int64, sum float64, err error) {
+func (beeOrderService *BeeOrderService) GetBeeOrderInfoList(info beeReq.BeeOrderSearch, shopUserId int, loginUserId uint) (list []bee.BeeOrder, total int64, sum float64, err error) {
+	var userInfo system.SysUser
+	GetBeeDB().Model(&userInfo).Preload("Authorities").First(&userInfo, loginUserId)
+	roleIds := []uint{}
+	for _, role := range userInfo.Authorities {
+		roleIds = append(roleIds, role.AuthorityId)
+	}
+
+	var roles []system.SysAuthority
+	if err = global.GVA_DB.Model(&system.SysAuthority{}).Preload("ShopInfos").Find(&roles, roleIds).Error; err != nil {
+		return
+	}
+
+	var shopIds = []int{}
+	for _, role := range roles {
+		if len(role.ShopInfos) > 0 {
+			for _, shop := range role.ShopInfos {
+				shopIds = append(shopIds, int(*shop.Id))
+			}
+		}
+	}
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
@@ -146,6 +167,10 @@ func (beeOrderService *BeeOrderService) GetBeeOrderInfoList(info beeReq.BeeOrder
 	if info.ShopId != nil && *info.ShopId > 0 {
 		db = db.Where("shop_id = ?", info.ShopId)
 	}
+	if len(shopIds) > 0 {
+		db = db.Where("shop_id in ?", shopIds)
+	}
+
 	if info.HasRefund != nil {
 		db = db.Where("has_refund = ?", info.HasRefund)
 	}

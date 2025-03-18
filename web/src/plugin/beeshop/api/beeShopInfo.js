@@ -110,3 +110,18 @@ export const getAllBeeShopInfos = ()=>{
     method: 'get',
   })
 }
+
+
+// @Tags BeeShopInfo
+// @Summary 获取所有商店信息列表, 根据我的角色查询关联的所有门店
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router /beeShopInfo/getAllBeeShopInfos [get]
+export const getAllMyBeeShopInfos = ()=>{
+  return  service({
+    url: '/bee-shop/beeShopInfo/getMyBeeShopInfoList',
+    method: 'get',
+  })
+}

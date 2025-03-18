@@ -7,6 +7,7 @@ import (
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/service"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
+	beeUtils "github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/cast"
 	"go.uber.org/zap"
@@ -196,7 +197,9 @@ func (beeOrderApi *BeeOrderApi) GetBeeOrderList(c *gin.Context) {
 		return
 	}
 	shopUserId := int(utils.GetShopUserID(c))
-	if list, total, _, err := beeOrderService.GetBeeOrderInfoList(pageInfo, shopUserId); err != nil {
+	loginUserId := beeUtils.GetUserID(c)
+
+	if list, total, _, err := beeOrderService.GetBeeOrderInfoList(pageInfo, shopUserId, loginUserId); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
@@ -301,7 +304,8 @@ func (api *BeeOrderApi) OrderList(c *gin.Context) {
 	if err := c.ShouldBindQuery(&param); err != nil {
 		response.FailWithMessage("请求参数异常", c)
 	} else {
-		if list, total, sum, err := beeOrderService.GetBeeOrderInfoList(param, 100); err != nil {
+		loginUserId := beeUtils.GetUserID(c)
+		if list, total, sum, err := beeOrderService.GetBeeOrderInfoList(param, 100, loginUserId); err != nil {
 			response.FailWithMessage("查询异常", c)
 		} else {
 			response.OkWithData(response.PageResult{

@@ -7,6 +7,7 @@ import (
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/service"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
+	beeUtils "github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -33,6 +34,7 @@ func (beeUserBalanceLogApi *BeeUserBalanceLogApi) CreateBeeUserBalanceLog(c *gin
 	}
 	shopUserId := int(utils.GetShopUserID(c))
 	beeUserBalanceLog.UserId = &shopUserId
+
 	if err := beeUserBalanceLogService.CreateBeeUserBalanceLog(&beeUserBalanceLog); err != nil {
 		global.GVA_LOG.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
@@ -143,7 +145,8 @@ func (beeUserBalanceLogApi *BeeUserBalanceLogApi) GetBeeUserBalanceLogList(c *gi
 		return
 	}
 	shopUserId := int(utils.GetShopUserID(c))
-	if list, total, err := beeUserBalanceLogService.GetBeeUserBalanceLogInfoList(pageInfo, shopUserId); err != nil {
+	userId := beeUtils.GetUserID(c)
+	if list, total, err := beeUserBalanceLogService.GetBeeUserBalanceLogInfoList(pageInfo, shopUserId, userId); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

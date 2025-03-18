@@ -1,6 +1,8 @@
 package bee
 
 import (
+	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/dto"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
@@ -57,7 +59,27 @@ func (beeUserBalanceLogService *BeeUserBalanceLogService) GetBeeUserBalanceLog(i
 
 // GetBeeUserBalanceLogInfoList 分页获取用户消费记录记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (beeUserBalanceLogService *BeeUserBalanceLogService) GetBeeUserBalanceLogInfoList(info beeReq.BeeUserBalanceLogSearch, shopUserId int) (list []dto.BeeUserBalanceLogDto, total int64, err error) {
+func (beeUserBalanceLogService *BeeUserBalanceLogService) GetBeeUserBalanceLogInfoList(info beeReq.BeeUserBalanceLogSearch, shopUserId int, loginUserId uint) (list []dto.BeeUserBalanceLogDto, total int64, err error) {
+	var userInfo system.SysUser
+	GetBeeDB().Model(&userInfo).Preload("Authorities").First(&userInfo, loginUserId)
+	roleIds := []uint{}
+	for _, role := range userInfo.Authorities {
+		roleIds = append(roleIds, role.AuthorityId)
+	}
+
+	var roles []system.SysAuthority
+	if err := global.GVA_DB.Model(&system.SysAuthority{}).Preload("ShopInfos").Find(&roles, roleIds).Error; err != nil {
+		return list, 0, err
+	}
+
+	var shopIds = []int{}
+	for _, role := range roles {
+		if len(role.ShopInfos) > 0 {
+			for _, shop := range role.ShopInfos {
+				shopIds = append(shopIds, int(*shop.Id))
+			}
+		}
+	}
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
 	// 创建db
@@ -65,6 +87,11 @@ func (beeUserBalanceLogService *BeeUserBalanceLogService) GetBeeUserBalanceLogIn
 		Joins("inner join bee_order a on concat('pay',a.order_number) = log.order_id").
 		Joins(" inner join bee_shop_info b on a.shop_id = b.id")
 	db = db.Where("log.user_id = ?", shopUserId).Where("a.is_pay = ?", 1)
+	if len(shopIds) > 0 {
+		db = db.Where("a.shop_id in ?", shopIds)
+	} else {
+		db = db.Where("a.shop_id = -1")
+	}
 	var beeUserBalanceLogs []dto.BeeUserBalanceLogDto
 	// 如果有条件搜索 下方会自动创建搜索语句
 	if info.Uid != nil {

@@ -60,9 +60,9 @@ db-list:
       port: "3306"
       config: charset=utf8mb4&parseTime=True&loc=Local
       db-name: bee
-      username: bee
+      username: root
       password: PASS
-      path: ""
+      path: "47.98.186.186"
       engine: ""
       log-mode: error
       max-idle-conns: 10
@@ -130,9 +130,9 @@ mysql:
     port: "3306"
     config: charset=utf8mb4&parseTime=True&loc=Local
     db-name: bee
-    username: bee
+    username: root
     password: PASS
-    path: 127.0.0.1
+    path: 47.98.186.186
     engine: ""
     log-mode: error
     max-idle-conns: 10
