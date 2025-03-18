@@ -186,7 +186,7 @@ func (s *OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOr
 	uid := kit.GetUid(c)
 	userLevel, err := GetUserSrv().GetUserLevel(c, uid)
 	if err != nil {
-		userLevel.Level = 0
+		userLevel = 0
 	}
 	userId := kit.GetUserId(c)
 	couponIds := make([]int64, 0)
@@ -222,7 +222,7 @@ func (s *OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOr
 			}
 		}
 		logisticsItem := logisticsId2item[goodsInfo.LogisticsId]
-		skuAmount := s.callAmount(goods, goodsInfo, skuInfo, userLevel.Level)
+		skuAmount := s.callAmount(goods, goodsInfo, skuInfo, userLevel)
 		weight := decimal.Zero
 		if !skuInfo.Weight.IsZero() {
 			weight = skuInfo.Weight.Mul(decimal.NewFromInt(goods.Number))
@@ -241,7 +241,7 @@ func (s *OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOr
 		orderGoodsList[i].Property = skuInfo.PropertyChildNames
 		orderGoodsList[i].Pic = goodsInfo.Pic
 		orderGoodsList[i].AfterSale = goodsInfo.AfterSale
-		orderGoodsList[i].Amount = s.callAmount(goods, goodsInfo, skuInfo, userLevel.Level)
+		orderGoodsList[i].Amount = s.callAmount(goods, goodsInfo, skuInfo, userLevel)
 		orderGoodsList[i].AmountCoupon = decimal.Zero
 		orderGoodsList[i].AmountSingle = skuInfo.Price
 		orderGoodsList[i].AmountSingleBase = skuInfo.Price
