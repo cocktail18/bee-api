@@ -330,7 +330,7 @@ import {
   getBeeUserBalanceLogList,
 } from "@/plugin/beeshop/api/beeUserBalanceLog";
 import {
-  getAllBeeShopInfos
+  getAllMyBeeShopInfos
 } from '@/plugin/beeshop/api/beeShopInfo'
 // 全量引入格式化工具 请按需保留
 import {
@@ -357,7 +357,7 @@ const balanceTypeMap = ref([]);
 const init = async () => {
   balanceTypeMap.value = await getDictFunc("BalanceType");
   console.log(balanceTypeMap);
-  shops.value  = (await getAllBeeShopInfos()).data.list
+  shops.value  = (await getAllMyBeeShopInfos()).data.list
   
 };
 init();

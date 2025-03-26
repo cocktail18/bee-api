@@ -7,6 +7,7 @@ import (
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/service"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
+	beeUtils "github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -143,7 +144,39 @@ func (beeShopInfoApi *BeeShopInfoApi) GetBeeShopInfoList(c *gin.Context) {
 		return
 	}
 	shopUserId := int(utils.GetShopUserID(c))
-	if list, total, err := beeShopInfoService.GetBeeShopInfoInfoList(pageInfo, shopUserId); err != nil {
+	if list, total, err := beeShopInfoService.GetBeeShopInfoInfoList(pageInfo, shopUserId, 0); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}, "获取成功", c)
+	}
+}
+
+// GetBeeShopInfoList 分页获取商店信息列表, 根据我的角色查询
+// @Tags BeeShopInfo
+// @Summary 分页获取商店信息列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query beeReq.BeeShopInfoSearch true "分页获取商店信息列表"
+// @Success 200 {object} response.Response{data=response.PageResult,msg=string} "获取成功"
+// @Router /beeShopInfo/getMyBeeShopInfoList [get]
+func (beeShopInfoApi *BeeShopInfoApi) GetMyBeeShopInfoList(c *gin.Context) {
+	var pageInfo beeReq.BeeShopInfoSearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	shopUserId := int(utils.GetShopUserID(c))
+	userId := beeUtils.GetUserID(c)
+
+	if list, total, err := beeShopInfoService.GetBeeShopInfoInfoList(pageInfo, shopUserId, userId); err != nil {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {

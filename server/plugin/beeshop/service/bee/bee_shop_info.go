@@ -2,6 +2,8 @@ package bee
 
 import (
 	"gitee.com/stuinfer/bee-api/model"
+	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee"
 	beeReq "github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/model/bee/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/plugin/beeshop/utils"
@@ -57,12 +59,39 @@ func (beeShopInfoService *BeeShopInfoService) GetBeeShopInfo(id string, shopUser
 
 // GetBeeShopInfoInfoList 分页获取商店信息记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (beeShopInfoService *BeeShopInfoService) GetBeeShopInfoInfoList(info beeReq.BeeShopInfoSearch, shopUserId int) (list []bee.BeeShopInfo, total int64, err error) {
+func (beeShopInfoService *BeeShopInfoService) GetBeeShopInfoInfoList(info beeReq.BeeShopInfoSearch, shopUserId int, loginUserId uint) (list []bee.BeeShopInfo, total int64, err error) {
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
+
+	var shopIds = []int{}
+	if loginUserId > 0 {
+		var userInfo system.SysUser
+		GetBeeDB().Model(&userInfo).Preload("Authorities").First(&userInfo, loginUserId)
+		roleIds := []uint{}
+		for _, role := range userInfo.Authorities {
+			roleIds = append(roleIds, role.AuthorityId)
+		}
+
+		var roles []system.SysAuthority
+		if err := global.GVA_DB.Model(&system.SysAuthority{}).Preload("ShopInfos").Find(&roles, roleIds).Error; err != nil {
+			return list, 0, err
+		}
+
+		for _, role := range roles {
+			if len(role.ShopInfos) > 0 {
+				for _, shop := range role.ShopInfos {
+					shopIds = append(shopIds, int(*shop.Id))
+				}
+			}
+		}
+	}
+
 	// 创建db
 	db := GetBeeDB().Model(&bee.BeeShopInfo{})
-	db = db.Where("user_id = ?", shopUserId)
+	// db = db.Where("user_id = ?", shopUserId)
+	if len(shopIds) > 0 {
+		db = db.Where("id in ?", shopIds)
+	}
 	var beeShopInfos []bee.BeeShopInfo
 	// 如果有条件搜索 下方会自动创建搜索语句
 	err = db.Count(&total).Error
