@@ -299,7 +299,7 @@ func (srv *UserSrv) GetLevelByAmount(c context.Context, amount decimal.Decimal) 
 
 func (srv *UserSrv) GetUserLevel(c context.Context, uid int64) (int64, error) {
 	item := &model.BeeUser{}
-	if err := db.GetDB().Where("uid = ?", uid).Take(item).Error; err != nil {
+	if err := db.GetDB().Where("id = ?", uid).Take(item).Error; err != nil {
 		return 0, err
 	}
 	return item.VipLevel, nil
