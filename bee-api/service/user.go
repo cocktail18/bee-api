@@ -189,6 +189,7 @@ func (srv *UserSrv) Amount(c context.Context, uid int64) (*proto.GetUserAmountRe
 	if err := db.GetDB().Where("uid = ?", uid).Take(&userAmount).Error; err != nil {
 		return nil, err
 	}
+	userAmount.Balance = userAmount.Balance.Round(2)
 	return &proto.GetUserAmountResp{
 		BeeUserAmount: userAmount,
 	}, nil
