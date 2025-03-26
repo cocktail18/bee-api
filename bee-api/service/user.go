@@ -321,7 +321,7 @@ func (srv *UserSrv) IncrUserLevelAmount(c context.Context, tx *gorm.DB, uid int6
 	if err := tx.Model(&model.BeeUserLevel{}).Where("uid = ?", uid).Take(item).Error; err != nil {
 		return err
 	}
-	if balance.Balance.GreaterThan(decimal.NewFromFloat(100.00)) {
+	if balance.Balance.GreaterThanOrEqual(decimal.NewFromFloat(100.00)) {
 		userInfo.VipLevel = 1
 	} else if balance.Balance.LessThan(decimal.NewFromFloat(9.80)) {
 		userInfo.VipLevel = 0
