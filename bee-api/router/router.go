@@ -118,6 +118,9 @@ func NewRouter() *gin.Engine {
 	router.Use(gin.Logger(), gin.Recovery())
 	router.StaticFS(config2.GetStorePath(), justFilesFilesystem{http.Dir(config2.GetStorePath())})
 	router.POST("/upload2", regSysUserByPostForm(), CheckToken(), (api.DfsApi{}).UploadFile)
+	//router.GET("/test", func(c *gin.Context) {
+	//	c.JSON(200, gin.H{"测试": "测试frps"})
+	//})
 	router.GET("/yunlaba/bind.html", func(context *gin.Context) {
 		source := context.Query("source")
 		timestamp := context.Query("timestamp")
