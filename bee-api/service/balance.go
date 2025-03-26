@@ -103,7 +103,6 @@ func (srv *BalanceSrv) OperAmountByTx(c context.Context, tx *gorm.DB, userId int
 			}
 		}
 		var userAmount model.BeeUserAmount
-		logger.GetLogger().Info("new")
 		if err := tx.Model(&model.BeeUserAmount{}).Where("uid = ?", userId).Take(&userAmount).Error; err != nil {
 			logger.GetLogger().Info(err.Error())
 			return err
@@ -114,8 +113,7 @@ func (srv *BalanceSrv) OperAmountByTx(c context.Context, tx *gorm.DB, userId int
 			logger.GetLogger().Info(err.Error())
 			return err
 		}
-		logger.GetLogger().Info(userAmount.Balance.String())
-		if userAmount.Balance.GreaterThan(decimal.NewFromFloat(100.00)) {
+		if userAmount.Balance.GreaterThanOrEqual(decimal.NewFromFloat(100.00)) {
 			item.VipLevel = 1
 		} else if userAmount.Balance.LessThan(decimal.NewFromFloat(9.80)) {
 			item.VipLevel = 0
@@ -138,7 +136,6 @@ func (srv *BalanceSrv) OperAmountByTx(c context.Context, tx *gorm.DB, userId int
 		}
 		return nil, err
 	}
-
 	if shouldCommit {
 		if err := tx.Commit().Error; err != nil {
 			return nil, err
