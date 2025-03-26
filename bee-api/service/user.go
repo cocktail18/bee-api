@@ -6,6 +6,7 @@ import (
 	"gitee.com/stuinfer/bee-api/db"
 	"gitee.com/stuinfer/bee-api/enum"
 	"gitee.com/stuinfer/bee-api/kit"
+	"gitee.com/stuinfer/bee-api/logger"
 	"gitee.com/stuinfer/bee-api/model"
 	"gitee.com/stuinfer/bee-api/proto"
 	"gitee.com/stuinfer/bee-api/util"
@@ -108,11 +109,11 @@ func (srv *UserSrv) Login(c context.Context, code string) (*proto.AuthorizeResp,
 		return nil, err
 	} else {
 		uid = mapper.Uid
-		level, err := GetUserSrv().GetUserLevel(c, uid)
+		userInfo, err := GetUserSrv().GetUserInfoByUid(c, uid)
 		if err != nil {
 			return nil, err
 		}
-		userLevel = level.Level
+		userLevel = userInfo.VipLevel
 	}
 
 	return srv.CreateUserToken(c, kit.GetUserId(c), uid, authResp.OpenID, authResp.SessionKey, userLevel)
@@ -188,6 +189,7 @@ func (srv *UserSrv) Amount(c context.Context, uid int64) (*proto.GetUserAmountRe
 	if err := db.GetDB().Where("uid = ?", uid).Take(&userAmount).Error; err != nil {
 		return nil, err
 	}
+	userAmount.Balance = userAmount.Balance.Round(2)
 	return &proto.GetUserAmountResp{
 		BeeUserAmount: userAmount,
 	}, nil
@@ -295,25 +297,28 @@ func (srv *UserSrv) GetLevelByAmount(c context.Context, amount decimal.Decimal) 
 	return item, nil
 }
 
-func (srv *UserSrv) GetUserLevel(c context.Context, uid int64) (*model.BeeUserLevel, error) {
-	item := &model.BeeUserLevel{}
-	if err := db.GetDB().Where("uid = ?", uid).Take(item).Error; err != nil {
-		return nil, err
+func (srv *UserSrv) GetUserLevel(c context.Context, uid int64) (int64, error) {
+	item := &model.BeeUser{}
+	if err := db.GetDB().Where("id = ?", uid).Take(item).Error; err != nil {
+		return 0, err
 	}
-	return item, nil
+	return item.VipLevel, nil
 }
 
 func (srv *UserSrv) IncrUserLevelAmount(c context.Context, tx *gorm.DB, uid int64, payAmount decimal.Decimal) error {
-	balance, err := GetBalanceSrv().GetAmount(c, uid)
+	var balance model.BeeUserAmount
+	err := tx.Model(&model.BeeUserAmount{}).Where("uid = ?", uid).Take(&balance).Error
 	if err != nil {
+		logger.GetLogger().Info("获取用户余额失败")
 		return err
 	}
 	item := &model.BeeUserLevel{}
-	userInfo, err := GetUserSrv().GetUserInfoByUid(c, uid)
+	userInfo := &model.BeeUser{}
+	err = tx.Model(&model.BeeUser{}).Where("id = ?", uid).Take(&userInfo).Error
 	if err != nil {
 		return err
 	}
-	if err := tx.Where("uid = ?", uid).Take(item).Error; err != nil {
+	if err := tx.Model(&model.BeeUserLevel{}).Where("uid = ?", uid).Take(item).Error; err != nil {
 		return err
 	}
 	if balance.Balance.GreaterThan(decimal.NewFromFloat(100.00)) {
@@ -329,6 +334,7 @@ func (srv *UserSrv) IncrUserLevelAmount(c context.Context, tx *gorm.DB, uid int6
 	}*/
 	err = tx.Save(userInfo).Error
 	if err != nil {
+		logger.GetLogger().Info("save userinfo failed")
 		return err
 	}
 	return tx.Save(item).Error
