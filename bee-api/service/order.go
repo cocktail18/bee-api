@@ -138,6 +138,9 @@ func (s *OrderSrv) CreateOrder(c context.Context, ip string, req *proto.CreateOr
 	} else if req.PeisongType == "kd" {
 		needPeisong = true
 		isNeedLogistics = false
+	} else if req.PeisongType == "pszq" {
+		isNeedLogistics = false
+		needPeisong = false
 	} else if !cast.ToBool(req.Calculate) {
 		return nil, errors.New("暂不支持配送")
 	}
