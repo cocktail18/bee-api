@@ -21,6 +21,7 @@ import (
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"io/ioutil"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -42,7 +43,7 @@ func GetPaySrv() *PaySrv {
 	})
 	return paySrvInstance
 }
-func (fee *PaySrv) getWxPayNotifyUrl(c context.Context, wxPayConfig *model.BeeWxPayConfig) string {
+func (fee *PaySrv) GetWxPayNotifyUrl(c context.Context, wxPayConfig *model.BeeWxPayConfig) string {
 	host := util.IF(wxPayConfig.NotifyUrl == "", config.GetHost(), wxPayConfig.NotifyUrl)
 	return strings.TrimRight(host, "/") + "/" + kit.GetDomain(c) + "/notify/wx/pay"
 }
@@ -55,6 +56,7 @@ func (fee *PaySrv) WxNotify(c context.Context, ip string, req *wechat.V3NotifyRe
 	if req.ResourceType != "encrypt-resource" {
 		return errors.New("暂不支持的回调事件！")
 	}
+
 	// 获取配置
 	var wxPayConfig model.BeeWxPayConfig
 	if err := db.GetDB().Where("user_id = ? and is_deleted = 0", kit.GetUserId(c)).Take(&wxPayConfig).Error; err != nil {
@@ -66,7 +68,7 @@ func (fee *PaySrv) WxNotify(c context.Context, ip string, req *wechat.V3NotifyRe
 		Secret:          wxPayConfig.AppSecret,
 		Token:           wxPayConfig.Token,
 		ReturnUrl:       "",
-		NotifyUrl:       fee.getWxPayNotifyUrl(c, &wxPayConfig),
+		NotifyUrl:       fee.GetWxPayNotifyUrl(c, &wxPayConfig),
 		PrivateCertPath: wxPayConfig.PrivateCert,
 		Debug:           wxPayConfig.Debug,
 	})
@@ -78,15 +80,24 @@ func (fee *PaySrv) WxNotify(c context.Context, ip string, req *wechat.V3NotifyRe
 		logger.GetLogger().Debug("微信回调", zap.Any("key", key))
 	}
 	logger.GetLogger().Debug("微信回调", zap.Any("req.SignInfo.HeaderSerial", req.SignInfo.HeaderSerial))
+
 	err = req.VerifySignByPKMap(publicMap)
 	if err != nil {
-		return errors.Wrap(err, "验证微信请求失败！")
+		if err != nil {
+			return errors.Wrap(err, "验证微信请求失败！")
+		}
+
 	}
-	var payResult = &wechat.V3DecryptPayResult{}
-	err = wechat.V3DecryptNotifyCipherTextToStruct(req.Resource.Ciphertext, req.Resource.Nonce, req.Resource.AssociatedData, string(payClient.ApiV3Key), payResult)
+	payResult, err := req.DecryptPayCipherText(wxPayConfig.AppSecret)
 	if err != nil {
-		return errors.Wrap(err, "回调数据解析失败")
+		return errors.Wrap(err, "订单信息解析失败！")
 	}
+
+	//var payResult = &wechat.V3DecryptPayResult{}
+	//err = wechat.V3DecryptNotifyCipherTextToStruct(req.Resource.Ciphertext, req.Resource.Nonce, req.Resource.AssociatedData, string(payClient.ApiV3Key), payResult)
+	//if err != nil {
+	//	return errors.Wrap(err, "回调数据解析失败")
+	//}
 	logger.GetLogger().Info("微信回调", zap.Any("payResult", util.ToJsonWithoutErr(payResult, "")))
 	if payResult.Mchid != wxPayConfig.MchId {
 		return fmt.Errorf("商户号不一致:%v %v！", payResult.Mchid, wxPayConfig.AppId)
@@ -159,7 +170,12 @@ func (fee *PaySrv) dealPayNotify(c context.Context, ip string, payResult *wechat
 			return nil
 		})
 	case enum.PayNextActionTypePayOrder:
-		err = GetOrderSrv().PayOrderByBalance(c, ip, payLog, nextActionJson.Get("id").MustString(), payResult.TransactionId, payerTotal)
+		var id, err = nextActionJson.Get("id").Int()
+		if err != nil {
+			return errors.Wrap(err, "订单id不合法")
+			break
+		}
+		err = GetOrderSrv().PayOrderByBalance(c, ip, payLog, strconv.Itoa(id), payResult.TransactionId, payerTotal)
 	case enum.PayNextActionTypePayDirect:
 		moneyTotal, err := nextActionJson.Get("money").Float64()
 		if err != nil {
@@ -318,7 +334,7 @@ func (fee *PaySrv) GetWxAppPayInfo(c context.Context, money decimal.Decimal, rem
 		Secret:          wxPayConfig.AppSecret,
 		Token:           wxPayConfig.Token,
 		ReturnUrl:       "",
-		NotifyUrl:       fee.getWxPayNotifyUrl(c, &wxPayConfig),
+		NotifyUrl:       fee.GetWxPayNotifyUrl(c, &wxPayConfig),
 		PrivateCertPath: wxPayConfig.PrivateCert,
 		Debug:           wxPayConfig.Debug,
 	})
@@ -335,7 +351,7 @@ func (fee *PaySrv) GetWxAppPayInfo(c context.Context, money decimal.Decimal, rem
 		"out_trade_no": payOrderId,
 		"appid":        wxPayConfig.AppId,
 		"description":  util.IF(remark != "", remark, "订单支付"),
-		"notify_url":   fee.getWxPayNotifyUrl(c, &wxPayConfig),
+		"notify_url":   fee.GetWxPayNotifyUrl(c, &wxPayConfig),
 		"amount": map[string]interface{}{
 			"total":    money.Mul(decimal.NewFromInt(100)).IntPart(),
 			"currency": "CNY",
@@ -421,4 +437,3 @@ type WxPayConfig struct {
 	PrivateCertPath string `json:"privateCertPath"` //商户API证书下载后，私钥 apiclient_key.pem 读取后的字符串内容
 	Debug           bool   `json:"debug"`
 }
-

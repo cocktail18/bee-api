@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"gitee.com/stuinfer/bee-api/enum"
-	"gitee.com/stuinfer/bee-api/kit"
 	"gitee.com/stuinfer/bee-api/logger"
 	"gitee.com/stuinfer/bee-api/proto"
 	"gitee.com/stuinfer/bee-api/service"
@@ -35,24 +34,13 @@ func (api PayApi) WxApp(c *gin.Context) {
 }
 
 func (api PayApi) WxPayCallBack(c *gin.Context) {
-	//支付回调
-	logger.GetLogger().Info("微信回调",
-		zap.Any("uri", c.Request.RequestURI),
-		zap.Any("userId", kit.GetUserId(c)))
 
-	req, err := api.getWxV3NotifyReq(c)
+	notifyReq, _ := wechat.V3ParseNotify(c.Request)
+
+	var err = service.GetPaySrv().WxNotify(c, c.ClientIP(), notifyReq)
 	if err != nil {
 		logger.GetLogger().Error("微信回调处理失败",
-			zap.Any("id", req.Id),
-			zap.Any("userId", kit.GetUserId(c)),
 			zap.Error(err))
-		c.AbortWithStatus(http.StatusInternalServerError)
-		return
-	}
-	err = service.GetPaySrv().WxNotify(c, c.ClientIP(), req)
-	if err != nil {
-		logger.GetLogger().Error("微信回调处理失败",
-			zap.Any("req", req), zap.Error(err))
 		c.AbortWithStatusJSON(http.StatusInternalServerError, &proto.WxPayNotifyResp{
 			Code:    "FAIL",
 			Message: "失败",
