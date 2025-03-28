@@ -1,338 +1,53 @@
 nohup: ignoring input
 [DEPRECATION WARNING] github.com/qiniu/api.v7 is deprecated. And the repository is moved to github.com/qiniu/api.v7 now
-[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
- - using env:	export GIN_MODE=release
- - using code:	gin.SetMode(gin.ReleaseMode)
+2025-03-26T17:46:23.844+0800	INFO	cmd/run.go:41	服务启动	{"addr": ":8081"}
+[GIN] 2025/03/26 - 17:46:37 | 200 |    2.895474ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=1"
+[GIN] 2025/03/26 - 17:46:37 | 200 |    13.40634ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=adbec5b90a2311f0b0fb00163e1e690b&type="
+[GIN] 2025/03/26 - 17:46:38 | 200 |    3.451465ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/user/check-token?token=adbec5b90a2311f0b0fb00163e1e690b"
+2025-03-26T17:46:45.339+0800	INFO	api/shopping_cart.go:30	添加购物车	{"uid": 5, "goodsId": 2000774, "number": 3, "sku": "[{\"optionId\":211246,\"optionValueId\":1686936},{\"optionId\":211247,\"optionValueId\":1686939}]", "addition": ""}
+[GIN] 2025/03/26 - 17:46:45 | 200 |   23.107009ms |   39.180.71.188 | POST     "/9kuai8coffee.asia/shopping-cart/add"
+[GIN] 2025/03/26 - 17:46:45 | 200 |   12.139736ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=adbec5b90a2311f0b0fb00163e1e690b&type="
+[GIN] 2025/03/26 - 17:46:49 | 200 |    9.973764ms |   39.180.71.188 | POST     "/9kuai8coffee.asia/shopping-cart/empty"
+[GIN] 2025/03/26 - 17:46:49 | 200 |    4.122295ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=adbec5b90a2311f0b0fb00163e1e690b&type="
+[GIN] 2025/03/26 - 17:46:51 | 200 |    2.356797ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/shop/goods/goodsAddition?goodsId=2000774"
 
-[GIN-debug] GET    /uploads/file/*filepath   --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
-[GIN-debug] HEAD   /uploads/file/*filepath   --> github.com/gin-gonic/gin.(*RouterGroup).createStaticHandler.func1 (3 handlers)
-[GIN-debug] POST   /upload2                  --> gitee.com/stuinfer/bee-api/api.DfsApi.UploadFile-fm (5 handlers)
-[GIN-debug] GET    /yunlaba/bind.html        --> gitee.com/stuinfer/bee-api/router.NewRouter.func1 (3 handlers)
-[GIN-debug] POST   /:domain/dfs/upload/file  --> gitee.com/stuinfer/bee-api/api.DfsApi.UploadFile-fm (5 handlers)
-[GIN-debug] GET    /:domain/config/values    --> gitee.com/stuinfer/bee-api/api.ConfigApi.Values-fm (4 handlers)
-[GIN-debug] POST   /:domain/qrcode/wxa/unlimit --> gitee.com/stuinfer/bee-api/api.QrcodeApi.WxaUnLimit-fm (4 handlers)
-[GIN-debug] GET    /:domain/shop/subshop/detail/v2 --> gitee.com/stuinfer/bee-api/api.ShopApi.SubShopDetail-fm (4 handlers)
-[GIN-debug] POST   /:domain/shop/subshop/list --> gitee.com/stuinfer/bee-api/api.ShopApi.SubShopList-fm (4 handlers)
-[GIN-debug] GET    /:domain/shop/goods/category/all --> gitee.com/stuinfer/bee-api/api.BaseApi.CategoryAll-fm (4 handlers)
-[GIN-debug] POST   /:domain/shop/goods/list  --> gitee.com/stuinfer/bee-api/api.GoodsApi.List-fm (4 handlers)
-[GIN-debug] POST   /:domain/shop/goods/list/v2 --> gitee.com/stuinfer/bee-api/api.GoodsApi.List-fm (4 handlers)
-[GIN-debug] POST   /:domain/shop/goods/price --> gitee.com/stuinfer/bee-api/api.GoodsApi.Price-fm (4 handlers)
-[GIN-debug] GET    /:domain/shop/goods/detail --> gitee.com/stuinfer/bee-api/api.GoodsApi.Detail-fm (4 handlers)
-[GIN-debug] GET    /:domain/shop/goods/goodsAddition --> gitee.com/stuinfer/bee-api/api.GoodsApi.GoodsAddition-fm (4 handlers)
-[GIN-debug] GET    /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
-[GIN-debug] POST   /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
-[GIN-debug] PUT    /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
-[GIN-debug] PATCH  /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
-[GIN-debug] HEAD   /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
-[GIN-debug] OPTIONS /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
-[GIN-debug] DELETE /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
-[GIN-debug] CONNECT /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
-[GIN-debug] TRACE  /:domain/shop/goods/times/schedule --> gitee.com/stuinfer/bee-api/api.GoodsApi.TimesSchedule-fm (4 handlers)
-[GIN-debug] GET    /:domain/shop/goods/kanjia/info --> gitee.com/stuinfer/bee-api/api.KanjiaApi.Info-fm (4 handlers)
-[GIN-debug] GET    /:domain/shop/goods/kanjia/help --> gitee.com/stuinfer/bee-api/api.KanjiaApi.Help-fm (4 handlers)
-[GIN-debug] GET    /:domain/shop/goods/kanjia/clear --> gitee.com/stuinfer/bee-api/api.KanjiaApi.Clear-fm (4 handlers)
-[GIN-debug] GET    /:domain/shop/goods/kanjia/my --> gitee.com/stuinfer/bee-api/api.KanjiaApi.My-fm (4 handlers)
-[GIN-debug] GET    /:domain/shop/goods/kanjia/myHelp --> gitee.com/stuinfer/bee-api/api.KanjiaApi.MyHelp-fm (4 handlers)
-[GIN-debug] GET    /:domain/shop/goods/kanjia/set/v2 --> gitee.com/stuinfer/bee-api/api.KanjiaApi.Set-fm (4 handlers)
-[GIN-debug] POST   /:domain/shop/goods/kanjia/join --> gitee.com/stuinfer/bee-api/api.KanjiaApi.Join-fm (4 handlers)
-[GIN-debug] GET    /:domain/cms/page/info/v2 --> gitee.com/stuinfer/bee-api/api.CmsApi.Info-fm (4 handlers)
-[GIN-debug] POST   /:domain/comment/add      --> gitee.com/stuinfer/bee-api/api.CommentApi.Add-fm (5 handlers)
-[GIN-debug] GET    /:domain/notice/last-one  --> gitee.com/stuinfer/bee-api/api.NoticeApi.LastOne-fm (4 handlers)
-[GIN-debug] GET    /:domain/notice/detail    --> gitee.com/stuinfer/bee-api/api.NoticeApi.Detail-fm (4 handlers)
-[GIN-debug] GET    /:domain/banner/list      --> gitee.com/stuinfer/bee-api/api.BannerApi.List-fm (4 handlers)
-[GIN-debug] GET    /common/region/v2/province --> gitee.com/stuinfer/bee-api/api.CommonApi.Province-fm (3 handlers)
-[GIN-debug] GET    /common/region/v2/child   --> gitee.com/stuinfer/bee-api/api.CommonApi.Child-fm (3 handlers)
-[GIN-debug] POST   /common/map/qq/distance   --> gitee.com/stuinfer/bee-api/api.CommonApi.MapQQDistance-fm (3 handlers)
-[GIN-debug] POST   /:domain/yuyue/join       --> gitee.com/stuinfer/bee-api/api.YuyueAPi.Join-fm (5 handlers)
-[GIN-debug] GET    /:domain/discounts/my     --> gitee.com/stuinfer/bee-api/api.DiscountsApi.My-fm (5 handlers)
-[GIN-debug] GET    /:domain/discounts/detail --> gitee.com/stuinfer/bee-api/api.DiscountsApi.CouponDetail-fm (5 handlers)
-[GIN-debug] GET    /:domain/discounts/statistics --> gitee.com/stuinfer/bee-api/api.DiscountsApi.Statistics-fm (5 handlers)
-[GIN-debug] GET    /:domain/discounts/coupons --> gitee.com/stuinfer/bee-api/api.DiscountsApi.Coupons-fm (5 handlers)
-[GIN-debug] POST   /:domain/discounts/fetch  --> gitee.com/stuinfer/bee-api/api.DiscountsApi.Fetch-fm (5 handlers)
-[GIN-debug] POST   /:domain/discounts/exchange --> gitee.com/stuinfer/bee-api/api.DiscountsApi.Exchange-fm (5 handlers)
-[GIN-debug] GET    /:domain/payBill/discounts --> gitee.com/stuinfer/bee-api/api.PayBillApi.Discounts-fm (5 handlers)
-[GIN-debug] POST   /:domain/payBill/pay      --> gitee.com/stuinfer/bee-api/api.PayBillApi.Pay-fm (5 handlers)
-[GIN-debug] GET    /:domain/user/bindSeller  --> gitee.com/stuinfer/bee-api/api.UserApi.BindSeller-fm (5 handlers)
-[GIN-debug] GET    /:domain/user/my          --> gitee.com/stuinfer/bee-api/api.UserApi.My-fm (5 handlers)
-[GIN-debug] POST   /:domain/user/level/list  --> gitee.com/stuinfer/bee-api/api.UserApi.LevelList-fm (5 handlers)
-[GIN-debug] GET    /:domain/user/detail      --> gitee.com/stuinfer/bee-api/api.UserApi.Detail-fm (5 handlers)
-[GIN-debug] POST   /:domain/user/modify      --> gitee.com/stuinfer/bee-api/api.UserApi.Modify-fm (5 handlers)
-[GIN-debug] GET    /:domain/user/amount      --> gitee.com/stuinfer/bee-api/api.UserApi.Amount-fm (5 handlers)
-[GIN-debug] GET    /:domain/user/check-token --> gitee.com/stuinfer/bee-api/api.UserApi.CheckToken-fm (5 handlers)
-[GIN-debug] POST   /:domain/user/wxapp/authorize --> gitee.com/stuinfer/bee-api/api.UserApi.WxAppAuthorize-fm (5 handlers)
-[GIN-debug] POST   /:domain/user/wxapp/login --> gitee.com/stuinfer/bee-api/api.UserApi.WxAppAuthorize-fm (5 handlers)
-[GIN-debug] POST   /:domain/user/wxapp/bindMobile --> gitee.com/stuinfer/bee-api/api.UserApi.BindMobile-fm (5 handlers)
-[GIN-debug] POST   /:domain/user/cashLog     --> gitee.com/stuinfer/bee-api/api.UserApi.CashLog-fm (5 handlers)
-[GIN-debug] POST   /:domain/user/cashLog/v2  --> gitee.com/stuinfer/bee-api/api.UserApi.CashLog-fm (5 handlers)
-[GIN-debug] GET    /:domain/user/dynamicUserCode --> gitee.com/stuinfer/bee-api/api.UserApi.GetDynamicUserCode-fm (5 handlers)
-[GIN-debug] POST   /:domain/user/payLogs     --> gitee.com/stuinfer/bee-api/api.UserApi.PayLogs-fm (5 handlers)
-[GIN-debug] GET    /:domain/user/recharge/send/rule --> gitee.com/stuinfer/bee-api/api.PayApi.RechargeSendRule-fm (5 handlers)
-[GIN-debug] GET    /:domain/user/shipping-address/list --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.List-fm (5 handlers)
-[GIN-debug] GET    /:domain/user/shipping-address/default/v2 --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.Default-fm (5 handlers)
-[GIN-debug] GET    /:domain/user/shipping-address/detail/v2 --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.Detail-fm (5 handlers)
-[GIN-debug] POST   /:domain/user/shipping-address/add --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.Add-fm (5 handlers)
-[GIN-debug] POST   /:domain/user/shipping-address/update --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.Update-fm (5 handlers)
-[GIN-debug] POST   /:domain/user/shipping-address/delete --> gitee.com/stuinfer/bee-api/api.ShippingAddressApi.Delete-fm (5 handlers)
-[GIN-debug] GET    /:domain/shopping-cart/info --> gitee.com/stuinfer/bee-api/api.ShoppingCartAPi.Info-fm (5 handlers)
-[GIN-debug] POST   /:domain/shopping-cart/add --> gitee.com/stuinfer/bee-api/api.ShoppingCartAPi.Add-fm (5 handlers)
-[GIN-debug] POST   /:domain/shopping-cart/remove --> gitee.com/stuinfer/bee-api/api.ShoppingCartAPi.Remove-fm (5 handlers)
-[GIN-debug] POST   /:domain/shopping-cart/empty --> gitee.com/stuinfer/bee-api/api.ShoppingCartAPi.Empty-fm (5 handlers)
-[GIN-debug] POST   /:domain/shopping-cart/modifyNumber --> gitee.com/stuinfer/bee-api/api.ShoppingCartAPi.ModifyNumber-fm (5 handlers)
-[GIN-debug] GET    /:domain/order/detail     --> gitee.com/stuinfer/bee-api/api.OrderApi.Detail-fm (5 handlers)
-[GIN-debug] GET    /:domain/order/list       --> gitee.com/stuinfer/bee-api/api.OrderApi.List-fm (5 handlers)
-[GIN-debug] POST   /:domain/order/list       --> gitee.com/stuinfer/bee-api/api.OrderApi.List-fm (5 handlers)
-[GIN-debug] POST   /:domain/order/pay        --> gitee.com/stuinfer/bee-api/api.OrderApi.Pay-fm (5 handlers)
-[GIN-debug] POST   /:domain/order/create     --> gitee.com/stuinfer/bee-api/api.OrderApi.Create-fm (5 handlers)
-[GIN-debug] POST   /:domain/order/close      --> gitee.com/stuinfer/bee-api/api.OrderApi.Close-fm (5 handlers)
-[GIN-debug] POST   /:domain/order/delete     --> gitee.com/stuinfer/bee-api/api.OrderApi.Delete-fm (5 handlers)
-[GIN-debug] POST   /:domain/order/delivery   --> gitee.com/stuinfer/bee-api/api.OrderApi.Delivery-fm (5 handlers)
-[GIN-debug] POST   /:domain/order/reputation --> gitee.com/stuinfer/bee-api/api.OrderApi.Reputation-fm (5 handlers)
-[GIN-debug] POST   /:domain/order/hx         --> gitee.com/stuinfer/bee-api/api.OrderApi.Hx-fm (5 handlers)
-[GIN-debug] GET    /:domain/score/sign/logs  --> gitee.com/stuinfer/bee-api/api.ScoreApi.SignLogs-fm (5 handlers)
-[GIN-debug] POST   /:domain/score/sign/logs  --> gitee.com/stuinfer/bee-api/api.ScoreApi.SignLogs-fm (5 handlers)
-[GIN-debug] POST   /:domain/score/sign       --> gitee.com/stuinfer/bee-api/api.ScoreApi.Sign-fm (5 handlers)
-[GIN-debug] POST   /:domain/score/logs       --> gitee.com/stuinfer/bee-api/api.ScoreApi.Logs-fm (5 handlers)
-[GIN-debug] POST   /:domain/score/share/wxa/group --> gitee.com/stuinfer/bee-api/api.ScoreApi.WxaGroup-fm (5 handlers)
-[GIN-debug] POST   /:domain/pay/wx/wxapp     --> gitee.com/stuinfer/bee-api/api.PayApi.WxApp-fm (5 handlers)
-[GIN-debug] POST   /:domain/notify/wx/pay    --> gitee.com/stuinfer/bee-api/api.PayApi.WxPayCallBack-fm (4 handlers)
-[GIN-debug] GET    /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
-[GIN-debug] POST   /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
-[GIN-debug] PUT    /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
-[GIN-debug] PATCH  /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
-[GIN-debug] HEAD   /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
-[GIN-debug] OPTIONS /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
-[GIN-debug] DELETE /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
-[GIN-debug] CONNECT /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
-[GIN-debug] TRACE  /:domain/notify/dada      --> gitee.com/stuinfer/bee-api/api.DadaAPi.Notify-fm (4 handlers)
-[GIN-debug] GET    /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
-[GIN-debug] POST   /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
-[GIN-debug] PUT    /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
-[GIN-debug] PATCH  /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
-[GIN-debug] HEAD   /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
-[GIN-debug] OPTIONS /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
-[GIN-debug] DELETE /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
-[GIN-debug] CONNECT /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
-[GIN-debug] TRACE  /:domain/notify/yunlaba   --> gitee.com/stuinfer/bee-api/api.YunlabaAPi.Notify-fm (4 handlers)
-[GIN-debug] POST   /:domain/cyTable/add-order --> gitee.com/stuinfer/bee-api/api.CyTableAPi.AddOrder-fm (5 handlers)
-[GIN-debug] POST   /:domain/cyTable/token    --> gitee.com/stuinfer/bee-api/api.CyTableAPi.Token-fm (4 handlers)
-[GIN-debug] GET    /:domain/fee/peisong/list --> gitee.com/stuinfer/bee-api/api.FeeAPi.ListPeiSong-fm (4 handlers)
-[GIN-debug] POST   /:domain/queuing/get      --> gitee.com/stuinfer/bee-api/api.QueuingApi.Get-fm (5 handlers)
-[GIN-debug] GET    /:domain/queuing/types    --> gitee.com/stuinfer/bee-api/api.QueuingApi.Types-fm (4 handlers)
-[GIN-debug] GET    /:domain/queuing/my       --> gitee.com/stuinfer/bee-api/api.QueuingApi.My-fm (5 handlers)
-2025-03-15T11:55:05.972+0800	INFO	cmd/run.go:41	服务启动	{"addr": ":8081"}
-[GIN] 2025/03/15 - 11:55:24 | 200 |    6.533055ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/check-token?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:55:24 | 200 |    5.286527ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/detail?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:55:24 | 200 |    7.190513ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/amount?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:55:24 | 200 |    8.720898ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/discounts/statistics?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:55:26 | 200 |    3.444743ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/check-token?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:55:26 | 200 |     4.16351ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/detail?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:55:26 | 200 |    7.781817ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/amount?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:55:26 | 200 |    6.504251ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/discounts/statistics?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:55:28 | 200 |    5.736059ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/amount?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:55:28 | 200 |    4.110672ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/recharge/send/rule"
-[GIN] 2025/03/15 - 11:55:30 | 200 |  527.888496ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/pay/wx/wxapp"
-[GIN] 2025/03/15 - 11:55:35 | 200 |  439.348049ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/pay/wx/wxapp"
-2025-03-15T11:55:46.567+0800	INFO	api/pay.go:39	微信回调	{"uri": "/notify/wx/pay", "userId": 100}
-2025-03-15T11:55:46.569+0800	DEBUG	service/pay.go:78	微信回调	{"key": {"N":24946871630990902913923699474342158082829173884786308601412739335605729394997158004587949725252516929679308565982635028193012723587563318440688582210357466210216140092618459463465127264607764188553656866326445761378140807894381964349171019392471115523085027905945829634356338733913192761037097412961378253785021527033599533300350153407900610758264824449269194348118374883647236981379409794218324413576482961373613897870047547537970703588590049204018661178031141377647297066017927742367859559592451466322015589746050201047576697363917599910092144462391790208239699136064445614903526221086406571228002845494663499897743,"E":65537}}
-2025-03-15T11:55:46.569+0800	DEBUG	service/pay.go:80	微信回调	{"req.SignInfo.HeaderSerial": "6FA1B96EA20B262CD3C3E8A5329F2353B58ED5F7"}
-2025-03-15T11:55:46.570+0800	INFO	service/pay.go:90	微信回调	{"payResult": "{\"appid\":\"wxf9be667c59929008\",\"mchid\":\"1696073167\",\"out_trade_no\":\"202503155557649544\",\"transaction_id\":\"4200002682202503158718818267\",\"trade_type\":\"JSAPI\",\"trade_state\":\"SUCCESS\",\"trade_state_desc\":\"支付成功\",\"bank_type\":\"BOC_DEBIT\",\"attach\":\"\",\"success_time\":\"2025-03-15T11:55:46+08:00\",\"payer\":{\"openid\":\"oW2Sf7eSsNTP_88vVjVM7LJpjDlY\"},\"amount\":{\"total\":1,\"payer_total\":1,\"currency\":\"CNY\",\"payer_currency\":\"CNY\"},\"scene_info\":null,\"promotion_detail\":null}"}
+2025/03/26 17:46:51 [31;1m/root/bee-api/bee-api/service/goods.go:74 [35;1mrecord not found
+[0m[33m[0.903ms] [34;1m[rows:0][0m SELECT * FROM `bee_shop_goods_content` WHERE goods_id = 2000774 and is_deleted = 0 ORDER BY `bee_shop_goods_content`.`id` LIMIT 1
+[GIN] 2025/03/26 - 17:46:51 | 200 |    8.190922ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/shop/goods/detail?id=2000774&token="
+[GIN] 2025/03/26 - 17:46:51 | 200 |     781.821µs |   39.180.71.188 | POST     "/9kuai8coffee.asia/shop/goods/times/schedule"
+[GIN] 2025/03/26 - 17:46:52 | 200 |    4.156213ms |   39.180.71.188 | POST     "/9kuai8coffee.asia/shop/goods/price"
+2025-03-26T17:46:53.765+0800	INFO	api/shopping_cart.go:30	添加购物车	{"uid": 5, "goodsId": 2000774, "number": 2, "sku": "[{\"optionId\":211246,\"optionValueId\":1686936},{\"optionId\":211247,\"optionValueId\":1686939}]", "addition": ""}
 
-2025/03/15 11:55:46 [31;1m/root/bee-api/bee-api/service/pay.go:178 [35;1mrecord not found
-[0m[33m[1.220ms] [34;1m[rows:0][0m SELECT * FROM `bee_recharge_send_rule` WHERE confine <= '0.01' and is_deleted = 0 and user_id = 11 ORDER BY confine desc LIMIT 1
-2025-03-15T11:55:46.587+0800	DEBUG	service/balance.go:126	余额100.16000000000003
-[GIN] 2025/03/15 - 11:55:46 | 200 |   31.718795ms |  101.226.103.15 | POST     "/9kuai8coffee.asia/notify/wx/pay"
-[GIN] 2025/03/15 - 11:56:03 | 200 |    3.451937ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/check-token?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:56:03 | 200 |    7.936049ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/discounts/statistics?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:56:03 | 200 |    9.238699ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/detail?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:56:03 | 200 |   13.062222ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/amount?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:56:09 | 200 |    2.767838ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/recharge/send/rule"
-[GIN] 2025/03/15 - 11:56:09 | 200 |    6.633982ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/amount?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:56:12 | 200 |    5.035722ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/check-token?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:56:13 | 200 |    7.416461ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/discounts/statistics?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:56:13 | 200 |     6.36143ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/detail?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:56:13 | 200 |   11.056828ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/amount?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:57:36 | 200 |    3.141514ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/recharge/send/rule"
-[GIN] 2025/03/15 - 11:57:36 | 200 |    5.029568ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/amount?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:57:38 | 200 |     4.06207ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/check-token?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:57:38 | 200 |    4.623772ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/detail?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:57:38 | 200 |    4.827009ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/amount?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:57:38 | 200 |    6.726842ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/discounts/statistics?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:57:39 | 200 |   15.762453ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=97798831014a11f0a1c900163e1e690b&type="
-[GIN] 2025/03/15 - 11:57:41 | 200 |    1.662603ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/times/schedule"
-[GIN] 2025/03/15 - 11:57:41 | 200 |    3.352231ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shop/goods/goodsAddition?goodsId=2000774"
+2025/03/26 17:46:53 [31;1m/root/bee-api/bee-api/service/shopping_card.go:52 [35;1mrecord not found
+[0m[33m[0.722ms] [34;1m[rows:0][0m SELECT * FROM `bee_shopping_cart` WHERE uid = 5 and sku_id = 369 LIMIT 1
+[GIN] 2025/03/26 - 17:46:53 | 200 |   18.191774ms |   39.180.71.188 | POST     "/9kuai8coffee.asia/shopping-cart/add"
+[GIN] 2025/03/26 - 17:46:53 | 200 |    7.973445ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=adbec5b90a2311f0b0fb00163e1e690b&type="
+[GIN] 2025/03/26 - 17:46:55 | 200 |    2.392044ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/config/values?keys=mallName%2CmyBg%2CmapPos%2Corder_hx_uids%2Csubscribe_ids%2Cshare_profile%2Czxdz%2Cadmin_uids%2Cshop_goods_split%2CQQ_MAP_KEY%2Cshop_join_open%2Ccreate_order_select_time%2Cpackaging_fee%2CcustomerServiceChatCorpId%2CcustomerServiceChatUrl"
+[GIN] 2025/03/26 - 17:46:55 | 200 |    1.777587ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=1"
+[GIN] 2025/03/26 - 17:46:56 | 200 |    2.097044ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/banner/list"
+[GIN] 2025/03/26 - 17:46:56 | 200 |    2.211827ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/notice/last-one?type="
+[GIN] 2025/03/26 - 17:46:56 | 200 |    1.768799ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/shop/goods/category/all"
+[GIN] 2025/03/26 - 17:46:56 | 200 |    8.250097ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=adbec5b90a2311f0b0fb00163e1e690b&type="
+[GIN] 2025/03/26 - 17:46:56 | 200 |    2.441012ms |   39.180.71.188 | POST     "/9kuai8coffee.asia/shop/goods/list"
+[GIN] 2025/03/26 - 17:46:57 | 200 |    2.567458ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/user/check-token?token=adbec5b90a2311f0b0fb00163e1e690b"
+[GIN] 2025/03/26 - 17:46:57 | 200 |    2.851223ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/user/check-token?token=adbec5b90a2311f0b0fb00163e1e690b"
+[GIN] 2025/03/26 - 17:46:58 | 200 |    1.997763ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/shop/goods/goodsAddition?goodsId=2000774"
+[GIN] 2025/03/26 - 17:46:58 | 200 |     977.938µs |   39.180.71.188 | POST     "/9kuai8coffee.asia/shop/goods/times/schedule"
 
-2025/03/15 11:57:41 [31;1m/root/bee-api/bee-api/service/goods.go:74 [35;1mrecord not found
-[0m[33m[1.292ms] [34;1m[rows:0][0m SELECT * FROM `bee_shop_goods_content` WHERE goods_id = 2000774 and is_deleted = 0 ORDER BY `bee_shop_goods_content`.`id` LIMIT 1
-[GIN] 2025/03/15 - 11:57:41 | 200 |   16.941839ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shop/goods/detail?id=2000774&token="
-[GIN] 2025/03/15 - 11:57:44 | 200 |    7.722827ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/price"
-[GIN] 2025/03/15 - 11:57:46 | 200 |    5.868548ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/price"
-[GIN] 2025/03/15 - 11:57:46 | 200 |   11.530625ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/price"
-[GIN] 2025/03/15 - 11:57:47 | 200 |    5.702676ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/price"
-[GIN] 2025/03/15 - 11:57:47 | 200 |    5.416656ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/price"
-[GIN] 2025/03/15 - 11:57:54 | 200 |   22.668143ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shopping-cart/modifyNumber"
-[GIN] 2025/03/15 - 11:57:54 | 200 |   18.038303ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=97798831014a11f0a1c900163e1e690b&type="
-[GIN] 2025/03/15 - 11:57:55 | 200 |    25.40963ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shopping-cart/modifyNumber"
-[GIN] 2025/03/15 - 11:57:55 | 200 |   11.324361ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=97798831014a11f0a1c900163e1e690b&type="
-[GIN] 2025/03/15 - 11:57:56 | 200 |   17.727439ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shopping-cart/remove"
-[GIN] 2025/03/15 - 11:57:57 | 200 |    3.198852ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/list"
-[GIN] 2025/03/15 - 11:57:59 | 200 |    2.967506ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/list"
-[GIN] 2025/03/15 - 11:58:00 | 200 |    3.609959ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/list"
-[GIN] 2025/03/15 - 11:58:03 | 200 |    2.163658ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/times/schedule"
-[GIN] 2025/03/15 - 11:58:03 | 200 |    8.085772ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shop/goods/goodsAddition?goodsId=2025771"
-[GIN] 2025/03/15 - 11:58:03 | 200 |   17.749127ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shop/goods/detail?id=2025771&token="
-[GIN] 2025/03/15 - 11:58:04 | 200 |    5.403935ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/price"
-2025-03-15T11:58:06.003+0800	INFO	api/shopping_cart.go:30	添加购物车	{"uid": 11, "goodsId": 2025771, "number": 1, "sku": "[{\"optionId\":211246,\"optionValueId\":1686936},{\"optionId\":211247,\"optionValueId\":1686938}]", "addition": ""}
+2025/03/26 17:46:58 [31;1m/root/bee-api/bee-api/service/goods.go:74 [35;1mrecord not found
+[0m[33m[0.790ms] [34;1m[rows:0][0m SELECT * FROM `bee_shop_goods_content` WHERE goods_id = 2000774 and is_deleted = 0 ORDER BY `bee_shop_goods_content`.`id` LIMIT 1
+[GIN] 2025/03/26 - 17:46:58 | 200 |    7.457317ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/shop/goods/detail?id=2000774&token="
+[GIN] 2025/03/26 - 17:47:00 | 200 |    3.983576ms |   39.180.71.188 | POST     "/9kuai8coffee.asia/shop/goods/price"
+2025-03-26T17:47:00.596+0800	INFO	api/shopping_cart.go:30	添加购物车	{"uid": 5, "goodsId": 2000774, "number": 1, "sku": "[{\"optionId\":211246,\"optionValueId\":1686936},{\"optionId\":211247,\"optionValueId\":1686939}]", "addition": ""}
+[GIN] 2025/03/26 - 17:47:00 | 200 |    20.65958ms |   39.180.71.188 | POST     "/9kuai8coffee.asia/shopping-cart/add"
+[GIN] 2025/03/26 - 17:47:00 | 200 |    7.748746ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=adbec5b90a2311f0b0fb00163e1e690b&type="
+[GIN] 2025/03/26 - 17:47:01 | 200 |    2.356299ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/fee/peisong/list"
+[GIN] 2025/03/26 - 17:47:01 | 200 |     2.90499ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/user/detail?token=adbec5b90a2311f0b0fb00163e1e690b"
+[GIN] 2025/03/26 - 17:47:02 | 200 |     3.31957ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/user/check-token?token=adbec5b90a2311f0b0fb00163e1e690b"
+[GIN] 2025/03/26 - 17:47:02 | 200 |    7.627496ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=adbec5b90a2311f0b0fb00163e1e690b&type="
 
-2025/03/15 11:58:06 [31;1m/root/bee-api/bee-api/service/shopping_card.go:52 [35;1mrecord not found
-[0m[33m[0.865ms] [34;1m[rows:0][0m SELECT * FROM `bee_shopping_cart` WHERE uid = 11 and sku_id = 356 LIMIT 1
-[GIN] 2025/03/15 - 11:58:06 | 200 |   27.134607ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shopping-cart/add"
-[GIN] 2025/03/15 - 11:58:06 | 200 |   13.823272ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=97798831014a11f0a1c900163e1e690b&type="
-[GIN] 2025/03/15 - 11:58:08 | 200 |    4.564808ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/detail?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:58:08 | 200 |    7.375962ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/fee/peisong/list"
-[GIN] 2025/03/15 - 11:58:09 | 200 |     4.58511ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/check-token?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:58:09 | 200 |   11.086687ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=97798831014a11f0a1c900163e1e690b&type="
-
-2025/03/15 11:58:09 [31;1m/root/bee-api/bee-api/service/address.go:247 [35;1mrecord not found
-[0m[33m[3.780ms] [34;1m[rows:0][0m SELECT * FROM `bee_user_address` WHERE is_default = 1 and uid = 11 and is_deleted = 0 LIMIT 1
-[GIN] 2025/03/15 - 11:58:09 | 200 |    7.945419ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/shipping-address/default/v2?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:58:13 | 200 |    10.68033ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=97798831014a11f0a1c900163e1e690b&type="
-[GIN] 2025/03/15 - 11:58:19 | 200 |    4.340435ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/list"
-[GIN] 2025/03/15 - 11:58:21 | 200 |     4.71203ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/list"
-[GIN] 2025/03/15 - 11:58:22 | 200 |    3.314484ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shop/goods/goodsAddition?goodsId=2025762"
-[GIN] 2025/03/15 - 11:58:22 | 200 |    3.541413ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/times/schedule"
-[GIN] 2025/03/15 - 11:58:22 | 200 |   16.852362ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shop/goods/detail?id=2025762&token="
-[GIN] 2025/03/15 - 11:58:25 | 200 |    7.205163ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/price"
-2025-03-15T11:58:26.984+0800	INFO	api/shopping_cart.go:30	添加购物车	{"uid": 11, "goodsId": 2025762, "number": 1, "sku": "[{\"optionId\":211246,\"optionValueId\":1686936},{\"optionId\":211247,\"optionValueId\":1686938}]", "addition": ""}
-
-2025/03/15 11:58:26 [31;1m/root/bee-api/bee-api/service/shopping_card.go:52 [35;1mrecord not found
-[0m[33m[1.548ms] [34;1m[rows:0][0m SELECT * FROM `bee_shopping_cart` WHERE uid = 11 and sku_id = 347 LIMIT 1
-[GIN] 2025/03/15 - 11:58:27 | 200 |    49.86271ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shopping-cart/add"
-[GIN] 2025/03/15 - 11:58:27 | 200 |   19.349323ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=97798831014a11f0a1c900163e1e690b&type="
-[GIN] 2025/03/15 - 11:58:31 | 200 |   27.289347ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shopping-cart/remove"
-[GIN] 2025/03/15 - 11:58:33 | 200 |    2.974646ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/fee/peisong/list"
-[GIN] 2025/03/15 - 11:58:33 | 200 |    7.137376ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/detail?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:58:33 | 200 |    3.233133ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/check-token?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:58:33 | 200 |   11.718369ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=97798831014a11f0a1c900163e1e690b&type="
-
-2025/03/15 11:58:33 [31;1m/root/bee-api/bee-api/service/address.go:247 [35;1mrecord not found
-[0m[33m[1.227ms] [34;1m[rows:0][0m SELECT * FROM `bee_user_address` WHERE is_default = 1 and uid = 11 and is_deleted = 0 LIMIT 1
-[GIN] 2025/03/15 - 11:58:33 | 200 |    5.287127ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/shipping-address/default/v2?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:58:41 | 200 |   13.988107ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=97798831014a11f0a1c900163e1e690b&type="
-[GIN] 2025/03/15 - 11:58:43 | 200 |   16.862966ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shopping-cart/remove"
-[GIN] 2025/03/15 - 11:58:44 | 200 |    4.680622ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/list"
-[GIN] 2025/03/15 - 11:58:45 | 200 |    2.386427ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shop/goods/goodsAddition?goodsId=2000774"
-[GIN] 2025/03/15 - 11:58:45 | 200 |    5.372095ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/times/schedule"
-
-2025/03/15 11:58:46 [31;1m/root/bee-api/bee-api/service/goods.go:74 [35;1mrecord not found
-[0m[33m[1.780ms] [34;1m[rows:0][0m SELECT * FROM `bee_shop_goods_content` WHERE goods_id = 2000774 and is_deleted = 0 ORDER BY `bee_shop_goods_content`.`id` LIMIT 1
-[GIN] 2025/03/15 - 11:58:46 | 200 |   16.233175ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shop/goods/detail?id=2000774&token="
-[GIN] 2025/03/15 - 11:58:48 | 200 |    6.492346ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shop/goods/price"
-2025-03-15T11:58:52.093+0800	INFO	api/shopping_cart.go:30	添加购物车	{"uid": 11, "goodsId": 2000774, "number": 2, "sku": "[{\"optionId\":211246,\"optionValueId\":1686936},{\"optionId\":211247,\"optionValueId\":1686938}]", "addition": ""}
-
-2025/03/15 11:58:52 [31;1m/root/bee-api/bee-api/service/shopping_card.go:52 [35;1mrecord not found
-[0m[33m[1.510ms] [34;1m[rows:0][0m SELECT * FROM `bee_shopping_cart` WHERE uid = 11 and sku_id = 323 LIMIT 1
-[GIN] 2025/03/15 - 11:58:52 | 200 |   24.539216ms |   183.206.28.92 | POST     "/9kuai8coffee.asia/shopping-cart/add"
-[GIN] 2025/03/15 - 11:58:52 | 200 |   11.321301ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=97798831014a11f0a1c900163e1e690b&type="
-[GIN] 2025/03/15 - 11:58:54 | 200 |    2.472859ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/fee/peisong/list"
-[GIN] 2025/03/15 - 11:58:54 | 200 |    4.238832ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/detail?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:58:54 | 200 |    2.838767ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/check-token?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:58:54 | 200 |   22.094946ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=97798831014a11f0a1c900163e1e690b&type="
-
-2025/03/15 11:58:55 [31;1m/root/bee-api/bee-api/service/address.go:247 [35;1mrecord not found
-[0m[33m[1.339ms] [34;1m[rows:0][0m SELECT * FROM `bee_user_address` WHERE is_default = 1 and uid = 11 and is_deleted = 0 LIMIT 1
-[GIN] 2025/03/15 - 11:58:55 | 200 |    6.084952ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/shipping-address/default/v2?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:59:23 | 200 |   11.681291ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=97798831014a11f0a1c900163e1e690b&type="
-[GIN] 2025/03/15 - 11:59:26 | 200 |    3.828835ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/check-token?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:59:26 | 200 |    5.187398ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/detail?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:59:26 | 200 |    7.112923ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/amount?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:59:26 | 200 |    7.789561ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/discounts/statistics?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:59:29 | 200 |    4.012429ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/check-token?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:59:29 | 200 |    5.254515ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/shipping-address/list?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:59:43 | 200 |    3.599385ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
-[GIN] 2025/03/15 - 11:59:43 | 200 |    4.120104ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/check-token?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:59:43 | 200 |    3.123376ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/check-token?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:59:43 | 200 |    4.382434ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/shipping-address/list?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:59:52 | 200 |     3.19391ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shop/subshop/detail/v2?id=391592"
-[GIN] 2025/03/15 - 11:59:53 | 200 |    3.671675ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/check-token?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:59:53 | 200 |    3.055043ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/check-token?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 11:59:53 | 200 |    4.403456ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/shipping-address/list?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 12:00:10 | 200 |    4.870218ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/check-token?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 12:00:10 | 200 |    4.564978ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/detail?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 12:00:10 | 200 |    9.301602ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/amount?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 12:00:10 | 200 |    7.320144ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/discounts/statistics?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 12:00:13 | 200 |   12.271328ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=97798831014a11f0a1c900163e1e690b&type="
-[GIN] 2025/03/15 - 12:00:20 | 200 |    2.587421ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/fee/peisong/list"
-[GIN] 2025/03/15 - 12:00:20 | 200 |    4.788096ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/detail?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 12:00:21 | 200 |    5.701911ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/check-token?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 12:00:21 | 200 |   14.517486ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=97798831014a11f0a1c900163e1e690b&type="
-
-2025/03/15 12:00:21 [31;1m/root/bee-api/bee-api/service/address.go:247 [35;1mrecord not found
-[0m[33m[0.970ms] [34;1m[rows:0][0m SELECT * FROM `bee_user_address` WHERE is_default = 1 and uid = 11 and is_deleted = 0 LIMIT 1
-[GIN] 2025/03/15 - 12:00:21 | 200 |    5.598194ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/user/shipping-address/default/v2?token=97798831014a11f0a1c900163e1e690b"
-[GIN] 2025/03/15 - 12:00:25 | 200 |   10.019258ms |   183.206.28.92 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=97798831014a11f0a1c900163e1e690b&type="
-2025-03-15T14:41:42.405+0800	INFO	api/pay.go:39	微信回调	{"uri": "/notify/wx/pay", "userId": 100}
-2025-03-15T14:41:42.406+0800	DEBUG	service/pay.go:78	微信回调	{"key": {"N":24946871630990902913923699474342158082829173884786308601412739335605729394997158004587949725252516929679308565982635028193012723587563318440688582210357466210216140092618459463465127264607764188553656866326445761378140807894381964349171019392471115523085027905945829634356338733913192761037097412961378253785021527033599533300350153407900610758264824449269194348118374883647236981379409794218324413576482961373613897870047547537970703588590049204018661178031141377647297066017927742367859559592451466322015589746050201047576697363917599910092144462391790208239699136064445614903526221086406571228002845494663499897743,"E":65537}}
-2025-03-15T14:41:42.406+0800	DEBUG	service/pay.go:80	微信回调	{"req.SignInfo.HeaderSerial": "6FA1B96EA20B262CD3C3E8A5329F2353B58ED5F7"}
-2025-03-15T14:41:42.406+0800	INFO	service/pay.go:90	微信回调	{"payResult": "{\"appid\":\"wxf9be667c59929008\",\"mchid\":\"1696073167\",\"out_trade_no\":\"202503146946960603\",\"transaction_id\":\"4200002699202503144349653329\",\"trade_type\":\"JSAPI\",\"trade_state\":\"SUCCESS\",\"trade_state_desc\":\"支付成功\",\"bank_type\":\"OTHERS\",\"attach\":\"\",\"success_time\":\"2025-03-14T15:06:53+08:00\",\"payer\":{\"openid\":\"oW2Sf7Wyi84lP-6raHM8sOuqIuu8\"},\"amount\":{\"total\":980,\"payer_total\":980,\"currency\":\"CNY\",\"payer_currency\":\"CNY\"},\"scene_info\":null,\"promotion_detail\":null}"}
-
-2025/03/15 14:41:42 [31;1m/root/bee-api/bee-api/service/order.go:1068 [35;1mrecord not found
-[0m[33m[1.094ms] [34;1m[rows:0][0m SELECT * FROM `bee_order` WHERE id = 0 LIMIT 1
-2025-03-15T14:41:42.408+0800	ERROR	api/pay.go:54	微信回调处理失败	{"req": {"id":"e0d6c8e5-2c0f-5f3c-adda-38108abc22ae","create_time":"2025-03-14T15:06:53+08:00","event_type":"TRANSACTION.SUCCESS","summary":"支付成功","resource_type":"encrypt-resource","resource":{"algorithm":"AEAD_AES_256_GCM","original_type":"transaction","ciphertext":"YCLfBjHq+NPdzCYGhyUh9c/bsDR3JspkmuFSy5XS5nKjSrsoaWSEXxPbDitYHb6NbvhpdEoDY4kPfMAeW0x5zYIE+JbHjv2ztNwLf1tSGY9Kt+CaiOvRtR6vZwnLLN0MHT0QydEMXa5TiPVjXB1QAFJ9k2O8kwhpfonqebV5Nsz4mkhz2zmW+z/D23VLZoaKZ5VpUXK9T4c5ZR+kIyZBObZpo8NbXjLI2Sif2uYmb2Cya0PRTYo/Xre7GZuZIL1Qg33etkKJFxoJTluB87fBJ6mT4hb/zqMnYal/tnwVTr7IPszR4BfcBlDbWXSe4AdN+qf9otqvRTxqLtgV2qP8ZIpc59E8CeK+rngVS/8zGK86LZiJD1bD5ilmM2ZMsQRcULH07YgqAHQbf1fNENUe4Df75z5r5dD/n08pLmIV/ktoUPtjf0+IKP+SWMTUxTURNX6LYlaxw12sr5jUE1jtZlr1fdf9sadCR8ct8TVUZhy8vZkSRFLfa1eOY4mPKP3sB0yaAFxMtCptPVAcRhdpQRl+X6K1xx9394CBfdI5edjxAj4senYQA+UAFjoLsyqWcyXa56M=","associated_data":"transaction","nonce":"tIcJ5UFtUgNh"}}, "error": "处理支付结果失败: 处理支付结果失败~: 获取订单信息失败！: record not found", "errorVerbose": "record not found\n获取订单信息失败！\ngitee.com/stuinfer/bee-api/service.(*OrderSrv).PayOrderByBalance\n\t/root/bee-api/bee-api/service/order.go:936\ngitee.com/stuinfer/bee-api/service.(*PaySrv).dealPayNotify\n\t/root/bee-api/bee-api/service/pay.go:162\ngitee.com/stuinfer/bee-api/service.(*PaySrv).WxNotify\n\t/root/bee-api/bee-api/service/pay.go:103\ngitee.com/stuinfer/bee-api/api.PayApi.WxPayCallBack\n\t/root/bee-api/bee-api/api/pay.go:52\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngitee.com/stuinfer/bee-api/router.NewRouter.regSysUser.func4\n\t/root/bee-api/bee-api/router/router.go:47\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.CustomRecoveryWithWriter.func1\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.LoggerWithConfig.func1\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.(*Engine).handleHTTPRequest\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633\ngithub.com/gin-gonic/gin.(*Engine).ServeHTTP\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589\nnet/http.serverHandler.ServeHTTP\n\t/usr/local/go/src/net/http/server.go:3142\nnet/http.(*conn).serve\n\t/usr/local/go/src/net/http/server.go:2044\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_amd64.s:1695\n处理支付结果失败~\ngitee.com/stuinfer/bee-api/service.(*PaySrv).dealPayNotify\n\t/root/bee-api/bee-api/service/pay.go:171\ngitee.com/stuinfer/bee-api/service.(*PaySrv).WxNotify\n\t/root/bee-api/bee-api/service/pay.go:103\ngitee.com/stuinfer/bee-api/api.PayApi.WxPayCallBack\n\t/root/bee-api/bee-api/api/pay.go:52\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngitee.com/stuinfer/bee-api/router.NewRouter.regSysUser.func4\n\t/root/bee-api/bee-api/router/router.go:47\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.CustomRecoveryWithWriter.func1\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.LoggerWithConfig.func1\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.(*Engine).handleHTTPRequest\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633\ngithub.com/gin-gonic/gin.(*Engine).ServeHTTP\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589\nnet/http.serverHandler.ServeHTTP\n\t/usr/local/go/src/net/http/server.go:3142\nnet/http.(*conn).serve\n\t/usr/local/go/src/net/http/server.go:2044\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_amd64.s:1695\n处理支付结果失败\ngitee.com/stuinfer/bee-api/service.(*PaySrv).WxNotify\n\t/root/bee-api/bee-api/service/pay.go:104\ngitee.com/stuinfer/bee-api/api.PayApi.WxPayCallBack\n\t/root/bee-api/bee-api/api/pay.go:52\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngitee.com/stuinfer/bee-api/router.NewRouter.regSysUser.func4\n\t/root/bee-api/bee-api/router/router.go:47\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.CustomRecoveryWithWriter.func1\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.LoggerWithConfig.func1\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.(*Engine).handleHTTPRequest\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633\ngithub.com/gin-gonic/gin.(*Engine).ServeHTTP\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589\nnet/http.serverHandler.ServeHTTP\n\t/usr/local/go/src/net/http/server.go:3142\nnet/http.(*conn).serve\n\t/usr/local/go/src/net/http/server.go:2044\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_amd64.s:1695"}
-gitee.com/stuinfer/bee-api/api.PayApi.WxPayCallBack
-	/root/bee-api/bee-api/api/pay.go:54
-github.com/gin-gonic/gin.(*Context).Next
-	/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
-gitee.com/stuinfer/bee-api/router.NewRouter.regSysUser.func4
-	/root/bee-api/bee-api/router/router.go:47
-github.com/gin-gonic/gin.(*Context).Next
-	/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
-github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
-	/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
-github.com/gin-gonic/gin.(*Context).Next
-	/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
-github.com/gin-gonic/gin.LoggerWithConfig.func1
-	/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
-github.com/gin-gonic/gin.(*Context).Next
-	/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
-github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
-	/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
-github.com/gin-gonic/gin.(*Engine).ServeHTTP
-	/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
-net/http.serverHandler.ServeHTTP
-	/usr/local/go/src/net/http/server.go:3142
-net/http.(*conn).serve
-	/usr/local/go/src/net/http/server.go:2044
-[GIN] 2025/03/15 - 14:41:42 | 500 |    5.302381ms |  101.226.103.15 | POST     "/9kuai8coffee.asia/notify/wx/pay"
-2025-03-15T15:13:52.391+0800	INFO	api/pay.go:39	微信回调	{"uri": "/notify/wx/pay", "userId": 100}
-2025-03-15T15:13:52.392+0800	DEBUG	service/pay.go:78	微信回调	{"key": {"N":24946871630990902913923699474342158082829173884786308601412739335605729394997158004587949725252516929679308565982635028193012723587563318440688582210357466210216140092618459463465127264607764188553656866326445761378140807894381964349171019392471115523085027905945829634356338733913192761037097412961378253785021527033599533300350153407900610758264824449269194348118374883647236981379409794218324413576482961373613897870047547537970703588590049204018661178031141377647297066017927742367859559592451466322015589746050201047576697363917599910092144462391790208239699136064445614903526221086406571228002845494663499897743,"E":65537}}
-2025-03-15T15:13:52.392+0800	DEBUG	service/pay.go:80	微信回调	{"req.SignInfo.HeaderSerial": "6FA1B96EA20B262CD3C3E8A5329F2353B58ED5F7"}
-2025-03-15T15:13:52.392+0800	INFO	service/pay.go:90	微信回调	{"payResult": "{\"appid\":\"wxf9be667c59929008\",\"mchid\":\"1696073167\",\"out_trade_no\":\"202503145170673655\",\"transaction_id\":\"4200002622202503143364018674\",\"trade_type\":\"JSAPI\",\"trade_state\":\"SUCCESS\",\"trade_state_desc\":\"支付成功\",\"bank_type\":\"OTHERS\",\"attach\":\"\",\"success_time\":\"2025-03-14T15:39:15+08:00\",\"payer\":{\"openid\":\"oW2Sf7Wyi84lP-6raHM8sOuqIuu8\"},\"amount\":{\"total\":1,\"payer_total\":1,\"currency\":\"CNY\",\"payer_currency\":\"CNY\"},\"scene_info\":null,\"promotion_detail\":null}"}
-
-2025/03/15 15:13:52 [31;1m/root/bee-api/bee-api/service/order.go:1068 [35;1mrecord not found
-[0m[33m[0.971ms] [34;1m[rows:0][0m SELECT * FROM `bee_order` WHERE id = 0 LIMIT 1
-2025-03-15T15:13:52.395+0800	ERROR	api/pay.go:54	微信回调处理失败	{"req": {"id":"bdf9f09c-7a21-576e-a6c2-3b8b8f308faa","create_time":"2025-03-14T15:39:15+08:00","event_type":"TRANSACTION.SUCCESS","summary":"支付成功","resource_type":"encrypt-resource","resource":{"algorithm":"AEAD_AES_256_GCM","original_type":"transaction","ciphertext":"P631zNeMfUzKx9Y+/qPtS6scs7FVIn71ZfDoMtIw8mfFC8xMINn61QVjjj1RJrMBFa1UwmoLHW7X21XcpPu1ytokEbOk/pfjkLiTMGi7zl3QrRE3Jkk/KN75H4uQEdvZDiyISiJhumW+HpwmT3gOJwQrKkx/ARxPB1H+pjU97pXGtvBFKuBwpbzALEEcP+81V+w4N5MyhVs5NgBVLsoVo0WxgKExWkDDfL7TzVrO3gPmp65GZrNMHgQsLJerFk6r1Ws5YEMGp1SyJA6RxcN+G+Eco/sW4qe3F4Adgaqsp1UzGkfEEQ3FaWmqVHg8ascDkSYhmHIitWKP7d8aSjPUB1WwBG6xSAAUiN6rnvqHAqhnM3rzOQHxgWMdLJvaoRCXSgVZQgJbvJeV7wwUfvc1Oxr0CAcskDwgQFXf+uhzLmYmh6eKH7JwuPGa9yt7G+U8OBgAOnjGkj9jU7ydXi7Dt+b5/nnO13Ey1MnFU26pyElT6HRi92288tUPeuuQ8se0Umn+olFg2MeRho4kRg21c8zbaW+8MWDODsKgRJwzlIGk5GZly0hAGQIKTWG6n5/hZw==","associated_data":"transaction","nonce":"UumxyV3rtQOc"}}, "error": "处理支付结果失败: 处理支付结果失败~: 获取订单信息失败！: record not found", "errorVerbose": "record not found\n获取订单信息失败！\ngitee.com/stuinfer/bee-api/service.(*OrderSrv).PayOrderByBalance\n\t/root/bee-api/bee-api/service/order.go:936\ngitee.com/stuinfer/bee-api/service.(*PaySrv).dealPayNotify\n\t/root/bee-api/bee-api/service/pay.go:162\ngitee.com/stuinfer/bee-api/service.(*PaySrv).WxNotify\n\t/root/bee-api/bee-api/service/pay.go:103\ngitee.com/stuinfer/bee-api/api.PayApi.WxPayCallBack\n\t/root/bee-api/bee-api/api/pay.go:52\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngitee.com/stuinfer/bee-api/router.NewRouter.regSysUser.func4\n\t/root/bee-api/bee-api/router/router.go:47\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.CustomRecoveryWithWriter.func1\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.LoggerWithConfig.func1\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.(*Engine).handleHTTPRequest\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633\ngithub.com/gin-gonic/gin.(*Engine).ServeHTTP\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589\nnet/http.serverHandler.ServeHTTP\n\t/usr/local/go/src/net/http/server.go:3142\nnet/http.(*conn).serve\n\t/usr/local/go/src/net/http/server.go:2044\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_amd64.s:1695\n处理支付结果失败~\ngitee.com/stuinfer/bee-api/service.(*PaySrv).dealPayNotify\n\t/root/bee-api/bee-api/service/pay.go:171\ngitee.com/stuinfer/bee-api/service.(*PaySrv).WxNotify\n\t/root/bee-api/bee-api/service/pay.go:103\ngitee.com/stuinfer/bee-api/api.PayApi.WxPayCallBack\n\t/root/bee-api/bee-api/api/pay.go:52\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngitee.com/stuinfer/bee-api/router.NewRouter.regSysUser.func4\n\t/root/bee-api/bee-api/router/router.go:47\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.CustomRecoveryWithWriter.func1\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.LoggerWithConfig.func1\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.(*Engine).handleHTTPRequest\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633\ngithub.com/gin-gonic/gin.(*Engine).ServeHTTP\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589\nnet/http.serverHandler.ServeHTTP\n\t/usr/local/go/src/net/http/server.go:3142\nnet/http.(*conn).serve\n\t/usr/local/go/src/net/http/server.go:2044\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_amd64.s:1695\n处理支付结果失败\ngitee.com/stuinfer/bee-api/service.(*PaySrv).WxNotify\n\t/root/bee-api/bee-api/service/pay.go:104\ngitee.com/stuinfer/bee-api/api.PayApi.WxPayCallBack\n\t/root/bee-api/bee-api/api/pay.go:52\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngitee.com/stuinfer/bee-api/router.NewRouter.regSysUser.func4\n\t/root/bee-api/bee-api/router/router.go:47\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.CustomRecoveryWithWriter.func1\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.LoggerWithConfig.func1\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249\ngithub.com/gin-gonic/gin.(*Context).Next\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185\ngithub.com/gin-gonic/gin.(*Engine).handleHTTPRequest\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633\ngithub.com/gin-gonic/gin.(*Engine).ServeHTTP\n\t/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589\nnet/http.serverHandler.ServeHTTP\n\t/usr/local/go/src/net/http/server.go:3142\nnet/http.(*conn).serve\n\t/usr/local/go/src/net/http/server.go:2044\nruntime.goexit\n\t/usr/local/go/src/runtime/asm_amd64.s:1695"}
-gitee.com/stuinfer/bee-api/api.PayApi.WxPayCallBack
-	/root/bee-api/bee-api/api/pay.go:54
-github.com/gin-gonic/gin.(*Context).Next
-	/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
-gitee.com/stuinfer/bee-api/router.NewRouter.regSysUser.func4
-	/root/bee-api/bee-api/router/router.go:47
-github.com/gin-gonic/gin.(*Context).Next
-	/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
-github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
-	/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/recovery.go:102
-github.com/gin-gonic/gin.(*Context).Next
-	/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
-github.com/gin-gonic/gin.LoggerWithConfig.func1
-	/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/logger.go:249
-github.com/gin-gonic/gin.(*Context).Next
-	/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/context.go:185
-github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
-	/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:633
-github.com/gin-gonic/gin.(*Engine).ServeHTTP
-	/root/go/pkg/mod/github.com/gin-gonic/gin@v1.10.0/gin.go:589
-net/http.serverHandler.ServeHTTP
-	/usr/local/go/src/net/http/server.go:3142
-net/http.(*conn).serve
-	/usr/local/go/src/net/http/server.go:2044
-[GIN] 2025/03/15 - 15:13:52 | 500 |    5.477586ms |   121.51.30.176 | POST     "/9kuai8coffee.asia/notify/wx/pay"
+2025/03/26 17:47:02 [31;1m/root/bee-api/bee-api/service/address.go:247 [35;1mrecord not found
+[0m[33m[1.060ms] [34;1m[rows:0][0m SELECT * FROM `bee_user_address` WHERE is_default = 1 and uid = 5 and is_deleted = 0 LIMIT 1
+[GIN] 2025/03/26 - 17:47:02 | 200 |    3.775674ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/user/shipping-address/default/v2?token=adbec5b90a2311f0b0fb00163e1e690b"
+[GIN] 2025/03/26 - 17:47:02 | 200 |    8.388331ms |   39.180.71.188 | POST     "/9kuai8coffee.asia/order/create"
+[GIN] 2025/03/26 - 17:47:04 | 200 |    8.111553ms |   39.180.71.188 | GET      "/9kuai8coffee.asia/shopping-cart/info?token=adbec5b90a2311f0b0fb00163e1e690b&type="

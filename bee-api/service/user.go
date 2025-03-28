@@ -189,6 +189,7 @@ func (srv *UserSrv) Amount(c context.Context, uid int64) (*proto.GetUserAmountRe
 	if err := db.GetDB().Where("uid = ?", uid).Take(&userAmount).Error; err != nil {
 		return nil, err
 	}
+	userAmount.Balance = userAmount.Balance.Round(2)
 	return &proto.GetUserAmountResp{
 		BeeUserAmount: userAmount,
 	}, nil
@@ -320,7 +321,7 @@ func (srv *UserSrv) IncrUserLevelAmount(c context.Context, tx *gorm.DB, uid int6
 	if err := tx.Model(&model.BeeUserLevel{}).Where("uid = ?", uid).Take(item).Error; err != nil {
 		return err
 	}
-	if balance.Balance.GreaterThan(decimal.NewFromFloat(100.00)) {
+	if balance.Balance.GreaterThanOrEqual(decimal.NewFromFloat(100.00)) {
 		userInfo.VipLevel = 1
 	} else if balance.Balance.LessThan(decimal.NewFromFloat(9.80)) {
 		userInfo.VipLevel = 0
@@ -333,6 +334,7 @@ func (srv *UserSrv) IncrUserLevelAmount(c context.Context, tx *gorm.DB, uid int6
 	}*/
 	err = tx.Save(userInfo).Error
 	if err != nil {
+		logger.GetLogger().Info("save userinfo failed")
 		return err
 	}
 	return tx.Save(item).Error

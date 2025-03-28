@@ -119,25 +119,5 @@ nohup: ignoring input
 [GIN-debug] POST   /:domain/queuing/get      --> gitee.com/stuinfer/bee-api/api.QueuingApi.Get-fm (5 handlers)
 [GIN-debug] GET    /:domain/queuing/types    --> gitee.com/stuinfer/bee-api/api.QueuingApi.Types-fm (4 handlers)
 [GIN-debug] GET    /:domain/queuing/my       --> gitee.com/stuinfer/bee-api/api.QueuingApi.My-fm (5 handlers)
-2025-02-24T10:12:25.751+0800	INFO	model/base.go:73	开始初始化数据库，生产环境请禁用！！
-2025-02-24T10:12:25.751+0800	INFO	model/base.go:75	清空数据库
-
-2025/02/24 10:12:25 [35m/root/bee-api/bee-api/db/bee.go:19
-[0m[31m[error] [0mfailed to initialize database, got error Error 1698 (28000): Access denied for user 'root'@'localhost'
-panic: Error 1698 (28000): Access denied for user 'root'@'localhost'
-
-goroutine 1 [running]:
-gitee.com/stuinfer/bee-api/db.GetDB.func1()
-	/root/bee-api/bee-api/db/bee.go:56 +0x3b
-sync.(*Once).doSlow(0x0?, 0x0?)
-	/usr/local/go/src/sync/once.go:74 +0xc2
-sync.(*Once).Do(...)
-	/usr/local/go/src/sync/once.go:65
-gitee.com/stuinfer/bee-api/db.GetDB()
-	/root/bee-api/bee-api/db/bee.go:51 +0x2c
-gitee.com/stuinfer/bee-api/model.InitDB()
-	/root/bee-api/bee-api/model/base.go:76 +0x75
-gitee.com/stuinfer/bee-api/cmd.Run(0x248f000)
-	/root/bee-api/bee-api/cmd/run.go:29 +0xd7
-main.main()
-	/root/bee-api/bee-api/main.go:24 +0x1f
+2025-03-17T20:38:59.140+0800	INFO	cmd/run.go:41	服务启动	{"addr": ":8081"}
+2025/03/17 20:38:59 listen tcp :8081: bind: address already in use

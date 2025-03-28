@@ -113,7 +113,7 @@ func (srv *BalanceSrv) OperAmountByTx(c context.Context, tx *gorm.DB, userId int
 			logger.GetLogger().Info(err.Error())
 			return err
 		}
-		if userAmount.Balance.GreaterThan(decimal.NewFromFloat(100.00)) {
+		if userAmount.Balance.GreaterThanOrEqual(decimal.NewFromFloat(100.00)) {
 			item.VipLevel = 1
 		} else if userAmount.Balance.LessThan(decimal.NewFromFloat(9.80)) {
 			item.VipLevel = 0

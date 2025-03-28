@@ -216,7 +216,7 @@ tencent-cos:
     base-url: https://gin.vue.admin
     path-prefix: github.com/flipped-aurora/gin-vue-admin/server
 zap:
-    level: info
+    level: debug
     prefix: '[github.com/flipped-aurora/gin-vue-admin/server]'
     format: console
     director: log

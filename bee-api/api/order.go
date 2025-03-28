@@ -3,6 +3,7 @@ package api
 import (
 	"encoding/json"
 	"gitee.com/stuinfer/bee-api/enum"
+	"gitee.com/stuinfer/bee-api/logger"
 	"gitee.com/stuinfer/bee-api/proto"
 	"gitee.com/stuinfer/bee-api/service"
 	"github.com/gin-gonic/gin"
@@ -45,6 +46,9 @@ func (api OrderApi) Pay(c *gin.Context) {
 	smsCode := c.PostForm("smsCode") // 短信验证码
 	pwd := c.PostForm("pwd")         // 密码
 	err := service.GetOrderSrv().PayByBalance(c, c.ClientIP(), orderId, smsCode, pwd)
+	if err != nil {
+		logger.GetLogger().Info(err.Error())
+	}
 	api.Res(c, nil, err)
 }
 
