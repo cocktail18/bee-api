@@ -144,8 +144,13 @@ Out of range value for colunm 'longitude' 或者 Out of range value for colunm '
 10. docker启动提示 no matching manifest for linux/arm64/v8 in the manifest list entries
    
    这个是由于 docker 默认的镜像不是arm64的，需要修改镜像为arm架构的镜像
+
+11. bee-region.sql 不存在
    
-### 后台截图de
+    进qq群，群文件自行下载
+
+   
+### 后台截图
 ![](imgs/demo01.jpg)
 ![](imgs/demo02.jpg)
 ![](imgs/demo03.jpg)
