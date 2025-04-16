@@ -148,6 +148,11 @@ Out of range value for colunm 'longitude' 或者 Out of range value for colunm '
 11. bee-region.sql 不存在
    
     进qq群，群文件自行下载
+    
+13. 管理后台登陆不上
+
+    点击初始化，配置数据库连接，账号密码，提示已配置则删掉对应的数据库，然后重置下config.yaml
+    <img width="988" alt="ee484c12cc9c152492c6aac7afcbb71d" src="https://github.com/user-attachments/assets/677788ac-bf99-479b-bb9d-b5085b0d1512" />
 
    
 ### 后台截图
