@@ -85,3 +85,7 @@ sync:
 
 sync-api:
 	cp -r * ../github/bee-api/
+
+
+run-dev:
+	docker-compose -f deploy/docker-compose/docker-compose-dev.yaml up
