@@ -1,4 +1,4 @@
-version: "3"
+# version: "3"
 
 # 声明一个名为network的networks,subnet为network的子网地址,默认网关是177.7.0.1
 networks:
@@ -46,9 +46,9 @@ services:
       redis:
         condition: service_healthy
     volumes:
-      - ../../../bee-api:/bee-api
-    working_dir: /bee-api/server    # 如果docker 设置了workdir 则此处不需要设置
-    command: bash -c "go env -w GOPROXY=https://goproxy.cn,direct && go mod tidy && go run main.go"
+      - ../../:/workspace
+    working_dir: /workspace/server # 如果docker 设置了workdir 则此处不需要设置
+    command: bash -c "go env -w GOPROXY=https://goproxy.cn,direct &&go work sync && go mod tidy && go run main.go"
     links:
       - mysql
       - redis
