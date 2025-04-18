@@ -15,7 +15,7 @@ volumes:
 
 services:
   web:
-    image: node:16
+    image: node:18
     container_name: gva-web
     hostname: gva-web           #可以通过容器名访问
     restart: always
@@ -34,7 +34,7 @@ services:
         ipv4_address: 177.7.0.11
 
   server:
-    image: golang:1.18
+    image: golang:1.22
     container_name: gva-server
     hostname: gva-server
     restart: always
@@ -46,9 +46,8 @@ services:
       redis:
         condition: service_healthy
     volumes:
-      - ../../server:/server
-      - ../../bee-api:/bee-api
-    working_dir: /server    # 如果docker 设置了workdir 则此处不需要设置 
+      - ../../../bee-api:/bee-api
+    working_dir: /bee-api/server    # 如果docker 设置了workdir 则此处不需要设置
     command: bash -c "go env -w GOPROXY=https://goproxy.cn,direct && go mod tidy && go run main.go"
     links:
       - mysql
@@ -59,6 +58,7 @@ services:
 
   mysql:
     image: mysql:8.0.21    # 如果您是 arm64 架构：如 MacOS 的 M1，请修改镜像为 image: mysql/mysql-server:8.0.21
+#    image: mysql/mysql-server:8.0.21    # 如果您是 arm64 架构：如 MacOS 的 M1，请修改镜像为 image: mysql/mysql-server:8.0.21
     container_name: gva-mysql
     hostname: gva-mysql
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci #设置utf8字符集
