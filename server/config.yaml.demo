@@ -12,7 +12,8 @@ autocode:
     server-api: /api/v1/%s
     server-plug: /plugin/%s
     server-initialize: /initialize
-    root: /Users/lijingwei/workspace/cocktail/bee-simple-admin
+# 改成自己的本地绝对路径
+    root: ~/cocktail/bee-simple-admin
     web-table: /view
     web: /web/src
     server-service: /service/%s
@@ -51,13 +52,8 @@ cors:
           allow-credentials: true
 db-list:
     - type: mysql
-      alias-name: bee
-      prefix: bee_
       port: "3306"
       config: charset=utf8mb4&parseTime=True&loc=Local
-      db-name: bee
-      username: root
-      password: "123456"
       path: ""
       engine: ""
       log-mode: error
