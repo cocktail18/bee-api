@@ -56,7 +56,7 @@ func (fee *PaySrv) WxNotify(c context.Context, ip string, req *wechat.V3NotifyRe
 	}
 	// 获取配置
 	var wxPayConfig model.BeeWxPayConfig
-	if err := db.GetDB().Where("user_id = ? and is_deleted = 0").Take(&wxPayConfig).Error; err != nil {
+	if err := db.GetDB().Where("user_id = ? and is_deleted = 0", kit.GetUserId(c)).Take(&wxPayConfig).Error; err != nil {
 		return errors.Wrap(err, "获取微信配置失败！")
 	}
 
@@ -158,7 +158,7 @@ func (fee *PaySrv) dealPayNotify(c context.Context, ip string, payResult *wechat
 			return nil
 		})
 	case enum.PayNextActionTypePayOrder:
-		err = GetOrderSrv().PayOrderByBalance(c, ip, payLog, nextActionJson.Get("id").MustString(), payResult.TransactionId, payerTotal)
+		err = GetOrderSrv().PayOrderByBalance(c, ip, payLog, cast.ToString(nextActionJson.Get("id").Interface()), payResult.TransactionId, payerTotal)
 	case enum.PayNextActionTypePayDirect:
 		moneyTotal, err := nextActionJson.Get("money").Float64()
 		if err != nil {
