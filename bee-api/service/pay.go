@@ -139,7 +139,7 @@ func (fee *PaySrv) dealPayNotify(c context.Context, ip string, payResult *wechat
 	case enum.PayNextActionTypeRecharge:
 		// 计算充值优惠
 		var shouldGetTotal decimal.Decimal
-		shouldGetTotal, err = fee.calRechargeGetAmount(c, payerTotal, payLog.Uid)
+		shouldGetTotal, err = fee.calRechargeGetAmount(c, payerTotal, payLog.UserId)
 		if err != nil {
 			return errors.Wrap(err, "计算充值优惠失败！")
 		}

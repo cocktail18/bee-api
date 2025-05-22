@@ -73,7 +73,7 @@ func (srv *BalanceSrv) balanceType2field(t enum.BalanceType) string {
 	panic("未定义的财产类型")
 }
 
-func (srv *BalanceSrv) OperAmountByTx(c context.Context, tx *gorm.DB, userId int64, amountType enum.BalanceType, num decimal.Decimal, orderId string, mark string, extraTx ...func(tx *gorm.DB) error) (*model.BeeUserAmount, error) {
+func (srv *BalanceSrv) OperAmountByTx(c context.Context, tx *gorm.DB, uid int64, amountType enum.BalanceType, num decimal.Decimal, orderId string, mark string, extraTx ...func(tx *gorm.DB) error) (*model.BeeUserAmount, error) {
 	shouldCommit := false
 	if tx == nil {
 		tx = db.GetDB().Begin()
@@ -84,13 +84,13 @@ func (srv *BalanceSrv) OperAmountByTx(c context.Context, tx *gorm.DB, userId int
 		if num.IsZero() {
 			// 没发生改变
 		} else if num.IsNegative() {
-			err := tx.Model(&model.BeeUserAmount{}).Where("uid = ? and "+field+" >= ?", userId, num.String()).
+			err := tx.Model(&model.BeeUserAmount{}).Where("uid = ? and "+field+" >= ?", uid, num.String()).
 				Updates(map[string]interface{}{field: gorm.Expr(field+" + ?", num), "date_update": time.Now()}).Error
 			if err != nil {
 				return err
 			}
 		} else {
-			err := tx.Model(&model.BeeUserAmount{}).Where("uid = ?", userId).
+			err := tx.Model(&model.BeeUserAmount{}).Where("uid = ?", uid).
 				Updates(map[string]interface{}{field: gorm.Expr(field+" + ?", num), "date_update": time.Now()}).Error
 			if err != nil {
 				return err
@@ -106,7 +106,7 @@ func (srv *BalanceSrv) OperAmountByTx(c context.Context, tx *gorm.DB, userId int
 			OrderId:     orderId,
 			BalanceType: amountType,
 			Num:         num,
-			Uid:         userId,
+			Uid:         uid,
 			Mark:        mark,
 		}).Error
 	}()
@@ -121,9 +121,9 @@ func (srv *BalanceSrv) OperAmountByTx(c context.Context, tx *gorm.DB, userId int
 			return nil, err
 		}
 	}
-	return srv.GetAmount(c, userId)
+	return srv.GetAmount(c, uid)
 }
 
-func (srv *BalanceSrv) OperAmount(c context.Context, userId int64, amountType enum.BalanceType, num decimal.Decimal, orderId string, mark string, extraTx ...func(tx *gorm.DB) error) (*model.BeeUserAmount, error) {
-	return srv.OperAmountByTx(c, nil, userId, amountType, num, orderId, mark, extraTx...)
+func (srv *BalanceSrv) OperAmount(c context.Context, uid int64, amountType enum.BalanceType, num decimal.Decimal, orderId string, mark string, extraTx ...func(tx *gorm.DB) error) (*model.BeeUserAmount, error) {
+	return srv.OperAmountByTx(c, nil, uid, amountType, num, orderId, mark, extraTx...)
 }
