@@ -142,6 +142,7 @@ func NewRouter() *gin.Engine {
 	qrcodeGroup := domainGroup.Group("/qrcode")
 	{
 		qrcodeGroup.POST("/wxa/unlimit", (api.QrcodeApi{}).WxaUnLimit)
+		qrcodeGroup.POST("/content", (api.QrcodeApi{}).Content)
 	}
 	shopGroup := domainGroup.Group("/shop")
 	{
@@ -177,6 +178,19 @@ func NewRouter() *gin.Engine {
 	{
 		//意见反馈
 		commentGroup.POST("/add", (api.CommentApi{}).Add)
+	}
+	cardGroup := domainGroup.Group("/card", CheckToken())
+	{
+		//会员卡
+		cardGroup.GET("/list", (api.CardApi{}).List)
+		cardGroup.GET("/get", (api.CardApi{}).Get)
+		cardGroup.GET("/my", (api.CardApi{}).My)
+		cardGroup.GET("/logs", (api.CardApi{}).Logs)
+		cardGroup.POST("/buy", (api.CardApi{}).Buy)
+		cardGroup.POST("/exchange", (api.CardApi{}).Exchange)
+		cardGroup.POST("/share/open", (api.CardApi{}).ShareOpen)
+		cardGroup.POST("/share/close", (api.CardApi{}).ShareClose)
+		cardGroup.POST("/share/fetch", (api.CardApi{}).ShareFetch)
 	}
 	noticeGroup := domainGroup.Group("/notice")
 	{

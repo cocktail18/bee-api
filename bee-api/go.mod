@@ -24,6 +24,7 @@ require (
 	github.com/qiniu/api.v7/v7 v7.8.2
 	github.com/samber/lo v1.39.0
 	github.com/shopspring/decimal v1.4.0
+	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/smartystreets/goconvey v1.8.1
 	github.com/spf13/cast v1.6.0
 	github.com/spf13/viper v1.19.0
