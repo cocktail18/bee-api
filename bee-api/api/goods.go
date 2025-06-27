@@ -53,6 +53,21 @@ func (api GoodsApi) TimesSchedule(c *gin.Context) {
 	api.Res(c, nil, enum.ErrEmpty)
 }
 
+func (api GoodsApi) ListV2(c *gin.Context) {
+	shopId := cast.ToInt64(c.PostForm("shopId"))
+	categoryId := cast.ToInt64(c.PostForm("categoryId"))
+	page := cast.ToInt(c.PostForm("page"))
+	pageSize := cast.ToInt(c.PostForm("pageSize"))
+	list, err := service.GetGoodsSrv().GetGoodsList(c, shopId, categoryId, page, pageSize)
+	if err != nil {
+		api.Fail(c, enum.ResCodeFail, err.Error())
+		return
+	}
+	api.Success(c, map[string]any{
+		"result": list,
+	})
+}
+
 func (api BaseApi) CategoryAll(c *gin.Context) {
 	list, err := service.GetGoodsSrv().GetCategoryAll(c)
 	if err != nil {
