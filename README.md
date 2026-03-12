@@ -8,16 +8,6 @@
 - 小程序端（原版）：https://github.com/woniudiancang/bee 
 - 修改后的小程序端（建议使用）：https://github.com/cocktail18/bee
 
-
-##### api 在线体验地址：
-[https://bee.fbsst.top](https://bee.fbsst.top)
-
-subDomain: `cocktailBeeOrder`
-
-##### 管理后台在线体验地址：
-[http://bee-admin.fbsst.top](http://bee-admin.fbsst.top)
-账号：bee-demo  密码：123456
-
 #### 软件架构
 
 - api 使用 gin + gorm + mysql + redis
